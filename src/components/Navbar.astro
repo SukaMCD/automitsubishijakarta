@@ -1,0 +1,217 @@
+---
+import { salesData, getWhatsAppLink } from '../data/sales';
+import { carsData } from '../data/cars';
+
+interface Props { currentPath?: string; }
+const { currentPath = '/' } = Astro.props;
+
+const waUrl = getWhatsAppLink('Halo Om Hadi, saya ingin konsultasi promo Mitsubishi terbaru.');
+
+const navLinks = [
+  { label: 'Model', href: '/model', dropdown: true },
+  { label: 'Promo', href: '/promo' },
+  { label: 'Daftar Harga', href: '/pricelist' },
+  { label: 'Simulasi Kredit', href: '/simulasi-kredit' },
+  { label: 'Berita', href: '/berita' },
+  { label: 'Kontak', href: '/kontak' },
+];
+---
+
+<!-- ===================== TOP UTILITY BAR ===================== -->
+<div class="bg-[#2B2E30] text-white text-[11px] hidden md:block relative before:content-[''] before:absolute before:-top-96 before:left-0 before:right-0 before:h-96 before:bg-[#2B2E30] before:pointer-events-none">
+  <div class="max-w-[1440px] mx-auto px-6 h-9 flex items-center justify-between relative z-10">
+    <div class="flex items-center gap-5 text-[#BFC2C4]">
+      <a href="/testimoni" class="hover:text-white transition-colors hover-line">Testimoni & Galeri</a>
+      <span class="text-[#4A4D4F]">|</span>
+      <a href="/simulasi-kredit" class="hover:text-white transition-colors hover-line">Simulasi Kredit</a>
+      <span class="text-[#4A4D4F]">|</span>
+      <a href="/kontak" class="hover:text-white transition-colors hover-line">Cari Showroom</a>
+    </div>
+    <div class="flex items-center gap-4 text-[#BFC2C4]">
+      <a href={waUrl} target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-1.5 hover:text-white transition-colors">
+        <svg class="w-3.5 h-3.5 fill-current text-[#25D366]" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+        {salesData.whatsappDisplay}
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MAIN NAV ===================== -->
+<header id="site-header" class="sticky top-0 z-50 bg-white border-b border-[#E3E5E6] transition-shadow duration-300">
+  <nav class="max-w-[1440px] mx-auto px-6 h-[68px] flex items-center justify-between gap-8">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2.5 flex-shrink-0 group">
+      <div class="w-10 h-10 flex items-center justify-center bg-[#E60012] p-2 transition-all group-hover:bg-black">
+        <img src="/images/logo/mitsubishi-logo.svg" alt="Mitsubishi" class="w-full h-full object-contain brightness-0 invert" />
+      </div>
+      <div>
+        <span class="block font-black text-[15px] leading-none text-black tracking-tight uppercase">MITSUBISHI</span>
+        <span class="block font-bold text-[11px] text-[#686D71] tracking-widest uppercase mt-0.5">JAKARTA</span>
+      </div>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden lg:flex items-center gap-0">
+      {navLinks.map((link) =>
+        link.dropdown ? (
+          <div class="relative group/dd h-[68px] flex items-center">
+            <button class={`flex items-center gap-1 px-4 h-[68px] text-[13px] font-semibold tracking-wide transition-colors border-b-2 ${currentPath.startsWith('/model') ? 'text-[#E60012] border-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012] border-transparent hover:border-[#E60012]'}`}>
+              {link.label}
+              <svg class="w-3 h-3 mt-0.5 transition-transform duration-200 group-hover/dd:rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <!-- Mega dropdown -->
+            <div class="absolute top-full left-0 hidden group-hover/dd:block w-[780px] shadow-2xl border border-[#E3E5E6] bg-white z-50">
+              <!-- Top bar -->
+              <div class="px-6 py-3.5 border-b border-[#E3E5E6] flex items-center justify-between bg-[#FAFAFA]">
+                <div>
+                  <span class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#2B2E30]">Pilihan Model Mitsubishi Motors</span>
+                </div>
+                <a href="/model" class="text-[12px] font-bold text-[#E60012] hover:text-black transition-colors flex items-center gap-1 group/all">
+                  Lihat Semua Spesifikasi
+                  <svg class="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+
+              <!-- Car Grid: 4 columns x 2 rows (7 models + 1 sales consultation tile) -->
+              <div class="grid grid-cols-4 gap-3 p-5">
+                {carsData.map((car) => (
+                  <a
+                    href={`/model/${car.slug}`}
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200"
+                  >
+                    <!-- Category & Badge -->
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
+                      {car.badge && (
+                        <span class={`text-[9px] font-bold px-1.5 py-0.5 leading-none ${car.badge === 'BEST SELLER' || car.badge === 'FLAGSHIP SUV' ? 'bg-[#E60012] text-white' : 'bg-[#2B2E30] text-white'}`}>
+                          {car.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <!-- Car Thumbnail -->
+                    <div class="h-20 w-full flex items-center justify-center py-1 overflow-hidden">
+                      <img
+                        src={car.image}
+                        alt={car.name}
+                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    <!-- Name & Starting Price -->
+                    <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
+                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                        {car.name.replace('Mitsubishi ', '')}
+                      </div>
+                      <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
+                        Mulai {car.startingPrice}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+
+                <!-- 8th Tile: Direct Sales Consultation -->
+                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                  <div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">KONSULTASI GRATIS</div>
+                    <div class="text-[13px] font-bold leading-snug">Bingung Pilih Unit?</div>
+                    <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
+                      Tanya simulasi kredit &amp; diskon khusus langsung dengan Om Hadi.
+                    </p>
+                  </div>
+                  <a
+                    href={waUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2.5 px-3 transition-colors duration-200"
+                  >
+                    <svg class="w-4.5 h-4.5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+                    Chat Om Hadi
+                  </a>
+                </div>
+              </div>
+
+              <!-- Bottom Bar: Official Warranty & Trust -->
+              <div class="px-6 py-2.5 bg-[#F6F6F6] border-t border-[#E3E5E6] flex items-center justify-between text-[11px] text-[#686D71]">
+                <div class="flex items-center gap-4">
+                  <span>✓ Garansi Pabrik 3 Th / 100.000 KM</span>
+                  <span>✓ Gratis Paket SMART Servis</span>
+                  <span>✓ Jaminan Unit Resmi PT MMKSI</span>
+                </div>
+                <div class="font-bold text-[#2B2E30]">
+                  Wilayah Jakarta &amp; Jabodetabek
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <a href={link.href}
+            class={`flex items-center px-4 h-[68px] text-[13px] font-semibold tracking-wide border-b-2 transition-colors ${currentPath === link.href ? 'text-[#E60012] border-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012] border-transparent hover:border-[#E60012]'}`}>
+            {link.label}
+          </a>
+        )
+      )}
+    </div>
+
+    <!-- Right CTA -->
+    <div class="hidden lg:flex items-center gap-3">
+      <a href={waUrl} target="_blank" rel="noopener noreferrer"
+        class="flex items-center gap-2 bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-5 py-2.5 transition-colors duration-200">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+        Hubungi Sales
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="mobile-menu-btn" class="lg:hidden p-2 hover:bg-[#F6F6F6] transition-colors" aria-label="Menu">
+      <svg id="icon-open" class="w-5 h-5 text-[#2B2E30]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+      <svg id="icon-close" class="w-5 h-5 text-[#2B2E30] hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile nav panel -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-[#E3E5E6] bg-white max-h-[80vh] overflow-y-auto">
+    <div class="px-6 py-4 space-y-1">
+      {navLinks.map((link) => (
+        <a href={link.href}
+          class={`flex items-center justify-between py-3 border-b border-[#F0F0F0] text-[14px] font-semibold transition-colors ${currentPath === link.href ? 'text-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012]'}`}>
+          {link.label}
+          <svg class="w-4 h-4 text-[#BFC2C4]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+          </svg>
+        </a>
+      ))}
+      <div class="pt-4">
+        <a href={waUrl} target="_blank" rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold py-3 transition-colors">
+          Hubungi Om Hadi - {salesData.whatsappDisplay}
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+  btn?.addEventListener('click', () => {
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+  });
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('shadow-lg', window.scrollY > 10);
+  });
+</script>

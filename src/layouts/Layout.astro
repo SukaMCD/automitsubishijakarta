@@ -1,0 +1,50 @@
+---
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppFloating from '../components/WhatsAppFloating.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  currentPath?: string;
+  ogImage?: string;
+}
+
+const {
+  title = "Promo Mitsubishi Jakarta 2026 | Harga OTR & Simulasi Kredit - Om Hadi",
+  description = "Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Om Hadi sekarang.",
+  currentPath = "/",
+  ogImage = "/images/cars/new-pajero-sport-optimized.webp"
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="id" class="scroll-smooth bg-[#2B2E30]">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2B2E30" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Hadi Priyanto - Sales Consultant Mitsubishi Motors Jakarta" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#2B2E30] text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
+    <Navbar currentPath={currentPath} />
+    <main class="flex-grow bg-white">
+      <slot />
+    </main>
+    <WhatsAppFloating />
+    <Footer />
+  </body>
+</html>

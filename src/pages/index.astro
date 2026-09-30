@@ -1,17 +1,1005 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { salesData, getWhatsAppLink } from '../data/sales';
+import { carsData } from '../data/cars';
+import { promoList } from '../data/promos';
+import { testimonialsData } from '../data/testimonials';
 
+const waBase = getWhatsAppLink('Halo Om Hadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
+
+const heroSlides = [
+  {
+    key: 'pajero',
+    badge: 'Flagship SUV',
+    title: 'New Pajero Sport',
+    desc: 'SUV 7-penumpang berkelas dengan mesin diesel 4D56, dominasi setiap medan.',
+    price: 'Rp 578 Juta',
+    cicilan: '9,8 Jt-an',
+    link: '/model/pajero-sport',
+    img: '/images/cars/new-pajero-sport-optimized.webp',
+    pillLabel: 'Pajero Sport',
+  },
+  {
+    key: 'xpander',
+    badge: 'MPV Terlaris',
+    title: 'New Mitsubishi Xpander',
+    desc: 'MPV keluarga paling laris di Indonesia, kabin senyap, suspensi ternyaman di kelasnya.',
+    price: 'Rp 270 Juta',
+    cicilan: '4,2 Jt-an',
+    link: '/model/xpander',
+    img: '/images/cars/xpander-optimized.webp',
+    pillLabel: 'Xpander',
+  },
+  {
+    key: 'xforce',
+    badge: 'Compact SUV',
+    title: 'Mitsubishi XForce',
+    desc: 'Crossover urban berkarakter tinggi dengan Dynamic Sound Yamaha Premium.',
+    price: 'Rp 382 Juta',
+    cicilan: '5,9 Jt-an',
+    link: '/model/xforce',
+    img: '/images/cars/new-xforce-optimized.webp',
+    pillLabel: 'XForce',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout
+  title="Dealer Resmi Mitsubishi Jakarta | Promo & Kredit - Om Hadi"
+  description="Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Om Hadi sekarang."
+  currentPath="/">
+
+
+  <!-- ========================================================
+       HERO - Full viewport with smooth cross-fade slides
+  ======================================================== -->
+  <section class="relative w-full bg-black overflow-hidden" style="height: min(90vh, 700px);">
+
+    <!-- Stacked Slides for Clean Pure Opacity Crossfade -->
+    {heroSlides.map((slide, i) => (
+      <div 
+        class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out" 
+        data-index={i}
+        style={i === 0 ? "opacity: 1; z-index: 10; pointer-events: auto;" : "opacity: 0; z-index: 0; pointer-events: none;"}
+      >
+        <!-- Background car image layer -->
+        <div class="absolute inset-0 overflow-hidden">
+          <img 
+            src={slide.img} 
+            alt={slide.title}
+            loading="eager"
+            class="w-full h-full object-cover object-center opacity-75"
+          />
+          <div class="absolute inset-0 bg-black/40"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);"></div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="relative z-10 max-w-[1440px] mx-auto px-6 h-full flex flex-col justify-end pb-16 md:pb-20">
+          <div class="max-w-xl text-white space-y-4">
+            <span class="inline-block bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">
+              {slide.badge}
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+              {slide.title}
+            </h1>
+
+            <p class="text-[#BFC2C4] text-base leading-relaxed">
+              {slide.desc}
+            </p>
+
+            <div class="flex items-center gap-4 pt-2">
+              <div class="space-y-0.5">
+                <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">OTR Jakarta Mulai</div>
+                <div class="text-2xl font-black">{slide.price}</div>
+              </div>
+              <div class="w-px h-10 bg-white/20"></div>
+              <div class="space-y-0.5">
+                <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">Cicilan / Bulan</div>
+                <div class="text-2xl font-black text-[#E60012]">{slide.cicilan}</div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3 pt-2">
+              <a href={slide.link}
+                class="inline-flex items-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
+                Lihat Detail
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a href={waBase} target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 border border-white/40 hover:border-white text-white text-[13px] font-semibold px-6 py-3 transition-colors backdrop-blur-sm">
+                Tanya Harga WA
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+
+    <!-- Hero model nav pills - bottom right -->
+    <div class="absolute bottom-6 right-6 z-20 flex gap-2">
+      {heroSlides.map((item, i) => (
+        <button 
+          type="button" 
+          class="hero-pill text-white text-[11px] font-bold px-3.5 py-2 border transition-all duration-300"
+          data-slide-index={i}
+          style={i === 0 ? "background: #E60012; border-color: #E60012;" : "background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.2); backdrop-filter: blur(8px);"}
+        >
+          {item.pillLabel}
+        </button>
+      ))}
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1.5">
+      <span class="text-[10px] text-white/50 uppercase tracking-[0.15em]">Scroll</span>
+      <div class="w-px h-8 bg-white/20"></div>
+    </div>
+
+  </section>
+
+
+  <!-- ========================================================
+       MODEL SHOWCASE CAROUSEL - 5-Item View with Edge Fade (MMKSI Style)
+  ======================================================== -->
+  <section class="bg-white border-b border-[#E3E5E6] py-12 md:py-16 overflow-hidden">
+    <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
+      
+      <!-- Carousel Track with edge fade mask -->
+      <div class="relative w-full">
+        <div 
+          id="model-carousel" 
+          class="flex gap-4 sm:gap-6 md:gap-8 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-4 px-8 sm:px-14 md:px-20"
+          style="scrollbar-width: none; -ms-overflow-style: none; mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);"
+        >
+          {carsData.map((car) => (
+            <a 
+              href={`/model/${car.slug}`}
+              class="model-carousel-card flex-shrink-0 w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] snap-center group flex flex-col justify-between p-3 sm:p-4 bg-transparent transition-all duration-300 rounded-none"
+            >
+              <!-- Badge Container -->
+              <div class="h-6 flex items-center justify-end px-1">
+                {car.badge ? (
+                  <span class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5">
+                    {car.badge}
+                  </span>
+                ) : (
+                  <span class="invisible text-[10px] px-2.5 py-0.5">BADGE</span>
+                )}
+              </div>
+
+              <!-- Car Image -->
+              <div class="h-28 sm:h-32 md:h-36 w-full flex items-center justify-center my-3 overflow-hidden">
+                <img 
+                  src={car.image} 
+                  alt={car.name}
+                  loading="lazy"
+                  class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
+                />
+              </div>
+
+              <!-- Car Info -->
+              <div class="text-center pt-2 pb-1">
+                <h3 class="text-xs sm:text-sm md:text-base font-black text-black group-hover:text-[#E60012] transition-colors uppercase tracking-wider leading-tight">
+                  {car.name}
+                </h3>
+                <p class="text-[11px] sm:text-xs md:text-[13px] text-[#555] font-normal mt-1">
+                  Mulai dari {car.startingPrice}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Navigation & Compare Bar (MMKSI Style) -->
+      <div class="mt-8 pt-4 flex items-center justify-between max-w-3xl mx-auto px-4">
+        <!-- Prev Arrow -->
+        <button 
+          id="model-prev-btn" 
+          type="button" 
+          aria-label="Sebelumnya"
+          class="group p-2 text-black hover:text-[#E60012] transition-colors"
+        >
+          <svg class="w-8 sm:w-10 h-8 sm:h-10 transition-transform group-hover:-translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m7-7l-7 7 7 7"/>
+          </svg>
+        </button>
+
+        <!-- Center Link -->
+        <a 
+          href="/model" 
+          class="text-xs sm:text-sm font-black uppercase tracking-[0.2em] text-black border-b-2 border-black hover:text-[#E60012] hover:border-[#E60012] pb-1 transition-colors"
+        >
+          BANDINGKAN KENDARAAN
+        </a>
+
+        <!-- Next Arrow -->
+        <button 
+          id="model-next-btn" 
+          type="button" 
+          aria-label="Selanjutnya"
+          class="group p-2 text-black hover:text-[#E60012] transition-colors"
+        >
+          <svg class="w-8 sm:w-10 h-8 sm:h-10 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-7-7l7 7-7 7"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       PROMO SECTION - Editorial press-release style
+  ======================================================== -->
+  <section class="bg-[#111111] text-white">
+    <div class="max-w-[1440px] mx-auto">
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
+
+        <!-- Left: Headline column -->
+        <div class="px-6 sm:px-8 md:px-14 py-12 md:py-20 border-b lg:border-b-0 lg:border-r border-[#222] flex flex-col justify-between">
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E60012] mb-4">Penawaran Aktif</div>
+            <h2 class="text-3xl md:text-[2.8rem] font-black leading-[1.08] tracking-tight mb-6">
+              Promo<br class="hidden sm:inline"/> Bulan Ini
+            </h2>
+            <p class="text-[13px] text-[#888] leading-relaxed max-w-[280px]">
+              Program kredit subsidi, bunga 0%, cashback puluhan juta, dan paket servis resmi untuk unit pilihan. Kuota terbatas setiap bulannya.
+            </p>
+          </div>
+
+          <div class="mt-10 flex flex-col sm:flex-row lg:flex-col gap-3">
+            <a href="/promo"
+              class="inline-flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-6 py-3.5 transition-colors duration-200">
+              Lihat Semua Promo
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </a>
+            <a href={waBase} target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center text-[12px] text-[#888] hover:text-white transition-colors underline underline-offset-4 py-1">
+              Konsultasi promo via WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Promo list editorial table -->
+        <div class="divide-y divide-[#1E1E1E]">
+          {promoList.map((p, i) => (
+            <a 
+              href="/promo" 
+              class="group flex items-stretch gap-0 hover:bg-[#181818] transition-colors duration-200 cursor-pointer block"
+            >
+              <!-- Index number -->
+              <div class="w-12 sm:w-16 flex-shrink-0 flex items-center justify-center border-r border-[#1E1E1E] py-6 sm:py-8">
+                <span class="text-[11px] font-mono font-bold text-[#666] group-hover:text-[#E60012] transition-colors">0{i + 1}</span>
+              </div>
+
+              <!-- Main content -->
+              <div class="flex-1 px-5 sm:px-8 py-6 sm:py-8 flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center gap-2 mb-2">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-[#E60012]">{p.badge}</span>
+                    <span class="text-[#333]">·</span>
+                    <span class="text-[11px] text-[#888]">{p.targetCar}</span>
+                  </div>
+                  <h3 class="text-[15px] sm:text-[16px] font-bold text-white group-hover:text-[#E60012] transition-colors leading-snug">
+                    {p.title}
+                  </h3>
+                </div>
+
+                <div class="flex-shrink-0 md:text-right flex md:flex-col flex-row items-baseline md:items-end justify-between md:justify-center gap-2 pt-2 md:pt-0">
+                  <span class="text-[13px] font-bold text-white group-hover:text-[#E60012] transition-colors">{p.highlight}</span>
+                  <span class="text-[10px] font-medium text-[#777] uppercase tracking-wider">{p.validPeriod}</span>
+                </div>
+              </div>
+
+              <!-- Arrow action -->
+              <div class="w-12 sm:w-16 flex-shrink-0 flex items-center justify-center border-l border-[#1E1E1E] text-[#555] group-hover:text-white group-hover:bg-[#E60012] transition-colors">
+                <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+            </a>
+          ))}
+        </div>
+
+      </div>
+
+      <!-- Bottom terms bar (full-width centered) -->
+      <div class="py-4 border-t border-[#1E1E1E] text-center">
+        <span class="text-[11px] text-[#777]">Pembaruan berkala · Syarat & ketentuan berlaku</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       FLAGSHIP FEATURE - Big editorial split (MMKSI style)
+  ======================================================== -->
+  <section class="bg-white">
+    <div class="max-w-[1440px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+
+        <!-- Left: Image -->
+        <div class="relative bg-white h-80 lg:h-[560px] overflow-hidden flex items-center justify-center p-4 lg:p-8">
+          <img src="/images/cars/new-pajero-sport-optimized.webp" alt="Pajero Sport"
+            class="w-full h-full object-contain object-center hover:scale-105 transition-transform duration-500" />
+          <div class="absolute top-6 left-6">
+            <span class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">Bestseller</span>
+          </div>
+        </div>
+
+        <!-- Right: Content -->
+        <div class="px-8 md:px-16 py-12 lg:py-20 flex flex-col justify-center space-y-6">
+          <div class="space-y-2">
+            <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#686D71]">Model Unggulan</div>
+            <h2 class="text-3xl md:text-4xl font-black tracking-tight text-[#2B2E30] leading-tight">
+              New Pajero Sport
+            </h2>
+            <p class="text-[#686D71] text-[14px] leading-relaxed">
+              SUV premium 7-penumpang dengan mesin diesel 4D56 2.4L, all-wheel drive Super Select 4WD-II, dan kabin mewah setara kelas premium Eropa.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            {[
+              { label: 'Kapasitas', val: '7 Penumpang' },
+              { label: 'Mesin', val: '4D56 2.4L Diesel' },
+              { label: 'Tenaga', val: '181 PS / 430 Nm' },
+              { label: 'Garansi', val: '5 Thn / 150.000 km' },
+            ].map((s) => (
+              <div class="border border-[#E3E5E6] p-3.5">
+                <div class="text-[10px] text-[#686D71] uppercase tracking-wider">{s.label}</div>
+                <div class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{s.val}</div>
+              </div>
+            ))}
+          </div>
+
+          <div class="pt-2 space-y-2">
+            <div class="flex items-baseline gap-2">
+              <span class="text-[11px] text-[#686D71]">OTR Jakarta Mulai</span>
+              <span class="text-2xl font-black text-[#E60012]">Rp 578 Juta</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="/model/pajero-sport"
+                class="inline-flex items-center gap-2 bg-black hover:bg-[#E60012] text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
+                Detail & Varian
+              </a>
+              <a href={getWhatsAppLink('Halo Om Hadi, saya tertarik dengan New Pajero Sport. Bisa minta penawaran terbaik?')}
+                target="_blank" rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[13px] font-bold px-6 py-3 transition-colors">
+                Tanya WA
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       SIMULASI KREDIT - Clean calculator section
+  ======================================================== -->
+  <section class="bg-[#F6F6F6] py-16 md:py-24 border-y border-[#E3E5E6]">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+        <!-- Left -->
+        <div class="lg:col-span-4 space-y-4">
+          <div>
+            <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">Kalkulator Instan</div>
+            <h2 class="text-3xl font-black tracking-tight text-[#2B2E30]">Simulasi Kredit</h2>
+          </div>
+          <p class="text-[13px] text-[#686D71] leading-relaxed">
+            Hitung estimasi cicilan bulanan sesuai model, uang muka, dan tenor yang Anda inginkan. Hasilnya bisa langsung dikirim ke WhatsApp Om Hadi.
+          </p>
+          <div class="space-y-3 pt-2">
+            {[
+              'Pilih model & varian',
+              'Tentukan DP dan tenor',
+              'Estimasi cicilan muncul otomatis',
+              'Kirim ke Om Hadi untuk penawaran final',
+            ].map((s, i) => (
+              <div class="flex items-center gap-3 text-[13px] text-[#2B2E30]">
+                <span class="w-6 h-6 flex-shrink-0 bg-[#E60012] text-white text-[10px] font-black flex items-center justify-center">{i+1}</span>
+                {s}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Right: Calculator -->
+        <div class="lg:col-span-8">
+          <div class="bg-white border border-[#E3E5E6] p-7 md:p-10 space-y-7">
+
+            <!-- Model select (Custom Editorial Dropdown) -->
+            <div>
+              <label id="cc-car-label" class="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71] mb-2">Pilih Model</label>
+              
+              <!-- Hidden select for form/data backing -->
+              <select id="cc-car" class="sr-only" tabindex="-1" aria-hidden="true">
+                {carsData.map((car) => (
+                  <option value={car.slug} data-price={car.startingPriceNum} data-name={car.name}>
+                    {car.name} - Mulai {car.startingPrice}
+                  </option>
+                ))}
+              </select>
+
+              <!-- Custom Dropdown Component -->
+              <div class="relative" id="cc-dropdown">
+                <button
+                  type="button"
+                  id="cc-dropdown-trigger"
+                  class="w-full flex items-center justify-between border border-[#E3E5E6] hover:border-[#686D71] focus:border-[#E60012] focus:ring-1 focus:ring-[#E60012] focus:outline-none bg-white px-4 py-3.5 text-left transition-all cursor-pointer"
+                  aria-haspopup="listbox"
+                  aria-expanded="false"
+                  aria-labelledby="cc-car-label cc-dropdown-trigger"
+                >
+                  <div class="flex items-center justify-between w-full pr-3 min-w-0">
+                    <span id="cc-selected-name" class="text-[14px] font-bold text-[#1F2421] truncate">
+                      {carsData[0].name}
+                    </span>
+                    <span id="cc-selected-price" class="text-[12px] font-semibold text-[#686D71] whitespace-nowrap ml-2">
+                      Mulai {carsData[0].startingPrice}
+                    </span>
+                  </div>
+                  <svg id="cc-dropdown-chevron" class="w-4 h-4 text-[#686D71] transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                <!-- Dropdown Menu List -->
+                <div
+                  id="cc-dropdown-menu"
+                  class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-[#E3E5E6] shadow-xl z-40 max-h-72 overflow-y-auto divide-y divide-[#F0F2F3]"
+                  role="listbox"
+                  tabindex="-1"
+                >
+                  {carsData.map((car, idx) => (
+                    <button
+                      type="button"
+                      class={`cc-dropdown-option w-full flex items-center justify-between px-4 py-3 text-left transition-colors cursor-pointer hover:bg-[#F6F6F6] ${idx === 0 ? 'bg-[#FAFAFA] font-semibold' : ''}`}
+                      data-index={idx}
+                      data-slug={car.slug}
+                      role="option"
+                      aria-selected={idx === 0 ? 'true' : 'false'}
+                    >
+                      <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#E60012] flex-shrink-0 transition-opacity" style={idx === 0 ? 'opacity: 1;' : 'opacity: 0;'}></span>
+                        <span class="text-[14px] text-[#1F2421] truncate">{car.name}</span>
+                      </div>
+                      <div class="flex items-center gap-3 flex-shrink-0">
+                        <span class="text-[12px] text-[#686D71] font-medium">Mulai {car.startingPrice}</span>
+                        <svg class="w-4 h-4 text-[#E60012] transition-opacity" style={idx === 0 ? 'opacity: 1;' : 'opacity: 0;'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <!-- DP Slider -->
+            <div>
+              <div class="flex justify-between items-center mb-3">
+                <label for="cc-dp" class="text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71]">Uang Muka (DP)</label>
+                <div class="flex items-center gap-2">
+                  <span id="cc-dp-pct" class="text-[15px] font-black text-[#2B2E30]">20%</span>
+                  <span class="text-[#BFC2C4]">/</span>
+                  <span id="cc-dp-nom" class="text-[13px] text-[#686D71] font-medium">Rp 115 Jt</span>
+                </div>
+              </div>
+              <input type="range" id="cc-dp" min="15" max="50" step="1" value="20" class="w-full cursor-pointer" />
+              <div class="flex justify-between text-[10px] text-[#BFC2C4] mt-2 font-medium">
+                <span>15%</span><span>25%</span><span>35%</span><span>45%</span><span>50%</span>
+              </div>
+            </div>
+
+            <!-- Tenor -->
+            <div>
+              <label class="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71] mb-3">Tenor</label>
+              <div class="grid grid-cols-6 gap-2">
+                {[1,2,3,4,5,6].map((y) => (
+                  <button type="button" class="cc-tenor border text-[12px] font-bold py-2.5 transition-colors"
+                    data-years={y}
+                    style={y===5 ? 'background:#E60012;color:#fff;border-color:#E60012;' : 'background:#fff;color:#2B2E30;border-color:#E3E5E6;'}>
+                    {y}th
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <!-- Result -->
+            <div class="border-t border-[#E3E5E6] pt-7">
+              <div class="grid grid-cols-2 gap-6 mb-6">
+                <div>
+                  <div class="text-[11px] text-[#686D71] uppercase tracking-wider mb-1">Total DP</div>
+                  <div id="cc-dp-result" class="text-2xl font-black text-[#2B2E30]">Rp 57,8 Jt</div>
+                  <div class="text-[10px] text-[#BFC2C4] mt-0.5">*Sebelum cashback promo</div>
+                </div>
+                <div>
+                  <div class="text-[11px] text-[#686D71] uppercase tracking-wider mb-1">Cicilan / Bulan</div>
+                  <div id="cc-cicilan-result" class="text-2xl font-black text-[#E60012]">Rp 4,1 Jt</div>
+                  <div class="text-[10px] text-[#BFC2C4] mt-0.5">*Estimasi inkl. asuransi</div>
+                </div>
+              </div>
+              <a id="cc-wa-link" href="#" target="_blank" rel="noopener noreferrer"
+                class="flex items-center justify-between w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-6 py-4 transition-colors duration-200">
+                <span>Kirim Hasil Simulasi ke WhatsApp Om Hadi</span>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       WHY OM HADI - Editorial profile section
+  ======================================================== -->
+  <section class="bg-[#1A1C1E] text-white">
+    <div class="max-w-[1440px] mx-auto">
+
+      <!-- Top bar: judul -->
+      <div class="border-b border-white/10 px-6 md:px-12 py-8 flex items-baseline gap-6">
+        <span class="text-[10px] font-black uppercase tracking-[0.18em] text-[#E60012]">Tentang Sales Kami</span>
+        <h2 class="text-xl md:text-2xl font-black tracking-tight">Mengapa Pilih Om Hadi?</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12">
+
+        <!-- Left: Profile column -->
+        <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-white/10 px-6 md:px-12 py-10 lg:py-14 flex flex-col gap-8">
+
+          <!-- Avatar + nama -->
+          <div class="flex items-center gap-5">
+            <div class="w-14 h-14 bg-[#E60012] flex items-center justify-center flex-shrink-0 p-2.5">
+              <img src="/images/logo/mitsubishi-logo.svg" alt="Mitsubishi" class="w-full h-full object-contain brightness-0 invert" />
+            </div>
+            <div>
+              <div class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#686D71] mb-0.5">{salesData.role}</div>
+              <div class="text-xl font-black">{salesData.name}</div>
+            </div>
+          </div>
+
+          <!-- Quote -->
+          <p class="text-[14px] text-[#BFC2C4] leading-relaxed">
+            "Saya bantu dari awal sampai kunci mobil ada di tangan Anda. Harga jujur, data diurus tuntas."
+          </p>
+
+          <!-- Stats row -->
+          <div class="grid grid-cols-3 divide-x divide-white/10 border border-white/10">
+            <div class="px-4 py-5 text-center">
+              <div class="text-2xl font-black text-white">850<span class="text-[#E60012]">+</span></div>
+              <div class="text-[11px] text-[#686D71] mt-0.5">Unit terjual</div>
+            </div>
+            <div class="px-4 py-5 text-center">
+              <div class="text-2xl font-black text-white">12<span class="text-[#E60012]">+</span></div>
+              <div class="text-[11px] text-[#686D71] mt-0.5">Tahun</div>
+            </div>
+            <div class="px-4 py-5 text-center">
+              <div class="text-2xl font-black text-white">4.9</div>
+              <div class="text-[11px] text-[#686D71] mt-0.5">Rating</div>
+            </div>
+          </div>
+
+          <!-- Kontak info -->
+          <div class="space-y-2 text-[13px]">
+            <div class="flex gap-3">
+              <span class="text-[#686D71] w-20 flex-shrink-0">WhatsApp</span>
+              <span class="font-semibold">{salesData.whatsappDisplay}</span>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-[#686D71] w-20 flex-shrink-0">Wilayah</span>
+              <span class="font-semibold">Jakarta & Jabodetabek</span>
+            </div>
+            <div class="flex gap-3">
+              <span class="text-[#686D71] w-20 flex-shrink-0">Dealer</span>
+              <span class="font-semibold">Resmi 3S PT MMKSI</span>
+            </div>
+          </div>
+
+          <!-- CTA -->
+          <a href={waBase} target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-between bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-5 py-3.5 transition-colors duration-200">
+            <span>Hubungi Om Hadi</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Right: Keunggulan grid 2-col -->
+        <div class="lg:col-span-8 px-6 md:px-12 py-10 lg:py-14">
+          <div class="text-[10px] font-black uppercase tracking-[0.18em] text-[#686D71] mb-7">Yang bisa Anda dapatkan</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-0">
+            {salesData.perks.map((perk) => (
+              <div class="py-5 border-b border-white/8 last:border-0">
+                <div class="text-[13px] font-bold text-white mb-1 leading-snug">{perk.title}</div>
+                <div class="text-[12px] text-[#686D71] leading-relaxed">{perk.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       TESTIMONI
+  ======================================================== -->
+  <section class="bg-white py-16 md:py-24 border-b border-[#E3E5E6]">
+    <div class="max-w-[1440px] mx-auto px-6">
+
+      <div class="flex justify-between items-end mb-10">
+        <div>
+          <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">Apa Kata Mereka</div>
+          <h2 class="text-3xl font-black tracking-tight text-[#2B2E30]">Testimoni Konsumen</h2>
+        </div>
+        <a href="/testimoni" class="text-[13px] font-bold text-[#E60012] hover:text-black flex items-center gap-1 transition-colors hover-line">
+          Lihat Semua
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {testimonialsData.map((t) => (
+          <div class="border border-[#E3E5E6] hover:border-[#2B2E30] p-6 flex flex-col justify-between group transition-colors">
+            <div class="space-y-4">
+              <!-- Stars -->
+              <div class="flex gap-0.5">
+                {Array.from({length:t.rating}).map(() => (
+                  <svg class="w-3.5 h-3.5 text-[#E60012]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                ))}
+              </div>
+              <p class="text-[13px] text-[#686D71] leading-relaxed">"{t.comment}"</p>
+            </div>
+            <div class="mt-5 pt-4 border-t border-[#F0F0F0]">
+              <div class="text-[13px] font-bold text-[#2B2E30] group-hover:text-[#E60012] transition-colors">{t.customerName}</div>
+              <div class="text-[11px] text-[#686D71] mt-0.5">{t.occupation} · {t.location}</div>
+              <div class="text-[11px] font-semibold text-[#E60012] mt-1">{t.carPurchased}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       FAQ
+  ======================================================== -->
+  <section class="bg-[#F6F6F6] py-16 md:py-24 border-b border-[#E3E5E6]">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4">
+          <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">FAQ</div>
+          <h2 class="text-3xl font-black tracking-tight text-[#2B2E30] mb-4">Pertanyaan Umum</h2>
+          <p class="text-[13px] text-[#686D71] leading-relaxed">Tidak ada pertanyaan Anda di sini? Langsung hubungi Om Hadi via WhatsApp.</p>
+          <a href={waBase} target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 mt-5 bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-5 py-3 transition-colors">
+            Tanya Langsung
+          </a>
+        </div>
+        <div class="lg:col-span-8 space-y-2">
+          {[
+            {q:'Apa syarat kredit perorangan?', a:'KTP suami & istri, KK, NPWP, bukti kepemilikan rumah (PBB/rekening listrik), dan mutasi rekening 3 bulan. Berkas kurang? Om Hadi bantu konsultasi ke leasing rekanan.'},
+            {q:'Berapa lama proses sampai unit dikirim?', a:'Approval leasing 1–3 hari kerja setelah data lengkap. Unit ready stock langsung dikirim dengan towing resmi ke garasi Anda tanpa biaya tambahan.'},
+            {q:'Apakah bisa trade-in semua merk?', a:'Ya. Kami terima tukar tambah semua merk, dengan valuasi harga pasar yang jujur dan transparan. Dana hasil trade-in langsung dijadikan DP.'},
+            {q:'Bisa test drive ke rumah?', a:'Bisa. Layanan test drive diantar ke rumah atau kantor Anda di area Jabodetabek, gratis tanpa biaya.'},
+            {q:'Apakah harga OTR sudah termasuk asuransi?', a:'Harga OTR sudah termasuk pajak, STNK, dan plat nomor. Asuransi dapat ditambahkan dengan pilihan all risk atau TLO, dibahas saat konsultasi kredit.'},
+          ].map((faq, i) => (
+            <details class="group bg-white border border-[#E3E5E6] hover:border-[#2B2E30] transition-colors [&_summary::-webkit-details-marker]:hidden">
+              <summary class="flex items-center justify-between cursor-pointer px-5 py-4 text-[14px] font-semibold text-[#2B2E30] group-open:text-[#E60012] transition-colors">
+                <span>{faq.q}</span>
+                <svg class="w-4 h-4 text-[#BFC2C4] flex-shrink-0 ml-4 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              </summary>
+              <div class="px-5 pb-5 text-[13px] text-[#686D71] leading-relaxed border-t border-[#F0F0F0] pt-4">{faq.a}</div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================================================
+       FINAL CTA - Full width black banner
+  ======================================================== -->
+  <section class="bg-black text-white py-16 md:py-20">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-4">
+          <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012]">Konsultasi Gratis</div>
+          <h2 class="text-3xl md:text-5xl font-black tracking-tight leading-[1.1]">
+            Dapatkan Penawaran<br/>Terbaik Hari Ini
+          </h2>
+          <p class="text-[#686D71] text-[14px] leading-relaxed max-w-lg">
+            Tanya harga, simulasi kredit, jadwalkan test drive, atau cek promo terbaru. Om Hadi siap melayani 7 hari seminggu.
+          </p>
+        </div>
+        <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3">
+          <a href={waBase} target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-between gap-4 bg-[#E60012] hover:bg-white hover:text-black text-white px-7 py-5 font-bold text-[14px] transition-colors duration-200 group">
+            <div>
+              <div class="text-[11px] text-white/60 group-hover:text-black/60 font-medium uppercase tracking-wider mb-0.5">WhatsApp</div>
+              <div>Chat: {salesData.whatsappDisplay}</div>
+            </div>
+            <svg class="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.288.043.088.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.043.101-.116.433-.506.549-.68.116-.173.231-.144.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/></svg>
+          </a>
+          <a href="/simulasi-kredit"
+            class="flex items-center justify-between gap-4 border border-white/20 hover:border-white text-white px-7 py-5 font-bold text-[14px] transition-colors">
+            <div>
+              <div class="text-[11px] text-white/40 font-medium uppercase tracking-wider mb-0.5">Hitung Cicilan</div>
+              <div>Simulasi Kredit Lengkap</div>
+            </div>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</Layout>
+
+
+<script is:inline>
+/* === Smooth Hero Slide Switcher === */
+const heroSlides = document.querySelectorAll('.hero-slide');
+const heroPills = document.querySelectorAll('.hero-pill');
+let currentHeroIndex = 0;
+let heroAutoTimer = null;
+
+function setHeroSlide(index) {
+  currentHeroIndex = index;
+  heroSlides.forEach((slide, i) => {
+    if (i === index) {
+      slide.style.opacity = '1';
+      slide.style.zIndex = '10';
+      slide.style.pointerEvents = 'auto';
+    } else {
+      slide.style.opacity = '0';
+      slide.style.zIndex = '0';
+      slide.style.pointerEvents = 'none';
+    }
+  });
+
+  heroPills.forEach((pill, i) => {
+    if (i === index) {
+      pill.style.background = '#E60012';
+      pill.style.borderColor = '#E60012';
+      pill.style.color = '#ffffff';
+    } else {
+      pill.style.background = 'rgba(0,0,0,0.55)';
+      pill.style.borderColor = 'rgba(255,255,255,0.2)';
+      pill.style.color = '#ffffff';
+    }
+  });
+}
+
+heroPills.forEach((pill) => {
+  pill.addEventListener('click', () => {
+    const idx = parseInt(pill.getAttribute('data-slide-index'));
+    if (!isNaN(idx)) {
+      setHeroSlide(idx);
+      resetAutoHero();
+    }
+  });
+});
+
+function resetAutoHero() {
+  if (heroAutoTimer) clearInterval(heroAutoTimer);
+  heroAutoTimer = setInterval(() => {
+    if (heroSlides.length > 0) {
+      const nextIdx = (currentHeroIndex + 1) % heroSlides.length;
+      setHeroSlide(nextIdx);
+    }
+  }, 6000);
+}
+
+resetAutoHero();
+
+/* === Model Carousel Navigation & Edge Fade === */
+const modelCarousel = document.getElementById('model-carousel');
+const prevBtn = document.getElementById('model-prev-btn');
+const nextBtn = document.getElementById('model-next-btn');
+
+if (modelCarousel && prevBtn && nextBtn) {
+  const getScrollDistance = () => {
+    const card = modelCarousel.querySelector('.model-carousel-card');
+    return card ? card.offsetWidth + 24 : 300;
+  };
+
+  prevBtn.addEventListener('click', () => {
+    modelCarousel.scrollBy({ left: -getScrollDistance(), behavior: 'smooth' });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    modelCarousel.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
+  });
+
+  const updateEdgeFading = () => {
+    const rect = modelCarousel.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const cards = modelCarousel.querySelectorAll('.model-carousel-card');
+    
+    cards.forEach((card) => {
+      const cardRect = card.getBoundingClientRect();
+      const cardCenter = cardRect.left + cardRect.width / 2;
+      const dist = Math.abs(centerX - cardCenter);
+      const maxDist = rect.width / 2;
+      const ratio = dist / maxDist;
+      
+      if (ratio > 0.6) {
+        card.style.opacity = Math.max(0.25, 1 - (ratio - 0.6) * 2.2).toString();
+      } else {
+        card.style.opacity = '1';
+      }
+    });
+  };
+
+  modelCarousel.addEventListener('scroll', updateEdgeFading, { passive: true });
+  window.addEventListener('resize', updateEdgeFading, { passive: true });
+  window.addEventListener('load', updateEdgeFading);
+  setTimeout(updateEdgeFading, 150);
+}
+
+/* === Credit Calculator === */
+const WA_NUM = '6287808097263';
+let calcTenor = 5;
+
+function formatRp(n) {
+  if (n >= 1e9) return 'Rp ' + (n/1e9).toFixed(2).replace('.',',') + ' M';
+  if (n >= 1e6) return 'Rp ' + Math.round(n/1e6) + ' Jt';
+  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
+}
+
+function calcUpdate() {
+  const sel = document.getElementById('cc-car');
+  const slider = document.getElementById('cc-dp');
+  if (!sel || !slider) return;
+
+  const opt = sel.options[sel.selectedIndex];
+  const price = parseFloat(opt.getAttribute('data-price'));
+  const carName = opt.getAttribute('data-name') || opt.text.split(' - ')[0].trim();
+  const dpPct = parseInt(slider.value);
+  const min = parseFloat(slider.min) || 15;
+  const max = parseFloat(slider.max) || 50;
+  const fillPct = Math.min(100, Math.max(0, ((dpPct - min) / (max - min)) * 100));
+  slider.style.background = `linear-gradient(to right, #E60012 0%, #E60012 ${fillPct}%, #E3E5E6 ${fillPct}%, #E3E5E6 100%)`;
+
+  const dp = price * dpPct / 100;
+  const loan = price - dp;
+  const months = calcTenor * 12;
+  const monthly = (loan + loan * 0.048 * calcTenor) / months;
+
+  document.getElementById('cc-dp-pct').textContent = dpPct + '%';
+  document.getElementById('cc-dp-nom').textContent = formatRp(dp);
+  document.getElementById('cc-dp-result').textContent = formatRp(dp);
+  document.getElementById('cc-cicilan-result').textContent = formatRp(monthly) + ' / bln';
+
+  const msg = `Halo Om Hadi, ini hasil simulasi kredit saya:\n• Mobil: ${carName}\n• DP: ${dpPct}% = ${formatRp(dp)}\n• Tenor: ${calcTenor} tahun\n• Estimasi cicilan: ${formatRp(monthly)}/bln\n\nBisa tolong info promo & bunga terbaiknya?`;
+  const btn = document.getElementById('cc-wa-link');
+  if (btn) btn.href = 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg);
+}
+
+document.querySelectorAll('.cc-tenor').forEach(btn => {
+  btn.addEventListener('click', () => {
+    calcTenor = parseInt(btn.getAttribute('data-years'));
+    document.querySelectorAll('.cc-tenor').forEach(b => {
+      b.style.background = '#fff'; b.style.color = '#2B2E30'; b.style.borderColor = '#E3E5E6';
+    });
+    btn.style.background = '#E60012'; btn.style.color = '#fff'; btn.style.borderColor = '#E60012';
+    calcUpdate();
+  });
+});
+
+document.getElementById('cc-car')?.addEventListener('change', calcUpdate);
+document.getElementById('cc-dp')?.addEventListener('input', calcUpdate);
+
+/* === Custom Dropdown Controls === */
+const ddWrapper = document.getElementById('cc-dropdown');
+const ddTrigger = document.getElementById('cc-dropdown-trigger');
+const ddMenu = document.getElementById('cc-dropdown-menu');
+const ddChevron = document.getElementById('cc-dropdown-chevron');
+const ddName = document.getElementById('cc-selected-name');
+const ddPrice = document.getElementById('cc-selected-price');
+const ddOptions = document.querySelectorAll('.cc-dropdown-option');
+
+function openDropdown() {
+  if (!ddMenu) return;
+  ddMenu.classList.remove('hidden');
+  ddTrigger?.setAttribute('aria-expanded', 'true');
+  ddChevron?.classList.add('rotate-180');
+}
+
+function closeDropdown() {
+  if (!ddMenu) return;
+  ddMenu.classList.add('hidden');
+  ddTrigger?.setAttribute('aria-expanded', 'false');
+  ddChevron?.classList.remove('rotate-180');
+}
+
+function toggleDropdown() {
+  if (ddMenu?.classList.contains('hidden')) {
+    openDropdown();
+  } else {
+    closeDropdown();
+  }
+}
+
+function selectDropdownOption(index) {
+  const sel = document.getElementById('cc-car');
+  if (!sel || !sel.options[index]) return;
+  sel.selectedIndex = index;
+  const opt = sel.options[index];
+  const name = opt.getAttribute('data-name') || opt.text.split(' - ')[0].trim();
+  const priceMatch = opt.text.match(/Mulai\s+Rp\s+[\d.]+/i);
+  const priceText = priceMatch ? priceMatch[0] : '';
+
+  if (ddName) ddName.textContent = name;
+  if (ddPrice) ddPrice.textContent = priceText;
+
+  ddOptions.forEach((btn, i) => {
+    const isSelected = i === index;
+    btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    btn.classList.toggle('bg-[#FAFAFA]', isSelected);
+    btn.classList.toggle('font-semibold', isSelected);
+
+    const dot = btn.querySelector('span.rounded-full');
+    if (dot) dot.style.opacity = isSelected ? '1' : '0';
+
+    const check = btn.querySelector('svg');
+    if (check) check.style.opacity = isSelected ? '1' : '0';
+  });
+
+  closeDropdown();
+  calcUpdate();
+}
+
+ddTrigger?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleDropdown();
+});
+
+ddTrigger?.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openDropdown();
+  }
+});
+
+ddOptions.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const idx = parseInt(btn.getAttribute('data-index') || '0', 10);
+    selectDropdownOption(idx);
+  });
+});
+
+document.addEventListener('click', (e) => {
+  if (ddWrapper && !ddWrapper.contains(e.target)) {
+    closeDropdown();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeDropdown();
+  }
+});
+
+calcUpdate();
+</script>
