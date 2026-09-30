@@ -79,7 +79,7 @@ const navLinks = [
 
   <!-- Bottom -->
   <div class="ft-bottom">
-    <span>&copy; {currentYear} {salesData.dealer}</span>
+    <span>&copy; {currentYear} {salesData.dealer} · Website oleh <a href="https://sukamcd.tech" target="_blank" rel="noopener noreferrer" class="ft-author">sukamcd.tech</a></span>
     <span>Website independen · Logo &amp; merek milik PT MMKSI</span>
   </div>
 </footer>
@@ -261,7 +261,18 @@ const navLinks = [
     flex-wrap: wrap;
     gap: 8px;
     font-size: 11px;
-    color: #333;
+    color: #444;
+  }
+
+  .ft-author {
+    color: #666;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.18s;
+  }
+
+  .ft-author:hover {
+    color: #E60012;
   }
 
   @media (max-width: 600px) {
