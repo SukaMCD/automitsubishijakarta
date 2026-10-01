@@ -23,8 +23,8 @@ export interface SalesContact {
 }
 
 export const salesData: SalesContact = {
-  name: "Hadi Priyanto",
-  nickname: "Om Hadi",
+  name: "Kanhadi",
+  nickname: "Kanhadi",
   role: "Senior Certified Sales Consultant",
   dealer: "PT. Dipo Internasional Pahala Otomotif",
   dealerBranch: "Dealer Resmi Mitsubishi Motors 3S Jakarta",
@@ -33,7 +33,7 @@ export const salesData: SalesContact = {
   phone: "+62 878-0809-7263",
   whatsapp: "6287808097263",
   whatsappDisplay: "+62 878-0809-7263",
-  email: "hadi.mitsubishijakarta@gmail.com",
+  email: "kanhadi.mitsubishijakarta@gmail.com",
   experienceYears: 12,
   unitsDelivered: 850,
   rating: 4.9,
@@ -57,7 +57,7 @@ export const salesData: SalesContact = {
     },
     {
       title: "Layanan Test Drive di Rumah",
-      description: "Ingin coba mobil langsung bersama keluarga? Om Hadi siap bawa unit test drive ke rumah atau kantor Anda.",
+      description: "Ingin coba mobil langsung bersama keluarga? Kanhadi siap bawa unit test drive ke rumah atau kantor Anda.",
       icon: "car"
     },
     {
@@ -74,6 +74,6 @@ export const salesData: SalesContact = {
 };
 
 export function getWhatsAppLink(customMessage?: string): string {
-  const baseMessage = customMessage || `Halo Om Hadi, saya dapat kontak dari website. Mau tanya info promo dan simulasi kredit mobil Mitsubishi terbaru. Terima kasih!`;
+  const baseMessage = customMessage || `Halo Kanhadi, saya dapat kontak dari website. Mau tanya info promo dan simulasi kredit mobil Mitsubishi terbaru. Terima kasih!`;
   return `https://wa.me/${salesData.whatsapp}?text=${encodeURIComponent(baseMessage)}`;
 }

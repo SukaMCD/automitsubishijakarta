@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Promo Mitsubishi Jakarta 2026 | Harga OTR & Simulasi Kredit - Om Hadi",
-  description = "Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Om Hadi sekarang.",
+  title = "Promo Mitsubishi Jakarta 2026 | Harga OTR & Simulasi Kredit - Kanhadi",
+  description = "Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Kanhadi sekarang.",
   currentPath = "/",
   ogImage = "/images/cars/new-pajero-sport-optimized.webp"
 } = Astro.props;
@@ -30,7 +30,7 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content="Hadi Priyanto - Sales Consultant Mitsubishi Motors Jakarta" />
+    <meta name="author" content="Kanhadi - Sales Consultant Mitsubishi Motors Jakarta" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -38,6 +38,13 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <script is:inline>
+      // Kunci total drag bawaan browser pada link (a) dan gambar (img)
+      window.addEventListener('dragstart', function(e) {
+        e.preventDefault();
+        return false;
+      }, { capture: true });
+    </script>
   </head>
   <body class="bg-[#2B2E30] text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
     <Navbar currentPath={currentPath} />

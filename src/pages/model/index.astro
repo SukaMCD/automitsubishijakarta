@@ -1,0 +1,223 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { carsData } from '../../data/cars';
+import { salesData, getWhatsAppLink } from '../../data/sales';
+
+const passengerCars = carsData.filter(c => c.segment === 'passenger');
+const lcvCars = carsData.filter(c => c.segment === 'lcv');
+const commercialCars = carsData.filter(c => c.segment === 'commercial');
+---
+
+<Layout
+  title="Daftar Model Mobil & Truk Mitsubishi Jakarta 2026 | Kanhadi"
+  description="Pilihan lengkap kendaraan Mitsubishi Motors & Mitsubishi Fuso Jakarta. Mulai dari Xpander, Pajero Sport, XForce, Destinator, Triton, L300, hingga Truk Canter & Bus."
+  currentPath="/model"
+>
+  <!-- ─── HERO HEADER ─────────────────────────────────────────── -->
+  <section class="bg-[#1A1C1E] text-white py-14 md:py-20 border-b border-white/10">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
+        <a href="/" class="hover:text-white transition-colors">Beranda</a>
+        <span>/</span>
+        <span class="text-[#E60012]">Daftar Model</span>
+      </div>
+      <div class="max-w-3xl">
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-2">Lineup Resmi 2026</span>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          Pilihan Model Mitsubishi Motors &amp; Fuso
+        </h1>
+        <p class="text-[#A6A9AB] text-sm md:text-base leading-relaxed mt-4">
+          Temukan kendaraan yang paling sesuai untuk gaya hidup keluarga Anda atau kebutuhan armada logistik bisnis Anda. Dealer resmi PT Lautan Berlian Utama Motor Jakarta.
+        </p>
+      </div>
+
+      <!-- Segment Filter Tabs -->
+      <div class="mt-8 flex flex-wrap gap-2">
+        <button
+          type="button"
+          class="cat-filter-btn active px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#E60012] text-white cursor-pointer"
+          data-filter="all"
+        >
+          Semua Model ({carsData.length})
+        </button>
+        <button
+          type="button"
+          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
+          data-filter="passenger"
+        >
+          🚗 Mobil Penumpang ({passengerCars.length})
+        </button>
+        <button
+          type="button"
+          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
+          data-filter="lcv"
+        >
+          🛻 Niaga Ringan Pick-up ({lcvCars.length})
+        </button>
+        <button
+          type="button"
+          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
+          data-filter="commercial"
+        >
+          🚚 Truk &amp; Bus Fuso ({commercialCars.length})
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CAR GRID ────────────────────────────────────────────── -->
+  <section class="py-16 md:py-20 bg-[#F6F6F6]">
+    <div class="max-w-[1440px] mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
+        {carsData.map((car) => (
+          <div
+            class="model-card group bg-white border border-[#E3E5E6] hover:border-[#E60012] transition-all duration-300 flex flex-col justify-between overflow-hidden"
+            data-segment={car.segment}
+          >
+            <!-- Card Top: Category & Badge -->
+            <div class="p-6 pb-0 flex items-center justify-between">
+              <span class={`text-[10px] font-black uppercase tracking-widest ${car.segment === 'commercial' ? 'text-[#E5A91B]' : 'text-[#686D71]'}`}>
+                {car.category}
+              </span>
+              {car.badge && (
+                <span class={`text-[10px] font-bold px-2.5 py-0.5 leading-none text-white ${car.segment === 'commercial' ? 'bg-[#2B2E30]' : 'bg-[#E60012]'}`}>
+                  {car.badge}
+                </span>
+              )}
+            </div>
+
+            <!-- Image Area -->
+            <a href={`/model/${car.slug}`} class="px-6 py-6 block overflow-hidden" draggable="false">
+              <div class="h-44 w-full flex items-center justify-center">
+                <img
+                  src={car.image}
+                  alt={car.name}
+                  draggable="false"
+                  loading="lazy"
+                  class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none drop-shadow-sm"
+                />
+              </div>
+            </a>
+
+            <!-- Content Area -->
+            <div class="p-6 pt-0 flex-grow flex flex-col justify-between">
+              <div>
+                <a href={`/model/${car.slug}`} class="block">
+                  <h2 class="text-xl font-black text-[#2B2E30] group-hover:text-[#E60012] transition-colors leading-tight">
+                    {car.name}
+                  </h2>
+                </a>
+                <p class="text-[12px] text-[#686D71] line-clamp-2 mt-2 leading-relaxed">
+                  {car.tagline}
+                </p>
+
+                <!-- Key Specs Grid -->
+                <div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-[#F0F0F0] text-[11px] text-[#686D71]">
+                  <div>
+                    <span class="block text-[9px] uppercase tracking-wider text-[#A6A9AB]">Kapasitas</span>
+                    <span class="font-bold text-[#2B2E30]">{car.keySpecs.seating}</span>
+                  </div>
+                  <div>
+                    <span class="block text-[9px] uppercase tracking-wider text-[#A6A9AB]">Tenaga Mesin</span>
+                    <span class="font-bold text-[#2B2E30] truncate block">{car.keySpecs.power.split('/')[0]}</span>
+                  </div>
+                </div>
+
+                <!-- Price Box -->
+                <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
+                  <div>
+                    <span class="block text-[9px] uppercase tracking-wider text-[#888]">Harga Mulai</span>
+                    <span class="text-[15px] font-black text-[#E60012]">{car.startingPrice}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="block text-[9px] uppercase tracking-wider text-[#888]">DP Mulai</span>
+                    <span class="text-[12px] font-bold text-[#2B2E30]">{car.dpStart}</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="mt-5 grid grid-cols-2 gap-2">
+                <a
+                  href={`/model/${car.slug}`}
+                  class="flex items-center justify-center bg-[#2B2E30] hover:bg-[#E60012] text-white text-[12px] font-bold py-2.5 transition-colors duration-200"
+                >
+                  Detail &amp; Varian
+                </a>
+                <a
+                  href={getWhatsAppLink(`Halo Kanhadi, saya tertarik dengan ${car.name}. Boleh info promo & simulasi kredit terbarunya?`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center justify-center gap-1.5 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[12px] font-bold py-2.5 transition-colors duration-200"
+                >
+                  Tanya Promo
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── B2B FLEET & TEST DRIVE BANNER ──────────────────────── -->
+  <section class="bg-black text-white py-16 border-t border-white/10">
+    <div class="max-w-[1440px] mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-8">
+          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-2">Layanan Fleet &amp; Corporate</span>
+          <h2 class="text-2xl md:text-4xl font-black tracking-tight leading-snug">
+            Butuh Pengadaan Armada Truk / Pembelian Mobil Kantor?
+          </h2>
+          <p class="text-[#A6A9AB] text-sm leading-relaxed mt-3 max-w-2xl">
+            Kanhadi siap mendampingi kebutuhan armada perusahaan Anda: konsultasi karoseri (Box, Bak, Dump, Bus), pengurusan dokumen Keur (KIR) &amp; SRUT, serta skema kredit corporate fleet bunga khusus.
+          </p>
+        </div>
+        <div class="lg:col-span-4 flex flex-col gap-3">
+          <a
+            href={getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi penawaran harga pengadaan armada kendaraan untuk perusahaan.')}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white font-bold text-[13px] py-4 px-6 transition-colors"
+          >
+            Hubungi Kanhadi (B2B Fleet)
+          </a>
+          <a
+            href={`tel:${salesData.phone.replace(/[\s-]/g, '')}`}
+            class="flex items-center justify-center gap-2 border border-white/30 hover:border-white text-white font-semibold text-[13px] py-3.5 px-6 transition-colors"
+          >
+            Telepon Langsung ({salesData.phone})
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script is:inline>
+  const filterBtns = document.querySelectorAll('.cat-filter-btn');
+  const cards = document.querySelectorAll('.model-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.getAttribute('data-filter');
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-[#E60012]', 'text-white', 'active');
+        b.classList.add('bg-[#2B2E30]', 'text-[#A6A9AB]');
+      });
+      btn.classList.remove('bg-[#2B2E30]', 'text-[#A6A9AB]');
+      btn.classList.add('bg-[#E60012]', 'text-white', 'active');
+
+      cards.forEach(card => {
+        const seg = card.getAttribute('data-segment');
+        if (filter === 'all' || seg === filter) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

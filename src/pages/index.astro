@@ -5,7 +5,11 @@ import { carsData } from '../data/cars';
 import { promoList } from '../data/promos';
 import { testimonialsData } from '../data/testimonials';
 
-const waBase = getWhatsAppLink('Halo Om Hadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
+const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
+
+const passengerCars = carsData.filter(c => c.segment === 'passenger');
+const lcvCars = carsData.filter(c => c.segment === 'lcv');
+const commercialCars = carsData.filter(c => c.segment === 'commercial');
 
 const heroSlides = [
   {
@@ -45,8 +49,8 @@ const heroSlides = [
 ---
 
 <Layout
-  title="Dealer Resmi Mitsubishi Jakarta | Promo & Kredit - Om Hadi"
-  description="Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Om Hadi sekarang."
+  title="Dealer Resmi Mitsubishi Jakarta | Promo & Kredit - Kanhadi"
+  description="Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Kanhadi sekarang."
   currentPath="/">
 
 
@@ -146,22 +150,58 @@ const heroSlides = [
   <section class="bg-white border-b border-[#E3E5E6] py-12 md:py-16 overflow-hidden">
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
       
-      <!-- Carousel Track with edge fade mask -->
+      <!-- Section Header & Filter Tabs -->
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 px-4">
+        <div>
+          <span class="text-[10px] font-black uppercase tracking-[0.16em] text-[#E60012] block mb-1">Pilihan Unit Resmi</span>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-[#2B2E30]">Lineup Kendaraan Mitsubishi</h2>
+        </div>
+        
+        <!-- Filter Buttons -->
+        <div class="flex items-center gap-1.5 bg-[#F6F6F6] p-1 border border-[#E3E5E6]">
+          <button 
+            type="button" 
+            class="carousel-filter-btn active text-[12px] font-bold px-3.5 py-1.5 cursor-pointer"
+            data-filter="passenger"
+          >
+            Mobil Penumpang ({passengerCars.length})
+          </button>
+          <button 
+            type="button" 
+            class="carousel-filter-btn text-[12px] font-bold px-3.5 py-1.5 cursor-pointer"
+            data-filter="lcv"
+          >
+            Niaga Ringan ({lcvCars.length})
+          </button>
+          <button 
+            type="button" 
+            class="carousel-filter-btn text-[12px] font-bold px-3.5 py-1.5 cursor-pointer"
+            data-filter="commercial"
+          >
+            Truk &amp; Bus Fuso ({commercialCars.length})
+          </button>
+        </div>
+      </div>
+
+      <!-- Carousel Track with edge fade mask (MMKSI Style) -->
       <div class="relative w-full">
         <div 
           id="model-carousel" 
           class="flex gap-4 sm:gap-6 md:gap-8 overflow-x-auto scroll-smooth scrollbar-none snap-x snap-mandatory py-4 px-8 sm:px-14 md:px-20"
-          style="scrollbar-width: none; -ms-overflow-style: none; mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);"
+          style="scrollbar-width: none; -ms-overflow-style: none; mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%); -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);"
         >
           {carsData.map((car) => (
             <a 
               href={`/model/${car.slug}`}
-              class="model-carousel-card flex-shrink-0 w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] snap-center group flex flex-col justify-between p-3 sm:p-4 bg-transparent transition-all duration-300 rounded-none"
+              draggable="false"
+              data-segment={car.segment}
+              style={car.segment !== 'passenger' ? 'display: none;' : ''}
+              class="model-carousel-card flex-shrink-0 w-[240px] sm:w-[260px] md:w-[280px] lg:w-[300px] snap-center group flex flex-col justify-between p-3 sm:p-4 bg-transparent transition-all duration-300 rounded-none select-none"
             >
               <!-- Badge Container -->
               <div class="h-6 flex items-center justify-end px-1">
                 {car.badge ? (
-                  <span class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5">
+                  <span class={`text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-0.5 ${car.segment === 'commercial' ? 'bg-[#2B2E30]' : 'bg-[#E60012]'}`}>
                     {car.badge}
                   </span>
                 ) : (
@@ -170,12 +210,13 @@ const heroSlides = [
               </div>
 
               <!-- Car Image -->
-              <div class="h-28 sm:h-32 md:h-36 w-full flex items-center justify-center my-3 overflow-hidden">
+              <div class="h-28 sm:h-32 md:h-36 w-full flex items-center justify-center my-2 p-1 overflow-visible">
                 <img 
                   src={car.image} 
                   alt={car.name}
+                  draggable="false"
                   loading="lazy"
-                  class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm"
+                  class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm pointer-events-none select-none"
                 />
               </div>
 
@@ -368,7 +409,7 @@ const heroSlides = [
                 class="inline-flex items-center gap-2 bg-black hover:bg-[#E60012] text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
                 Detail & Varian
               </a>
-              <a href={getWhatsAppLink('Halo Om Hadi, saya tertarik dengan New Pajero Sport. Bisa minta penawaran terbaik?')}
+              <a href={getWhatsAppLink('Halo Kanhadi, saya tertarik dengan New Pajero Sport. Bisa minta penawaran terbaik?')}
                 target="_blank" rel="noopener noreferrer"
                 class="inline-flex items-center gap-2 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[13px] font-bold px-6 py-3 transition-colors">
                 Tanya WA
@@ -396,14 +437,14 @@ const heroSlides = [
             <h2 class="text-3xl font-black tracking-tight text-[#2B2E30]">Simulasi Kredit</h2>
           </div>
           <p class="text-[13px] text-[#686D71] leading-relaxed">
-            Hitung estimasi cicilan bulanan sesuai model, uang muka, dan tenor yang Anda inginkan. Hasilnya bisa langsung dikirim ke WhatsApp Om Hadi.
+            Hitung estimasi cicilan bulanan sesuai model, uang muka, dan tenor yang Anda inginkan. Hasilnya bisa langsung dikirim ke WhatsApp Kanhadi.
           </p>
           <div class="space-y-3 pt-2">
             {[
               'Pilih model & varian',
               'Tentukan DP dan tenor',
               'Estimasi cicilan muncul otomatis',
-              'Kirim ke Om Hadi untuk penawaran final',
+              'Kirim ke Kanhadi untuk penawaran final',
             ].map((s, i) => (
               <div class="flex items-center gap-3 text-[13px] text-[#2B2E30]">
                 <span class="w-6 h-6 flex-shrink-0 bg-[#E60012] text-white text-[10px] font-black flex items-center justify-center">{i+1}</span>
@@ -531,7 +572,7 @@ const heroSlides = [
               </div>
               <a id="cc-wa-link" href="#" target="_blank" rel="noopener noreferrer"
                 class="flex items-center justify-between w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-6 py-4 transition-colors duration-200">
-                <span>Kirim Hasil Simulasi ke WhatsApp Om Hadi</span>
+                <span>Kirim Hasil Simulasi ke WhatsApp Kanhadi</span>
                 <svg class="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               </a>
             </div>
@@ -545,7 +586,7 @@ const heroSlides = [
 
 
   <!-- ========================================================
-       WHY OM HADI - Editorial profile section
+       WHY KANHADI - Editorial profile section
   ======================================================== -->
   <section class="bg-[#1A1C1E] text-white">
     <div class="max-w-[1440px] mx-auto">
@@ -553,7 +594,7 @@ const heroSlides = [
       <!-- Top bar: judul -->
       <div class="border-b border-white/10 px-6 md:px-12 py-8 flex items-baseline gap-6">
         <span class="text-[10px] font-black uppercase tracking-[0.18em] text-[#E60012]">Tentang Sales Kami</span>
-        <h2 class="text-xl md:text-2xl font-black tracking-tight">Mengapa Pilih Om Hadi?</h2>
+        <h2 class="text-xl md:text-2xl font-black tracking-tight">Mengapa Pilih Kanhadi?</h2>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12">
@@ -612,7 +653,7 @@ const heroSlides = [
           <!-- CTA -->
           <a href={waBase} target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-between bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-5 py-3.5 transition-colors duration-200">
-            <span>Hubungi Om Hadi</span>
+            <span>Hubungi Kanhadi</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </a>
         </div>
@@ -686,7 +727,7 @@ const heroSlides = [
         <div class="lg:col-span-4">
           <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">FAQ</div>
           <h2 class="text-3xl font-black tracking-tight text-[#2B2E30] mb-4">Pertanyaan Umum</h2>
-          <p class="text-[13px] text-[#686D71] leading-relaxed">Tidak ada pertanyaan Anda di sini? Langsung hubungi Om Hadi via WhatsApp.</p>
+          <p class="text-[13px] text-[#686D71] leading-relaxed">Tidak ada pertanyaan Anda di sini? Langsung hubungi Kanhadi via WhatsApp.</p>
           <a href={waBase} target="_blank" rel="noopener noreferrer"
             class="inline-flex items-center gap-2 mt-5 bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-5 py-3 transition-colors">
             Tanya Langsung
@@ -694,7 +735,7 @@ const heroSlides = [
         </div>
         <div class="lg:col-span-8 space-y-2">
           {[
-            {q:'Apa syarat kredit perorangan?', a:'KTP suami & istri, KK, NPWP, bukti kepemilikan rumah (PBB/rekening listrik), dan mutasi rekening 3 bulan. Berkas kurang? Om Hadi bantu konsultasi ke leasing rekanan.'},
+            {q:'Apa syarat kredit perorangan?', a:'KTP suami & istri, KK, NPWP, bukti kepemilikan rumah (PBB/rekening listrik), dan mutasi rekening 3 bulan. Berkas kurang? Kanhadi bantu konsultasi ke leasing rekanan.'},
             {q:'Berapa lama proses sampai unit dikirim?', a:'Approval leasing 1–3 hari kerja setelah data lengkap. Unit ready stock langsung dikirim dengan towing resmi ke garasi Anda tanpa biaya tambahan.'},
             {q:'Apakah bisa trade-in semua merk?', a:'Ya. Kami terima tukar tambah semua merk, dengan valuasi harga pasar yang jujur dan transparan. Dana hasil trade-in langsung dijadikan DP.'},
             {q:'Bisa test drive ke rumah?', a:'Bisa. Layanan test drive diantar ke rumah atau kantor Anda di area Jabodetabek, gratis tanpa biaya.'},
@@ -726,7 +767,7 @@ const heroSlides = [
             Dapatkan Penawaran<br/>Terbaik Hari Ini
           </h2>
           <p class="text-[#686D71] text-[14px] leading-relaxed max-w-lg">
-            Tanya harga, simulasi kredit, jadwalkan test drive, atau cek promo terbaru. Om Hadi siap melayani 7 hari seminggu.
+            Tanya harga, simulasi kredit, jadwalkan test drive, atau cek promo terbaru. Kanhadi siap melayani 7 hari seminggu.
           </p>
         </div>
         <div class="lg:col-span-5 flex flex-col sm:flex-row lg:flex-col gap-3">
@@ -816,6 +857,37 @@ const modelCarousel = document.getElementById('model-carousel');
 const prevBtn = document.getElementById('model-prev-btn');
 const nextBtn = document.getElementById('model-next-btn');
 
+/* === Model Carousel Segment Filter === */
+const filterBtns = document.querySelectorAll('.carousel-filter-btn');
+const carouselCards = document.querySelectorAll('.model-carousel-card');
+
+filterBtns.forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const filter = btn.getAttribute('data-filter');
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    carouselCards.forEach((card) => {
+      const seg = card.getAttribute('data-segment');
+      if (seg === filter) {
+        card.style.display = 'flex';
+        card.style.opacity = '1';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+
+    if (modelCarousel) {
+      if (filter === 'commercial' || filter === 'lcv') {
+        modelCarousel.classList.add('justify-center');
+      } else {
+        modelCarousel.classList.remove('justify-center');
+      }
+      modelCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  });
+});
+
 if (modelCarousel && prevBtn && nextBtn) {
   const getScrollDistance = () => {
     const card = modelCarousel.querySelector('.model-carousel-card');
@@ -830,30 +902,10 @@ if (modelCarousel && prevBtn && nextBtn) {
     modelCarousel.scrollBy({ left: getScrollDistance(), behavior: 'smooth' });
   });
 
-  const updateEdgeFading = () => {
-    const rect = modelCarousel.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const cards = modelCarousel.querySelectorAll('.model-carousel-card');
-    
-    cards.forEach((card) => {
-      const cardRect = card.getBoundingClientRect();
-      const cardCenter = cardRect.left + cardRect.width / 2;
-      const dist = Math.abs(centerX - cardCenter);
-      const maxDist = rect.width / 2;
-      const ratio = dist / maxDist;
-      
-      if (ratio > 0.6) {
-        card.style.opacity = Math.max(0.25, 1 - (ratio - 0.6) * 2.2).toString();
-      } else {
-        card.style.opacity = '1';
-      }
-    });
-  };
-
-  modelCarousel.addEventListener('scroll', updateEdgeFading, { passive: true });
-  window.addEventListener('resize', updateEdgeFading, { passive: true });
-  window.addEventListener('load', updateEdgeFading);
-  setTimeout(updateEdgeFading, 150);
+  // Pastikan semua kartu selalu 100% solid & terang
+  carouselCards.forEach((card) => {
+    card.style.opacity = '1';
+  });
 }
 
 /* === Credit Calculator === */
@@ -890,7 +942,7 @@ function calcUpdate() {
   document.getElementById('cc-dp-result').textContent = formatRp(dp);
   document.getElementById('cc-cicilan-result').textContent = formatRp(monthly) + ' / bln';
 
-  const msg = `Halo Om Hadi, ini hasil simulasi kredit saya:\n• Mobil: ${carName}\n• DP: ${dpPct}% = ${formatRp(dp)}\n• Tenor: ${calcTenor} tahun\n• Estimasi cicilan: ${formatRp(monthly)}/bln\n\nBisa tolong info promo & bunga terbaiknya?`;
+  const msg = `Halo Kanhadi, ini hasil simulasi kredit saya:\n• Mobil: ${carName}\n• DP: ${dpPct}% = ${formatRp(dp)}\n• Tenor: ${calcTenor} tahun\n• Estimasi cicilan: ${formatRp(monthly)}/bln\n\nBisa tolong info promo & bunga terbaiknya?`;
   const btn = document.getElementById('cc-wa-link');
   if (btn) btn.href = 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg);
 }
@@ -1003,3 +1055,22 @@ document.addEventListener('keydown', (e) => {
 
 calcUpdate();
 </script>
+
+<style>
+  .carousel-filter-btn {
+    color: #2B2E30;
+    background-color: transparent;
+    transition: all 0.2s ease;
+  }
+  .carousel-filter-btn:not(.active):hover {
+    color: #E60012;
+  }
+  .carousel-filter-btn.active {
+    background-color: #E60012 !important;
+    color: #ffffff !important;
+  }
+  .carousel-filter-btn.active:hover {
+    background-color: #d10010 !important;
+    color: #ffffff !important;
+  }
+</style>

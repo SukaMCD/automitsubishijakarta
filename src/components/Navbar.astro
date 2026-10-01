@@ -5,7 +5,11 @@ import { carsData } from '../data/cars';
 interface Props { currentPath?: string; }
 const { currentPath = '/' } = Astro.props;
 
-const waUrl = getWhatsAppLink('Halo Om Hadi, saya ingin konsultasi promo Mitsubishi terbaru.');
+const waUrl = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo Mitsubishi terbaru.');
+
+const passengerCars = carsData.filter(c => c.segment === 'passenger');
+const lcvCars = carsData.filter(c => c.segment === 'lcv');
+const commercialCars = carsData.filter(c => c.segment === 'commercial');
 
 const navLinks = [
   { label: 'Model', href: '/model', dropdown: true },
@@ -50,26 +54,46 @@ const navLinks = [
               </svg>
             </button>
             <!-- Mega dropdown -->
-            <div class="absolute top-full left-0 hidden group-hover/dd:block w-[780px] shadow-2xl border border-[#E3E5E6] bg-white z-50">
-              <!-- Top bar -->
-              <div class="px-6 py-3.5 border-b border-[#E3E5E6] flex items-center justify-between bg-[#FAFAFA]">
-                <div>
-                  <span class="text-[11px] font-bold uppercase tracking-[0.14em] text-[#2B2E30]">Pilihan Model Mitsubishi Motors</span>
+            <div class="absolute top-full left-0 hidden group-hover/dd:block w-[800px] shadow-2xl border border-[#E3E5E6] bg-white z-50">
+              <!-- Top bar with 3 Category Tabs -->
+              <div class="px-6 py-3 border-b border-[#E3E5E6] flex items-center justify-between bg-[#FAFAFA]">
+                <div class="flex items-center gap-1.5">
+                  <button
+                    type="button"
+                    id="tab-btn-passenger"
+                    class="nav-tab-btn active px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#E60012] text-white cursor-pointer"
+                  >
+                    Mobil Penumpang ({passengerCars.length})
+                  </button>
+                  <button
+                    type="button"
+                    id="tab-btn-lcv"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                  >
+                    Niaga Ringan ({lcvCars.length})
+                  </button>
+                  <button
+                    type="button"
+                    id="tab-btn-commercial"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                  >
+                    Truk &amp; Bus Fuso ({commercialCars.length})
+                  </button>
                 </div>
                 <a href="/model" class="text-[12px] font-bold text-[#E60012] hover:text-black transition-colors flex items-center gap-1 group/all">
-                  Lihat Semua Spesifikasi
+                  Lihat Semua
                   <svg class="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>
               </div>
 
-              <!-- Car Grid: 4 columns x 2 rows (7 models + 1 sales consultation tile) -->
-              <div class="grid grid-cols-4 gap-3 p-5">
-                {carsData.map((car) => (
+              <!-- PANEL 1: Mobil Penumpang (3 columns grid) -->
+              <div id="nav-panel-passenger" class="grid grid-cols-3 gap-3 p-5">
+                {passengerCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
-                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200"
+                    draggable="false"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
-                    <!-- Category & Badge -->
                     <div class="flex items-center justify-between gap-1 mb-1">
                       <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
@@ -78,18 +102,15 @@ const navLinks = [
                         </span>
                       )}
                     </div>
-
-                    <!-- Car Thumbnail -->
                     <div class="h-20 w-full flex items-center justify-center py-1 overflow-hidden">
                       <img
                         src={car.image}
                         alt={car.name}
-                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300"
+                        draggable="false"
+                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300 pointer-events-none select-none"
                         loading="lazy"
                       />
                     </div>
-
-                    <!-- Name & Starting Price -->
                     <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
                       <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
                         {car.name.replace('Mitsubishi ', '')}
@@ -101,33 +122,135 @@ const navLinks = [
                   </a>
                 ))}
 
-                <!-- 8th Tile: Direct Sales Consultation -->
+                <!-- 6th Tile: Direct Sales Consultation -->
                 <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
                   <div>
-                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">KONSULTASI GRATIS</div>
-                    <div class="text-[13px] font-bold leading-snug">Bingung Pilih Unit?</div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">KONSULTASI RESMI</div>
+                    <div class="text-[13px] font-bold leading-snug">Bingung Pilih Tipe?</div>
                     <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
-                      Tanya simulasi kredit &amp; diskon khusus langsung dengan Om Hadi.
+                      Konsultasi diskon, hitung simulasi kredit, &amp; test drive gratis dengan Kanhadi.
                     </p>
                   </div>
                   <a
                     href={waUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 flex items-center justify-center gap-2.5 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2.5 px-3 transition-colors duration-200"
+                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
                   >
-                    <svg class="w-4.5 h-4.5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                    Chat Om Hadi
+                    Chat Kanhadi
                   </a>
                 </div>
               </div>
 
+              <!-- PANEL 2: Niaga Ringan / LCV (Pick-up Triton & L300) -->
+              <div id="nav-panel-lcv" class="hidden grid grid-cols-3 gap-3 p-5">
+                {lcvCars.map((car) => (
+                  <a
+                    href={`/model/${car.slug}`}
+                    draggable="false"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                  >
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
+                      {car.badge && (
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#E60012] text-white">
+                          {car.badge}
+                        </span>
+                      )}
+                    </div>
+                    <div class="h-20 w-full flex items-center justify-center py-1 overflow-hidden">
+                      <img
+                        src={car.image}
+                        alt={car.name}
+                        draggable="false"
+                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300 pointer-events-none select-none"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
+                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                        {car.name.replace('Mitsubishi ', '')}
+                      </div>
+                      <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
+                        Mulai {car.startingPrice}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+
+                <!-- 3rd Tile: Promo Niaga & UMKM -->
+                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                  <div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">PROMO USAHA &amp; UMKM</div>
+                    <div class="text-[13px] font-bold leading-snug">Paket Kredit Usaha</div>
+                    <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
+                      DP Ringan mulai 15 Jt-an, angsuran fleksibel, proses berkas dibantu sampai serah terima unit.
+                    </p>
+                  </div>
+                  <a
+                    href={getWhatsAppLink('Halo Kanhadi, saya ingin info promo DP dan angsuran mobil pick-up L300 / Triton untuk usaha.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                  >
+                    Konsultasi Pick-Up
+                  </a>
+                </div>
+              </div>
+
+              <!-- PANEL 3: Truk & Bus Fuso (4 columns grid) -->
+              <div id="nav-panel-commercial" class="hidden grid grid-cols-4 gap-3 p-5">
+                {commercialCars.map((car) => (
+                  <a
+                    href={`/model/${car.slug}`}
+                    draggable="false"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                  >
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="text-[9px] font-black uppercase tracking-wider text-[#E5A91B]">{car.category}</span>
+                      {car.badge && (
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#2B2E30] text-white">
+                          {car.badge}
+                        </span>
+                      )}
+                    </div>
+                    <div class="h-20 w-full flex items-center justify-center py-1 overflow-hidden">
+                      <img
+                        src={car.image}
+                        alt={car.name}
+                        draggable="false"
+                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300 pointer-events-none select-none"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
+                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                        {car.name}
+                      </div>
+                      <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
+                        Mulai {car.startingPrice}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+
               <!-- Bottom Bar: Official Warranty & Trust -->
               <div class="px-6 py-2.5 bg-[#F6F6F6] border-t border-[#E3E5E6] flex items-center justify-between text-[11px] text-[#686D71]">
-                <div class="flex items-center gap-4">
+                <div id="footer-text-passenger" class="flex items-center gap-4">
                   <span>✓ Garansi Pabrik 3 Th / 100.000 KM</span>
                   <span>✓ Gratis Paket SMART Servis</span>
                   <span>✓ Jaminan Unit Resmi PT MMKSI</span>
+                </div>
+                <div id="footer-text-lcv" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
+                  <span>✓ Mesin Euro 4 Tangguh &amp; Irit BBM</span>
+                  <span>✓ DP Ringan Mulai 15 Jt-an</span>
+                  <span>✓ Jaminan Servis &amp; Sparepart Mudah</span>
+                </div>
+                <div id="footer-text-commercial" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
+                  <span>✓ Jaringan 222 Dealer &amp; 19 Bengkel Siaga 24 Jam</span>
+                  <span>✓ Gratis Servis s/d 40.000 KM / 2 Th</span>
+                  <span>✓ Telematika Runner Fuso</span>
                 </div>
                 <div class="font-bold text-[#2B2E30]">
                   Wilayah Jakarta &amp; Jabodetabek
@@ -180,7 +303,7 @@ const navLinks = [
         <a href={waUrl} target="_blank" rel="noopener noreferrer"
           class="flex items-center justify-center gap-2.5 w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold py-3 transition-colors">
           <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Hubungi Om Hadi - {salesData.whatsappDisplay}
+          Hubungi Kanhadi - {salesData.whatsappDisplay}
         </a>
       </div>
     </div>
@@ -201,4 +324,57 @@ const navLinks = [
   window.addEventListener('scroll', () => {
     header?.classList.toggle('shadow-lg', window.scrollY > 10);
   });
+
+  // Mega Dropdown Tab Switcher (3 Tabs: Passenger, LCV, Commercial)
+  const tabPassenger = document.getElementById('tab-btn-passenger');
+  const tabLcv = document.getElementById('tab-btn-lcv');
+  const tabCommercial = document.getElementById('tab-btn-commercial');
+
+  const panelPassenger = document.getElementById('nav-panel-passenger');
+  const panelLcv = document.getElementById('nav-panel-lcv');
+  const panelCommercial = document.getElementById('nav-panel-commercial');
+
+  const footerPassenger = document.getElementById('footer-text-passenger');
+  const footerLcv = document.getElementById('footer-text-lcv');
+  const footerCommercial = document.getElementById('footer-text-commercial');
+
+  function resetNavTabs() {
+    [panelPassenger, panelLcv, panelCommercial].forEach(p => p?.classList.add('hidden'));
+    [footerPassenger, footerLcv, footerCommercial].forEach(f => f?.classList.add('hidden'));
+    [tabPassenger, tabLcv, tabCommercial].forEach(t => {
+      t?.classList.remove('bg-[#E60012]', 'bg-[#2B2E30]', 'text-white');
+      t?.classList.add('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    });
+  }
+
+  function showPassenger() {
+    resetNavTabs();
+    panelPassenger?.classList.remove('hidden');
+    footerPassenger?.classList.remove('hidden');
+    tabPassenger?.classList.add('bg-[#E60012]', 'text-white');
+    tabPassenger?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+  }
+
+  function showLcv() {
+    resetNavTabs();
+    panelLcv?.classList.remove('hidden');
+    footerLcv?.classList.remove('hidden');
+    tabLcv?.classList.add('bg-[#E60012]', 'text-white');
+    tabLcv?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+  }
+
+  function showCommercial() {
+    resetNavTabs();
+    panelCommercial?.classList.remove('hidden');
+    footerCommercial?.classList.remove('hidden');
+    tabCommercial?.classList.add('bg-[#2B2E30]', 'text-white');
+    tabCommercial?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+  }
+
+  tabPassenger?.addEventListener('click', showPassenger);
+  tabPassenger?.addEventListener('mouseenter', showPassenger);
+  tabLcv?.addEventListener('click', showLcv);
+  tabLcv?.addEventListener('mouseenter', showLcv);
+  tabCommercial?.addEventListener('click', showCommercial);
+  tabCommercial?.addEventListener('mouseenter', showCommercial);
 </script>

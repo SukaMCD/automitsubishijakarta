@@ -11,26 +11,29 @@ export function getStaticPaths() {
 }
 
 const { car } = Astro.props;
-const waMessage = `Halo Om Hadi, saya tertarik dengan ${car.name}. Bisa info promo dan simulasi kredit terbaru? Terima kasih!`;
+const waMessage = `Halo Kanhadi, saya tertarik dengan ${car.name}. Bisa info promo dan simulasi kredit terbaru? Terima kasih!`;
 const waUrl = getWhatsAppLink(waMessage);
-const waTestDrive = getWhatsAppLink(`Halo Om Hadi, saya ingin jadwalkan test drive ${car.name}. Bisa ke rumah/kantor. Terima kasih!`);
+const waTestDrive = getWhatsAppLink(`Halo Kanhadi, saya ingin jadwalkan test drive ${car.name}. Bisa ke rumah/kantor. Terima kasih!`);
 
 // Format price to million
 function toMillion(num: number): string {
   return (num / 1000000).toFixed(0) + ' Jt';
 }
+
+const shortCarName = car.name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+/, '');
+const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quartz white pearl'));
 ---
 
 <Layout
-  title={`${car.name} Jakarta 2026 | Harga OTR, DP & Cicilan - Om Hadi Mitsubishi`}
-  description={`${car.name} harga OTR Jakarta mulai ${car.startingPrice}. DP ${car.dpStart}, cicilan ${car.cicilanStart}. Test drive ke rumah. Hubungi Om Hadi, sales resmi Mitsubishi Jakarta.`}
+  title={`${car.name} Jakarta 2026 | Harga OTR, DP & Cicilan - Kanhadi Mitsubishi`}
+  description={`${car.name} harga OTR Jakarta mulai ${car.startingPrice}. DP ${car.dpStart}, cicilan ${car.cicilanStart}. Test drive ke rumah. Hubungi Kanhadi, sales resmi Mitsubishi Jakarta.`}
   currentPath={`/model/${car.slug}`}
-  ogImage={car.image}
+  ogImage={car.heroImage || car.image}
 >
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
   <section class="model-hero">
-    <div class="model-hero-bg" style={`background-image: url(${car.image})`}></div>
+    <div class="model-hero-bg" style={`background-image: url(${car.heroImage || car.image})`}></div>
     <div class="model-hero-overlay"></div>
     <div class="model-hero-content">
       {car.badge && <div class="model-badge">{car.badge}</div>}
@@ -66,15 +69,20 @@ function toMillion(num: number): string {
       <div class="model-color-panel">
         <div class="model-color-label">Pilihan Warna</div>
         <div class="model-colors" id="colorPicker">
-          {car.colors.map((color, i) => (
-            <button
-              class={`model-color-swatch${i === 0 ? ' active' : ''}`}
-              style={`background: ${color.hex}`}
-              data-color={color.name}
-              data-index={i}
-              title={color.name}
-            ></button>
-          ))}
+          {car.colors.map((color, i) => {
+            const isInitialHidden = color.availableVariants && car.variants[0]?.tier && !color.availableVariants.includes(car.variants[0].tier);
+            return (
+              <button
+                class={`model-color-swatch${i === 0 ? ' active' : ''}${isInitialHidden ? ' is-hidden' : ''}`}
+                style={`background: ${color.hex};`}
+                data-color={color.name}
+                data-extra={color.extraPriceFormatted || ''}
+                data-variants={color.availableVariants ? color.availableVariants.join(',') : ''}
+                data-index={i}
+                title={color.name}
+              ></button>
+            );
+          })}
         </div>
         <div class="model-color-name" id="colorName">{car.colors[0].name}</div>
       </div>
@@ -83,35 +91,83 @@ function toMillion(num: number): string {
       <div class="model-car-image">
         <img src={car.image} alt={car.name} id="carMainImage" />
         <div class="model-price-tag">
-          <div class="model-price-from">Mulai dari</div>
-          <div class="model-price-num">{car.startingPrice}</div>
+          <div class="model-price-from" id="carPriceLabel">{car.variants[0]?.name || 'Mulai dari'}</div>
+          <div class="model-price-num" id="carPriceVal">{car.variants[0]?.priceFormatted || car.startingPrice}</div>
           <div class="model-price-note">Harga OTR Jakarta 2026</div>
         </div>
       </div>
 
-      <!-- Info kanan -->
+      <!-- Info kanan: Minimalist Editorial Variant Selector -->
       <div class="model-side-info">
-        <div class="model-finance-box">
-          <div class="model-finance-row">
-            <span class="model-finance-label">DP Mulai</span>
-            <span class="model-finance-val">{car.dpStart}</span>
+        <div class="model-editorial-panel">
+          <div class="model-editorial-header">
+            <span class="model-editorial-title">Pilihan Varian</span>
+            <span class="model-editorial-sub">OTR Jakarta 2026</span>
           </div>
-          <div class="model-finance-row">
-            <span class="model-finance-label">Cicilan Mulai</span>
-            <span class="model-finance-val model-finance-val--red">{car.cicilanStart}</span>
+
+          <div class="model-editorial-list">
+            {car.variants.map((v, i) => {
+              const cleanVariantName = v.name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+|^Xpander\s+/, '');
+              return (
+                <button
+                  type="button"
+                  class={`model-editorial-item${i === 0 ? ' active' : ''}`}
+                  data-name={v.name}
+                  data-clean-name={cleanVariantName}
+                  data-price={v.priceFormatted}
+                  data-trans={v.transmission}
+                  data-dp={v.dpEstimate || ''}
+                  data-cicilan={v.cicilanEstimate || ''}
+                  data-tier={v.tier || ''}
+                >
+                  <span class="model-editorial-name">{cleanVariantName}</span>
+                  <span class="model-editorial-price">{v.priceFormatted}</span>
+                </button>
+              );
+            })}
           </div>
-          <div class="model-finance-note">*Simulasi 60 bulan, DP min. Syarat & ketentuan berlaku.</div>
+
+          <!-- Ringkasan Finansial Bersih -->
+          <div class="model-editorial-finance">
+            <div class="model-finance-row">
+              <span class="model-finance-item">DP mulai <strong id="dpVal">{car.variants[0]?.dpEstimate || '20%'}</strong></span>
+              <span class="model-finance-bullet">·</span>
+              <span class="model-finance-item">Cicilan <strong id="cicilanVal">{car.variants[0]?.cicilanEstimate || 'Konsultasi'}</strong></span>
+            </div>
+            <p class="model-finance-note">*Promo bunga ringan &amp; tenor kredit s/d 6 tahun via dealer resmi</p>
+          </div>
+
+          <!-- Aksi Kontak -->
+          <div class="model-editorial-actions">
+            <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-editorial-wa-btn" id="sideWaBtn">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              <span id="sideWaBtnText">Minta Simulasi &amp; Promo {car.variants[0]?.name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+|^Xpander\s+/, '')}</span>
+            </a>
+            <a href={waTestDrive} target="_blank" rel="noopener noreferrer" class="model-editorial-testdrive-btn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 3v6m-9 3h6m6 0h6m-3.5 6.5L14 14.5M6.5 18.5L9.5 14.5"/>
+              </svg>
+              <span>Jadwalkan Test Drive ke Rumah</span>
+            </a>
+          </div>
         </div>
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-cta-primary">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          Tanya Harga & Promo
-        </a>
-        <a href={waTestDrive} target="_blank" rel="noopener noreferrer" class="model-cta-secondary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
-          Test Drive ke Rumah
-        </a>
       </div>
 
+    </div>
+
+    <!-- Catatan Resmi OTR MMKSI -->
+    <div class="model-disclaimer-wrap">
+      <div class="model-disclaimer-inner">
+        <p>*Harga OTR Jabodetabek</p>
+        {whitePearlColor?.extraPriceFormatted && (
+          <p>*Harga {shortCarName} warna Quartz White Pearl lebih tinggi {whitePearlColor.extraPriceFormatted.replace('+', '')}</p>
+        )}
+        <p>*Untuk informasi harga terkini dapat menghubungi dealer Mitsubishi Motors terdekat</p>
+        <p>*Ketersediaan varian dan warna dapat berbeda-beda tergantung stok yang tersedia di dealer dan PT MMKSI</p>
+        <div class="model-disclaimer-line"></div>
+      </div>
     </div>
   </section>
 
@@ -198,7 +254,7 @@ function toMillion(num: number): string {
             </div>
             <div class="model-variant-right">
               <div class="model-variant-price">{v.priceFormatted}</div>
-              <a href={getWhatsAppLink(`Halo Om Hadi, saya tertarik dengan ${v.name} (${v.priceFormatted}). Bisa info DP, cicilan, dan promo terbaru?`)}
+              <a href={getWhatsAppLink(`Halo Kanhadi, saya tertarik dengan ${v.name} (${v.priceFormatted}). Bisa info DP, cicilan, dan promo terbaru?`)}
                 target="_blank" rel="noopener noreferrer" class="model-variant-cta">
                 Tanya Harga
               </a>
@@ -215,7 +271,7 @@ function toMillion(num: number): string {
     <div class="model-section-inner model-final-cta-inner">
       <div>
         <h2 class="model-final-cta-title">Tertarik dengan {car.name}?</h2>
-        <p class="model-final-cta-sub">Konsultasi gratis, data dibantu, DP fleksibel. Om Hadi siap melayani hari ini.</p>
+        <p class="model-final-cta-sub">Konsultasi gratis, data dibantu, DP fleksibel. Kanhadi siap melayani hari ini.</p>
       </div>
       <div class="model-final-cta-btns">
         <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-cta-primary">
@@ -391,13 +447,13 @@ function toMillion(num: number): string {
   }
 
   .model-config-inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 0 40px;
+    padding: 0 32px;
     display: grid;
-    grid-template-columns: 160px 1fr 220px;
-    gap: 40px;
-    align-items: center;
+    grid-template-columns: 140px 1fr 345px;
+    gap: 32px;
+    align-items: start;
   }
 
   @media (max-width: 900px) {
@@ -405,10 +461,22 @@ function toMillion(num: number): string {
       grid-template-columns: 1fr;
       padding: 0 20px;
     }
+
+    .model-color-panel {
+      padding-top: 0 !important;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 24px;
+    }
   }
 
-  /* Color panel */
-  .model-color-panel {}
+  /* Color panel - sejajar dengan body mobil */
+  .model-color-panel {
+    display: flex;
+    flex-direction: column;
+    padding-top: 85px;
+    align-self: start;
+  }
 
   .model-color-label {
     font-size: 10px;
@@ -417,38 +485,49 @@ function toMillion(num: number): string {
     text-transform: uppercase;
     color: #888;
     margin-bottom: 14px;
+    line-height: 1;
   }
 
   .model-colors {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 28px);
+    gap: 10px;
+    margin-bottom: 12px;
+    width: fit-content;
   }
 
   .model-color-swatch {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 1px solid rgba(0, 0, 0, 0.22);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.08);
     outline: 2px solid transparent;
     cursor: pointer;
-    transition: outline-color 0.15s, transform 0.15s;
+    transition: outline-color 0.15s, border-color 0.15s, transform 0.15s;
+    box-sizing: border-box;
   }
 
-  .model-color-swatch:hover { transform: scale(1.15); }
-  .model-color-swatch.active { outline-color: #0a0a0a; outline-offset: 3px; }
+  .model-color-swatch:hover:not(.is-hidden) { transform: scale(1.15); }
+  .model-color-swatch.active { outline: 2px solid #0a0a0a; outline-offset: 3px; }
+
+  .model-color-swatch.is-hidden {
+    display: none;
+  }
 
   .model-color-name {
     font-size: 12px;
     color: #555;
     font-weight: 500;
+    min-height: 18px;
+    line-height: 18px;
   }
 
   /* Car image */
   .model-car-image {
     text-align: center;
     position: relative;
+    padding-top: 4px;
   }
 
   .model-car-image img {
@@ -461,6 +540,7 @@ function toMillion(num: number): string {
   .model-price-tag {
     margin-top: 20px;
     text-align: center;
+    min-height: 70px;
   }
 
   .model-price-from {
@@ -470,6 +550,8 @@ function toMillion(num: number): string {
     text-transform: uppercase;
     color: #aaa;
     margin-bottom: 2px;
+    min-height: 16px;
+    line-height: 16px;
   }
 
   .model-price-num {
@@ -477,6 +559,8 @@ function toMillion(num: number): string {
     font-weight: 900;
     color: #0a0a0a;
     letter-spacing: -0.03em;
+    min-height: 36px;
+    line-height: 36px;
   }
 
   .model-price-note {
@@ -485,84 +569,258 @@ function toMillion(num: number): string {
     margin-top: 2px;
   }
 
-  /* Side info */
+  /* ── Minimalist Editorial Panel (Sisi Kanan) ── */
   .model-side-info {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 0;
   }
 
-  .model-finance-box {
-    background: #fff;
-    border: 1px solid #e5e5e5;
-    padding: 20px;
+  .model-editorial-panel {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .model-editorial-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 10px;
+    border-bottom: 1.5px solid #0f172a;
+    margin-bottom: 4px;
+    min-height: 28px;
+    box-sizing: border-box;
+  }
+
+  .model-editorial-title {
+    font-size: 13px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #0f172a;
+    line-height: 1;
+  }
+
+  .model-editorial-sub {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .model-editorial-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .model-editorial-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 11px 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #e2e8f0;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    width: 100%;
+    font-family: inherit;
+    box-sizing: border-box;
+    min-height: 42px;
+  }
+
+  .model-editorial-item:hover {
+    background: #f8fafc;
+  }
+
+  .model-editorial-name {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #334155;
+    transition: color 0.15s;
+    line-height: 1.2;
+  }
+
+  .model-editorial-price {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: #64748b;
+    font-variant-numeric: tabular-nums;
+    transition: color 0.15s;
+    line-height: 1.2;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  /* State Aktif: aksen merah elegan di border bawah tetap 2px, warna teks dan harga berubah tanpa ubah padding/tinggi */
+  .model-editorial-item.active {
+    background: #ffffff;
+    border-bottom-color: #E60012;
+  }
+
+  .model-editorial-item.active .model-editorial-name {
+    color: #0f172a;
+    font-weight: 800;
+  }
+
+  .model-editorial-item.active .model-editorial-price {
+    color: #E60012;
+    font-weight: 800;
+  }
+
+  /* ── Ringkasan Finansial Halus ── */
+  .model-editorial-finance {
+    margin-top: 14px;
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    min-height: 60px;
+    box-sizing: border-box;
   }
 
   .model-finance-row {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 8px 0;
-    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #475569;
+    white-space: nowrap;
   }
 
-  .model-finance-row:last-of-type { border-bottom: none; }
-
-  .model-finance-label { font-size: 12px; color: #888; }
-
-  .model-finance-val {
-    font-size: 14px;
+  .model-finance-item strong {
+    color: #0f172a;
     font-weight: 700;
-    color: #0a0a0a;
   }
 
-  .model-finance-val--red { color: #E60012; }
+  .model-finance-bullet {
+    color: #cbd5e1;
+  }
 
   .model-finance-note {
     font-size: 10px;
-    color: #bbb;
-    margin-top: 10px;
-    line-height: 1.5;
+    color: #94a3b8;
+    margin: 4px 0 0 0;
+    line-height: 1.4;
   }
 
-  .model-cta-primary {
+  /* ── Aksi Kontak ── */
+  .model-editorial-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .model-editorial-wa-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    background: #22c55e;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
+    background: #16a34a;
+    color: #ffffff;
     text-decoration: none;
-    padding: 13px 20px;
-    transition: background 0.18s;
+    padding: 0 16px;
+    height: 42px;
+    min-height: 42px;
+    max-height: 42px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+    transition: background-color 0.15s;
     width: 100%;
+    box-sizing: border-box;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
-  .model-cta-primary:hover { background: #16a34a; }
-  .model-cta-primary svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .model-editorial-wa-btn span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-  .model-cta-secondary {
+  .model-editorial-wa-btn:hover {
+    background: #15803d;
+  }
+
+  .model-editorial-wa-btn svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+  }
+
+  .model-editorial-testdrive-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     background: transparent;
-    color: #555;
-    border: 1px solid #d5d5d5;
-    font-size: 13px;
-    font-weight: 600;
+    color: #475569;
+    border: 1px solid #d1d5db;
     text-decoration: none;
-    padding: 11px 20px;
-    transition: all 0.18s;
+    padding: 0 14px;
+    height: 38px;
+    min-height: 38px;
+    max-height: 38px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
     width: 100%;
+    box-sizing: border-box;
     text-align: center;
+    white-space: nowrap;
   }
 
-  .model-cta-secondary:hover { border-color: #0a0a0a; color: #0a0a0a; }
-  .model-cta-secondary svg { width: 15px; height: 15px; flex-shrink: 0; }
+  .model-editorial-testdrive-btn:hover {
+    border-color: #0f172a;
+    color: #0f172a;
+    background: #ffffff;
+  }
+
+  .model-editorial-testdrive-btn svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  /* ── Catatan Disclaimer Resmi OTR ── */
+  .model-disclaimer-wrap {
+    max-width: 1280px;
+    margin: 28px auto 0;
+    padding: 0 32px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .model-disclaimer-inner p {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 3px 0;
+    font-weight: 400;
+  }
+
+  .model-disclaimer-line {
+    width: 100%;
+    height: 1px;
+    background-color: #e2e4e8;
+    margin-top: 18px;
+  }
+
+  @media (max-width: 900px) {
+    .model-disclaimer-wrap {
+      padding: 0 20px;
+      margin-top: 20px;
+    }
+    .model-disclaimer-inner p {
+      font-size: 10.5px;
+    }
+  }
 
   /* ── Description ── */
   .model-desc-section {
@@ -878,7 +1136,79 @@ function toMillion(num: number): string {
     swatch.addEventListener('click', () => {
       swatches.forEach(s => s.classList.remove('active'));
       swatch.classList.add('active');
-      if (colorName) colorName.textContent = swatch.dataset.color || '';
+      const cName = swatch.dataset.color || '';
+      if (colorName) colorName.textContent = cName;
+    });
+  });
+
+  // Variant selector interactivity
+  const variantItems = document.querySelectorAll<HTMLButtonElement>('.model-editorial-item');
+  const carPriceLabel = document.getElementById('carPriceLabel');
+  const carPriceVal = document.getElementById('carPriceVal');
+  const sideWaBtn = document.getElementById('sideWaBtn') as HTMLAnchorElement | null;
+  const sideWaBtnText = document.getElementById('sideWaBtnText');
+
+  variantItems.forEach(item => {
+    item.addEventListener('click', () => {
+      variantItems.forEach(v => v.classList.remove('active'));
+      item.classList.add('active');
+
+      const name = item.dataset.name || '';
+      const cleanName = item.dataset.cleanName || name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+|^Xpander\s+/, '');
+      const price = item.dataset.price || '';
+      const dp = item.dataset.dp || '';
+      const cicilan = item.dataset.cicilan || '';
+      const tier = item.dataset.tier || '';
+
+      if (carPriceLabel) carPriceLabel.textContent = name;
+      if (carPriceVal) carPriceVal.textContent = price;
+
+      // Filter color swatches berdasarkan ketersediaan varian (tier)
+      if (tier) {
+        let activeHidden = false;
+        swatches.forEach(swatch => {
+          const rawVariants = swatch.dataset.variants || '';
+          if (rawVariants) {
+            const allowed = rawVariants.split(',').map(s => s.trim());
+            if (allowed.includes(tier)) {
+              swatch.classList.remove('is-hidden');
+            } else {
+              swatch.classList.add('is-hidden');
+              if (swatch.classList.contains('active')) {
+                activeHidden = true;
+                swatch.classList.remove('active');
+              }
+            }
+          } else {
+            swatch.classList.remove('is-hidden');
+          }
+        });
+
+        // Jika swatch aktif yang sedang dipilih disembunyikan di tipe ini, ganti ke swatch pertama yang visible
+        if (activeHidden) {
+          const firstVisible = Array.from(swatches).find(s => !s.classList.contains('is-hidden'));
+          if (firstVisible) {
+            firstVisible.click();
+          }
+        }
+      } else {
+        swatches.forEach(swatch => {
+          swatch.classList.remove('is-hidden');
+        });
+      }
+
+      const dpVal = document.getElementById('dpVal');
+      const cicilanVal = document.getElementById('cicilanVal');
+      if (dpVal) dpVal.textContent = dp || 'Mulai 20%';
+      if (cicilanVal) cicilanVal.textContent = cicilan || 'Konsultasi';
+
+      if (sideWaBtn) {
+        const msg = `Halo Kanhadi, saya tertarik dengan ${name} (${price}). Bisa minta info diskon promo dan hitungan simulasi kreditnya?`;
+        sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
+      }
+      if (sideWaBtnText) {
+        sideWaBtnText.textContent = `Minta Simulasi & Promo ${cleanName}`;
+      }
     });
   });
 </script>
