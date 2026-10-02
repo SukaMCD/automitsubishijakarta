@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HttpStatusView from '../components/HttpStatusView.astro';
+---
+
+<Layout
+  title="404 Not Found | Mitsubishi Motors"
+  description="We couldn't find that page. We'll help you get back on track."
+  currentPath="/404"
+  hideNav={true}
+  hideFooter={true}
+>
+  <HttpStatusView initialCode="404" />
+</Layout>

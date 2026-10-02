@@ -9,13 +9,17 @@ interface Props {
   description?: string;
   currentPath?: string;
   ogImage?: string;
+  hideNav?: boolean;
+  hideFooter?: boolean;
 }
 
 const {
   title = "Promo Mitsubishi Jakarta 2026 | Harga OTR & Simulasi Kredit - Kanhadi",
   description = "Sales Konsultan Resmi Mitsubishi Motors Jakarta. DP mulai 20 jt, bunga 0%, data dibantu sampai approve. Hubungi Kanhadi sekarang.",
   currentPath = "/",
-  ogImage = "/images/cars/pajero-sport/new-pajero-sport-optimized.webp"
+  ogImage = "/images/cars/pajero-sport/new-pajero-sport-optimized.webp",
+  hideNav = false,
+  hideFooter = false
 } = Astro.props;
 ---
 
@@ -47,11 +51,11 @@ const {
     </script>
   </head>
   <body class="bg-[#2B2E30] text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
-    <Navbar currentPath={currentPath} />
-    <main class="flex-grow bg-white">
+    {!hideNav && <Navbar currentPath={currentPath} />}
+    <main class="flex-grow bg-white flex flex-col">
       <slot />
     </main>
     <WhatsAppFloating />
-    <Footer />
+    {!hideFooter && <Footer />}
   </body>
 </html>

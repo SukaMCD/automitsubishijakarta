@@ -36,8 +36,19 @@ const heroSlides = [
     price: 'Rp 577 Juta',
     cicilan: '9,8 Jt-an',
     link: '/model/pajero-sport',
-    img: '/images/cars/pajero-sport/new-pajero-sport-optimized.webp',
+    img: '/images/cars/pajero-sport/pajero-sport-hero.webp',
     pillLabel: 'Pajero Sport',
+  },
+  {
+    key: 'destinator',
+    badge: 'SUV BARU 2026',
+    title: 'Destinator',
+    desc: 'SUV 7-penumpang revolusioner dengan Dynamic Shield futuristik, kenyamanan kabin mewah, dan performa tangguh.',
+    price: 'Rp 402 Juta',
+    cicilan: '6,8 Jt-an',
+    link: '/model/destinator',
+    img: '/images/cars/destinator/destinator-hero.webp',
+    pillLabel: 'Destinator',
   },
   {
     key: 'xpander',
@@ -47,19 +58,8 @@ const heroSlides = [
     price: 'Rp 270 Juta',
     cicilan: '4,2 Jt-an',
     link: '/model/xpander',
-    img: '/images/cars/xpander/xpander-optimized.webp',
+    img: '/images/cars/xpander/xpander-hero.webp',
     pillLabel: 'Xpander',
-  },
-  {
-    key: 'xforce',
-    badge: 'BARU',
-    title: 'New Xforce',
-    desc: 'Crossover urban berkarakter tinggi dengan Dynamic Sound Yamaha Premium.',
-    price: 'Rp 382 Juta',
-    cicilan: '5,9 Jt-an',
-    link: '/model/xforce',
-    img: '/images/cars/xforce/new-xforce-optimized.webp',
-    pillLabel: 'New Xforce',
   },
 ];
 ---
@@ -88,10 +88,11 @@ const heroSlides = [
             src={slide.img} 
             alt={slide.title}
             loading="eager"
-            class="w-full h-full object-cover object-center opacity-75"
+            class="w-full h-full object-cover object-center"
           />
-          <div class="absolute inset-0 bg-black/40"></div>
-          <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 55%, transparent 100%);"></div>
+          <div class="absolute inset-0 bg-black/35"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.15) 80%, transparent 100%);"></div>
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 45%);"></div>
         </div>
 
         <!-- Text Content -->
@@ -137,8 +138,8 @@ const heroSlides = [
       </div>
     ))}
 
-    <!-- Hero model nav pills - bottom right -->
-    <div class="absolute bottom-6 right-6 z-20 flex gap-2">
+    <!-- Hero model nav pills - bottom right (positioned left of floating WhatsApp button) -->
+    <div class="absolute bottom-6 right-20 md:right-24 z-20 flex gap-2 max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar">
       {heroSlides.map((item, i) => (
         <button 
           type="button" 

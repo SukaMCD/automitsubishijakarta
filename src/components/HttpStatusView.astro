@@ -1,0 +1,98 @@
+---
+interface Props {
+  initialCode?: string;
+}
+
+const { initialCode = '404' } = Astro.props;
+---
+
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; min-height: 100vh; background-color: #ffffff; user-select: none;">
+  <div style="max-width: 580px; width: 100%;">
+    
+    <!-- Code Line e.g. 404 Not Found -->
+    <p
+      id="status-code-line"
+      style="font-size: 15px; font-weight: 700; color: #2B2E30; margin: 0 0 10px 0; letter-spacing: -0.01em;"
+    >
+      {initialCode} Not Found
+    </p>
+
+    <!-- Main Headline -->
+    <h1
+      id="status-title"
+      style="font-size: clamp(26px, 4vw, 36px); font-weight: 900; color: #1F2421; letter-spacing: -0.03em; line-height: 1.2; margin: 0 0 10px 0;"
+    >
+      Oops! We couldn't find that page
+    </h1>
+
+    <!-- Subtitle -->
+    <p
+      id="status-desc"
+      style="font-size: 15px; color: #4A4D4F; margin: 0 0 24px 0; font-weight: 400; line-height: 1.5;"
+    >
+      We'll help you get back on track.
+    </p>
+
+    <!-- Action Link: BACK TO HOME -->
+    <div>
+      <a
+        href="/"
+        id="status-action-link"
+        style="display: inline-block; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; color: #1F2421; text-decoration: none; padding: 4px 0; transition: color 0.2s ease;"
+        onmouseover="this.style.color='#E60012'"
+        onmouseout="this.style.color='#1F2421'"
+      >
+        BACK TO HOME
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<script is:inline define:vars={{ defaultCode: initialCode }}>
+  const STATUS_CONFIGS = {
+    '404': {
+      codeLine: '404 Not Found',
+      title: "Oops! We couldn't find that page",
+      desc: "We'll help you get back on track."
+    },
+    '403': {
+      codeLine: '403 Forbidden',
+      title: 'Oops! Access is restricted',
+      desc: "We'll help you get back on track."
+    },
+    '500': {
+      codeLine: '500 Server Error',
+      title: 'Oops! Something went wrong',
+      desc: "We'll help you get back on track."
+    },
+    '400': {
+      codeLine: '400 Bad Request',
+      title: 'Oops! Invalid request',
+      desc: "We'll help you get back on track."
+    },
+    '503': {
+      codeLine: '503 Service Unavailable',
+      title: 'Oops! Service temporarily unavailable',
+      desc: "We'll help you get back on track."
+    }
+  };
+
+  const params = new URLSearchParams(window.location.search);
+  const activeCode = params.get('code') || defaultCode || '404';
+  const cfg = STATUS_CONFIGS[activeCode] || STATUS_CONFIGS['404'];
+
+  const codeEl = document.getElementById('status-code-line');
+  const titleEl = document.getElementById('status-title');
+  const descEl = document.getElementById('status-desc');
+
+  if (codeEl) codeEl.textContent = cfg.codeLine;
+  if (titleEl) titleEl.textContent = cfg.title;
+  if (descEl) descEl.textContent = cfg.desc;
+  document.title = `${cfg.codeLine} | Mitsubishi Motors`;
+
+  // Pastikan URL browser tetap bersih (tanpa ?code= atau ?error=)
+  if (window.location.search.includes('code=') || window.location.search.includes('error=')) {
+    window.history.replaceState({}, '', window.location.pathname);
+  }
+</script>
