@@ -21,6 +21,10 @@ function toMillion(num: number): string {
 }
 
 const shortCarName = car.name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+/, '');
+const cleanVariantName = (name: string) => {
+  const pattern = new RegExp(`^(New Mitsubishi|Mitsubishi|${car.name}|${shortCarName}|Xpander Cross|Xpander|Pajero Sport|XForce|Xforce|Triton|L300)\\s+`, 'i');
+  return name.replace(pattern, '').trim();
+};
 const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quartz white pearl'));
 ---
 
@@ -107,20 +111,23 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
 
           <div class="model-editorial-list">
             {car.variants.map((v, i) => {
-              const cleanVariantName = v.name.replace(/^New Mitsubishi\s+|^Mitsubishi\s+|^Xpander\s+/, '');
+              const cleanVName = cleanVariantName(v.name);
               return (
                 <button
                   type="button"
                   class={`model-editorial-item${i === 0 ? ' active' : ''}`}
                   data-name={v.name}
-                  data-clean-name={cleanVariantName}
+                  data-clean-name={cleanVName}
                   data-price={v.priceFormatted}
                   data-trans={v.transmission}
                   data-dp={v.dpEstimate || ''}
                   data-cicilan={v.cicilanEstimate || ''}
                   data-tier={v.tier || ''}
+                  data-trans-detail={v.transmissionDetail || (v.transmission === 'CVT' ? 'CVT Otomatis' : v.transmission === 'MT' ? '5-Speed Manual (M/T)' : v.transmission)}
+                  data-ground-clearance={v.groundClearance || car.keySpecs.groundClearance}
+                  data-highlights={JSON.stringify(v.highlights || car.highlights)}
                 >
-                  <span class="model-editorial-name">{cleanVariantName}</span>
+                  <span class="model-editorial-name">{cleanVName}</span>
                   <span class="model-editorial-price">{v.priceFormatted}</span>
                 </button>
               );
@@ -203,12 +210,12 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
         </div>
         <div class="model-spec-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          <div class="model-spec-card-val" style="font-size:13px">{car.keySpecs.transmission}</div>
+          <div class="model-spec-card-val" style="font-size:13px" id="specTransVal">{car.variants[0]?.transmissionDetail || car.keySpecs.transmission}</div>
           <div class="model-spec-card-label">Transmisi</div>
         </div>
         <div class="model-spec-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          <div class="model-spec-card-val">{car.keySpecs.groundClearance}</div>
+          <div class="model-spec-card-val" id="specGcVal">{car.variants[0]?.groundClearance || car.keySpecs.groundClearance}</div>
           <div class="model-spec-card-label">Ground Clearance</div>
         </div>
         <div class="model-spec-card">
@@ -221,50 +228,36 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
   </section>
 
   <!-- ─── HIGHLIGHTS ────────────────────────────────────────── -->
-  <section class="model-highlights-section">
+  <section class="model-highlights-section" id="modelHighlightsSection">
     <div class="model-section-inner">
       <div class="model-section-header">
         <div class="model-section-eyebrow">Keunggulan</div>
-        <h2 class="model-section-title">Yang Membuat Berbeda</h2>
+        <h2 class="model-section-title">
+          Yang Membuat Beda di {shortCarName} <span id="highlightVariantTitle" class="model-highlight-title-variant">{car.variants[0]?.name ? cleanVariantName(car.variants[0].name) : ''}</span>
+        </h2>
       </div>
-      <div class="model-highlights-list">
-        {car.highlights.map((h, i) => (
-          <div class="model-highlight-item">
-            <div class="model-highlight-num">{String(i + 1).padStart(2, '0')}</div>
-            <div class="model-highlight-text">{h}</div>
-          </div>
-        ))}
+      <div class="model-highlights-container">
+        {car.variants.map((v, vIdx) => {
+          const cleanKey = cleanVariantName(v.name);
+          const items = v.highlights || car.highlights;
+          return (
+            <div
+              class={`model-highlights-grid${vIdx === 0 ? ' is-active' : ''}`}
+              data-variant-key={cleanKey}
+            >
+              {items.map((h, i) => (
+                <div class="model-highlight-card">
+                  <div class="model-highlight-num">{String(i + 1).padStart(2, '0')}</div>
+                  <p class="model-highlight-text">{h}</p>
+                </div>
+              ))}
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <!-- ─── VARIAN & HARGA ────────────────────────────────────── -->
-  <section class="model-variants-section">
-    <div class="model-section-inner">
-      <div class="model-section-header">
-        <div class="model-section-eyebrow">Pilihan Varian</div>
-        <h2 class="model-section-title">Daftar Harga OTR Jakarta 2026</h2>
-      </div>
-      <div class="model-variants-table">
-        {car.variants.map((v, i) => (
-          <div class={`model-variant-row${i === 0 ? ' model-variant-row--first' : ''}`}>
-            <div class="model-variant-info">
-              <div class="model-variant-name">{v.name}</div>
-              <div class="model-variant-trans">{v.transmission}</div>
-            </div>
-            <div class="model-variant-right">
-              <div class="model-variant-price">{v.priceFormatted}</div>
-              <a href={getWhatsAppLink(`Halo Kanhadi, saya tertarik dengan ${v.name} (${v.priceFormatted}). Bisa info DP, cicilan, dan promo terbaru?`)}
-                target="_blank" rel="noopener noreferrer" class="model-variant-cta">
-                Tanya Harga
-              </a>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p class="model-variants-note">* Harga OTR Jakarta. Hubungi kami untuk harga terbaru, promo, dan simulasi kredit.</p>
-    </div>
-  </section>
 
   <!-- ─── CTA AKHIR ─────────────────────────────────────────── -->
   <section class="model-final-cta">
@@ -890,127 +883,90 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
   }
 
   /* ── Highlights ── */
+  .model-highlight-title-variant {
+    color: #E60012;
+    transition: opacity 0.2s ease;
+  }
+
   .model-highlights-section {
     padding: 64px 0;
-    background: #fafafa;
-    border-bottom: 1px solid #efefef;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
   }
 
-  .model-highlights-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 0;
-    border: 1px solid #ebebeb;
-    overflow: hidden;
+  .model-highlights-container {
+    position: relative;
+    width: 100%;
   }
 
-  @media (max-width: 500px) { .model-highlights-list { grid-template-columns: 1fr; } }
-
-  .model-highlight-item {
-    display: flex;
-    align-items: flex-start;
+  .model-highlights-grid {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
-    padding: 24px 28px;
-    border-bottom: 1px solid #ebebeb;
-    border-right: 1px solid #ebebeb;
-    background: #fff;
-    transition: background 0.15s;
   }
 
-  .model-highlight-item:hover { background: #fffafa; }
+  .model-highlights-grid.is-active {
+    display: grid;
+    animation: fadeInHighlight 0.22s ease-out;
+  }
+
+  @media (max-width: 900px) {
+    .model-highlights-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .model-highlights-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @keyframes fadeInHighlight {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .model-highlight-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .model-highlight-card:hover {
+    transform: translateY(-2px);
+    border-color: #E60012;
+    box-shadow: 0 6px 18px rgba(230, 0, 18, 0.07);
+  }
 
   .model-highlight-num {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 900;
-    color: #f0f0f0;
+    color: #E60012;
     line-height: 1;
-    flex-shrink: 0;
     letter-spacing: -0.04em;
   }
 
-  .model-highlight-item:hover .model-highlight-num { color: #E60012; }
-
   .model-highlight-text {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.65;
-    padding-top: 4px;
+    font-size: 13.5px;
+    color: #334155;
+    line-height: 1.6;
+    margin: 0;
+    font-weight: 500;
   }
 
-  /* ── Variants ── */
-  .model-variants-section {
-    padding: 64px 0;
-    background: #fff;
-    border-bottom: 1px solid #efefef;
-  }
-
-  .model-variants-table {
-    border: 1px solid #ececec;
-    overflow: hidden;
-    margin-bottom: 12px;
-  }
-
-  .model-variant-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 18px 24px;
-    border-bottom: 1px solid #f0f0f0;
-    transition: background 0.15s;
-  }
-
-  .model-variant-row:last-child { border-bottom: none; }
-  .model-variant-row:hover { background: #fafafa; }
-  .model-variant-row--first { background: #fffafa; }
-
-  .model-variant-name {
-    font-size: 14px;
-    font-weight: 600;
-    color: #0a0a0a;
-    margin-bottom: 2px;
-  }
-
-  .model-variant-trans {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: #bbb;
-    text-transform: uppercase;
-  }
-
-  .model-variant-right {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-shrink: 0;
-  }
-
-  .model-variant-price {
-    font-size: 16px;
-    font-weight: 800;
-    color: #0a0a0a;
-    letter-spacing: -0.02em;
-    white-space: nowrap;
-  }
-
-  .model-variant-cta {
-    font-size: 12px;
-    font-weight: 700;
-    color: #E60012;
-    text-decoration: none;
-    border: 1px solid #E60012;
-    padding: 7px 14px;
-    white-space: nowrap;
-    transition: all 0.15s;
-  }
-
-  .model-variant-cta:hover { background: #E60012; color: #fff; }
-
-  .model-variants-note {
-    font-size: 11px;
-    color: #bbb;
-  }
 
   /* ── Final CTA ── */
   .model-final-cta {
@@ -1047,15 +1003,62 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
     flex-wrap: wrap;
   }
 
-  /* Override button colors for dark bg */
-  .model-final-cta .model-cta-secondary {
-    border-color: #333;
-    color: #aaa;
-    width: auto;
+  .model-cta-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #16a34a;
+    color: #ffffff;
+    font-size: 13.5px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    transition: background-color 0.18s, transform 0.15s;
+    white-space: nowrap;
   }
 
-  .model-final-cta .model-cta-secondary:hover { border-color: #fff; color: #fff; }
-  .model-final-cta .model-cta-primary { width: auto; }
+  .model-cta-primary:hover {
+    background: #15803d;
+    transform: translateY(-1px);
+  }
+
+  .model-cta-primary svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .model-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e2e8f0;
+    border: 1px solid #334155;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    transition: all 0.18s;
+    white-space: nowrap;
+  }
+
+  .model-cta-secondary:hover {
+    border-color: #94a3b8;
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .model-cta-secondary svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
 
   /* ── Others ── */
   .model-others-section {
@@ -1208,6 +1211,29 @@ const whitePearlColor = car.colors.find(c => c.name.toLowerCase().includes('quar
       }
       if (sideWaBtnText) {
         sideWaBtnText.textContent = `Minta Simulasi & Promo ${cleanName}`;
+      }
+
+      // Update Performa & Teknis yang dinamis (Transmisi & Ground Clearance)
+      const transDetail = item.dataset.transDetail;
+      const gc = item.dataset.groundClearance;
+      const specTransVal = document.getElementById('specTransVal');
+      const specGcVal = document.getElementById('specGcVal');
+      if (specTransVal && transDetail) specTransVal.textContent = transDetail;
+      if (specGcVal && gc) specGcVal.textContent = gc;
+
+      // Update nama varian pada judul keunggulan
+      const highlightVariantTitle = document.getElementById('highlightVariantTitle');
+      if (highlightVariantTitle) {
+        highlightVariantTitle.textContent = cleanName;
+      }
+
+      const allGrids = document.querySelectorAll<HTMLElement>('.model-highlights-grid');
+      allGrids.forEach(g => g.classList.remove('is-active'));
+      const targetGrid = document.querySelector<HTMLElement>(`.model-highlights-grid[data-variant-key="${cleanName}"]`);
+      if (targetGrid) {
+        targetGrid.classList.add('is-active');
+      } else if (allGrids.length > 0) {
+        allGrids[0].classList.add('is-active');
       }
     });
   });

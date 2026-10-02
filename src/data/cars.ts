@@ -6,6 +6,9 @@ export interface CarVariant {
   dpEstimate?: string;
   cicilanEstimate?: string;
   tier?: string;
+  transmissionDetail?: string;
+  groundClearance?: string;
+  highlights?: string[];
 }
 
 export interface CarColor {
@@ -76,28 +79,137 @@ export const carsData: CarModel[] = [
     ],
     highlights: [
       'Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
-      'Meter cluster 8 inch Digital Driver Display canggih adaptasi Pajero Sport',
-      'Fitur keselamatan lengkap: 6 SRS Airbags & Active Yaw Control (AYC)',
-      'Kabin 7-seater paling senyap & luas dengan legroom lapang di kelasnya',
-      'Electric Parking Brake (EPB) dengan Brake Auto Hold (BAH) & Wireless Charger'
+      'Meter cluster 8 inch Digital Driver Display canggih adaptasi SUV premium',
+      'Fitur keselamatan maksimal: 6 SRS Airbags & Active Yaw Control (AYC)',
+      'Multi Around Monitor (Kamera 360) & Parking Sensor untuk kemudahan parkir',
+      'Electric Parking Brake (EPB) dengan Brake Auto Hold (BAH) & Wireless Charger',
+      'Kabin 7-seater paling senyap & luas dengan fleksibilitas pelipatan kursi optimal'
     ],
     keySpecs: {
       seating: '7 Penumpang',
-      engine: '1.5L MIVEC DOHC 16-Valve Euro 4',
+      engine: '1.5L MIVEC DOHC 16-Valve',
       power: '105 PS (77 kW) @ 6.000 RPM',
       transmission: 'CVT / 5-Speed Manual',
       groundClearance: '220 - 225 mm',
-      fuelType: 'Bensin (RON 92+)'
+      fuelType: 'Bensin (Tangki 45L)'
     },
     variants: [
-      { name: 'Xpander Ultimate CVT', transmission: 'CVT', price: 337800000, priceFormatted: 'Rp 337.800.000', dpEstimate: 'Rp 34 Jt-an', cicilanEstimate: 'Rp 5,0 Jt-an', tier: 'Ultimate' },
-      { name: 'Xpander Ultimate MT', transmission: 'MT', price: 322500000, priceFormatted: 'Rp 322.500.000', dpEstimate: 'Rp 32 Jt-an', cicilanEstimate: 'Rp 4,8 Jt-an', tier: 'Ultimate' },
-      { name: 'Xpander Exceed Tourer CVT', transmission: 'CVT', price: 297900000, priceFormatted: 'Rp 297.900.000', dpEstimate: 'Rp 30 Jt-an', cicilanEstimate: 'Rp 4,4 Jt-an', tier: 'Exceed' },
-      { name: 'Xpander Exceed Tourer MT', transmission: 'MT', price: 288700000, priceFormatted: 'Rp 288.700.000', dpEstimate: 'Rp 29 Jt-an', cicilanEstimate: 'Rp 4,3 Jt-an', tier: 'Exceed' },
-      { name: 'Xpander GLS CVT', transmission: 'CVT', price: 279100000, priceFormatted: 'Rp 279.100.000', dpEstimate: 'Rp 28 Jt-an', cicilanEstimate: 'Rp 4,2 Jt-an', tier: 'GLS' },
-      { name: 'Xpander GLS MT', transmission: 'MT', price: 270100000, priceFormatted: 'Rp 270.100.000', dpEstimate: 'Rp 27 Jt-an', cicilanEstimate: 'Rp 4,1 Jt-an', tier: 'GLS' }
+      {
+        name: 'Xpander Ultimate CVT',
+        transmission: 'CVT',
+        price: 337800000,
+        priceFormatted: 'Rp 337.800.000',
+        dpEstimate: 'Rp 34 Jt-an',
+        cicilanEstimate: 'Rp 5,0 Jt-an',
+        tier: 'Ultimate',
+        transmissionDetail: 'CVT Otomatis',
+        groundClearance: '220 mm',
+        highlights: [
+          'Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
+          'Meter cluster 8 inch Digital Driver Display canggih adaptasi SUV premium',
+          'Fitur keselamatan maksimal: 6 SRS Airbags & Active Yaw Control (AYC)',
+          'Active Yaw Control (AYC) & Cruise Control untuk kenyamanan perjalanan jarak jauh',
+          'Multi Around Monitor (Kamera 360) & Parking Sensor untuk kemudahan parkir aman',
+          'Electric Parking Brake (EPB) dengan Brake Auto Hold (BAH) & Wireless Charger'
+        ]
+      },
+      {
+        name: 'Xpander Ultimate MT',
+        transmission: 'MT',
+        price: 322500000,
+        priceFormatted: 'Rp 322.500.000',
+        dpEstimate: 'Rp 32 Jt-an',
+        cicilanEstimate: 'Rp 4,8 Jt-an',
+        tier: 'Ultimate',
+        transmissionDetail: '5-Speed Manual (M/T)',
+        groundClearance: '225 mm',
+        highlights: [
+          'Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
+          'Meter cluster 8 inch Digital Driver Display canggih adaptasi SUV premium',
+          'Fitur keselamatan maksimal: 6 SRS Airbags & Active Yaw Control (AYC)',
+          'Multi Around Monitor (Kamera 360) untuk pantauan blind spot menyeluruh',
+          'Keyless Operating System (KOS) dengan tombol Start-Stop Engine',
+          'Interior Black Soft Pad mewah, setir & tuas transmisi kulit, serta Wireless Charger'
+        ]
+      },
+      {
+        name: 'Xpander Exceed Tourer CVT',
+        transmission: 'CVT',
+        price: 297900000,
+        priceFormatted: 'Rp 297.900.000',
+        dpEstimate: 'Rp 30 Jt-an',
+        cicilanEstimate: 'Rp 4,4 Jt-an',
+        tier: 'Exceed',
+        transmissionDetail: 'CVT Otomatis',
+        groundClearance: '220 mm',
+        highlights: [
+          'Velg 17 inch Two-Tone Alloy Wheel & LED Projector Headlamp berdesain sporty',
+          'Transmisi CVT baru yang halus, minim hentakan, dan efisien konsumsi bahan bakar',
+          'Head Unit 8 inch Audio Touchscreen responsif dengan Hands-free Switch di kemudi',
+          'Rear View Camera (Kamera Parkir Mundur) & Sensor Parkir belakang',
+          'Digital Air Conditioner modern & Shark Fin Antenna aerodinamis',
+          'Sistem keselamatan lengkap: Dual SRS Airbags, ABS + EBD + BA, ASC & HSA'
+        ]
+      },
+      {
+        name: 'Xpander Exceed Tourer MT',
+        transmission: 'MT',
+        price: 288700000,
+        priceFormatted: 'Rp 288.700.000',
+        dpEstimate: 'Rp 29 Jt-an',
+        cicilanEstimate: 'Rp 4,3 Jt-an',
+        tier: 'Exceed',
+        transmissionDetail: '5-Speed Manual (M/T)',
+        groundClearance: '225 mm',
+        highlights: [
+          'Velg 17 inch Two-Tone Alloy Wheel & LED Projector Headlamp berdesain sporty',
+          'Transmisi manual 5-percepatan responsif dengan ground clearance tinggi 225 mm',
+          'Head Unit 8 inch Audio Touchscreen dengan Hands-free Switch di kemudi',
+          'Rear View Camera (Kamera Parkir Mundur) & Sensor Parkir belakang',
+          'Digital Air Conditioner modern & Shark Fin Antenna aerodinamis',
+          'Sistem keselamatan lengkap: Dual SRS Airbags, ABS + EBD + BA, ASC & HSA'
+        ]
+      },
+      {
+        name: 'Xpander GLS CVT',
+        transmission: 'CVT',
+        price: 279100000,
+        priceFormatted: 'Rp 279.100.000',
+        dpEstimate: 'Rp 28 Jt-an',
+        cicilanEstimate: 'Rp 4,2 Jt-an',
+        tier: 'GLS',
+        transmissionDetail: 'CVT Otomatis',
+        groundClearance: '220 mm',
+        highlights: [
+          'Kabin 7-seater paling senyap & lega di kelasnya dengan legroom baris ke-2 lapang',
+          'Transmisi CVT baru yang halus, minim hentakan, dan efisien konsumsi bahan bakar',
+          'Ground clearance 220 mm tangguh melibas berbagai kondisi jalan Jabodetabek',
+          'Head Unit 7 inch Audio Touchscreen dengan konektivitas smartphone & USB',
+          'Active Stability Control (ASC) & Hill Start Assist (HSA) untuk stabilitas berkendara',
+          'Keselamatan terpadu MMKSI: Dual SRS Airbags, ABS + EBD + BA, ISOFIX & Alarm'
+        ]
+      },
+      {
+        name: 'Xpander GLS MT',
+        transmission: 'MT',
+        price: 270100000,
+        priceFormatted: 'Rp 270.100.000',
+        dpEstimate: 'Rp 27 Jt-an',
+        cicilanEstimate: 'Rp 4,1 Jt-an',
+        tier: 'GLS',
+        transmissionDetail: '5-Speed Manual (M/T)',
+        groundClearance: '225 mm',
+        highlights: [
+          'Kabin 7-seater paling senyap & lega di kelasnya dengan fleksibilitas kursi optimal',
+          'Mesin 1.5L MIVEC bertenaga 105 PS dipadu transmisi manual 5-percepatan yang andal',
+          'Ground clearance tertinggi 225 mm, sangat percaya diri melewati jalan bergelombang',
+          'Head Unit 7 inch Audio Touchscreen dengan konektivitas smartphone & USB',
+          'Active Stability Control (ASC) & Hill Start Assist (HSA) untuk stabilitas berkendara',
+          'Keselamatan terpadu MMKSI: Dual SRS Airbags, ABS + EBD + BA, ISOFIX & Alarm'
+        ]
+      }
     ],
-    description: 'Mitsubishi New Xpander hadir mendefinisikan ulang standar MPV keluarga di Indonesia dengan desain Dynamic Shield berkarakter, interior bernuansa hitam elegan, head unit 10 inci, 6 airbags, dan kenyamanan suspensi adaptasi Lancer Evolution.'
+    description: 'Mitsubishi New Xpander hadir mendefinisikan ulang standar MPV keluarga di Indonesia dengan bahasa desain Dynamic Shield yang berkarakter, interior bernuansa hitam elegan, kabin senyap berkapasitas 7 penumpang, serta kenyamanan suspensi berteknologi tinggi khas Mitsubishi Motors.'
   },
 
   // ─── 2. NEW PAJERO SPORT ──────────────────────────────────────────────────────

@@ -11,6 +11,22 @@ const passengerCars = carsData.filter(c => c.segment === 'passenger');
 const lcvCars = carsData.filter(c => c.segment === 'lcv');
 const commercialCars = carsData.filter(c => c.segment === 'commercial');
 
+const defaultFeaturedCar = carsData.find(c => c.slug === 'pajero-sport') || carsData[0];
+const featuredCarsJson = JSON.stringify(carsData.map(c => ({
+  slug: c.slug,
+  name: c.name,
+  badge: c.badge || (c.segment === 'passenger' ? 'Bestseller' : c.category),
+  image: c.image,
+  tagline: c.tagline || c.description,
+  price: c.startingPrice,
+  specs: [
+    { label: 'Kapasitas', val: c.keySpecs.seating },
+    { label: 'Mesin', val: c.keySpecs.engine },
+    { label: 'Tenaga', val: c.keySpecs.power },
+    { label: 'Transmisi', val: c.keySpecs.transmission },
+  ]
+})));
+
 const heroSlides = [
   {
     key: 'pajero',
@@ -364,55 +380,131 @@ const heroSlides = [
     <div class="max-w-[1440px] mx-auto">
       <div class="grid grid-cols-1 lg:grid-cols-2">
 
-        <!-- Left: Image -->
-        <div class="relative bg-white h-80 lg:h-[560px] overflow-hidden flex items-center justify-center p-4 lg:p-8">
-          <img src="/images/cars/new-pajero-sport-optimized.webp" alt="Pajero Sport"
-            class="w-full h-full object-contain object-center hover:scale-105 transition-transform duration-500" />
-          <div class="absolute top-6 left-6">
-            <span class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">Bestseller</span>
+        <!-- Left: Image & Vehicle Selector -->
+        <div class="relative bg-white flex flex-col justify-between p-6 md:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#E3E5E6]">
+          <!-- Car Image Container -->
+          <div class="relative w-full h-72 md:h-80 lg:h-[380px] flex items-center justify-center">
+            <img
+              id="featured-img"
+              src={defaultFeaturedCar.image}
+              alt={defaultFeaturedCar.name}
+              class="w-full h-full object-contain object-center hover:scale-105 transition-all duration-300"
+            />
+            <div class="absolute top-0 left-0">
+              <span id="featured-badge" class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">
+                {defaultFeaturedCar.badge || 'Bestseller'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Custom Dropdown Di Bawah Gambar Mobil (Sesuai Desain & Dropdown Simulasi Kredit) -->
+          <div class="mt-4 pt-4 border-t border-[#F0F0F0]">
+            <label id="featured-car-label" class="block text-[11px] font-bold text-[#686D71] tracking-[0.22em] uppercase mb-2">
+              Pilih Kendaraan Favoritmu
+            </label>
+            <div class="relative z-30" id="featured-dropdown">
+              <button
+                type="button"
+                id="featured-dropdown-trigger"
+                class="w-full flex items-center justify-between border-b-2 border-black pb-2 pt-1 text-left bg-transparent cursor-pointer focus:outline-none transition-colors"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="featured-car-label featured-dropdown-trigger"
+              >
+                <span id="featured-selected-name" class="text-[18px] md:text-[20px] font-black tracking-tight text-black truncate pr-4">
+                  {defaultFeaturedCar.name}
+                </span>
+                <svg id="featured-dropdown-chevron" class="w-4 h-4 text-black transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+                </svg>
+              </button>
+
+              <!-- Dropdown Menu List -->
+              <div
+                id="featured-dropdown-menu"
+                class="hidden absolute left-0 right-0 top-full mt-2 bg-white border border-[#E3E5E6] shadow-2xl z-50 max-h-72 overflow-y-auto divide-y divide-[#F0F2F3]"
+                role="listbox"
+                tabindex="-1"
+              >
+                {carsData.map((car) => {
+                  const isSelected = car.slug === defaultFeaturedCar.slug;
+                  return (
+                    <button
+                      type="button"
+                      class={`featured-dropdown-option w-full flex items-center justify-between px-4 py-3 text-left transition-colors cursor-pointer hover:bg-[#F6F6F6] ${isSelected ? 'bg-[#FAFAFA] font-semibold' : ''}`}
+                      data-slug={car.slug}
+                      role="option"
+                      aria-selected={isSelected ? 'true' : 'false'}
+                    >
+                      <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#E60012] flex-shrink-0 transition-opacity" style={isSelected ? 'opacity: 1;' : 'opacity: 0;'}></span>
+                        <span class="text-[14px] text-[#1F2421] truncate">{car.name}</span>
+                      </div>
+                      <div class="flex items-center gap-3 flex-shrink-0">
+                        <span class="text-[12px] text-[#686D71] font-medium">Mulai {car.startingPrice}</span>
+                        <svg class="w-4 h-4 text-[#E60012] transition-opacity" style={isSelected ? 'opacity: 1;' : 'opacity: 0;'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Right: Content -->
-        <div class="px-8 md:px-16 py-12 lg:py-20 flex flex-col justify-center space-y-6">
+        <div class="px-8 md:px-16 py-10 lg:py-16 flex flex-col justify-center space-y-6">
           <div class="space-y-2">
-            <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#686D71]">Model Unggulan</div>
-            <h2 class="text-3xl md:text-4xl font-black tracking-tight text-[#2B2E30] leading-tight">
-              New Pajero Sport
+            <div class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012]">Model Unggulan</div>
+            <h2 id="featured-title" class="text-3xl md:text-4xl font-black tracking-tight text-[#2B2E30] leading-tight">
+              {defaultFeaturedCar.name}
             </h2>
-            <p class="text-[#686D71] text-[14px] leading-relaxed">
-              SUV premium 7-penumpang dengan mesin diesel 4D56 2.4L, all-wheel drive Super Select 4WD-II, dan kabin mewah setara kelas premium Eropa.
+            <p id="featured-desc" class="text-[#686D71] text-[14px] leading-relaxed line-clamp-3">
+              {defaultFeaturedCar.tagline || defaultFeaturedCar.description}
             </p>
           </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            {[
-              { label: 'Kapasitas', val: '7 Penumpang' },
-              { label: 'Mesin', val: '4D56 2.4L Diesel' },
-              { label: 'Tenaga', val: '181 PS / 430 Nm' },
-              { label: 'Garansi', val: '5 Thn / 150.000 km' },
-            ].map((s) => (
-              <div class="border border-[#E3E5E6] p-3.5">
-                <div class="text-[10px] text-[#686D71] uppercase tracking-wider">{s.label}</div>
-                <div class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{s.val}</div>
-              </div>
-            ))}
+          <div class="grid grid-cols-2 gap-3" id="featured-specs-grid">
+            <div class="border border-[#E3E5E6] p-3.5">
+              <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Kapasitas</div>
+              <div id="featured-spec-0" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.seating}</div>
+            </div>
+            <div class="border border-[#E3E5E6] p-3.5">
+              <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Mesin</div>
+              <div id="featured-spec-1" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.engine}</div>
+            </div>
+            <div class="border border-[#E3E5E6] p-3.5">
+              <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Tenaga</div>
+              <div id="featured-spec-2" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.power}</div>
+            </div>
+            <div class="border border-[#E3E5E6] p-3.5">
+              <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Transmisi</div>
+              <div id="featured-spec-3" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.transmission}</div>
+            </div>
           </div>
 
-          <div class="pt-2 space-y-2">
+          <div class="pt-2 space-y-4">
             <div class="flex items-baseline gap-2">
               <span class="text-[11px] text-[#686D71]">OTR Jakarta Mulai</span>
-              <span class="text-2xl font-black text-[#E60012]">Rp 578 Juta</span>
+              <span id="featured-price" class="text-2xl font-black text-[#E60012]">{defaultFeaturedCar.startingPrice}</span>
             </div>
-            <div class="flex gap-3">
-              <a href="/model/pajero-sport"
-                class="inline-flex items-center gap-2 bg-black hover:bg-[#E60012] text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
-                Detail & Varian
+            <!-- Action Buttons (Sesuai Desain Gambar 3) -->
+            <div class="flex flex-wrap items-center gap-3">
+              <a
+                id="featured-detail-btn"
+                href={`/model/${defaultFeaturedCar.slug}`}
+                class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-8 py-3.5 transition-colors duration-200"
+              >
+                Selengkapnya
               </a>
-              <a href={getWhatsAppLink('Halo Kanhadi, saya tertarik dengan New Pajero Sport. Bisa minta penawaran terbaik?')}
-                target="_blank" rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[13px] font-bold px-6 py-3 transition-colors">
-                Tanya WA
+              <a
+                id="featured-compare-btn"
+                href="/model"
+                class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-8 py-3.5 transition-colors duration-200"
+              >
+                Bandingkan Kendaraan
               </a>
             </div>
           </div>
@@ -421,6 +513,7 @@ const heroSlides = [
       </div>
     </div>
   </section>
+  <script id="featured-cars-data" type="application/json" set:html={featuredCarsJson}></script>
 
 
   <!-- ========================================================
@@ -971,9 +1064,22 @@ const ddPrice = document.getElementById('cc-selected-price');
 const ddOptions = document.querySelectorAll('.cc-dropdown-option');
 
 function openDropdown() {
-  if (!ddMenu) return;
+  closeFeatDropdown();
+  if (!ddMenu || !ddTrigger) return;
+  const rect = ddTrigger.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+
+  if (spaceBelow < 280 && spaceAbove > spaceBelow) {
+    ddMenu.classList.remove('top-full', 'mt-1.5');
+    ddMenu.classList.add('bottom-full', 'mb-1.5');
+  } else {
+    ddMenu.classList.remove('bottom-full', 'mb-1.5');
+    ddMenu.classList.add('top-full', 'mt-1.5');
+  }
+
   ddMenu.classList.remove('hidden');
-  ddTrigger?.setAttribute('aria-expanded', 'true');
+  ddTrigger.setAttribute('aria-expanded', 'true');
   ddChevron?.classList.add('rotate-180');
 }
 
@@ -1041,19 +1147,155 @@ ddOptions.forEach((btn) => {
   });
 });
 
+// Featured model custom dropdown interactivity
+const featDropdown = document.getElementById('featured-dropdown');
+const featTrigger = document.getElementById('featured-dropdown-trigger');
+const featMenu = document.getElementById('featured-dropdown-menu');
+const featChevron = document.getElementById('featured-dropdown-chevron');
+const featSelectedName = document.getElementById('featured-selected-name');
+const featOptions = document.querySelectorAll('.featured-dropdown-option');
+const featuredDataEl = document.getElementById('featured-cars-data');
+
+function openFeatDropdown() {
+  closeDropdown();
+  if (!featMenu || !featTrigger) return;
+  const rect = featTrigger.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+
+  if (spaceBelow < 280 && spaceAbove > spaceBelow) {
+    featMenu.classList.remove('top-full', 'mt-2');
+    featMenu.classList.add('bottom-full', 'mb-2');
+  } else {
+    featMenu.classList.remove('bottom-full', 'mb-2');
+    featMenu.classList.add('top-full', 'mt-2');
+  }
+
+  featMenu.classList.remove('hidden');
+  featTrigger.setAttribute('aria-expanded', 'true');
+  featChevron?.classList.add('rotate-180');
+}
+
+function closeFeatDropdown() {
+  if (!featMenu) return;
+  featMenu.classList.add('hidden');
+  featTrigger?.setAttribute('aria-expanded', 'false');
+  featChevron?.classList.remove('rotate-180');
+}
+
+function toggleFeatDropdown() {
+  if (featMenu?.classList.contains('hidden')) {
+    openFeatDropdown();
+  } else {
+    closeFeatDropdown();
+  }
+}
+
+if (featTrigger) {
+  featTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleFeatDropdown();
+  });
+
+  featTrigger.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openFeatDropdown();
+    }
+  });
+}
+
 document.addEventListener('click', (e) => {
-  if (ddWrapper && !ddWrapper.contains(e.target)) {
+  const target = e.target;
+  if (ddWrapper && !ddWrapper.contains(target)) {
     closeDropdown();
+  }
+  if (featDropdown && !featDropdown.contains(target)) {
+    closeFeatDropdown();
   }
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeDropdown();
+    closeFeatDropdown();
   }
 });
 
 calcUpdate();
+
+if (featuredDataEl) {
+  try {
+    const carsList = JSON.parse(featuredDataEl.textContent || '[]');
+    const carMap = new Map(carsList.map((c) => [c.slug, c]));
+
+    const img = document.getElementById('featured-img');
+    const badge = document.getElementById('featured-badge');
+    const title = document.getElementById('featured-title');
+    const desc = document.getElementById('featured-desc');
+    const spec0 = document.getElementById('featured-spec-0');
+    const spec1 = document.getElementById('featured-spec-1');
+    const spec2 = document.getElementById('featured-spec-2');
+    const spec3 = document.getElementById('featured-spec-3');
+    const price = document.getElementById('featured-price');
+    const detailBtn = document.getElementById('featured-detail-btn');
+    const compareBtn = document.getElementById('featured-compare-btn');
+
+    function selectFeaturedOption(slug) {
+      const data = carMap.get(slug);
+      if (!data) return;
+
+      if (featSelectedName) featSelectedName.textContent = data.name;
+
+      featOptions.forEach((btn) => {
+        const isSelected = btn.getAttribute('data-slug') === slug;
+        btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+        btn.classList.toggle('bg-[#FAFAFA]', isSelected);
+        btn.classList.toggle('font-semibold', isSelected);
+
+        const dot = btn.querySelector('span.rounded-full');
+        if (dot) dot.style.opacity = isSelected ? '1' : '0';
+
+        const check = btn.querySelector('svg');
+        if (check) check.style.opacity = isSelected ? '1' : '0';
+      });
+
+      closeFeatDropdown();
+
+      if (img) {
+        img.style.opacity = '0.2';
+        img.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+          img.src = data.image;
+          img.alt = data.name;
+          img.style.opacity = '1';
+          img.style.transform = 'scale(1)';
+        }, 150);
+      }
+
+      if (badge) badge.textContent = data.badge;
+      if (title) title.textContent = data.name;
+      if (desc) desc.textContent = data.tagline;
+      if (spec0) spec0.textContent = (data.specs && data.specs[0] && data.specs[0].val) || '-';
+      if (spec1) spec1.textContent = (data.specs && data.specs[1] && data.specs[1].val) || '-';
+      if (spec2) spec2.textContent = (data.specs && data.specs[2] && data.specs[2].val) || '-';
+      if (spec3) spec3.textContent = (data.specs && data.specs[3] && data.specs[3].val) || '-';
+      if (price) price.textContent = data.price;
+      if (detailBtn) detailBtn.href = '/model/' + data.slug;
+      if (compareBtn) compareBtn.href = '/model';
+    }
+
+    featOptions.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const slug = btn.getAttribute('data-slug') || '';
+        selectFeaturedOption(slug);
+      });
+    });
+  } catch (e) {
+    console.error('Featured model update error:', e);
+  }
+}
 </script>
 
 <style>
