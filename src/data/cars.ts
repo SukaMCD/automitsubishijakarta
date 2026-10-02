@@ -48,7 +48,7 @@ export interface CarModel {
   tagline: string;
   logo?: string;
   logoWhite?: string;
-  category: 'MPV' | 'SUV' | 'Commercial' | 'Truk' | 'Bus' | 'Pick Up' | 'Truk & Bus';
+  category: 'MPV' | 'SUV' | 'Commercial' | 'Truk' | 'Bus' | 'Bus Chassis' | 'Pick Up' | 'Truk & Bus';
   segment: 'passenger' | 'lcv' | 'commercial';
   badge?: string;
   startingPrice: string;
@@ -1425,34 +1425,36 @@ export const carsData: CarModel[] = [
     description: 'Lebih dari 40 tahun menjadi mitra terpercaya jutaan pengusaha di Indonesia. Colt L300 Euro 4 kini hadir dengan kargo lebih luas, mesin turbo common rail bertenaga tinggi, dan efisiensi bahan bakar maksimal.'
   },
 
-  // ─── 8. CANTER FE 71 SERIES (ENGKEL 4 BAN) ────────────────────────────────────
+  // ─── 8. CANTER FE 71L (ENGKEL 4 BAN) ─────────────────────────────────────────
   {
     slug: 'canter-fe71',
-    name: 'Canter FE 71 Series',
-    tagline: 'Truk Ringan 4 Roda (Engkel) Teruji, Lincah & Irit untuk Bisnis Perkotaan',
+    name: 'Canter FE 71L',
+    tagline: 'Siap Berkontribusi Untuk Negeri',
     category: 'Truk',
     segment: 'commercial',
     badge: 'ENGKEL 4 BAN',
-    startingPrice: 'Rp 375.000.000',
-    startingPriceNum: 375000000,
-    dpStart: 'Rp 25 Jt-an',
-    dpMinNum: 25000000,
-    cicilanStart: 'Rp 7,5 Jt/bln',
-    cicilanNum: 7500000,
-    image: '/images/cars/canter-fe-71/karoseri-FE-71-Box-Alumunium.webp',
+    startingPrice: 'Rp 388.000.000',
+    startingPriceNum: 388000000,
+    dpStart: 'Rp 28 Jt-an',
+    dpMinNum: 28000000,
+    cicilanStart: 'Rp 7,8 Jt/bln',
+    cicilanNum: 7800000,
+    heroImage: '/images/cars/canter-fe-71/1-4.webp',
+    image: '/images/cars/canter-fe-71/karoseri-FE-71L-Box-Aluminium.webp',
     galleryImages: [
-      '/images/cars/canter-fe-71/karoseri-FE-71-Box-Alumunium.webp',
+      '/images/cars/canter-fe-71/1-4.webp',
+      '/images/cars/canter-fe-71/karoseri-FE-71L-Box-Aluminium.webp',
       '/images/cars/canter-fe-71/canter-fe71-optimized.webp'
     ],
     colors: [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
     ],
     highlights: [
-      'Mesin 4V21 Common Rail Turbo Intercooler Euro 4: 108 PS bertenaga & irit BBM',
-      'Sasis 4 Roda / Engkel lincah bermanuver di jalan kota dan bebas aturan truk besar',
-      'Kabin jungkit memudahkan perawatan berkala & pemeriksaan mesin harian',
-      'Pilihan karoseri fleksibel: Box Alumunium, Box Pendingin (Cooler), Bak Kayu/Besi, dan Moko',
-      'Dilengkapi telematika Runner Fuso, kamera mundur, radio USB MP3 & in-dash gear shift'
+      'Mesin 4V21 Common Rail Turbo Euro 4 108 PS tangguh & irit bahan bakar',
+      'Wheelbase panjang 3.350 mm dengan panjang sasis total 6.425 mm untuk volume kubikasi maksimal',
+      'Radius putar lincah 5,1 meter mudah bermanuver di jalan kota dan komplek perumahan',
+      'Bebas aturan pembatasan jam truk besar (berlaku aturan mobil barang ringan)',
+      'Dilengkapi telematika Runner Fuso gratis, in-dash gear shift, dan kabin jungkit'
     ],
     keySpecs: {
       seating: '3 Penumpang',
@@ -1464,109 +1466,31 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
-        name: 'Canter FE 71 Standard MT',
+        name: 'Canter FE 71L Karoseri Box Aluminium MT',
         transmission: 'MT',
-        price: 375000000,
-        priceFormatted: 'Rp 375.000.000',
-        dpEstimate: 'Rp 25 Jt-an',
-        cicilanEstimate: 'Rp 7,5 Jt-an',
-        tier: 'Standard',
+        price: 425000000,
+        priceFormatted: 'Rp 425.000.000',
+        dpEstimate: 'Rp 32 Jt-an',
+        cicilanEstimate: 'Rp 8,5 Jt-an',
+        tier: 'Karoseri Box Aluminium',
         transmissionDetail: '5-Speed Manual M025S5',
         groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-71/karoseri-FE-71L-Box-Aluminium.webp',
         highlights: [
-          'Sasis 4 roda (Engkel) lincah masuk jalan perkotaan & perumahan tanpa batasan jam truk besar',
-          'Mesin Common Rail 4V21 Turbo Intercooler Euro 4: 108 PS bertenaga, irit & ramah lingkungan',
-          'Aplikasi karoseri sangat fleksibel: Box Besi/Alumunium, Bak Kayu, Bak Besi, dan Mobil Toko',
-          'Kabin jungkit (Tilt Cabin) memberikan akses cepat dan mudah untuk perawatan mesin harian',
-          'Tuas transmisi In-Dash Gearshift di dasbor menciptakan ruang kaki kabin yang lega & leluasa',
-          'Sistem telematika Runner Fuso gratis untuk memantau lokasi, rute, dan efisiensi armada secara real-time'
-        ]
-      },
-      {
-        name: 'Canter FE 71L (Long Chassis) MT',
-        transmission: 'MT',
-        price: 388000000,
-        priceFormatted: 'Rp 388.000.000',
-        dpEstimate: 'Rp 28 Jt-an',
-        cicilanEstimate: 'Rp 7,8 Jt-an',
-        tier: 'Long Chassis',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Wheelbase lebih panjang (3.350 mm) dengan volume kargo kubikasi ekstra besar',
-          'Sasis terpanjang di kelas truk 4 ban, sangat ideal untuk ekspedisi paket, retail, dan e-commerce',
-          'Mesin 4V21 Euro 4 108 PS dengan torsi 300 Nm tangguh membawa muatan volumetrik tinggi',
-          'Struktur frame sasis baja cold-rolled kuat tanpa sambungan untuk daya tahan jangka panjang',
-          'Radius putar tetap optimal memudahkan manuver balik arah dan parkir di loading dock',
-          'Runner Fuso telematics terintegrasi memantau konsumsi bahan bakar dan jadwal servis armada'
-        ]
-      },
-      {
-        name: 'Canter FE 71 BC (Bus Chassis) MT',
-        transmission: 'MT',
-        price: 365000000,
-        priceFormatted: 'Rp 365.000.000',
-        dpEstimate: 'Rp 25 Jt-an',
-        cicilanEstimate: 'Rp 7,3 Jt-an',
-        tier: 'Bus Chassis',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Sasis khusus pembuatan Microbus 16-19 kursi penumpang dengan suspensi lembut',
-          'Kenyamanan suspensi dirancang khusus untuk kenyamanan penumpang travel antarkota & pariwisata',
-          'Mesin 108 PS Euro 4 yang sangat irit konsumsi solar untuk memaksimalkan margin usaha transportasi',
-          'Posisi kemudi Power Steering ergonomis mengurangi kelelahan pengemudi pada rute jauh',
-          'Kabin depan modern dengan visibilitas kaca depan luas dan aerodinamis',
-          'Didukung jaringan bengkel resmi dan ketersediaan suku cadang Fuso terluas di Indonesia'
-        ]
-      },
-      {
-        name: 'Canter FE 71L BC (Long Bus Chassis) MT',
-        transmission: 'MT',
-        price: 380000000,
-        priceFormatted: 'Rp 380.000.000',
-        dpEstimate: 'Rp 28 Jt-an',
-        cicilanEstimate: 'Rp 7,6 Jt-an',
-        tier: 'Long Bus Chassis',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Sasis bus 4 ban long wheelbase memungkinkan kapasitas hingga 19+1 kursi penumpang',
-          'Legroom antar kursi lebih lega serta ruang bagasi belakang yang lebih lapang',
-          'Suspensi daun (leaf spring) khusus penumpang yang stabil dan minim guncangan',
-          'Mesin 3.9L 4V21 Common Rail bertenaga halus dan minim getaran di dalam kabin',
-          'Alternator berkapasitas besar siap menopang instalasi AC ganda dan sistem audio entertainment',
-          'Nilai investasi tinggi dengan biaya operasional harian yang sangat terjangkau'
-        ]
-      },
-      {
-        name: 'Canter FE 71L BCL NC MT',
-        transmission: 'MT',
-        price: 395000000,
-        priceFormatted: 'Rp 395.000.000',
-        dpEstimate: 'Rp 30 Jt-an',
-        cicilanEstimate: 'Rp 7,9 Jt-an',
-        tier: 'Long Bus Chassis NC',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Varian Non-Cabin (NC) khusus karoseri bus kustom eksekutif & shuttle pariwisata premium',
-          'Panjang sasis optimal memberikan kebebasan desainer karoseri merancang bodi monocoque modern',
-          'Rangka sasis diperkuat menjamin keselamatan struktural bodi bus secara menyeluruh',
-          'Mesin Euro 4 ramah lingkungan siap memenuhi standar armada perusahaan dan BUMN',
-          'Runner Telematics Fuso memantau kecepatan berkendara pengemudi untuk keamanan penumpang',
-          'Garansi resmi sasis Mitsubishi Fuso dan kemudahan klaim di seluruh bengkel authorized'
+          'Aplikasi Box Aluminium kargo tertutup aman dari cuaca, hujan & pencurian',
+          'Kapasitas volume kubikasi kargo hingga 14 m³ untuk ekspedisi, FMCG & e-commerce perkotaan',
+          'Pintu samping dan pintu belakang ganda memudahkan proses bongkar muat'
         ]
       }
     ],
-    description: 'Mitsubishi Fuso Canter FE 71 Series adalah tulang punggung armada niaga ringan perkotaan di Indonesia. Mengusung mesin Common Rail Euro 4 108 PS bertenaga tangguh, kabin lega dengan tuas transmisi in-dash, serta kemudahan modifikasi berbagai jenis karoseri.'
+    description: 'Mitsubishi Fuso Canter FE 71L adalah truk engkel 4 roda dengan sasis terpanjang di kelasnya. Sangat ideal untuk distribusi perkotaan dengan aplikasi Karoseri Box Aluminium untuk volume muat ekstra besar tanpa batasan jam truk besar.'
   },
 
-  // ─── 9. CANTER FE 74 SERIES (DOUBLE 6 BAN) ───────────────────────────────────
+  // ─── 9. CANTER FE 74 (DOUBLE 6 BAN STANDAR) ──────────────────────────────────
   {
     slug: 'canter-fe74',
-    name: 'Canter FE 74 Series',
-    tagline: 'Rajanya Truk 6 Roda (Double) - Muatan Berat, Ekspedisi Antar Kota & Proyek',
+    name: 'Canter FE 74',
+    tagline: 'Truk 6 Roda Serbaguna Paling Lincah - Pilihan Utama Logistik & Distribusi Antar Kota',
     category: 'Truk',
     segment: 'commercial',
     badge: 'DOUBLE 6 BAN',
@@ -1576,8 +1500,10 @@ export const carsData: CarModel[] = [
     dpMinNum: 35000000,
     cicilanStart: 'Rp 8,9 Jt/bln',
     cicilanNum: 8900000,
+    heroImage: '/images/cars/canter-fe-74/canter-fe74.webp',
     image: '/images/cars/canter-fe-74/karoseri-FE-74-Bak-besi-setengah.webp',
     galleryImages: [
+      '/images/cars/canter-fe-74/canter-fe74.webp',
       '/images/cars/canter-fe-74/karoseri-FE-74-Bak-besi-setengah.webp',
       '/images/cars/canter-fe-74/canter-fe74-optimized.webp'
     ],
@@ -1585,151 +1511,486 @@ export const carsData: CarModel[] = [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
     ],
     highlights: [
-      'Mesin Common Rail Euro 4 bertenaga buas 136 PS dengan torsi badak 420 Nm',
-      'Sasis kokoh 6 ban dengan kapasitas muatan besar (Max GVW hingga 8.250 kg)',
-      'Tersedia varian Super HDX (SHDX) dengan rasio gardan tinggi khusus tanjakan terjal & area proyek tambang',
-      'Aplikasi karoseri serbaguna: Bak Besi, Bak Kayu Tinggi, Dump Truck, Box Ekspedisi Long, dan Tangki',
-      'Sistem pengereman gas buang (Exhaust Brake) untuk keamanan berkendara saat membawa muatan berat di turunan'
+      'Mesin Common Rail Euro 4 136 PS bertenaga tangguh dengan torsi 420 Nm',
+      'Rasio gardan 4.444 lincah dan hemat bahan bakar untuk distribusi antarkota',
+      'Panjang sasis 6.365 mm dengan daya angkut GVW hingga 8.250 kg',
+      'Dilengkapi Exhaust Brake, Power Steering, dan Runner Fuso Telematics'
+    ],
+    keySpecs: {
+      seating: '3 Penumpang',
+      engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
+      power: '136 PS @ 2.500 RPM / 420 Nm',
+      transmission: '5-Speed Manual M035S5 (Gigi Akhir 4.444)',
+      groundClearance: '200 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter FE 74 Karoseri Bak Besi MT',
+        transmission: 'MT',
+        price: 475000000,
+        priceFormatted: 'Rp 475.000.000',
+        dpEstimate: 'Rp 40 Jt-an',
+        cicilanEstimate: 'Rp 9,4 Jt-an',
+        tier: 'Karoseri Bak Besi',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-74/karoseri-FE-74-Bak-besi-setengah.webp',
+        highlights: [
+          'Bodi bak besi setengah pintu / full pintu kokoh untuk material dan kargo berat',
+          'Sasis 6 ban kokoh membawa muatan hingga 8 ton dengan stabil',
+          'Rasio gardan 4.444 lincah dan hemat bahan bakar untuk distribusi muatan antarkota'
+        ]
+      },
+      {
+        name: 'Canter FE 74 Karoseri Bak Kayu MT',
+        transmission: 'MT',
+        price: 478000000,
+        priceFormatted: 'Rp 478.000.000',
+        dpEstimate: 'Rp 41 Jt-an',
+        cicilanEstimate: 'Rp 9,5 Jt-an',
+        tier: 'Karoseri Bak Kayu',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-74/karoseri-FE-74-Bak-Kayu.webp',
+        highlights: [
+          'Aplikasi bak kayu rangka besi tinggi untuk angkutan ekspedisi logistik dan sembako',
+          'Kapasitas tonase maksimal dengan perlindungan terpal anti hujan',
+          'Kekuatan rangka kayu merbau/bengkirai tebal tahan benturan kargo berat'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter FE 74 adalah truk 6 roda terfavorit di Indonesia untuk angkutan logistik antarkota. Ditenagai mesin Euro 4 136 PS dengan rasio gardan seimbang antara kecepatan dan daya angkut.'
+  },
+
+  // ─── 10. CANTER FE 74 HD (HEAVY DUTY 6 BAN) ──────────────────────────────────
+  {
+    slug: 'canter-fe74-hd',
+    name: 'Canter FE 74 HD',
+    tagline: 'Heavy Duty 6 Roda Rasio Gardan 5.571 - Perkasa di Tanjakan & Muatan Berat',
+    category: 'Truk',
+    segment: 'commercial',
+    badge: 'HEAVY DUTY 6 BAN',
+    startingPrice: 'Rp 458.000.000',
+    startingPriceNum: 458000000,
+    dpStart: 'Rp 38 Jt-an',
+    dpMinNum: 38000000,
+    cicilanStart: 'Rp 9,2 Jt/bln',
+    cicilanNum: 9200000,
+    heroImage: '/images/cars/canter-fe-74-hd/canter-fe74-hd.webp',
+    image: '/images/cars/canter-fe-74-hd/karoseri-FE-74-HD-Dump-Truck.webp',
+    galleryImages: [
+      '/images/cars/canter-fe-74-hd/canter-fe74-hd.webp',
+      '/images/cars/canter-fe-74-hd/karoseri-FE-74-HD-Dump-Truck.webp'
+    ],
+    colors: [
+      { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
+    ],
+    highlights: [
+      'Rasio final gear 5.571 (Heavy Duty) menghasilkan torsi tanjakan ekstra kuat',
+      'Dilengkapi Rear View Camera dari pabrik untuk kemudahan mundur saat bermuatan',
+      'As roda dan gardan diperkuat untuk daya tahan di jalan berlumpur & berbukit',
+      'Aplikasi favorit: Dump Truck, Bak Kayu Tinggi, dan Truk Tangki'
+    ],
+    keySpecs: {
+      seating: '3 Penumpang',
+      engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
+      power: '136 PS @ 2.500 RPM / 420 Nm',
+      transmission: '5-Speed Manual M035S5 (Gardan HD 5.571)',
+      groundClearance: '210 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter FE 74 HD Karoseri Dump Truck MT',
+        transmission: 'MT',
+        price: 520000000,
+        priceFormatted: 'Rp 520.000.000',
+        dpEstimate: 'Rp 48 Jt-an',
+        cicilanEstimate: 'Rp 10,2 Jt-an',
+        tier: 'Karoseri Dump Truck',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-74-hd/karoseri-FE-74-HD-Dump-Truck.webp',
+        highlights: [
+          'Bak dump hidrolik kokoh untuk angkutan pasir, batu split, dan tanah galian',
+          'Kamera parkir belakang memudahkan manuver pembongkaran muatan di area proyek',
+          'Rasio final gear Heavy Duty 5.571 bertenaga badak melibas tanjakan curam bermuatan'
+        ]
+      },
+      {
+        name: 'Canter FE 74 HD Karoseri Bak Kayu Tinggi MT',
+        transmission: 'MT',
+        price: 495000000,
+        priceFormatted: 'Rp 495.000.000',
+        dpEstimate: 'Rp 44 Jt-an',
+        cicilanEstimate: 'Rp 9,8 Jt-an',
+        tier: 'Karoseri Bak Kayu Tinggi',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-74-hd/karoseri-FE-74-HD-Bak-Kayu.webp',
+        highlights: [
+          'Bak kayu rangka besi dinding tinggi untuk hasil perkebunan sawit, karet, dan muatan berat',
+          'Gardan ekstra tebal tahan torsi puntir beban berat',
+          'Daya angkut optimal GVW 8.250 kg menjamin efisiensi tonase setiap ritase'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter FE 74 HD dirancang untuk pengusaha yang membutuhkan daya angkut muatan berat di area perkebunan, pertambangan, dan proyek berbukit dengan rasio gardan bertenaga 5.571.'
+  },
+
+  // ─── 11. CANTER FE 74 HDS (HIGH SPEED 6 BAN) ─────────────────────────────────
+  {
+    slug: 'canter-fe74-hds',
+    name: 'Canter FE 74 HDS',
+    tagline: 'High Speed 136 PS - Laju Kencang di Jalan Tol, Tangguh Bawa Beban Berat',
+    category: 'Truk',
+    segment: 'commercial',
+    badge: 'HIGH SPEED 6 BAN',
+    startingPrice: 'Rp 462.000.000',
+    startingPriceNum: 462000000,
+    dpStart: 'Rp 39 Jt-an',
+    dpMinNum: 39000000,
+    cicilanStart: 'Rp 9,3 Jt/bln',
+    cicilanNum: 9300000,
+    heroImage: '/images/cars/canter-fe-74-hds/canter-fe74-hds.webp',
+    image: '/images/cars/canter-fe-74-hds/karoseri-FE-74-HDS-Box-Alumunium.webp',
+    galleryImages: [
+      '/images/cars/canter-fe-74-hds/canter-fe74-hds.webp',
+      '/images/cars/canter-fe-74-hds/karoseri-FE-74-HDS-Box-Alumunium.webp'
+    ],
+    colors: [
+      { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
+    ],
+    highlights: [
+      'Rasio final gear 4.875 (High Speed) menghasilkan kecepatan jelajah tinggi & hemat BBM',
+      'Pilihan utama perusahaan logistik paket kilat dan distribusi pangan segar antar provinsi',
+      'Mesin Common Rail Euro 4 136 PS stabil dipacu pada kecepatan tinggi di jalan tol',
+      'Dilengkapi Exhaust Brake ganda untuk pengereman aman saat melaju kencang'
+    ],
+    keySpecs: {
+      seating: '3 Penumpang',
+      engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
+      power: '136 PS @ 2.500 RPM / 420 Nm',
+      transmission: '5-Speed Manual M035S5 (Gardan 4.875)',
+      groundClearance: '210 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter FE 74 HDS Karoseri Box Ekspedisi Kilat MT',
+        transmission: 'MT',
+        price: 515000000,
+        priceFormatted: 'Rp 515.000.000',
+        dpEstimate: 'Rp 47 Jt-an',
+        cicilanEstimate: 'Rp 10,1 Jt-an',
+        tier: 'Karoseri Box Ekspedisi',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-74-hds/karoseri-FE-74-HDS-Box-Alumunium.webp',
+        highlights: [
+          'Aplikasi box kargo tertutup untuk ekspedisi kilat, pengiriman paket, dan logistik bandara',
+          'Menghemat waktu tempuh perjalanan antarkota berkat rasio gardan High Speed',
+          'Kecepatan maksimum hingga 117 km/jam optimal untuk rute lintas jalan tol antarkota'
+        ]
+      },
+      {
+        name: 'Canter FE 74 HDS Karoseri Bak Besi MT',
+        transmission: 'MT',
+        price: 489000000,
+        priceFormatted: 'Rp 489.000.000',
+        dpEstimate: 'Rp 42 Jt-an',
+        cicilanEstimate: 'Rp 9,7 Jt-an',
+        tier: 'Karoseri Bak Besi',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-74-hds/karoseri-FE-74-HDS-Bak-Besi.webp',
+        highlights: [
+          'Bodi bak besi kokoh untuk distribusi cepat material dan barang niaga',
+          'Laju kencang di tol dengan kestabilan muatan maksimal',
+          'Mesin Common Rail 136 PS bertenaga responsif dan sangat efisien bahan bakar'
+        ]
+      },
+      {
+        name: 'Canter FE 74 HDS Karoseri Bak Kayu MT',
+        transmission: 'MT',
+        price: 492000000,
+        priceFormatted: 'Rp 492.000.000',
+        dpEstimate: 'Rp 43 Jt-an',
+        cicilanEstimate: 'Rp 9,8 Jt-an',
+        tier: 'Karoseri Bak Kayu',
+        transmissionDetail: '5-Speed Manual M035S5',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-74-hds/karoseri-FE-74-HDS-Bak-Kayu.webp',
+        highlights: [
+          'Bak kayu rangka besi untuk komoditas pangan segar dan hasil bumi antarkota',
+          'Kombinasi kecepatan jelajah tinggi dan kapasitas muat ekstra',
+          'Rasio gardan 4.875 menjaga putaran mesin tetap ekonomis pada kecepatan jelajah'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter FE 74 HDS memadukan tenaga 136 PS dengan rasio gardan High Speed 4.875, menjadikannya truk paling lincah dan cepat untuk ekspedisi jarak jauh di jalan tol.'
+  },
+
+  // ─── 12. CANTER FE 74L (SUPER LONG 6 BAN) ────────────────────────────────────
+  {
+    slug: 'canter-fe74l',
+    name: 'Canter FE 74L',
+    tagline: 'Super Long Wheelbase 4.200 mm - Volume Muatan Terbesar Kelas 6 Roda',
+    category: 'Truk',
+    segment: 'commercial',
+    badge: 'SUPER LONG 6 BAN',
+    startingPrice: 'Rp 473.000.000',
+    startingPriceNum: 473000000,
+    dpStart: 'Rp 42 Jt-an',
+    dpMinNum: 42000000,
+    cicilanStart: 'Rp 9,5 Jt/bln',
+    cicilanNum: 9500000,
+    heroImage: '/images/cars/canter-fe-74l/canter-fe74l.webp',
+    image: '/images/cars/canter-fe-74l/karoseri-FE-74L-Box-Alumunium.webp',
+    galleryImages: [
+      '/images/cars/canter-fe-74l/canter-fe74l.webp',
+      '/images/cars/canter-fe-74l/karoseri-FE-74L-Box-Alumunium.webp'
+    ],
+    colors: [
+      { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
+    ],
+    highlights: [
+      'Panjang total kendaraan 7.420 mm dengan jarak sumbu roda 4.200 mm terpanjang di kelasnya',
+      'Kapasitas kubikasi kargo hingga 30+ meter kubik untuk muatan volume besar & FMCG',
+      'Mesin Euro 4 136 PS sanggup menghela muatan panjang dengan efisiensi maksimal',
+      'Struktur sasis baja dingin kokoh tanpa sambungan las menjamin kekuatan terhadap lenturan'
     ],
     keySpecs: {
       seating: '3 Penumpang',
       engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
       power: '136 PS @ 2.500 RPM / 420 Nm',
       transmission: '5-Speed Manual M035S5',
-      groundClearance: '210 mm',
+      groundClearance: '200 mm',
       fuelType: 'Diesel (Euro 4)'
     },
     variants: [
       {
-        name: 'Canter FE 74 Standard MT',
+        name: 'Canter FE 74L Karoseri Box Alumunium Jumbo MT',
         transmission: 'MT',
-        price: 445000000,
-        priceFormatted: 'Rp 445.000.000',
-        dpEstimate: 'Rp 35 Jt-an',
-        cicilanEstimate: 'Rp 8,9 Jt-an',
-        tier: 'Standard',
+        price: 538000000,
+        priceFormatted: 'Rp 538.000.000',
+        dpEstimate: 'Rp 50 Jt-an',
+        cicilanEstimate: 'Rp 10,5 Jt-an',
+        tier: 'Karoseri Box Jumbo',
         transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-74l/karoseri-FE-74L-Box-Alumunium.webp',
         highlights: [
-          'Mesin Common Rail Euro 4 bertenaga buas 136 PS dengan torsi badak 420 Nm di putaran 1.500 RPM',
-          'Sasis 6 roda (Double) tangguh serbaguna untuk Bak Kayu, Bak Besi, dan Box Ekspedisi',
-          'Kapasitas angkut Gross Vehicle Weight (GVW) hingga 8.250 kg siap membawa muatan berat antar kota',
-          'Fitur Exhaust Brake (rem gas buang) memberikan pengereman aman dan menghemat kampas rem di jalur turunan',
-          'Kabin lebar dengan kursi pengemudi reclining ergonomis dan power steering ringan',
-          'Sistem Runner Telematics Fuso memantau performa mesin dan rute logistik armada perusahaan'
+          'Volume kubikasi kargo raksasa mengangkut karton mie instan, popok, snack, dan packaging dalam jumlah maksimal',
+          'Pintu samping lebar dan pintu belakang lipat mempermudah fork-lift',
+          'Wheelbase terpanjang 4.200 mm memaksimalkan kapasitas muat kubikasi hingga 30+ m³'
         ]
       },
       {
-        name: 'Canter FE 74 HD (Heavy Duty) MT',
+        name: 'Canter FE 74L Karoseri Flat Deck Panjang MT',
         transmission: 'MT',
-        price: 458000000,
-        priceFormatted: 'Rp 458.000.000',
-        dpEstimate: 'Rp 38 Jt-an',
-        cicilanEstimate: 'Rp 9,2 Jt-an',
-        tier: 'Heavy Duty',
+        price: 512000000,
+        priceFormatted: 'Rp 512.000.000',
+        dpEstimate: 'Rp 48 Jt-an',
+        cicilanEstimate: 'Rp 10,1 Jt-an',
+        tier: 'Karoseri Flat Deck',
         transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-74l/karoseri-FE-74L-Flat-Deck.webp',
         highlights: [
-          'Rasio gardan optimal khusus muatan muatan berat (Heavy Duty) di jalur berbukit dan jalan berlumpur',
-          'Gardan dan as roda belakang diperkuat ekstra untuk ketahanan maksimal membawa bobot maksimal',
-          'Aplikasi karoseri favorit: Dump Truck skala menengah, Bak Besi Tinggi, dan Angkutan Pasir/Batu',
-          'Mesin 136 PS Euro 4 perkasa dengan tenaga tanjakan tak tertandingi di kelasnya',
-          'Pelek dan ban radial 6 roda berdaya tahan gesek tinggi untuk efisiensi operasional',
-          'Jaminan ketersediaan suku cadang cepat dari ratusan dealer resmi Fuso di Indonesia'
-        ]
-      },
-      {
-        name: 'Canter FE 74 HDS (High Speed) MT',
-        transmission: 'MT',
-        price: 462000000,
-        priceFormatted: 'Rp 462.000.000',
-        dpEstimate: 'Rp 39 Jt-an',
-        cicilanEstimate: 'Rp 9,3 Jt-an',
-        tier: 'High Speed',
-        transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
-        highlights: [
-          'Rasio final gear dirancang untuk High Speed jelajah jalan tol & ekspedisi antar kota lintas provinsi',
-          'Kecepatan jelajah tinggi dengan konsumsi solar tetap hemat dan efisien',
-          'Pilihan utama perusahaan logistik ekspedisi paket kilat, sayur-mayur, dan hasil perikanan segar',
-          'Tenaga 136 PS berpadu transmisi manual 5-percepatan yang halus dan responsif',
-          'Kabin senyap dilengkapi Audio USB MP3, tachometer, dan in-dash gearshift praktis',
-          'Fitur keselamatan rem hidrolis ganda dengan Vacuum Servo Assist dan Exhaust Brake'
-        ]
-      },
-      {
-        name: 'Canter FE 74L (Long Chassis) MT',
-        transmission: 'MT',
-        price: 473000000,
-        priceFormatted: 'Rp 473.000.000',
-        dpEstimate: 'Rp 42 Jt-an',
-        cicilanEstimate: 'Rp 9,5 Jt-an',
-        tier: 'Long Chassis',
-        transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
-        highlights: [
-          'Sasis terpanjang di kelas Canter 6 ban dengan panjang total mencapai 7.015 mm',
-          'Volume kubikasi kargo raksasa hingga 30+ meter kubik sangat cocok untuk kargo box ekspedisi & FMCG',
-          'Daya angkut volume barang ringan hingga menengah maksimal tanpa melanggar dimensi regulasi',
-          'Struktur sasis baja kokoh tanpa sambungan las menjamin kekuatan terhadap lenturan beban',
-          'Radius putar presisi dengan sistem kemudi hidrolis power steering yang nyaman',
-          'Runner Telematics memantau estimasi waktu tiba (ETA) dan efisiensi konsumsi BBM secara akurat'
-        ]
-      },
-      {
-        name: 'Canter FE SHDX (Super HDX Tipper/Dump) MT',
-        transmission: 'MT',
-        price: 480000000,
-        priceFormatted: 'Rp 480.000.000',
-        dpEstimate: 'Rp 45 Jt-an',
-        cicilanEstimate: 'Rp 9,7 Jt-an',
-        tier: 'Super HDX',
-        transmissionDetail: '5-Speed Manual M035S5 (High Gear Ratio)',
-        groundClearance: '210 mm',
-        highlights: [
-          'Rasio gardan tertinggi (Super HDX 6.666) monster tanjakan di medan galian, tambang, dan proyek infrastruktur',
-          'Khusus diperuntukkan untuk Dump Truck (Tipper) pengangkut tanah, pasir, batu kali, dan material tambang',
-          'Diferensial belakang reinforced ultra-heavy duty tahan terhadap torsi kejut ekstrem',
-          'Mesin Turbo 136 PS bertenaga badak dengan torsi puncak 420 Nm spontan di putaran rendah',
-          'Suspensi per daun (spring) bertingkat ekstra tebal mampu menahan beban kejut saat dump hidrolik bekerja',
-          'Truk dump paling tangguh, teruji, dan paling bernilai jual tinggi di Indonesia'
+          'Lantai dek rata ekstra panjang untuk muatan pipa, besi, tiang, dan muatan pallet industri',
+          'Sasis kokoh tanpa lendut dengan distribusi bobot merata',
+          'Panjang sasis total 7.420 mm mempermudah bongkar muat forklift dari berbagai sudut'
         ]
       }
     ],
-    description: 'Mitsubishi Fuso Canter FE 74 Series adalah standar emas truk logistik, ekspedisi, dan armada proyek di Indonesia. Ditenagai mesin 136 PS yang perkasa di tanjakan, sasis baja berdaya tahan tinggi, dan ketersediaan suku cadang resmi terlengkap di seluruh pelosok Nusantara.'
+    description: 'Mitsubishi Fuso Canter FE 74L adalah solusi bagi pengusaha kargo yang membutuhkan kapasitas volume angkut terbesar. Dengan sasis 7,4 meter, muatan volume ringan hingga sedang dapat diangkut maksimal dalam satu ritase.'
   },
 
-  // ─── 10. CANTER FE 84 SERIES (SUPER CAPACITY & BUS CHASSIS 6 BAN) ─────────────
+  // ─── 13. CANTER FE SHDX (SUPER HEAVY DUTY X DUMP) ────────────────────────────
   {
-    slug: 'canter-fe84',
-    name: 'Canter FE 84 Series',
-    tagline: 'Sasis Truk & Bus 6 Roda Super Capacity - Daya Angkut Maksimal & Muatan Ekstra Luas',
-    category: 'Truk & Bus',
+    slug: 'canter-fe-shdx',
+    name: 'Canter FE SHDX',
+    tagline: 'Super Heavy Duty X Rasio Gardan 6.666 - Rajanya Dump Truck Tanjakan & Tambang',
+    category: 'Truk',
     segment: 'commercial',
-    badge: 'SUPER CAPACITY 6 BAN',
-    startingPrice: 'Rp 490.000.000',
-    startingPriceNum: 490000000,
-    dpStart: 'Rp 40 Jt-an',
-    dpMinNum: 40000000,
-    cicilanStart: 'Rp 9,8 Jt/bln',
-    cicilanNum: 9800000,
-    image: '/images/cars/canter-fe-84/Canter-FE-84G-BC-1.webp',
+    badge: 'SUPER DUMP 6 BAN',
+    startingPrice: 'Rp 480.000.000',
+    startingPriceNum: 480000000,
+    dpStart: 'Rp 45 Jt-an',
+    dpMinNum: 45000000,
+    cicilanStart: 'Rp 9,7 Jt/bln',
+    cicilanNum: 9700000,
+    heroImage: '/images/cars/canter-fe-shdx/canter-fe-shdx.webp',
+    image: '/images/cars/canter-fe-shdx/karoseri-FE-SHDX-Dump-Truck.webp',
     galleryImages: [
-      '/images/cars/canter-fe-84/Canter-FE-84G-BC-1.webp',
-      '/images/cars/canter-fe-84/extra-long-bus.png'
+      '/images/cars/canter-fe-shdx/canter-fe-shdx.webp',
+      '/images/cars/canter-fe-shdx/karoseri-FE-SHDX-Dump-Truck.webp'
     ],
     colors: [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
     ],
     highlights: [
-      'Sasis 6 roda Super Capacity dengan tapak lebih lebar (Wide Chassis) untuk stabilitas bodi maksimal',
-      'Mesin Common Rail Euro 4 136 PS bertenaga besar & efisiensi bahan bakar optimal',
-      'Basis utama sasis pembuatan Medium Bus Pariwisata 30+ seats dan bodi box kargo kubikasi besar',
-      'Kapasitas Gross Vehicle Weight (GVW) hingga 8.500 kg siap mengangkut beban muatan ekstra',
-      'Dilengkapi fitur Exhaust Brake, Power Steering, Telescopic Steering, dan Fuso Runner Telematics'
+      'Rasio final gear tertinggi 6.666 monster tanjakan di area tambang, galian & proyek infrastruktur',
+      'Diferensial belakang reinforced ultra-heavy duty tahan torsi kejut saat dump hidrolik bekerja',
+      'Suspensi per daun (leaf spring) bertingkat ekstra tebal mampu menahan beban material batu & pasir',
+      'Truk dump paling tangguh, teruji, dan paling bernilai jual kembali (resale value) tinggi di Indonesia'
     ],
     keySpecs: {
-      seating: '3 Penumpang / 31 Penumpang (Karoseri Bus)',
+      seating: '3 Penumpang',
+      engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
+      power: '136 PS @ 2.500 RPM / 420 Nm',
+      transmission: '5-Speed Manual M035S5 (Gardan Super 6.666)',
+      groundClearance: '210 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter FE SHDX Karoseri Dump Truck Proyek MT',
+        transmission: 'MT',
+        price: 545000000,
+        priceFormatted: 'Rp 545.000.000',
+        dpEstimate: 'Rp 55 Jt-an',
+        cicilanEstimate: 'Rp 10,7 Jt-an',
+        tier: 'Karoseri Dump Proyek',
+        transmissionDetail: '5-Speed Manual M035S5 (Gardan 6.666)',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-shdx/karoseri-FE-SHDX-Dump-Truck.webp',
+        highlights: [
+          'Bak dump hidrolik pompa KP75 tebal untuk pasir, batu belah, dan material bangunan',
+          'Ketinggian ground clearance 210 mm aman di jalan proyek berbatu',
+          'Rasio gardan Super High Gear 6.666 raja tanjakan untuk medan tambang & konstruksi ekstrem'
+        ]
+      },
+      {
+        name: 'Canter FE SHDX Karoseri Bak Kayu Muatan Berat MT',
+        transmission: 'MT',
+        price: 518000000,
+        priceFormatted: 'Rp 518.000.000',
+        dpEstimate: 'Rp 50 Jt-an',
+        cicilanEstimate: 'Rp 10,2 Jt-an',
+        tier: 'Karoseri Bak Kayu',
+        transmissionDetail: '5-Speed Manual M035S5 (Gardan 6.666)',
+        groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-shdx/karoseri-FE-SHDX-Bak-Kayu.webp',
+        highlights: [
+          'Bak kayu rangka baja kuat untuk angkutan perkebunan sawit di jalan berlumpur & tanjakan curam',
+          'Rasio gardan 6.666 menjamin daya dorong tanjakan maksimal',
+          'Daya tahan suspensi dan as roda diperkuat khusus beban berat off-road perkebunan'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter FE SHDX adalah legenda truk dump Indonesia. Diciptakan dengan rasio gardan tertinggi 6.666 untuk menaklukkan medan tambang, galian C, dan proyek pembangunan terberat.'
+  },
+
+  // ─── 14. CANTER FE 71 BC (BUS CHASSIS 4 BAN) ─────────────────────────────────
+  {
+    slug: 'canter-fe71-bc',
+    name: 'Canter FE 71 BC',
+    tagline: 'Sasis Bus 4 Roda (Engkel) Terfavorit untuk Karoseri Microbus 16-19 Kursi',
+    category: 'Bus Chassis',
+    segment: 'commercial',
+    badge: 'BUS CHASSIS 4 BAN',
+    startingPrice: 'Rp 365.000.000',
+    startingPriceNum: 365000000,
+    dpStart: 'Rp 25 Jt-an',
+    dpMinNum: 25000000,
+    cicilanStart: 'Rp 7,3 Jt/bln',
+    cicilanNum: 7300000,
+    heroImage: '/images/cars/canter-fe-71-bc/canter-fe71-bc.webp',
+    image: '/images/cars/canter-fe-71-bc/2.webp',
+    galleryImages: [
+      '/images/cars/canter-fe-71-bc/1.webp',
+      '/images/cars/canter-fe-71-bc/2.webp'
+    ],
+    colors: [
+      { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
+    ],
+    highlights: [
+      'Sasis bus 4 ban (Engkel) dengan suspensi lembut dirancang khusus untuk kenyamanan penumpang',
+      'Tersedia sasis standar (FE 71 BC) dan sasis panjang (FE 71L BC) untuk kapasitas muat fleksibel',
+      'Mesin Euro 4 108 PS halus, minim getaran di dalam kabin penumpang, dan sangat hemat solar',
+      'Alternator berdaya besar siap menopang instalasi AC ganda dan sistem audio video'
+    ],
+    keySpecs: {
+      seating: '16 - 19 Penumpang (Karoseri)',
+      engine: '3.9L 4V21 Common Rail Turbo Euro 4',
+      power: '108 PS @ 2.500 RPM / 300 Nm',
+      transmission: '5-Speed Manual M025S5',
+      groundClearance: '200 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter FE 71 BC Karoseri Bus MT',
+        transmission: 'MT',
+        price: 365000000,
+        priceFormatted: 'Rp 365.000.000',
+        dpEstimate: 'Rp 25 Jt-an',
+        cicilanEstimate: 'Rp 7,3 Jt-an',
+        tier: 'Karoseri Bus Standard',
+        transmissionDetail: '5-Speed Manual M025S5',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-71-bc/1.webp',
+        highlights: [
+          'Aplikasi bodi microbus 16 kursi untuk armada travel pariwisata dan antar-jemput eksekutif',
+          'Kenyamanan suspensi daun khusus penumpang',
+          'Radius putar kompak 5,1 meter sangat lincah menjangkau jalan perumahan & gang perkotaan'
+        ]
+      },
+      {
+        name: 'Canter FE 71L BC Karoseri Bus Long MT',
+        transmission: 'MT',
+        price: 380000000,
+        priceFormatted: 'Rp 380.000.000',
+        dpEstimate: 'Rp 28 Jt-an',
+        cicilanEstimate: 'Rp 7,6 Jt-an',
+        tier: 'Karoseri Bus Long',
+        transmissionDetail: '5-Speed Manual M025S5',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-fe-71-bc/2.webp',
+        highlights: [
+          'Sasis panjang 6.425 mm muat hingga 19+1 kursi dengan legroom lega',
+          'Ruang bagasi belakang lebih dalam untuk koper travel bandara',
+          'Alternator besar bertenaga tinggi siap menopang AC ganda ducting dingin merata'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter FE 71 BC Series adalah sasis microbus 4 roda paling terpercaya untuk pengusaha travel antarkota, pariwisata, dan antar-jemput karyawan. Nyaman, halus, dan menguntungkan.'
+  },
+
+  // ─── 15. CANTER FE 84G BC (MEDIUM BUS CHASSIS 6 BAN) ────────────────────────
+  {
+    slug: 'canter-fe84',
+    name: 'Canter FE 84G BC',
+    tagline: 'Sasis Medium Bus 6 Roda Tapak Lebar - Kapasitas 29-35 Kursi Pariwisata',
+    category: 'Bus Chassis',
+    segment: 'commercial',
+    badge: 'BUS CHASSIS 6 BAN',
+    startingPrice: 'Rp 490.000.000',
+    startingPriceNum: 490000000,
+    dpStart: 'Rp 42 Jt-an',
+    dpMinNum: 42000000,
+    cicilanStart: 'Rp 9,8 Jt/bln',
+    cicilanNum: 9800000,
+    heroImage: '/images/cars/canter-fe-84g-bc/FE_84_G_BC.webp',
+    image: '/images/cars/canter-fe-84g-bc/Canter-FE-84G-BC-1.webp',
+    galleryImages: [
+      '/images/cars/canter-fe-84g-bc/FE_84_G_BC.webp',
+      '/images/cars/canter-fe-84g-bc/Canter-FE-84G-BC-1.webp'
+    ],
+    colors: [
+      { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
+    ],
+    highlights: [
+      'Sasis 6 roda Super Capacity tapak lebar (Wide Chassis 2.035 mm) untuk stabilitas bodi bus pariwisata',
+      'Mesin bertenaga perkasa 136 PS sanggup menghela bodi bus berpenumpang penuh di jalur pegunungan',
+      'Panjang sasis 7.130 mm memberikan ruang untuk 29 hingga 35 kursi penumpang plus bagasi luas',
+      'Dilengkapi Exhaust Brake, Tilt & Telescopic Steering, serta jaminan servis di 220+ bengkel Fuso'
+    ],
+    keySpecs: {
+      seating: '29 - 35 Penumpang (Karoseri)',
       engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
       power: '136 PS @ 2.500 RPM / 420 Nm',
       transmission: '5-Speed Manual M035S5',
@@ -1738,71 +1999,31 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
-        name: 'Canter FE 84G MT',
+        name: 'Canter FE 84G BC Karoseri Medium Bus Pariwisata MT',
         transmission: 'MT',
-        price: 485000000,
-        priceFormatted: 'Rp 485.000.000',
-        dpEstimate: 'Rp 40 Jt-an',
-        cicilanEstimate: 'Rp 9,6 Jt-an',
-        tier: 'FE 84G Standard',
+        price: 680000000,
+        priceFormatted: 'Rp 680.000.000',
+        dpEstimate: 'Rp 80 Jt-an',
+        cicilanEstimate: 'Rp 14,5 Jt-an',
+        tier: 'Karoseri Medium Bus',
         transmissionDetail: '5-Speed Manual M035S5',
         groundClearance: '210 mm',
+        image: '/images/cars/canter-fe-84g-bc/Canter-FE-84G-BC-1.webp',
         highlights: [
-          'Wide Cabin & Wide Chassis (tapak roda lebih lebar) memberikan stabilitas bodi unggul saat tikungan',
-          'Kapasitas muatan Gross Vehicle Weight (GVW) hingga 8.500 kg siap membawa bobot dan volume besar',
-          'Mesin Common Rail Euro 4 136 PS bertenaga tangguh dan torsi 420 Nm efisien',
-          'Ruang kabin ekstra lega dengan kapasitas 3 penumpang dan posisi duduk nyaman',
-          'Sasis baja berkekuatan tarik tinggi dirancang untuk aplikasi Box Logistik lebar dan Bak Kayu Jumbo',
-          'Dilengkapi Runner Telematics Fuso untuk pengawasan aset dan efisiensi konsumsi armada'
-        ]
-      },
-      {
-        name: 'Canter FE 84G BC (Bus Chassis 6 Ban) MT',
-        transmission: 'MT',
-        price: 490000000,
-        priceFormatted: 'Rp 490.000.000',
-        dpEstimate: 'Rp 42 Jt-an',
-        cicilanEstimate: 'Rp 9,8 Jt-an',
-        tier: 'FE 84G Bus Chassis',
-        transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
-        highlights: [
-          'Sasis 6 roda terfavorit di Indonesia untuk karoseri Medium Bus Pariwisata 29-35 seats',
-          'Dimensi sasis lebar memberikan keleluasaan karoseri mendesain lorong (aisle) dan kursi bus yang lapang',
-          'Karakter suspensi khusus penumpang yang empuk, stabil, dan minim limbung saat kecepatan tinggi',
-          'Mesin bertenaga 136 PS sanggup menghela bodi bus penuh penumpang dan AC dingin di tanjakan terjal',
-          'Sistem kemudi Tilt & Telescopic memudahkan penyesuaian ergonomi posisi mengemudi',
-          'Investasi armada bus paling diminati oleh PO Pariwisata dan operator shuttle eksekutif'
-        ]
-      },
-      {
-        name: 'Canter FE 84 HDL MT',
-        transmission: 'MT',
-        price: 505000000,
-        priceFormatted: 'Rp 505.000.000',
-        dpEstimate: 'Rp 45 Jt-an',
-        cicilanEstimate: 'Rp 10,1 Jt-an',
-        tier: 'FE 84 HDL',
-        transmissionDetail: '5-Speed Manual M035S5',
-        groundClearance: '210 mm',
-        highlights: [
-          'Varian Super Capacity paling panjang (High Duty Long) dengan panjang sasis mencapai 7.045 mm',
-          'Kombinasi sasis Wide + Long menghasilkan kubikasi kargo terbesar di kelas truk 6 roda',
-          'Sangat ideal untuk ekspedisi retail modern, elektronik, packaging, dan distribusi antar pulau',
-          'Mesin 136 PS Euro 4 dengan efisiensi solar teruji untuk perjalanan rute Trans Jawa & Sumatra',
-          'Rem gas buang (Exhaust Brake) terintegrasi memberikan keselamatan ekstra pada turunan panjang berbeban',
-          'Jaringan 220+ bengkel resmi Mitsubishi Fuso di seluruh Indonesia siap mendukung mobilitas bisnis 24 jam'
+          'Estimasi unit lengkap bodi karoseri medium bus 31 kursi eksekutif AC ducting',
+          'Pilihan utama perusahaan otobus (PO) pariwisata dan shuttle premium',
+          'Sasis 6 roda tapak lebar 136 PS memberikan stabilitas bodi tinggi yang aman dan nyaman'
         ]
       }
     ],
-    description: 'Mitsubishi Fuso Canter FE 84 Series dirancang khusus untuk pengusaha logistik volume besar serta perusahaan otobus pariwisata. Menawarkan dimensi sasis ekstra lebar dan panjang dengan kapasitas muat paling lapang di kelasnya.'
+    description: 'Mitsubishi Fuso Canter FE 84G BC adalah standar emas sasis medium bus di Indonesia. Menawarkan sasis tapak lebar yang stabil, mesin 136 PS bertenaga badak, dan kapasitas muat hingga 35 penumpang.'
   },
 
-  // ─── 11. CANTER BUS & MICROBUS ───────────────────────────────────────────────
+  // ─── 16. CANTER BUS (MICROBUS JADI 19+1 SEATS) ────────────────────────────────
   {
     slug: 'canter-bus',
-    name: 'Canter Bus & Microbus',
-    tagline: 'Solusi Transportasi Penumpang 19+1 Seats - Nyaman, Tangguh & Menguntungkan',
+    name: 'Canter Bus',
+    tagline: 'Microbus 19+1 Seats Jadi Siap Pakai - Kabin Tinggi AC Ducting Reclining Seats',
     category: 'Bus',
     segment: 'commercial',
     badge: 'MICROBUS 20 SEATS',
@@ -1812,6 +2033,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 9,2 Jt/bln',
     cicilanNum: 9200000,
+    heroImage: '/images/cars/canter-bus/canter-bus-optimized.webp',
     image: '/images/cars/canter-bus/canter.webp',
     galleryImages: [
       '/images/cars/canter-bus/canter.webp',
@@ -1821,11 +2043,11 @@ export const carsData: CarModel[] = [
       { name: 'Solid White', hex: '#F5F5F5' }
     ],
     highlights: [
+      'Unit microbus utuh resmi pabrik siap pakai tanpa perlu menunggu lama pengerjaan karoseri',
       'Kapasitas angkut 19 + 1 kursi penumpang dengan legroom lega dan akses keluar masuk mudah',
+      'High Roof Cabin dengan AC Ducting merata ke seluruh kisi-kisi kabin penumpang',
       'Reclining Seat kulit sintetis premium dengan port USB charger di setiap baris bangku',
-      'High Roof Cabin dengan AC Ducting merata ke seluruh kabin penumpang',
-      'Audio entertainment 6 speakers membuat perjalanan wisata atau antar jemput makin menyenangkan',
-      'Bagasi belakang luas dengan kursi baris belakang lipat (folding rear seat)'
+      'Bagasi belakang luas dengan kursi baris paling belakang dapat dilipat (folding rear seat)'
     ],
     keySpecs: {
       seating: '19 + 1 Penumpang',
@@ -1837,83 +2059,100 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
-        name: 'Canter Bus Microbus 19+1 Seats MT',
+        name: 'Canter Bus Microbus 19+1 Seats Standard MT',
         transmission: 'MT',
         price: 465000000,
         priceFormatted: 'Rp 465.000.000',
         dpEstimate: 'Rp 40 Jt-an',
         cicilanEstimate: 'Rp 9,2 Jt-an',
-        tier: 'Microbus 19+1',
+        tier: 'Microbus 19+1 Standard',
         transmissionDetail: '5-Speed Manual M025S5',
         groundClearance: '200 mm',
+        image: '/images/cars/canter-bus/canter.webp',
         highlights: [
-          'Kapasitas angkut 19 + 1 kursi penumpang dengan legroom lega dan akses keluar masuk mudah',
-          'Reclining Seat kulit sintetis premium dengan port USB charger di setiap baris bangku',
-          'High Roof Cabin dengan AC Ducting merata ke seluruh kisi-kisi kabin penumpang',
-          'Audio entertainment 6 speakers membuat perjalanan wisata atau antar-jemput makin menyenangkan',
-          'Bagasi belakang luas dengan kursi baris paling belakang dapat dilipat (folding rear seat)',
-          'Mesin Diesel 3.9L 4V21 Common Rail Euro 4 halus, bertenaga 108 PS dan sangat irit solar'
+          'Unit bus utuh bergaransi resmi siap langsung menghasilkan profit usaha',
+          'AC ducting dingin merata dan audio entertainment 6 speakers',
+          'Kabin lapang 19+1 kursi berkonfigurasi ergonomis untuk operasional travel & antar-jemput'
         ]
       },
       {
-        name: 'Canter Extra Long Bus 20+ Seats MT',
+        name: 'Canter Bus Microbus 19+1 Seats Executive Reclining MT',
+        transmission: 'MT',
+        price: 480000000,
+        priceFormatted: 'Rp 480.000.000',
+        dpEstimate: 'Rp 44 Jt-an',
+        cicilanEstimate: 'Rp 9,5 Jt-an',
+        tier: 'Microbus 19+1 Executive',
+        transmissionDetail: '5-Speed Manual M025S5',
+        groundClearance: '200 mm',
+        image: '/images/cars/canter-bus/canter.webp',
+        highlights: [
+          'Kursi reclining mewah dengan armrest dan USB fast charging port di setiap baris',
+          'Plafon tinggi elegan dengan ambient reading lights',
+          'Suspensi khusus microbus menghasilkan peredaman getaran lembut standar transportasi eksekutif'
+        ]
+      }
+    ],
+    description: 'Mitsubishi Fuso Canter Bus dirancang untuk memaksimalkan keuntungan usaha pariwisata, travel antarkota, shuttle eksekutif, dan transportasi antar-jemput karyawan. Unit bus utuh siap jalan dengan kabin tinggi ber-AC dingin dan kursi reclining.'
+  },
+
+  // ─── 17. CANTER EXTRA LONG BUS (BUS PANJANG 20+ SEATS 6 BAN) ──────────────────
+  {
+    slug: 'canter-extra-long-bus',
+    name: 'Canter Extra Long Bus',
+    tagline: 'Bus 6 Roda Panjang 7,5 Meter 20+ Seats - Mewah, Nyaman & Profit Maksimal',
+    category: 'Bus',
+    segment: 'commercial',
+    badge: 'LONG BUS 6 BAN',
+    startingPrice: 'Rp 485.000.000',
+    startingPriceNum: 485000000,
+    dpStart: 'Rp 45 Jt-an',
+    dpMinNum: 45000000,
+    cicilanStart: 'Rp 9,6 Jt/bln',
+    cicilanNum: 9600000,
+    heroImage: '/images/cars/canter-extra-long-bus/canter-extra-long-bus.webp',
+    image: '/images/cars/canter-extra-long-bus/extra-long-bus.webp',
+    galleryImages: [
+      '/images/cars/canter-extra-long-bus/extra-long-bus.webp',
+      '/images/cars/canter-extra-long-bus/canter-extra-long-bus.webp'
+    ],
+    colors: [
+      { name: 'Solid White', hex: '#F5F5F5' }
+    ],
+    highlights: [
+      'Bodi bus ekstra panjang 7.500 mm berkapasitas 20 hingga 24 kursi penumpang paling lega',
+      'Sasis 6 roda FE 84G BCL tapak lebar dengan mesin perkasa 136 PS & torsi 420 Nm',
+      'Desain interior eksekutif dengan plafon tinggi, tirai jendela elegan & AC Nippon Denso Ducting',
+      'Kompartemen bagasi samping & belakang ekstra dalam untuk koper penumpang travel bandara'
+    ],
+    keySpecs: {
+      seating: '20 - 24 Penumpang',
+      engine: '3.9L 4V21-2AT1 Common Rail Turbo Euro 4',
+      power: '136 PS @ 2.500 RPM / 420 Nm',
+      transmission: '5-Speed Manual M035S5',
+      groundClearance: '210 mm',
+      fuelType: 'Diesel (Euro 4)'
+    },
+    variants: [
+      {
+        name: 'Canter Extra Long Bus Karoseri Bus MT',
         transmission: 'MT',
         price: 485000000,
         priceFormatted: 'Rp 485.000.000',
         dpEstimate: 'Rp 45 Jt-an',
         cicilanEstimate: 'Rp 9,6 Jt-an',
-        tier: 'Extra Long Bus',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Bodi bus ekstra panjang (Extra Long) berkapasitas 20+ kursi penumpang dengan ruang kaki paling lapang',
-          'Desain interior eksekutif dengan plafon tinggi, tirai jendela elegan & pencahayaan LED ambient',
-          'Sistem pendingin udara AC Nippon Denso Ducting independen dingin maksimal di cuaca tropis',
-          'Kompartemen bagasi samping & belakang ekstra dalam untuk koper penumpang travel bandara',
-          'Suspensi daun khusus kenyamanan penumpang memberikan stabilitas tinggi di jalur tol antarkota',
-          'Performa mesin tangguh dengan efisiensi konsumsi bahan bakar terbaik untuk memaksimalkan profit PO Bus'
-        ]
-      },
-      {
-        name: 'Canter Bus Chassis Only FE 71 BC MT',
-        transmission: 'MT',
-        price: 365000000,
-        priceFormatted: 'Rp 365.000.000',
-        dpEstimate: 'Rp 25 Jt-an',
-        cicilanEstimate: 'Rp 7,3 Jt-an',
-        tier: 'Chassis FE 71 BC',
-        transmissionDetail: '5-Speed Manual M025S5',
-        groundClearance: '200 mm',
-        highlights: [
-          'Sasis bus 4 ban (Engkel) siap dirakit bodi karoseri kustom sesuai standar spesifikasi perusahaan Anda',
-          'Fleksibilitas memilih karoseri favorit (New Armada, Adiputro, Laksana, Morodadi Prima, dll.)',
-          'Sasis kokoh dengan titik tumpu suspensi daun yang dirancang presisi untuk bobot bodi bus',
-          'Sistem kelistrikan 24V siap menampung penambahan perangkat elektronik audio & AC kabin besar',
-          'Radius putar lincah memudahkan bus masuk ke area wisata sempit dan perkampungan',
-          'Garansi resmi sasis Mitsubishi Fuso dengan dukungan servis di seluruh jaringan bengkel 3S'
-        ]
-      },
-      {
-        name: 'Canter Bus Chassis Only FE 84G BC (6 Ban) MT',
-        transmission: 'MT',
-        price: 490000000,
-        priceFormatted: 'Rp 490.000.000',
-        dpEstimate: 'Rp 42 Jt-an',
-        cicilanEstimate: 'Rp 9,8 Jt-an',
-        tier: 'Chassis FE 84G BC',
+        tier: 'Karoseri Bus',
         transmissionDetail: '5-Speed Manual M035S5',
         groundClearance: '210 mm',
+        image: '/images/cars/canter-extra-long-bus/extra-long-bus.webp',
         highlights: [
-          'Sasis 6 roda Super Capacity basis utama pembuatan Medium Bus Pariwisata 30+ penumpang',
-          'Tapak roda ekstra lebar (Wide Chassis) memberikan kestabilan tinggi tanpa limbung di kecepatan tinggi',
-          'Mesin perkasa 136 PS & torsi 420 Nm sanggup melibas rute pegunungan terjal dengan muatan penuh',
-          'Kapasitas tonase GVW hingga 8.500 kg menampung rancangan interior bus mewah terlengkap',
-          'Dilengkapi Exhaust Brake untuk keamanan pengereman saat membawa rombongan di jalur pegunungan',
-          'Pilihan utama para pengusaha transportasi pariwisata eksekutif dan shuttle antarkota'
+          'Panjang bodi ekstra 7,5 meter kapasitas 20 hingga 24 kursi penumpang paling lega',
+          'Sasis 6 ban tapak lebar stabil tanpa limbung di kecepatan tinggi jalan tol',
+          'Kabin eksekutif nyaman berplafon tinggi dilengkapi AC ganda Nippon Denso Ducting'
         ]
       }
     ],
-    description: 'Mitsubishi Fuso Canter Bus dirancang untuk memaksimalkan keuntungan usaha pariwisata, travel antarkota, shuttle eksekutif, dan transportasi antar-jemput karyawan. Menawarkan kabin tinggi ber-AC dingin, kursi reclining mewah, dan efisiensi mesin diesel Euro 4.'
+    description: 'Mitsubishi Fuso Canter Extra Long Bus adalah pilihan puncak bagi operator transportasi eksekutif. Menggabungkan panjang sasis 7,5 meter, sasis 6 roda tapak lebar yang stabil, dan kenyamanan interior premium.'
   }
 ];
 

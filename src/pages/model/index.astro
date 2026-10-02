@@ -125,16 +125,29 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                 </div>
 
                 <!-- Price Box -->
-                <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
-                  <div>
-                    <span class="block text-[9px] uppercase tracking-wider text-[#888]">Harga Mulai</span>
-                    <span class="text-[15px] font-black text-[#E60012]">{car.startingPrice}</span>
+                {car.segment === 'commercial' ? (
+                  <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
+                    <div>
+                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Kategori Armada</span>
+                      <span class="text-[13px] font-bold text-[#2B2E30]">{car.category}</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Layanan</span>
+                      <span class="text-[12px] font-bold text-[#E60012]">Konsultasi Karoseri</span>
+                    </div>
                   </div>
-                  <div class="text-right">
-                    <span class="block text-[9px] uppercase tracking-wider text-[#888]">DP Mulai</span>
-                    <span class="text-[12px] font-bold text-[#2B2E30]">{car.dpStart}</span>
+                ) : (
+                  <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
+                    <div>
+                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Harga Mulai</span>
+                      <span class="text-[15px] font-black text-[#E60012]">{car.startingPrice}</span>
+                    </div>
+                    <div class="text-right">
+                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">DP Mulai</span>
+                      <span class="text-[12px] font-bold text-[#2B2E30]">{car.dpStart}</span>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <!-- Action Buttons -->
@@ -143,15 +156,17 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                   href={`/model/${car.slug}`}
                   class="flex items-center justify-center bg-[#2B2E30] hover:bg-[#E60012] text-white text-[12px] font-bold py-2.5 transition-colors duration-200"
                 >
-                  Detail &amp; Varian
+                  {car.segment === 'commercial' ? 'Pilihan Karoseri' : 'Detail & Varian'}
                 </a>
                 <a
-                  href={getWhatsAppLink(`Halo Kanhadi, saya tertarik dengan ${car.name}. Boleh info promo & simulasi kredit terbarunya?`)}
+                  href={getWhatsAppLink(car.segment === 'commercial'
+                    ? `Halo Kanhadi, saya tertarik dengan armada ${car.name}. Bisa minta penawaran karoseri & paket armada fleet? Terima kasih!`
+                    : `Halo Kanhadi, saya tertarik dengan ${car.name}. Boleh info promo & simulasi kredit terbarunya?`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex items-center justify-center gap-1.5 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[12px] font-bold py-2.5 transition-colors duration-200"
                 >
-                  Tanya Promo
+                  {car.segment === 'commercial' ? 'Tanya Karoseri' : 'Tanya Promo'}
                 </a>
               </div>
             </div>

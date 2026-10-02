@@ -9,7 +9,8 @@ const waUrl = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo Mitsubi
 
 const passengerCars = carsData.filter(c => c.segment === 'passenger');
 const lcvCars = carsData.filter(c => c.segment === 'lcv');
-const commercialCars = carsData.filter(c => c.segment === 'commercial');
+const truckCars = carsData.filter(c => c.segment === 'commercial' && c.category === 'Truk');
+const busCars = carsData.filter(c => c.segment === 'commercial' && (c.category === 'Bus' || c.category === 'Bus Chassis'));
 
 const navLinks = [
   { label: 'Model', href: '/model', dropdown: true },
@@ -57,7 +58,7 @@ const navLinks = [
             <div class="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover/dd:block w-[880px] max-w-[calc(100vw-32px)] shadow-2xl border border-[#E3E5E6] bg-white z-50">
               <!-- Top bar with 3 Category Tabs -->
               <div class="px-6 py-3 border-b border-[#E3E5E6] flex items-center justify-between bg-[#FAFAFA]">
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-1.5 flex-wrap">
                   <button
                     type="button"
                     id="tab-btn-passenger"
@@ -74,10 +75,17 @@ const navLinks = [
                   </button>
                   <button
                     type="button"
-                    id="tab-btn-commercial"
+                    id="tab-btn-truck"
                     class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
                   >
-                    Truk &amp; Bus Fuso ({commercialCars.length})
+                    Truk Canter ({truckCars.length})
+                  </button>
+                  <button
+                    type="button"
+                    id="tab-btn-bus"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                  >
+                    Bus &amp; Sasis ({busCars.length})
                   </button>
                 </div>
                 <a href="/model" class="text-[12px] font-bold text-[#E60012] hover:text-black transition-colors flex items-center gap-1 group/all">
@@ -198,16 +206,16 @@ const navLinks = [
                 </div>
               </div>
 
-              <!-- PANEL 3: Truk & Bus Fuso (4 columns grid) -->
-              <div id="nav-panel-commercial" class="hidden grid grid-cols-4 gap-3 p-5">
-                {commercialCars.map((car) => (
+              <!-- PANEL 3: Truk Canter (3 columns grid for 6 models) -->
+              <div id="nav-panel-truck" class="hidden grid grid-cols-3 gap-3 p-5">
+                {truckCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
                     draggable="false"
                     class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
                     <div class="flex items-center justify-between gap-1 mb-1">
-                      <span class="text-[9px] font-black uppercase tracking-wider text-[#E5A91B]">{car.category}</span>
+                      <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
                         <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#2B2E30] text-white">
                           {car.badge}
@@ -235,6 +243,81 @@ const navLinks = [
                 ))}
               </div>
 
+              <!-- PANEL 4: Bus & Sasis (3 columns grid for 4 models + 2 action cards) -->
+              <div id="nav-panel-bus" class="hidden grid grid-cols-3 gap-3 p-5">
+                {busCars.map((car) => (
+                  <a
+                    href={`/model/${car.slug}`}
+                    draggable="false"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                  >
+                    <div class="flex items-center justify-between gap-1 mb-1">
+                      <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
+                      {car.badge && (
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#2B2E30] text-white">
+                          {car.badge}
+                        </span>
+                      )}
+                    </div>
+                    <div class="h-20 w-full flex items-center justify-center py-1 overflow-hidden">
+                      <img
+                        src={car.image}
+                        alt={car.name}
+                        draggable="false"
+                        class="max-h-full max-w-full object-contain group-hover/card:scale-105 transition-transform duration-300 pointer-events-none select-none"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
+                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                        {car.name}
+                      </div>
+                      <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
+                        Mulai {car.startingPrice}
+                      </div>
+                    </div>
+                  </a>
+                ))}
+
+                <!-- 5th Tile: Konsultasi Fleet & Pengadaan Armada -->
+                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                  <div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">PENGADAAN ARMADA</div>
+                    <div class="text-[13px] font-bold leading-snug">Konsultasi Fleet &amp; Bisnis</div>
+                    <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
+                      Penawaran khusus pengadaan unit bus &amp; sasis instansi, pariwisata, atau perusahaan.
+                    </p>
+                  </div>
+                  <a
+                    href={getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi penawaran harga pengadaan unit armada bus/chassis Mitsubishi Fuso.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                  >
+                    Hubungi Fleet Sales
+                  </a>
+                </div>
+
+                <!-- 6th Tile: Pilihan Karoseri Berizin Resmi -->
+                <div class="flex flex-col justify-between p-3 border border-[#EBEBEB] bg-[#FAFAFA]">
+                  <div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-[#686D71] mb-1">REKOMENDASI RESMI</div>
+                    <div class="text-[13px] font-bold text-[#2B2E30] leading-snug">Pilihan Bodi Karoseri</div>
+                    <p class="text-[11px] text-[#686D71] leading-relaxed mt-1.5">
+                      Didukung mitra karoseri terpercaya berizin resmi SKRB untuk bodi pariwisata, ambulans, maupun shuttle.
+                    </p>
+                  </div>
+                  <a
+                    href={getWhatsAppLink('Halo Kanhadi, saya ingin informasi mengenai pilihan pembuatan karoseri bus resmi.')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-3 flex items-center justify-center gap-2 bg-[#2B2E30] hover:bg-[#E60012] text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                  >
+                    Tanya Karoseri
+                  </a>
+                </div>
+              </div>
+
               <!-- Bottom Bar: Official Warranty & Trust -->
               <div class="px-6 py-2.5 bg-[#F6F6F6] border-t border-[#E3E5E6] flex items-center justify-between text-[11px] text-[#686D71]">
                 <div id="footer-text-passenger" class="flex items-center gap-4">
@@ -247,10 +330,15 @@ const navLinks = [
                   <span>✓ DP Ringan Mulai 15 Jt-an</span>
                   <span>✓ Jaminan Servis &amp; Sparepart Mudah</span>
                 </div>
-                <div id="footer-text-commercial" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
+                <div id="footer-text-truck" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
                   <span>✓ Jaringan 222 Dealer &amp; 19 Bengkel Siaga 24 Jam</span>
                   <span>✓ Gratis Servis s/d 40.000 KM / 2 Th</span>
                   <span>✓ Telematika Runner Fuso</span>
+                </div>
+                <div id="footer-text-bus" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
+                  <span>✓ Chasis Bus Kuat &amp; Suspensi Nyaman</span>
+                  <span>✓ Siap Berbagai Jenis Karoseri SKRB</span>
+                  <span>✓ Layanan Purna Jual Resmi Fuso</span>
                 </div>
                 <div class="font-bold text-[#2B2E30]">
                   Wilayah Jakarta &amp; Jabodetabek
@@ -325,23 +413,26 @@ const navLinks = [
     header?.classList.toggle('shadow-lg', window.scrollY > 10);
   });
 
-  // Mega Dropdown Tab Switcher (3 Tabs: Passenger, LCV, Commercial)
+  // Mega Dropdown Tab Switcher (4 Tabs: Passenger, LCV, Truck, Bus)
   const tabPassenger = document.getElementById('tab-btn-passenger');
   const tabLcv = document.getElementById('tab-btn-lcv');
-  const tabCommercial = document.getElementById('tab-btn-commercial');
+  const tabTruck = document.getElementById('tab-btn-truck');
+  const tabBus = document.getElementById('tab-btn-bus');
 
   const panelPassenger = document.getElementById('nav-panel-passenger');
   const panelLcv = document.getElementById('nav-panel-lcv');
-  const panelCommercial = document.getElementById('nav-panel-commercial');
+  const panelTruck = document.getElementById('nav-panel-truck');
+  const panelBus = document.getElementById('nav-panel-bus');
 
   const footerPassenger = document.getElementById('footer-text-passenger');
   const footerLcv = document.getElementById('footer-text-lcv');
-  const footerCommercial = document.getElementById('footer-text-commercial');
+  const footerTruck = document.getElementById('footer-text-truck');
+  const footerBus = document.getElementById('footer-text-bus');
 
   function resetNavTabs() {
-    [panelPassenger, panelLcv, panelCommercial].forEach(p => p?.classList.add('hidden'));
-    [footerPassenger, footerLcv, footerCommercial].forEach(f => f?.classList.add('hidden'));
-    [tabPassenger, tabLcv, tabCommercial].forEach(t => {
+    [panelPassenger, panelLcv, panelTruck, panelBus].forEach(p => p?.classList.add('hidden'));
+    [footerPassenger, footerLcv, footerTruck, footerBus].forEach(f => f?.classList.add('hidden'));
+    [tabPassenger, tabLcv, tabTruck, tabBus].forEach(t => {
       t?.classList.remove('bg-[#E60012]', 'bg-[#2B2E30]', 'text-white');
       t?.classList.add('bg-[#EBEBEB]', 'text-[#2B2E30]');
     });
@@ -363,15 +454,24 @@ const navLinks = [
     tabLcv?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
   }
 
-  function showCommercial() {
+  function showTruck() {
     resetNavTabs();
-    panelCommercial?.classList.remove('hidden');
-    footerCommercial?.classList.remove('hidden');
-    tabCommercial?.classList.add('bg-[#2B2E30]', 'text-white');
-    tabCommercial?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    panelTruck?.classList.remove('hidden');
+    footerTruck?.classList.remove('hidden');
+    tabTruck?.classList.add('bg-[#E60012]', 'text-white');
+    tabTruck?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+  }
+
+  function showBus() {
+    resetNavTabs();
+    panelBus?.classList.remove('hidden');
+    footerBus?.classList.remove('hidden');
+    tabBus?.classList.add('bg-[#E60012]', 'text-white');
+    tabBus?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
   }
 
   tabPassenger?.addEventListener('click', showPassenger);
   tabLcv?.addEventListener('click', showLcv);
-  tabCommercial?.addEventListener('click', showCommercial);
+  tabTruck?.addEventListener('click', showTruck);
+  tabBus?.addEventListener('click', showBus);
 </script>

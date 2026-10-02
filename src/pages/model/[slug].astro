@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { carsData, getCarBySlug } from '../../data/cars';
 import { salesData, getWhatsAppLink } from '../../data/sales';
+import { getCommercialSpec } from '../../data/commercialSpecs';
 
 export function getStaticPaths() {
   return carsData.map(car => ({
@@ -11,9 +12,15 @@ export function getStaticPaths() {
 }
 
 const { car } = Astro.props;
-const waMessage = `Halo Kanhadi, saya tertarik dengan ${car.name}. Bisa info promo dan simulasi kredit terbaru? Terima kasih!`;
+const isCommercial = car.segment === 'commercial';
+const commSpec = isCommercial ? getCommercialSpec(car.slug) : undefined;
+const waMessage = isCommercial
+  ? `Halo Kanhadi, saya tertarik dengan armada ${car.name}. Bisa minta info spesifikasi karoseri dan penawaran terbaiknya? Terima kasih!`
+  : `Halo Kanhadi, saya tertarik dengan ${car.name}. Bisa info promo dan simulasi kredit terbaru? Terima kasih!`;
 const waUrl = getWhatsAppLink(waMessage);
-const waTestDrive = getWhatsAppLink(`Halo Kanhadi, saya ingin jadwalkan test drive ${car.name}. Bisa ke rumah/kantor. Terima kasih!`);
+const waTestDrive = getWhatsAppLink(isCommercial
+  ? `Halo Kanhadi, saya ingin konsultasi spesifikasi karoseri & armada ${car.name}. Terima kasih!`
+  : `Halo Kanhadi, saya ingin jadwalkan test drive ${car.name}. Bisa ke rumah/kantor. Terima kasih!`);
 
 // Format price to million
 function toMillion(num: number): string {
@@ -38,9 +45,22 @@ const cleanVariantName = (name: string) => {
     'Triton',
     'Colt L300',
     'L300',
+    'Canter Extra Long Bus',
     'Canter Bus',
+    'Canter FE 84G BC',
+    'Canter FE 84',
+    'Canter FE 71L BCL',
+    'Canter FE 71L BC',
+    'Canter FE 71L',
+    'Canter FE 71 BC',
+    'Canter FE 71',
+    'Canter FE 74 HDS',
+    'Canter FE 74 HD',
+    'Canter FE 74L',
+    'Canter FE 74',
+    'Canter FE SHDX',
     'Canter'
-  ];
+  ].sort((a, b) => b.length - a.length);
   const escaped = prefixes.map(p => p.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
   const pattern = new RegExp(`^(${escaped})(?:\\s+|$)`, 'i');
   const cleaned = name.replace(pattern, '').trim();
@@ -53,17 +73,55 @@ const whitePearlColor = car.colors.find(c => {
 
 // Preload all car images across variants and colors for 0ms instant switching
 const allPreloadImages = Array.from(new Set([
+  car.heroImage,
   car.image,
   ...(car.galleryImages || []),
   ...car.variants.map(v => v.image).filter(Boolean),
   ...car.colors.map(c => c.image).filter(Boolean),
   ...car.colors.flatMap(c => c.tierImages ? Object.values(c.tierImages) : []).filter(Boolean)
 ])).filter(Boolean);
+
+// Rekomendasi model sesuai kategori di Navbar (selalu tepat 4 mobil)
+const getRelatedCars = () => {
+  if (car.segment === 'passenger') {
+    return carsData.filter(c => c.segment === 'passenger' && c.slug !== car.slug).slice(0, 4);
+  }
+  
+  if (car.segment === 'commercial') {
+    const isBus = car.category === 'Bus' || car.category === 'Bus Chassis';
+    const sameCommercial = carsData.filter(c => c.segment === 'commercial' && c.slug !== car.slug);
+    if (isBus) {
+      const otherBuses = sameCommercial.filter(c => c.category === 'Bus' || c.category === 'Bus Chassis');
+      const otherTrucks = sameCommercial.filter(c => c.category === 'Truk');
+      return [...otherBuses, ...otherTrucks].slice(0, 4);
+    } else {
+      const otherTrucks = sameCommercial.filter(c => c.category === 'Truk');
+      const otherBuses = sameCommercial.filter(c => c.category === 'Bus' || c.category === 'Bus Chassis');
+      return [...otherTrucks, ...otherBuses].slice(0, 4);
+    }
+  }
+
+  // Niaga Ringan (LCV: Triton, L300): prioritaskan LCV lainnya, lalu dilengkapi truk komersial ringan Fuso terdekat
+  const otherLcv = carsData.filter(c => c.segment === 'lcv' && c.slug !== car.slug);
+  const commercialFallbacks = carsData.filter(c => c.segment === 'commercial');
+  return [...otherLcv, ...commercialFallbacks].slice(0, 4);
+};
+
+const relatedCars = getRelatedCars();
+const relatedSectionTitle = car.segment === 'passenger'
+  ? 'Mobil Penumpang Lainnya'
+  : car.segment === 'commercial'
+    ? 'Truk & Bus Fuso Lainnya'
+    : 'Model Niaga Ringan Lainnya';
 ---
 
 <Layout
-  title={`${car.name} Jakarta 2026 | Harga OTR, DP & Cicilan - Kanhadi Mitsubishi`}
-  description={`${car.name} harga OTR Jakarta mulai ${car.startingPrice}. DP ${car.dpStart}, cicilan ${car.cicilanStart}. Test drive ke rumah. Hubungi Kanhadi, sales resmi Mitsubishi Jakarta.`}
+  title={isCommercial
+    ? `${car.name} Jakarta 2026 | Info Karoseri & Spesifikasi Armada - Kanhadi Mitsubishi`
+    : `${car.name} Jakarta 2026 | Harga OTR, DP & Cicilan - Kanhadi Mitsubishi`}
+  description={isCommercial
+    ? `${car.name} armada komersial Mitsubishi Fuso Jakarta. Spesifikasi karoseri lengkap, layanan fleet & penawaran terbaik. Hubungi Kanhadi, sales resmi Mitsubishi Fuso Jakarta.`
+    : `${car.name} harga OTR Jakarta mulai ${car.startingPrice}. DP ${car.dpStart}, cicilan ${car.cicilanStart}. Test drive ke rumah. Hubungi Kanhadi, sales resmi Mitsubishi Jakarta.`}
   currentPath={`/model/${car.slug}`}
   ogImage={car.heroImage || car.image}
 >
@@ -73,7 +131,7 @@ const allPreloadImages = Array.from(new Set([
     <div class="model-hero-bg" style={`background-image: url(${car.heroImage || car.image})`}></div>
     <div class="model-hero-overlay"></div>
     <div class="model-hero-content">
-      {car.badge && <div class="model-badge">{car.badge}</div>}
+      {car.badge && !isCommercial && <div class="model-badge">{car.badge}</div>}
       <h1 class="model-hero-name">
         {car.logo ? (
           <img
@@ -274,33 +332,35 @@ const allPreloadImages = Array.from(new Set([
 
   <!-- ─── WARNA + GAMBAR UTAMA ──────────────────────────────── -->
   <section class="model-config" data-preload={JSON.stringify(allPreloadImages)}>
-    <div class="model-config-inner">
+    <div class={`model-config-inner${isCommercial ? ' is-commercial' : ''}`}>
 
-      <!-- Color picker kiri -->
-      <div class="model-color-panel">
-        <div class="model-color-label">Pilihan Warna</div>
-        <div class="model-colors" id="colorPicker">
-          {car.colors.map((color, i) => {
-            const isInitialHidden = color.availableVariants && car.variants[0]?.tier && !color.availableVariants.includes(car.variants[0].tier);
-            return (
-              <button
-                class={`model-color-swatch${i === 0 ? ' active' : ''}${isInitialHidden ? ' is-hidden' : ''}`}
-                style={`background: ${color.hex};`}
-                data-color={color.name}
-                data-extra={color.extraPriceFormatted || ''}
-                data-extra-num={color.extraPriceNum || (color.extraPriceFormatted ? Number(color.extraPriceFormatted.replace(/[^0-9]/g, '')) : 0)}
-                data-variants={color.availableVariants ? color.availableVariants.join(',') : ''}
-                data-image={color.image || ''}
-                data-image-tiers={color.imageTiers ? color.imageTiers.join(',') : ''}
-                data-tier-images={color.tierImages ? JSON.stringify(color.tierImages) : ''}
-                data-index={i}
-                title={color.name}
-              ></button>
-            );
-          })}
+      <!-- Color picker kiri (hanya untuk non-commercial) -->
+      {!isCommercial && (
+        <div class="model-color-panel">
+          <div class="model-color-label">Pilihan Warna</div>
+          <div class="model-colors" id="colorPicker">
+            {car.colors.map((color, i) => {
+              const isInitialHidden = color.availableVariants && car.variants[0]?.tier && !color.availableVariants.includes(car.variants[0].tier);
+              return (
+                <button
+                  class={`model-color-swatch${i === 0 ? ' active' : ''}${isInitialHidden ? ' is-hidden' : ''}`}
+                  style={`background: ${color.hex};`}
+                  data-color={color.name}
+                  data-extra={color.extraPriceFormatted || ''}
+                  data-extra-num={color.extraPriceNum || (color.extraPriceFormatted ? Number(color.extraPriceFormatted.replace(/[^0-9]/g, '')) : 0)}
+                  data-variants={color.availableVariants ? color.availableVariants.join(',') : ''}
+                  data-image={color.image || ''}
+                  data-image-tiers={color.imageTiers ? color.imageTiers.join(',') : ''}
+                  data-tier-images={color.tierImages ? JSON.stringify(color.tierImages) : ''}
+                  data-index={i}
+                  title={color.name}
+                ></button>
+              );
+            })}
+          </div>
+          <div class="model-color-name" id="colorName">{car.colors[0]?.name}</div>
         </div>
-        <div class="model-color-name" id="colorName">{car.colors[0].name}</div>
-      </div>
+      )}
 
       <!-- Gambar mobil tengah -->
       {
@@ -354,10 +414,14 @@ const allPreloadImages = Array.from(new Set([
                 </div>
               </div>
 
-              <div class="model-price-tag">
-                <div class="model-price-from" id="carPriceLabel">{car.variants[0]?.name || 'Mulai dari'}</div>
-                <div class="model-price-num" id="carPriceVal">{car.variants[0]?.priceFormatted || car.startingPrice}</div>
-                <div class="model-price-note">Harga OTR Jakarta 2026</div>
+              <div class={`model-price-tag${isCommercial ? ' is-commercial' : ''}`}>
+                <div class="model-price-from" id="carPriceLabel">{car.variants[0]?.name || car.name}</div>
+                {!isCommercial && (
+                  <>
+                    <div class="model-price-num" id="carPriceVal">{car.variants[0]?.priceFormatted || car.startingPrice}</div>
+                    <div class="model-price-note">Harga OTR Jakarta 2026</div>
+                  </>
+                )}
               </div>
             </div>
           );
@@ -368,8 +432,8 @@ const allPreloadImages = Array.from(new Set([
       <div class="model-side-info">
         <div class="model-editorial-panel">
           <div class="model-editorial-header">
-            <span class="model-editorial-title">Pilihan Varian</span>
-            <span class="model-editorial-sub">OTR Jakarta 2026</span>
+            <span class="model-editorial-title">{isCommercial ? 'Pilihan Karoseri' : 'Pilihan Varian'}</span>
+            {!isCommercial && <span class="model-editorial-sub">OTR Jakarta 2026</span>}
           </div>
 
           <div class="model-editorial-list">
@@ -378,7 +442,8 @@ const allPreloadImages = Array.from(new Set([
               return (
                 <button
                   type="button"
-                  class={`model-editorial-item${i === 0 ? ' active' : ''}`}
+                  class={`model-editorial-item${i === 0 ? ' active' : ''}${isCommercial ? ' is-commercial' : ''}`}
+                  data-commercial={isCommercial ? 'true' : 'false'}
                   data-name={v.name}
                   data-clean-name={cleanVName}
                   data-image={v.image || ''}
@@ -399,27 +464,33 @@ const allPreloadImages = Array.from(new Set([
                   data-packages={v.packages ? JSON.stringify(v.packages) : ''}
                 >
                   <span class="model-editorial-name">{cleanVName}</span>
-                  <span class="model-editorial-price">{v.priceFormatted}</span>
+                  {!isCommercial && <span class="model-editorial-price">{v.priceFormatted}</span>}
                 </button>
               );
             })}
           </div>
 
           <!-- Ringkasan Finansial Bersih -->
-          <div class="model-editorial-finance">
-            <div class="model-finance-row">
-              <span class="model-finance-item">DP mulai <strong id="dpVal">{car.variants[0]?.dpEstimate || '20%'}</strong></span>
-              <span class="model-finance-bullet">·</span>
-              <span class="model-finance-item">Cicilan <strong id="cicilanVal">{car.variants[0]?.cicilanEstimate || 'Konsultasi'}</strong></span>
+          {!isCommercial && (
+            <div class="model-editorial-finance">
+              <div class="model-finance-row">
+                <span class="model-finance-item">DP mulai <strong id="dpVal">{car.variants[0]?.dpEstimate || '20%'}</strong></span>
+                <span class="model-finance-bullet">·</span>
+                <span class="model-finance-item">Cicilan <strong id="cicilanVal">{car.variants[0]?.cicilanEstimate || 'Konsultasi'}</strong></span>
+              </div>
+              <p class="model-finance-note">*Promo bunga ringan &amp; tenor kredit s/d 6 tahun via dealer resmi</p>
             </div>
-            <p class="model-finance-note">*Promo bunga ringan &amp; tenor kredit s/d 6 tahun via dealer resmi</p>
-          </div>
+          )}
 
           <!-- Aksi Kontak -->
           <div class="model-editorial-actions">
             <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-editorial-wa-btn" id="sideWaBtn">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              <span id="sideWaBtnText">Minta Simulasi &amp; Promo {cleanVariantName(car.variants[0]?.name || car.name)}</span>
+              <span id="sideWaBtnText">
+                {isCommercial
+                  ? `Minta Penawaran ${cleanVariantName(car.variants[0]?.name || car.name)}`
+                  : `Minta Simulasi & Promo ${cleanVariantName(car.variants[0]?.name || car.name)}`}
+              </span>
             </a>
             <a href={waTestDrive} target="_blank" rel="noopener noreferrer" class="model-editorial-testdrive-btn">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -427,7 +498,7 @@ const allPreloadImages = Array.from(new Set([
                 <circle cx="12" cy="12" r="3"/>
                 <path d="M12 3v6m-9 3h6m6 0h6m-3.5 6.5L14 14.5M6.5 18.5L9.5 14.5"/>
               </svg>
-              <span>Jadwalkan Test Drive ke Rumah</span>
+              <span>{isCommercial ? 'Konsultasi Karoseri & Armada' : 'Jadwalkan Test Drive ke Rumah'}</span>
             </a>
           </div>
         </div>
@@ -438,12 +509,22 @@ const allPreloadImages = Array.from(new Set([
     <!-- Catatan Resmi OTR MMKSI -->
     <div class="model-disclaimer-wrap">
       <div class="model-disclaimer-inner">
-        <p>*Harga OTR Jabodetabek</p>
-        {whitePearlColor?.extraPriceFormatted && (
-          <p>*Harga {shortCarName} pilihan warna {whitePearlColor.name} lebih tinggi {whitePearlColor.extraPriceFormatted.replace('+', '')}</p>
+        {isCommercial ? (
+          <>
+            <p>*Spesifikasi karoseri, rancang bangun (SRUT), dan harga paket armada dapat disesuaikan dengan kebutuhan operasional bisnis Anda</p>
+            <p>*Tersedia program pembiayaan fleet khusus, bunga kompetitif, dan paket perawatan berkala</p>
+            <p>*Untuk informasi teknis karoseri & penawaran resmi dapat menghubungi tim sales Mitsubishi Fuso</p>
+          </>
+        ) : (
+          <>
+            <p>*Harga OTR Jabodetabek</p>
+            {whitePearlColor?.extraPriceFormatted && (
+              <p>*Harga {shortCarName} pilihan warna {whitePearlColor.name} lebih tinggi {whitePearlColor.extraPriceFormatted.replace('+', '')}</p>
+            )}
+            <p>*Untuk informasi harga terkini dapat menghubungi dealer Mitsubishi Motors terdekat</p>
+            <p>*Ketersediaan varian dan warna dapat berbeda-beda tergantung stok yang tersedia di dealer dan PT MMKSI</p>
+          </>
         )}
-        <p>*Untuk informasi harga terkini dapat menghubungi dealer Mitsubishi Motors terdekat</p>
-        <p>*Ketersediaan varian dan warna dapat berbeda-beda tergantung stok yang tersedia di dealer dan PT MMKSI</p>
         <div class="model-disclaimer-line"></div>
       </div>
     </div>
@@ -456,47 +537,92 @@ const allPreloadImages = Array.from(new Set([
     </div>
   </section>
 
-  <!-- ─── KEY SPECS ─────────────────────────────────────────── -->
-  <section class="model-specs-section">
-    <div class="model-section-inner">
-      <div class="model-section-header">
-        <div class="model-section-eyebrow">Spesifikasi</div>
-        <h2 class="model-section-title">Performa & Teknis</h2>
+  <!-- ─── SPECS SECTION ─────────────────────────────────────────── -->
+  {isCommercial && commSpec ? (
+    <section class="comm-specs-section" id="commercialSpecs">
+      <div class="model-section-inner">
+        <div class="model-section-header">
+          <div class="model-section-eyebrow">Spesifikasi</div>
+          <h2 class="model-section-title">Spesifikasi Teknis</h2>
+        </div>
+
+        <!-- Navigation Tabs: Flat Automotive Style -->
+        <div class="comm-spec-tabs" role="tablist">
+          <button type="button" class="comm-tab-btn is-active" data-group="all">Semua</button>
+          <button type="button" class="comm-tab-btn" data-group="dimensi">Dimensi & Berat</button>
+          <button type="button" class="comm-tab-btn" data-group="mesin">Mesin & Transmisi</button>
+          <button type="button" class="comm-tab-btn" data-group="sasis">Kaki-Kaki & Rem</button>
+          <button type="button" class="comm-tab-btn" data-group="kelistrikan">Kemudi & Kelistrikan</button>
+        </div>
+
+        <!-- Structured Automotive Tables -->
+        <div class="comm-specs-grid" id="commSpecsGrid">
+          {commSpec.categories.map((cat) => (
+            <div class="comm-spec-box" data-cat-id={cat.id} data-cat-group={cat.group}>
+              <div class="comm-spec-box-header">
+                <h3>{cat.title}</h3>
+              </div>
+              <table class="comm-spec-table">
+                <tbody>
+                  {cat.items.map((item) => (
+                    <tr class="comm-spec-row">
+                      <td class="comm-spec-key">{item.label}</td>
+                      <td class="comm-spec-val">{item.value}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))}
+        </div>
+
+        <p class="comm-spec-disclaimer">
+          * Seluruh data spesifikasi teknis mengacu pada data resmi PT Krama Yudha Tiga Berlian Motors (KTB Fuso Indonesia). Untuk konsultasi kebutuhan karoseri dan rekomendasi armada fleet, hubungi Sales Consultant kami.
+        </p>
       </div>
-      <div class="model-specs-grid">
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
-          <div class="model-spec-card-val">{car.keySpecs.seating}</div>
-          <div class="model-spec-card-label">Kapasitas</div>
+    </section>
+  ) : (
+    <section class="model-specs-section">
+      <div class="model-section-inner">
+        <div class="model-section-header">
+          <div class="model-section-eyebrow">Spesifikasi</div>
+          <h2 class="model-section-title">Performa & Teknis</h2>
         </div>
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-          <div class="model-spec-card-val" style="font-size:13px" id="specEngineVal">{car.variants[0]?.engine || car.keySpecs.engine}</div>
-          <div class="model-spec-card-label">Mesin</div>
-        </div>
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-          <div class="model-spec-card-val" style="font-size:13px" id="specPowerVal">{car.variants[0]?.power || car.keySpecs.power}</div>
-          <div class="model-spec-card-label">Tenaga Maks</div>
-        </div>
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
-          <div class="model-spec-card-val" style="font-size:13px" id="specTransVal">{car.variants[0]?.transmissionDetail || car.keySpecs.transmission}</div>
-          <div class="model-spec-card-label">Transmisi</div>
-        </div>
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-          <div class="model-spec-card-val" id="specGcVal">{car.variants[0]?.groundClearance || car.keySpecs.groundClearance}</div>
-          <div class="model-spec-card-label">Ground Clearance</div>
-        </div>
-        <div class="model-spec-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
-          <div class="model-spec-card-val" style="font-size:13px">{car.keySpecs.fuelType}</div>
-          <div class="model-spec-card-label">Bahan Bakar</div>
+        <div class="model-specs-grid">
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>
+            <div class="model-spec-card-val">{car.keySpecs.seating}</div>
+            <div class="model-spec-card-label">Kapasitas</div>
+          </div>
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+            <div class="model-spec-card-val" style="font-size:13px" id="specEngineVal">{car.variants[0]?.engine || car.keySpecs.engine}</div>
+            <div class="model-spec-card-label">Mesin</div>
+          </div>
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <div class="model-spec-card-val" style="font-size:13px" id="specPowerVal">{car.variants[0]?.power || car.keySpecs.power}</div>
+            <div class="model-spec-card-label">Tenaga Maks</div>
+          </div>
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.07 4.93a10 10 0 010 14.14M4.93 4.93a10 10 0 000 14.14"/></svg>
+            <div class="model-spec-card-val" style="font-size:13px" id="specTransVal">{car.variants[0]?.transmissionDetail || car.keySpecs.transmission}</div>
+            <div class="model-spec-card-label">Transmisi</div>
+          </div>
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+            <div class="model-spec-card-val" id="specGcVal">{car.variants[0]?.groundClearance || car.keySpecs.groundClearance}</div>
+            <div class="model-spec-card-label">Ground Clearance</div>
+          </div>
+          <div class="model-spec-card">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+            <div class="model-spec-card-val" style="font-size:13px">{car.keySpecs.fuelType}</div>
+            <div class="model-spec-card-label">Bahan Bakar</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  )}
 
   <!-- ─── HIGHLIGHTS ────────────────────────────────────────── -->
   <section class="model-highlights-section" id="modelHighlightsSection">
@@ -528,7 +654,8 @@ const allPreloadImages = Array.from(new Set([
             });
           }
           const cleanKey = cleanVariantName(v.name);
-          const items = v.highlights || car.highlights;
+          const rawItems = v.highlights || car.highlights;
+          const items = isCommercial ? rawItems.slice(0, 3) : rawItems;
           return (
             <div
               class={`model-highlights-grid${vIdx === 0 ? ' is-active' : ''}`}
@@ -573,18 +700,18 @@ const allPreloadImages = Array.from(new Set([
     <div class="model-section-inner">
       <div class="model-section-header">
         <div class="model-section-eyebrow">Lineup</div>
-        <h2 class="model-section-title">Model Mitsubishi Lainnya</h2>
+        <h2 class="model-section-title">{relatedSectionTitle}</h2>
       </div>
       <div class="model-others-grid">
-        {carsData.filter(c => c.slug !== car.slug).slice(0, 4).map(other => (
+        {relatedCars.map(other => (
           <a href={`/model/${other.slug}`} class="model-other-card">
             <div class="model-other-img">
               <img src={other.image} alt={other.name} loading="lazy" />
             </div>
             <div class="model-other-info">
-              {other.badge && <div class="model-other-badge">{other.badge}</div>}
+              {other.badge && other.segment !== 'commercial' && <div class="model-other-badge">{other.badge}</div>}
               <div class="model-other-name">{other.name}</div>
-              <div class="model-other-price">{other.cicilanStart}</div>
+              <div class="model-other-price">{other.segment === 'commercial' ? 'Konsultasi Fleet' : other.cicilanStart}</div>
             </div>
           </a>
         ))}
@@ -821,10 +948,20 @@ const allPreloadImages = Array.from(new Set([
     align-items: start;
   }
 
+  .model-config-inner.is-commercial {
+    grid-template-columns: 1fr 345px;
+    gap: 48px;
+  }
+
   @media (max-width: 900px) {
     .model-config-inner {
       grid-template-columns: 1fr;
       padding: 0 20px;
+    }
+
+    .model-config-inner.is-commercial {
+      grid-template-columns: 1fr;
+      gap: 32px;
     }
 
     .model-color-panel {
@@ -1031,6 +1168,20 @@ const allPreloadImages = Array.from(new Set([
     min-height: 70px;
   }
 
+  .model-price-tag.is-commercial {
+    min-height: auto;
+    margin-top: 20px;
+  }
+
+  .model-price-tag.is-commercial .model-price-from {
+    font-size: clamp(16px, 2.2vw, 22px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #0f172a;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
   .model-price-from {
     font-size: 11px;
     font-weight: 600;
@@ -1132,6 +1283,14 @@ const allPreloadImages = Array.from(new Set([
     font-family: inherit;
     box-sizing: border-box;
     min-height: 42px;
+  }
+
+  .model-editorial-item.is-commercial {
+    justify-content: flex-start;
+  }
+
+  .model-editorial-item.is-commercial .model-editorial-name {
+    font-size: 13px;
   }
 
   .model-editorial-item:hover {
@@ -1390,6 +1549,147 @@ const allPreloadImages = Array.from(new Set([
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #aaa;
+  }
+
+  /* ── Commercial Technical Specs (Authentic Automotive Style) ── */
+  .comm-specs-section {
+    padding: 64px 0 72px;
+    background: #fff;
+    border-bottom: 1px solid #efefef;
+  }
+
+  .comm-spec-tabs {
+    display: flex;
+    gap: 32px;
+    border-bottom: 2px solid #e5e5e5;
+    margin-bottom: 32px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .comm-spec-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .comm-tab-btn {
+    padding: 12px 2px 14px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+  }
+
+  .comm-tab-btn:hover {
+    color: #000;
+  }
+
+  .comm-tab-btn.is-active {
+    color: #000;
+    font-weight: 700;
+  }
+
+  .comm-tab-btn.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #E60012;
+  }
+
+  .comm-specs-grid {
+    column-count: 2;
+    column-gap: 24px;
+  }
+
+  @media (max-width: 860px) {
+    .comm-specs-grid {
+      column-count: 1;
+    }
+    .comm-spec-tabs {
+      gap: 20px;
+    }
+  }
+
+  .comm-spec-box {
+    display: inline-block;
+    width: 100%;
+    break-inside: avoid;
+    margin-bottom: 24px;
+    border: 1px solid #e5e5e5;
+    background: #fff;
+  }
+
+  .comm-spec-box-header {
+    background: #f7f7f7;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e5e5;
+    border-left: 3px solid #E60012;
+  }
+
+  .comm-spec-box-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+  }
+
+  .comm-spec-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .comm-spec-row {
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.1s ease;
+  }
+
+  .comm-spec-row:last-child {
+    border-bottom: none;
+  }
+
+  .comm-spec-row:nth-child(even) {
+    background: #fafafa;
+  }
+
+  .comm-spec-row:hover {
+    background: #f2f2f2;
+  }
+
+  .comm-spec-key {
+    padding: 11px 16px;
+    font-size: 13.5px;
+    color: #444;
+    width: 52%;
+    line-height: 1.45;
+  }
+
+  .comm-spec-val {
+    padding: 11px 16px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #000;
+    width: 48%;
+    text-align: right;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .comm-spec-disclaimer {
+    margin-top: 28px;
+    font-size: 12.5px;
+    color: #888;
+    line-height: 1.6;
+    font-style: italic;
   }
 
   /* ── Highlights ── */
@@ -1662,20 +1962,24 @@ const allPreloadImages = Array.from(new Set([
       || document.querySelector<HTMLButtonElement>('.model-color-swatch.active');
     if (!activeVariant) return;
 
-    const basePriceNum = Number(activeVariant.dataset.priceNum || 0);
-    const extraNum = activeSwatch ? Number(activeSwatch.dataset.extraNum || 0) : 0;
-    const finalPriceNum = basePriceNum + extraNum;
-    const finalPriceFormatted = finalPriceNum > 0 ? formatRupiah(finalPriceNum) : (activeVariant.dataset.price || '');
+    const isComm = activeVariant.dataset.commercial === 'true';
 
-    // 1. Update main price display in tag
-    if (carPriceVal) {
-      carPriceVal.textContent = finalPriceFormatted;
-    }
+    if (!isComm) {
+      const basePriceNum = Number(activeVariant.dataset.priceNum || 0);
+      const extraNum = activeSwatch ? Number(activeSwatch.dataset.extraNum || 0) : 0;
+      const finalPriceNum = basePriceNum + extraNum;
+      const finalPriceFormatted = finalPriceNum > 0 ? formatRupiah(finalPriceNum) : (activeVariant.dataset.price || '');
 
-    // 2. Update price in the active variant list item
-    const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
-    if (priceSpan) {
-      priceSpan.textContent = finalPriceFormatted;
+      // 1. Update main price display in tag
+      if (carPriceVal) {
+        carPriceVal.textContent = finalPriceFormatted;
+      }
+
+      // 2. Update price in the active variant list item
+      const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
+      if (priceSpan) {
+        priceSpan.textContent = finalPriceFormatted;
+      }
     }
 
     // 3. Update color label
@@ -1687,9 +1991,18 @@ const allPreloadImages = Array.from(new Set([
     // 4. Update WhatsApp message
     if (sideWaBtn) {
       const vName = activeVariant.dataset.name || '';
-      const colorText = cName ? ` warna ${cName}` : '';
-      const msg = `Halo Kanhadi, saya tertarik dengan ${vName}${colorText} (${finalPriceFormatted}). Bisa minta info diskon promo dan hitungan simulasi kreditnya?`;
-      sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
+      if (isComm) {
+        const msg = `Halo Kanhadi, saya tertarik dengan armada ${vName}. Bisa minta info spesifikasi karoseri dan penawaran terbaiknya? Terima kasih!`;
+        sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
+      } else {
+        const basePriceNum = Number(activeVariant.dataset.priceNum || 0);
+        const extraNum = activeSwatch ? Number(activeSwatch.dataset.extraNum || 0) : 0;
+        const finalPriceNum = basePriceNum + extraNum;
+        const finalPriceFormatted = finalPriceNum > 0 ? formatRupiah(finalPriceNum) : (activeVariant.dataset.price || '');
+        const colorText = cName ? ` warna ${cName}` : '';
+        const msg = `Halo Kanhadi, saya tertarik dengan ${vName}${colorText} (${finalPriceFormatted}). Bisa minta info diskon promo dan hitungan simulasi kreditnya?`;
+        sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
+      }
     }
 
     // 5. Update Car Display Image (instant switch)
@@ -1935,7 +2248,11 @@ const allPreloadImages = Array.from(new Set([
       if (cicilanVal) cicilanVal.textContent = cicilan || 'Konsultasi';
 
       if (sideWaBtnText) {
-        sideWaBtnText.textContent = `Minta Simulasi & Promo ${cleanName}`;
+        if (item.dataset.commercial === 'true') {
+          sideWaBtnText.textContent = `Minta Penawaran ${cleanName}`;
+        } else {
+          sideWaBtnText.textContent = `Minta Simulasi & Promo ${cleanName}`;
+        }
       }
 
       // Update Performa & Teknis yang dinamis (Mesin, Tenaga, Transmisi & Ground Clearance)
@@ -1983,6 +2300,26 @@ const allPreloadImages = Array.from(new Set([
       });
     }
   } catch (e) {}
+
+  // Commercial Specs Tabs Filter
+  const commTabBtns = document.querySelectorAll<HTMLButtonElement>('.comm-tab-btn');
+  const commSpecBoxes = document.querySelectorAll<HTMLElement>('.comm-spec-box');
+
+  commTabBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      commTabBtns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const group = btn.dataset.group || 'all';
+
+      commSpecBoxes.forEach(box => {
+        if (group === 'all' || box.dataset.catGroup === group) {
+          box.style.display = '';
+        } else {
+          box.style.display = 'none';
+        }
+      });
+    });
+  });
 
   // Jalankan kalkulasi awal jika warna default memiliki ekstra harga (misal Quartz White Pearl)
   updateActivePrice();
