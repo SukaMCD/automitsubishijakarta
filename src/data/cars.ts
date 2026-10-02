@@ -1,3 +1,14 @@
+export interface CarVariantPackage {
+  name: string;
+  label: string;
+  price: number;
+  priceFormatted: string;
+  dpEstimate?: string;
+  cicilanEstimate?: string;
+  highlights?: string[];
+  featuresTooltip?: string;
+}
+
 export interface CarVariant {
   name: string;
   transmission: 'MT' | 'CVT' | 'AT';
@@ -10,14 +21,20 @@ export interface CarVariant {
   groundClearance?: string;
   engine?: string;
   power?: string;
+  image?: string;
   highlights?: string[];
+  packages?: CarVariantPackage[];
 }
 
 export interface CarColor {
   name: string;
   hex: string;
   extraPriceFormatted?: string;
+  extraPriceNum?: number;
   availableVariants?: string[];
+  image?: string;
+  imageTiers?: string[];
+  tierImages?: Record<string, string>;
 }
 
 export interface HeroFeature {
@@ -62,13 +79,12 @@ export const carsData: CarModel[] = [
   // ─── 1. NEW XPANDER ───────────────────────────────────────────────────────────
   {
     slug: 'xpander',
-    name: 'New Mitsubishi Xpander',
+    name: 'Xpander',
     tagline: 'Take control, stay ahead',
     logo: '/images/logo/cars-logo/xpander-black-optimized.webp',
     logoWhite: '/images/logo/cars-logo/xpander-white-optimized.webp',
     category: 'MPV',
     segment: 'passenger',
-    badge: 'BEST SELLER',
     startingPrice: 'Rp 270.100.000',
     startingPriceNum: 270100000,
     dpStart: 'Rp 27 Jt-an',
@@ -80,14 +96,72 @@ export const carsData: CarModel[] = [
     galleryImages: [
       '/images/cars/xpander/xpander-hero.webp',
       '/images/cars/xpander/xpander-interior.webp',
-      '/images/cars/xpander/xpander-optimized.webp'
+      '/images/cars/xpander/xpander-ultimate-white.webp',
+      '/images/cars/xpander/xpander-ultimate-black.webp',
+      '/images/cars/xpander/xpander-ultimate-red.webp',
+      '/images/cars/xpander/xpander-ultimate-gray.webp',
+      '/images/cars/xpander/xpander-ultimate-silver.webp',
+      '/images/cars/xpander/xpander-exceed-white.webp',
+      '/images/cars/xpander/xpander-exceed-black.webp',
+      '/images/cars/xpander/xpander-exceed-silver.webp',
+      '/images/cars/xpander/xpander-gls-white.webp',
+      '/images/cars/xpander/xpander-gls-black.webp',
+      '/images/cars/xpander/xpander-gls-silver.webp'
     ],
     colors: [
-      { name: 'Quartz White Pearl', hex: '#F8F9FA', extraPriceFormatted: '+Rp 1.500.000', availableVariants: ['Ultimate', 'Exceed', 'GLS'] },
-      { name: 'Jet Black Mica', hex: '#1A1A1A', availableVariants: ['Ultimate', 'Exceed', 'GLS'] },
-      { name: 'Blade Silver Metallic', hex: '#C0C0C0', availableVariants: ['Ultimate', 'Exceed', 'GLS'] },
-      { name: 'Red Metallic', hex: '#BA181B', availableVariants: ['Ultimate'] },
-      { name: 'Graphite Gray Metallic', hex: '#4A4E51', availableVariants: ['Ultimate'] }
+      {
+        name: 'Quartz White Pearl',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 1.500.000',
+        extraPriceNum: 1500000,
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/xpander/xpander-ultimate-white.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/xpander/xpander-ultimate-white.webp',
+          'Exceed': '/images/cars/xpander/xpander-exceed-white.webp',
+          'GLS': '/images/cars/xpander/xpander-gls-white.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/xpander/xpander-ultimate-black.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/xpander/xpander-ultimate-black.webp',
+          'Exceed': '/images/cars/xpander/xpander-exceed-black.webp',
+          'GLS': '/images/cars/xpander/xpander-gls-black.webp'
+        }
+      },
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C0C0C0',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/xpander/xpander-ultimate-silver.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/xpander/xpander-ultimate-silver.webp',
+          'Exceed': '/images/cars/xpander/xpander-exceed-silver.webp',
+          'GLS': '/images/cars/xpander/xpander-gls-silver.webp'
+        }
+      },
+      {
+        name: 'Red Metallic',
+        hex: '#BA181B',
+        availableVariants: ['Ultimate'],
+        image: '/images/cars/xpander/xpander-ultimate-red.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/xpander/xpander-ultimate-red.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['Ultimate'],
+        image: '/images/cars/xpander/xpander-ultimate-gray.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/xpander/xpander-ultimate-gray.webp'
+        }
+      }
     ],
     highlights: [
       'Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
@@ -233,14 +307,13 @@ export const carsData: CarModel[] = [
   // ─── 2. NEW PAJERO SPORT ──────────────────────────────────────────────────────
   {
     slug: 'pajero-sport',
-    name: 'New Pajero Sport',
+    name: 'Pajero Sport',
     tagline: 'Jelajahi Petualangan Tanpa Batas',
     logo: '/images/logo/cars-logo/pajero-black-optimized.webp',
     logoWhite: '/images/logo/cars-logo/pajero-white-optimized.webp',
     heroImage: '/images/cars/pajero-sport/pajero-sport-hero.webp',
     category: 'SUV',
     segment: 'passenger',
-    badge: 'FLAGSHIP SUV',
     startingPrice: 'Rp 577.700.000',
     startingPriceNum: 577700000,
     dpStart: 'Rp 85 Jt-an',
@@ -249,13 +322,65 @@ export const carsData: CarModel[] = [
     cicilanNum: 9800000,
     image: '/images/cars/pajero-sport/new-pajero-sport-optimized.webp',
     galleryImages: [
-      '/images/cars/pajero-sport/new-pajero-sport-optimized.webp'
+      '/images/cars/pajero-sport/pajero-sport-hero.webp',
+      '/images/cars/pajero-sport/pajero-dakar-white.webp',
+      '/images/cars/pajero-sport/pajero-dakar-black.webp',
+      '/images/cars/pajero-sport/pajero-dakar-gray.webp',
+      '/images/cars/pajero-sport/pajero-dakar-silver.webp',
+      '/images/cars/pajero-sport/pajero-exceed-white.webp',
+      '/images/cars/pajero-sport/pajero-exceed-black.webp',
+      '/images/cars/pajero-sport/pajero-exceed-gray.webp',
+      '/images/cars/pajero-sport/pajero-exceed-silver.webp',
+      '/images/cars/pajero-sport/pajero-glx-black.webp',
+      '/images/cars/pajero-sport/pajero-glx-gray.webp',
+      '/images/cars/pajero-sport/pajero-glx-silver.webp'
     ],
     colors: [
-      { name: 'Quartz White Pearl', hex: '#F8F9FA', extraPriceFormatted: '+Rp 3.000.000', availableVariants: ['Dakar', 'Exceed'] },
-      { name: 'Jet Black Mica', hex: '#1A1A1A', availableVariants: ['Dakar', 'Exceed', 'GLX'] },
-      { name: 'Blade Silver Metallic', hex: '#C5C6C8', availableVariants: ['Dakar', 'Exceed', 'GLX'] },
-      { name: 'Graphite Gray Metallic', hex: '#4A4E51', availableVariants: ['Dakar', 'Exceed'] }
+      {
+        name: 'Quartz White Pearl',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 3.000.000',
+        extraPriceNum: 3000000,
+        availableVariants: ['Dakar', 'Exceed'],
+        image: '/images/cars/pajero-sport/pajero-dakar-white.webp',
+        tierImages: {
+          'Dakar': '/images/cars/pajero-sport/pajero-dakar-white.webp',
+          'Exceed': '/images/cars/pajero-sport/pajero-exceed-white.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['Dakar', 'Exceed', 'GLX'],
+        image: '/images/cars/pajero-sport/pajero-dakar-black.webp',
+        tierImages: {
+          'Dakar': '/images/cars/pajero-sport/pajero-dakar-black.webp',
+          'Exceed': '/images/cars/pajero-sport/pajero-exceed-black.webp',
+          'GLX': '/images/cars/pajero-sport/pajero-glx-black.webp'
+        }
+      },
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C5C6C8',
+        availableVariants: ['Dakar', 'Exceed', 'GLX'],
+        image: '/images/cars/pajero-sport/pajero-dakar-silver.webp',
+        tierImages: {
+          'Dakar': '/images/cars/pajero-sport/pajero-dakar-silver.webp',
+          'Exceed': '/images/cars/pajero-sport/pajero-exceed-silver.webp',
+          'GLX': '/images/cars/pajero-sport/pajero-glx-silver.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['Dakar', 'Exceed', 'GLX'],
+        image: '/images/cars/pajero-sport/pajero-dakar-gray.webp',
+        tierImages: {
+          'Dakar': '/images/cars/pajero-sport/pajero-dakar-gray.webp',
+          'Exceed': '/images/cars/pajero-sport/pajero-exceed-gray.webp',
+          'GLX': '/images/cars/pajero-sport/pajero-glx-gray.webp'
+        }
+      }
     ],
     highlights: [
       'Mesin Diesel 2.4L 4N15 MIVEC Turbo VGIC 181 PS bertenaga monster & torsi 430 Nm',
@@ -412,14 +537,14 @@ export const carsData: CarModel[] = [
   // ─── 3. MITSUBISHI XFORCE ─────────────────────────────────────────────────────
   {
     slug: 'xforce',
-    name: 'Mitsubishi XForce',
+    name: 'New Xforce',
     tagline: 'Elevated Urban SUV',
     logo: '/images/logo/cars-logo/xforce-black-optimized.webp',
     logoWhite: '/images/logo/cars-logo/xforce-white-optimized.webp',
     heroImage: '/images/cars/xforce/xforce-hero.webp',
     category: 'SUV',
     segment: 'passenger',
-    badge: 'COMPACT SUV',
+    badge: 'BARU',
     startingPrice: 'Rp 381.900.000',
     startingPriceNum: 381900000,
     dpStart: 'Rp 40 Jt-an',
@@ -428,15 +553,68 @@ export const carsData: CarModel[] = [
     cicilanNum: 5800000,
     image: '/images/cars/xforce/new-xforce-optimized.webp',
     galleryImages: [
-      '/images/cars/xforce/new-xforce-optimized.webp'
+      '/images/cars/xforce/xforce-hero.webp',
+      '/images/cars/xforce/new-xforce-optimized.webp',
+      '/images/cars/xforce/xforce-ultimate-white.webp',
+      '/images/cars/xforce/xforce-ultimate-silver.webp',
+      '/images/cars/xforce/xforce-ultimate-gray.webp',
+      '/images/cars/xforce/xforce-ultimate-black.webp',
+      '/images/cars/xforce/xforce-exceed-white.webp',
+      '/images/cars/xforce/xforce-exceed-silver.webp',
+      '/images/cars/xforce/xforce-exceed-gray.webp',
+      '/images/cars/xforce/xforce-exceed-black.webp',
+      '/images/cars/xforce/xforce-hev-white.webp',
+      '/images/cars/xforce/xforce-hev-silver.webp',
+      '/images/cars/xforce/xforce-hev-gray.webp',
+      '/images/cars/xforce/xforce-hev-black.webp'
     ],
     colors: [
-      { name: 'Energetic Yellow', hex: '#E5A93B', availableVariants: ['Ultimate', 'HEV'] },
-      { name: 'Red Metallic', hex: '#BA181B', availableVariants: ['Ultimate', 'HEV'] },
-      { name: 'Quartz White Pearl', hex: '#F8F9FA', extraPriceFormatted: '+Rp 1.500.000', availableVariants: ['Exceed', 'Ultimate', 'HEV'] },
-      { name: 'Blade Silver Metallic', hex: '#C5C6C8', availableVariants: ['Exceed', 'Ultimate', 'HEV'] },
-      { name: 'Graphite Gray Metallic', hex: '#4A4E51', availableVariants: ['Exceed', 'Ultimate'] },
-      { name: 'Jet Black Mica', hex: '#1A1A1A', availableVariants: ['Exceed', 'Ultimate', 'HEV'] }
+      {
+        name: 'Quartz White Pearl',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 1.500.000',
+        extraPriceNum: 1500000,
+        availableVariants: ['Exceed', 'Ultimate', 'HEV'],
+        image: '/images/cars/xforce/xforce-hev-white.webp',
+        tierImages: {
+          'HEV': '/images/cars/xforce/xforce-hev-white.webp',
+          'Ultimate': '/images/cars/xforce/xforce-ultimate-white.webp',
+          'Exceed': '/images/cars/xforce/xforce-exceed-white.webp'
+        }
+      },
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C5C6C8',
+        availableVariants: ['Exceed', 'Ultimate', 'HEV'],
+        image: '/images/cars/xforce/xforce-hev-silver.webp',
+        tierImages: {
+          'HEV': '/images/cars/xforce/xforce-hev-silver.webp',
+          'Ultimate': '/images/cars/xforce/xforce-ultimate-silver.webp',
+          'Exceed': '/images/cars/xforce/xforce-exceed-silver.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['Exceed', 'Ultimate', 'HEV'],
+        image: '/images/cars/xforce/xforce-hev-gray.webp',
+        tierImages: {
+          'HEV': '/images/cars/xforce/xforce-hev-gray.webp',
+          'Ultimate': '/images/cars/xforce/xforce-ultimate-gray.webp',
+          'Exceed': '/images/cars/xforce/xforce-exceed-gray.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['Exceed', 'Ultimate', 'HEV'],
+        image: '/images/cars/xforce/xforce-hev-black.webp',
+        tierImages: {
+          'HEV': '/images/cars/xforce/xforce-hev-black.webp',
+          'Ultimate': '/images/cars/xforce/xforce-ultimate-black.webp',
+          'Exceed': '/images/cars/xforce/xforce-exceed-black.webp'
+        }
+      }
     ],
     highlights: [
       'Dynamic Sound Yamaha Premium 8-speaker kelas audiophile',
@@ -461,7 +639,7 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
-        name: 'XForce HEV (Hybrid)',
+        name: 'XForce HEV',
         transmission: 'AT',
         price: 445000000,
         priceFormatted: 'Rp 445.000.000',
@@ -482,7 +660,7 @@ export const carsData: CarModel[] = [
         ]
       },
       {
-        name: 'XForce Ultimate CVT',
+        name: 'XForce Ultimate',
         transmission: 'CVT',
         price: 414900000,
         priceFormatted: 'Rp 414.900.000',
@@ -503,7 +681,7 @@ export const carsData: CarModel[] = [
         ]
       },
       {
-        name: 'XForce Exceed CVT',
+        name: 'XForce Exceed',
         transmission: 'CVT',
         price: 381900000,
         priceFormatted: 'Rp 381.900.000',
@@ -530,27 +708,105 @@ export const carsData: CarModel[] = [
   // ─── 4. NEW XPANDER CROSS ─────────────────────────────────────────────────────
   {
     slug: 'xpander-cross',
-    name: 'New Xpander Cross',
-    tagline: 'Rise to Your Life’s Adventure - Crossover SUV Tangguh & Mewah',
+    name: 'Xpander Cross',
+    tagline: 'Step Up Your Adventure Level',
+    logo: '/images/logo/cars-logo/xpander-cross-black-optimized.webp',
+    logoWhite: '/images/logo/cars-logo/xpander-cross-white-optimized.webp',
+    heroImage: '/images/cars/xpander-cross/xpander-cross-hero.webp',
     category: 'SUV',
     segment: 'passenger',
-    badge: 'ADVENTURE',
-    startingPrice: 'Rp 329.750.000',
-    startingPriceNum: 329750000,
-    dpStart: 'Rp 28 Jt-an',
-    dpMinNum: 28000000,
-    cicilanStart: 'Rp 5,1 Jt/bln',
-    cicilanNum: 5100000,
+    startingPrice: 'Rp 348.000.000',
+    startingPriceNum: 348000000,
+    dpStart: 'Rp 35 Jt-an',
+    dpMinNum: 35000000,
+    cicilanStart: 'Rp 5,2 Jt/bln',
+    cicilanNum: 5200000,
     image: '/images/cars/xpander-cross/xpander-cross-optimized.webp',
     galleryImages: [
-      '/images/cars/xpander-cross/xpander-cross-optimized.webp'
+      '/images/cars/xpander-cross/xpander-cross-hero.webp',
+      '/images/cars/xpander-cross/xpander-cross-green-bronze.webp',
+      '/images/cars/xpander-cross/xpander-cross-white.webp',
+      '/images/cars/xpander-cross/xpander-cross-black.webp',
+      '/images/cars/xpander-cross/xpander-cross-silver.webp',
+      '/images/cars/xpander-cross/xpander-cross-gray.webp',
+      '/images/cars/xpander-cross/xpander-cross-white-twotone.webp',
+      '/images/cars/xpander-cross/xpander-cross-green-bronze-twotone.webp'
     ],
     colors: [
-      { name: 'Green Bronze Metallic', hex: '#4B5320' },
-      { name: 'Quartz White Pearl', hex: '#EDEDED', extraPriceFormatted: '+Rp 1.500.000' },
-      { name: 'Blade Silver Metallic', hex: '#A8A8A8' },
-      { name: 'Graphite Gray Metallic', hex: '#444444' },
-      { name: 'Jet Black Mica', hex: '#1A1A1A' }
+      {
+        name: 'Green Bronze Metallic',
+        hex: '#5C5B4F',
+        availableVariants: ['CVT Premium', 'MT'],
+        image: '/images/cars/xpander-cross/xpander-cross-green-bronze.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-green-bronze.webp',
+          'MT': '/images/cars/xpander-cross/xpander-cross-green-bronze.webp'
+        }
+      },
+      {
+        name: 'Quartz White Pearl',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 1.500.000',
+        extraPriceNum: 1500000,
+        availableVariants: ['CVT Premium', 'MT'],
+        image: '/images/cars/xpander-cross/xpander-cross-white.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-white.webp',
+          'MT': '/images/cars/xpander-cross/xpander-cross-white.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['CVT Premium', 'MT'],
+        image: '/images/cars/xpander-cross/xpander-cross-black.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-black.webp',
+          'MT': '/images/cars/xpander-cross/xpander-cross-black.webp'
+        }
+      },
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C5C6C8',
+        availableVariants: ['CVT Premium', 'MT'],
+        image: '/images/cars/xpander-cross/xpander-cross-silver.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-silver.webp',
+          'MT': '/images/cars/xpander-cross/xpander-cross-silver.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['CVT Premium', 'MT'],
+        image: '/images/cars/xpander-cross/xpander-cross-gray.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-gray.webp',
+          'MT': '/images/cars/xpander-cross/xpander-cross-gray.webp'
+        }
+      },
+      {
+        name: 'Quartz White Pearl Two Tone',
+        hex: 'linear-gradient(135deg, #F8F9FA 50%, #1A1A1A 50%)',
+        extraPriceFormatted: '+Rp 5.000.000',
+        extraPriceNum: 5000000,
+        availableVariants: ['CVT Premium'],
+        image: '/images/cars/xpander-cross/xpander-cross-white-twotone.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-white-twotone.webp'
+        }
+      },
+      {
+        name: 'Green Bronze Metallic Two Tone',
+        hex: 'linear-gradient(135deg, #5C5B4F 50%, #1A1A1A 50%)',
+        extraPriceFormatted: '+Rp 3.500.000',
+        extraPriceNum: 3500000,
+        availableVariants: ['CVT Premium'],
+        image: '/images/cars/xpander-cross/xpander-cross-green-bronze-twotone.webp',
+        tierImages: {
+          'CVT Premium': '/images/cars/xpander-cross/xpander-cross-green-bronze-twotone.webp'
+        }
+      }
     ],
     highlights: [
       'Active Yaw Control (AYC) menjaga stabilitas mobil di tikungan tajam dan jalan basah',
@@ -560,10 +816,10 @@ export const carsData: CarModel[] = [
       'Ground clearance 225 mm (MT) / 220 mm (CVT) dengan sasis rugged SUV'
     ],
     heroFeatures: [
-      { label: 'Desain Crossover Tangguh', icon: 'chassis' },
-      { label: 'Active Yaw Control (AYC)', icon: 'drive' },
-      { label: 'Ground Clearance 220 mm', icon: 'suspension' },
-      { label: 'Kenyamanan Kabin Mewah', icon: 'interior' }
+      { label: 'Tampilan Gagah', icon: 'chassis' },
+      { label: 'Kabin Super Luas', icon: 'interior' },
+      { label: 'Mesin Irit & Responsif', icon: 'drive' },
+      { label: 'Tangguh di Berbagai Medan', icon: 'suspension' }
     ],
     keySpecs: {
       seating: '7 Penumpang',
@@ -575,41 +831,41 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
-        name: 'Xpander Cross CVT Premium Package',
+        name: 'Xpander Cross Premium CVT',
         transmission: 'CVT',
-        price: 355650000,
-        priceFormatted: 'Rp 355.650.000',
-        dpEstimate: 'Rp 35 Jt-an',
-        cicilanEstimate: 'Rp 5,4 Jt-an',
+        price: 374000000,
+        priceFormatted: 'Rp 374.000.000',
+        dpEstimate: 'Rp 37 Jt-an',
+        cicilanEstimate: 'Rp 5,6 Jt-an',
         tier: 'CVT Premium',
         transmissionDetail: 'CVT Otomatis',
         groundClearance: '220 mm',
         highlights: [
-          'Active Yaw Control (AYC) meningkatkan kendali presisi dan kestabilan di tikungan licin',
-          'Multi Around Monitor (Kamera 360) dengan garis pandu dinamis untuk manuver parkir tanpa blind spot',
-          'Meter cluster 8 inch LCD Meter adaptasi Pajero Sport dengan informasi berkendara lengkap',
-          'Interior mewah dual-tone Burgundy & Dark Navy dengan Synthetic Leather Heat Guard',
-          'Wireless Smartphone Charger & Electric Parking Brake (EPB) dengan Brake Auto Hold (BAH)',
-          '6 SRS Airbags untuk proteksi keselamatan maksimal seluruh anggota keluarga'
+          'Active Yaw Control (AYC) meningkatkan kendali presisi dan kestabilan di tikungan tajam dan jalan basah',
+          'Interior premium dual-tone Burgundy & Black dengan Synthetic Leather Heat Guard',
+          'Layar ganda modern: 10 Inch Audio Touchscreen nirkabel & 8 Inch Digital Driver Display LCD Meter',
+          'Multi Around Monitor (Kamera 360) & 6 SRS Airbags lengkap untuk proteksi keselamatan maksimal',
+          'Cruise Control, Wireless Smartphone Charger & Electric Parking Brake (EPB) dengan Brake Auto Hold',
+          'Ground clearance 220 mm dengan Special Tuned Suspension & Rebound Spring khas SUV tangguh'
         ]
       },
       {
         name: 'Xpander Cross MT',
         transmission: 'MT',
-        price: 329750000,
-        priceFormatted: 'Rp 329.750.000',
-        dpEstimate: 'Rp 30 Jt-an',
-        cicilanEstimate: 'Rp 5,1 Jt-an',
+        price: 348000000,
+        priceFormatted: 'Rp 348.000.000',
+        dpEstimate: 'Rp 35 Jt-an',
+        cicilanEstimate: 'Rp 5,2 Jt-an',
         tier: 'MT',
         transmissionDetail: '5-Speed Manual (M/T)',
         groundClearance: '225 mm',
         highlights: [
-          'Ground clearance tertinggi 225 mm melibas medan bergelombang dan genangan air dengan sangat percaya diri',
-          'Active Yaw Control (AYC) menjaga traksi optimal saat bermanuver di jalan basah',
-          'Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
-          'Rear Camera & Parking Sensor belakang untuk keamanan parkir mundur',
-          'Desain bodi gagah khas crossover dengan Roof Rail kokoh siap membawa roof rack/box',
-          'Kabin lapang 7-seater dengan kekedapan suara terbaik di kelasnya dan suspensi empuk'
+          'Ground clearance tertinggi 225 mm melibas jalan berlubang, bebatuan, dan genangan air dengan mantap',
+          'Active Yaw Control (AYC) & Active Stability Control (ASC) untuk kestabilan optimal di setiap cuaca',
+          'Layar Head Unit 10 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
+          'Meter cluster canggih 8 inch Digital Driver Display dengan setir 3-spoke berbalut kulit',
+          'Multi Around Monitor 360 derajat & 6 SRS Airbags untuk rasa aman maksimal seluruh keluarga',
+          'Kabin 7-seater paling senyap & lega dengan fleksibilitas pelipatan kursi serta banyak kompartemen'
         ]
       }
     ],
@@ -619,27 +875,93 @@ export const carsData: CarModel[] = [
   // ─── 5. ALL-NEW DESTINATOR ────────────────────────────────────────────────────
   {
     slug: 'destinator',
-    name: 'All-New Destinator',
-    tagline: 'The Ultimate 7-Seater Turbo SUV - Prestise & Tenaga Tanpa Kompromi',
+    name: 'Destinator',
+    tagline: 'Premium Family SUV',
+    logo: '/images/logo/cars-logo/destinator-black-optimized.webp',
+    logoWhite: '/images/logo/cars-logo/destinator-white-optimized.webp',
+    heroImage: '/images/cars/destinator/destinator-hero.webp',
     category: 'SUV',
     segment: 'passenger',
-    badge: 'BARU',
-    startingPrice: 'Rp 395.000.000',
-    startingPriceNum: 395000000,
+    startingPrice: 'Rp 402.000.000',
+    startingPriceNum: 402000000,
     dpStart: 'Rp 40 Jt-an',
     dpMinNum: 40000000,
-    cicilanStart: 'Rp 6,2 Jt/bln',
-    cicilanNum: 6200000,
+    cicilanStart: 'Rp 5,9 Jt/bln',
+    cicilanNum: 5900000,
     image: '/images/cars/destinator/destinator-optimized.webp',
     galleryImages: [
-      '/images/cars/destinator/destinator-optimized.webp'
+      '/images/cars/destinator/destinator-hero.webp',
+      '/images/cars/destinator/destinator-interior.webp',
+      '/images/cars/destinator/dst-ultimate-blade-silver-metallic-optimized.webp',
+      '/images/cars/destinator/dst-ultimate-white-pearl-optimized.webp',
+      '/images/cars/destinator/dst-ultimate-graphite-gray-metallic-optimized.webp',
+      '/images/cars/destinator/dst-ultimate-lunar-blue-mica-optimized.webp',
+      '/images/cars/destinator/dst-ultimate-jet-black-mica-optimized.webp',
+      '/images/cars/destinator/dst-exceed-blade-silver-metallic-optimized.webp',
+      '/images/cars/destinator/dst-exceed-white-pearl-optimized.webp',
+      '/images/cars/destinator/dst-exceed-graphite-gray-metallic-optimized.webp',
+      '/images/cars/destinator/dst-exceed-jet-black-mica-optimized.webp',
+      '/images/cars/destinator/dst-gls-blade-silver-metallic-optimized.webp',
+      '/images/cars/destinator/dst-gls-white-pearl-optimized.webp',
+      '/images/cars/destinator/dst-gls-graphite-gray-metallic-optimized.webp',
+      '/images/cars/destinator/dst-gls-jet-black-mica-optimized.webp'
     ],
     colors: [
-      { name: 'Jet Black Mica', hex: '#111111' },
-      { name: 'Quartz White Pearl', hex: '#F5F5F5', extraPriceFormatted: '+Rp 1.500.000' },
-      { name: 'Blade Silver Metallic', hex: '#A8A8A8' },
-      { name: 'Graphite Grey Metallic', hex: '#4F4F4F' },
-      { name: 'Lunar Blue', hex: '#1B365D' }
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C5C6C8',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/destinator/dst-ultimate-blade-silver-metallic-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/destinator/dst-ultimate-blade-silver-metallic-optimized.webp',
+          'Exceed': '/images/cars/destinator/dst-exceed-blade-silver-metallic-optimized.webp',
+          'GLS': '/images/cars/destinator/dst-gls-blade-silver-metallic-optimized.webp'
+        }
+      },
+      {
+        name: 'Quartz White Pearl',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 2.500.000',
+        extraPriceNum: 2500000,
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/destinator/dst-ultimate-white-pearl-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/destinator/dst-ultimate-white-pearl-optimized.webp',
+          'Exceed': '/images/cars/destinator/dst-exceed-white-pearl-optimized.webp',
+          'GLS': '/images/cars/destinator/dst-gls-white-pearl-optimized.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/destinator/dst-ultimate-graphite-gray-metallic-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/destinator/dst-ultimate-graphite-gray-metallic-optimized.webp',
+          'Exceed': '/images/cars/destinator/dst-exceed-graphite-gray-metallic-optimized.webp',
+          'GLS': '/images/cars/destinator/dst-gls-graphite-gray-metallic-optimized.webp'
+        }
+      },
+      {
+        name: 'Lunar Blue Metallic',
+        hex: '#1C3B6F',
+        availableVariants: ['Ultimate'],
+        image: '/images/cars/destinator/dst-ultimate-lunar-blue-mica-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/destinator/dst-ultimate-lunar-blue-mica-optimized.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS'],
+        image: '/images/cars/destinator/dst-ultimate-jet-black-mica-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/destinator/dst-ultimate-jet-black-mica-optimized.webp',
+          'Exceed': '/images/cars/destinator/dst-exceed-jet-black-mica-optimized.webp',
+          'GLS': '/images/cars/destinator/dst-gls-jet-black-mica-optimized.webp'
+        }
+      }
     ],
     highlights: [
       'Mesin 1.5L Turbo 4B40 bertenaga buas 163 PS dengan torsi melimpah 250 Nm',
@@ -649,259 +971,362 @@ export const carsData: CarModel[] = [
       'Fitur keselamatan aktif Diamond Sense ADAS lengkap & aplikasi pintar Mitsubishi Connect'
     ],
     heroFeatures: [
-      { label: 'Mesin 1.5L Turbo 163 PS', icon: 'engine' },
-      { label: 'Panoramic Sunroof', icon: 'roof' },
-      { label: '5 Drive Modes Pintar', icon: 'drive' },
-      { label: 'Ground Clearance 244 mm', icon: 'suspension' }
+      { label: 'Confidence Booster for Energetic Family', icon: 'chassis' },
+      { label: '5 Mode Berkendara', icon: 'drive' },
+      { label: 'Teknologi Diamond Sense', icon: 'shield' },
+      { label: 'Mitsubishi Connect', icon: 'connect' }
     ],
     keySpecs: {
       seating: '7 Penumpang',
       engine: '1.5L 4B40 Turbocharged DOHC 16-Valve',
       power: '163 PS (120 kW) @ 5.000 RPM / 250 Nm',
-      transmission: 'CVT Automatic with Drive Mode',
-      groundClearance: '244 mm (Highest in class)',
+      transmission: 'CVT Otomatis with Drive Mode',
+      groundClearance: '244 mm',
       fuelType: 'Bensin (RON 92+)'
     },
     variants: [
       {
-        name: 'Destinator GLS CVT',
+        name: 'Destinator Ultimate',
         transmission: 'CVT',
-        price: 395000000,
-        priceFormatted: 'Rp 395.000.000',
-        dpEstimate: 'Rp 40 Jt-an',
-        cicilanEstimate: 'Rp 6,2 Jt-an',
-        tier: 'GLS',
-        transmissionDetail: 'CVT Otomatis with Drive Mode',
-        groundClearance: '244 mm',
-        highlights: [
-          'Mesin Turbo 1.5L 4B40 bertenaga 163 PS & torsi 250 Nm yang agresif di putaran rendah',
-          'Ground clearance luar biasa 244 mm tertinggi di kelasnya dengan sasis kokoh tangguh',
-          'Active Yaw Control (AYC) & Drive Mode adaptif untuk pengendalian presisi',
-          'Head Unit 10 inch touchscreen dengan integrasi Apple CarPlay & Android Auto',
-          'Kabin lapang 7-seater dengan AC Digital dual zone & kisi AC hingga baris ke-3',
-          '6 SRS Airbags, ABS + EBD + BA, Hill Start Assist, dan Rear View Camera'
-        ]
-      },
-      {
-        name: 'Destinator Exceed CVT',
-        transmission: 'CVT',
-        price: 435000000,
-        priceFormatted: 'Rp 435.000.000',
-        dpEstimate: 'Rp 44 Jt-an',
-        cicilanEstimate: 'Rp 6,8 Jt-an',
-        tier: 'Exceed',
-        transmissionDetail: 'CVT Otomatis with 5 Drive Mode',
-        groundClearance: '244 mm',
-        highlights: [
-          '5 Drive Mode cerdas: Normal, Wet, Gravel, Tarmac, dan Mud siap libas segala medan',
-          'Layar ganda: 12.3 inch Touchscreen Display Audio + 8 inch Digital Driver Display',
-          'Velg 18 inch Two-Tone Machined Alloy Wheel dengan ban profil kekar',
-          'Interior Black Leatherette elegan dengan jok ergonomis bersertifikasi kenyamanan',
-          'Multi Around Monitor (Kamera 360) memudahkan manuver di jalan sempit & parkir',
-          'Keyless Operation System (KOS) dengan Engine Push Start-Stop Button'
-        ]
-      },
-      {
-        name: 'Destinator Ultimate CVT',
-        transmission: 'CVT',
-        price: 475000000,
-        priceFormatted: 'Rp 475.000.000',
-        dpEstimate: 'Rp 48 Jt-an',
-        cicilanEstimate: 'Rp 7,5 Jt-an',
+        price: 487000000,
+        priceFormatted: 'Rp 487.000.000',
+        dpEstimate: 'Rp 50 Jt-an',
+        cicilanEstimate: 'Rp 7,1 Jt-an',
         tier: 'Ultimate',
         transmissionDetail: 'CVT Otomatis with Paddle Shift',
         groundClearance: '244 mm',
         highlights: [
-          'Panoramic Glass Sunroof elektrik besar dengan pencahayaan ambient kabin mewah',
-          'Hands-Free Electric Power Tailgate dengan sensor tendangan kaki (Kick Sensor)',
-          'Paket keselamatan aktif Diamond Sense ADAS: ACC, FCM, BSW, LCA, RCTA, & AHB',
-          'Dynamic Sound Yamaha Premium 8-speaker dengan akustik kabin memukau',
-          'Wireless Smartphone Charging pad di konsol tengah yang ergonomis',
-          'Konektivitas pintar Mitsubishi Connect untuk memantau status mobil via smartphone'
+          'Panoramic Sunroof elektrik besar membentang luas menghadirkan kemewahan kabin',
+          'Paket keselamatan aktif Diamond Sense ADAS lengkap: FCM, ACC, BSW, LCA, RCTA, & AHB',
+          'Layar ganda canggih: 12.3 inch Display Audio nirkabel & 8 inch Digital Driver Display',
+          'Multi Around Monitor (Kamera 360) & Multi-color Ambient Lights 64 pilihan warna',
+          'Synthetic Leather Seat dengan fungsi anti-temperature rise (Heat Guard) & 6 SRS Airbags',
+          'Konektivitas pintar Mitsubishi Connect & sistem stabilitas Active Yaw Control (AYC)'
+        ],
+        packages: [
+          {
+            name: 'Destinator Ultimate',
+            label: 'Ultimate',
+            price: 487000000,
+            priceFormatted: 'Rp 487.000.000',
+            dpEstimate: 'Rp 50 Jt-an',
+            cicilanEstimate: 'Rp 7,1 Jt-an',
+            highlights: [
+              'Panoramic Sunroof elektrik besar membentang luas menghadirkan kemewahan kabin',
+              'Paket keselamatan aktif Diamond Sense ADAS lengkap: FCM, ACC, BSW, LCA, RCTA, & AHB',
+              'Layar ganda canggih: 12.3 inch Display Audio nirkabel & 8 inch Digital Driver Display',
+              'Multi Around Monitor (Kamera 360) & Multi-color Ambient Lights 64 pilihan warna',
+              'Synthetic Leather Seat dengan fungsi anti-temperature rise (Heat Guard) & 6 SRS Airbags',
+              'Konektivitas pintar Mitsubishi Connect & sistem stabilitas Active Yaw Control (AYC)'
+            ]
+          },
+          {
+            name: 'Destinator Ultimate Premium',
+            label: 'Ultimate Premium',
+            featuresTooltip: 'Additional Feature:\n\nHands-free Power Tailgate, Power Seat Adjuster, Dynamic Sound YAMAHA Premium',
+            price: 517000000,
+            priceFormatted: 'Rp 517.000.000',
+            dpEstimate: 'Rp 55 Jt-an',
+            cicilanEstimate: 'Rp 7,6 Jt-an',
+            highlights: [
+              'Hands-free Power Tailgate dengan Kick Sensor otomatis',
+              'Power Seat Adjuster 8-way pengemudi elektrik',
+              'Dynamic Sound YAMAHA Premium (8 Speakers)',
+              'Panoramic Sunroof elektrik besar & Ambient Light Multicolor 64 warna memikat',
+              'Paket ADAS Diamond Sense: FCM, ACC, BSW with LCA, RCTA, & AHB',
+              'Layar ganda 12.3 inch Smartphone Display Audio & 8 inch Digital Driver Display'
+            ]
+          }
         ]
       },
       {
-        name: 'Destinator Ultimate Premium Package',
+        name: 'Destinator Exceed',
         transmission: 'CVT',
-        price: 495000000,
-        priceFormatted: 'Rp 495.000.000',
-        dpEstimate: 'Rp 50 Jt-an',
-        cicilanEstimate: 'Rp 7,8 Jt-an',
-        tier: 'Ultimate Premium',
-        transmissionDetail: 'CVT Otomatis with Paddle Shift & 5 Drive Mode',
+        price: 427000000,
+        priceFormatted: 'Rp 427.000.000',
+        dpEstimate: 'Rp 45 Jt-an',
+        cicilanEstimate: 'Rp 6,3 Jt-an',
+        tier: 'Exceed',
+        transmissionDetail: 'CVT Otomatis with 5 Drive Mode',
         groundClearance: '244 mm',
         highlights: [
-          'Tipe tertinggi Flagship: Interior Black & Saddle Brown Leather dengan Heat Guard',
-          'Panoramic Sunroof elektrik besar & Audio Yamaha Premium 8-speaker kelas konser',
-          'Diamond Sense ADAS terlengkap dengan Lane Departure Prevention & Adaptive Cruise Control',
-          'Hands-Free Power Back Door dengan Kick Sensor & Welcome Light eksklusif',
-          'Aplikasi cerdas Mitsubishi Connect: Remote Climate Control & Engine Start jarak jauh',
-          'Performa buas mesin 1.5L Turbo 163 PS dipadu ground clearance 244 mm tanpa tanding'
+          'Drive Mode Selector dengan 5 mode berkendara (Normal, Wet, Gravel, Tarmac, Mud)',
+          'Layar 8 inch Smartphone-link Display Audio dengan Apple CarPlay & Android Auto',
+          'Meter cluster 8 inch Digital Driver Display canggih adaptasi SUV modern',
+          'Cruise Control & Electronic Parking Brake (EPB) dengan Brake Auto Hold',
+          'Dual Zone Automatic AC dengan tampilan digital & jok kulit sintetis Heat Guard',
+          'Velg Two-tone Alloy Wheel 18 inch, Rear Disc Brake, AYC, & Rear View Camera'
+        ]
+      },
+      {
+        name: 'Destinator GLS',
+        transmission: 'CVT',
+        price: 402000000,
+        priceFormatted: 'Rp 402.000.000',
+        dpEstimate: 'Rp 40 Jt-an',
+        cicilanEstimate: 'Rp 5,9 Jt-an',
+        tier: 'GLS',
+        transmissionDetail: 'CVT Otomatis with Drive Mode',
+        groundClearance: '244 mm',
+        highlights: [
+          'Mesin tangguh 1.5L Turbo 4B40 bertenaga 163 PS dengan torsi besar 250 Nm',
+          'Ground clearance 244 mm tertinggi di kelasnya dengan turning radius lincah 5.4 m',
+          'Electronic Parking Brake (EPB) with Auto Hold & Active Yaw Control (AYC)',
+          'Layar 8 inch Touchscreen Display Audio dengan Apple CarPlay & Android Auto',
+          'Velg Single-tone Alloy Wheel 18 inch kokoh & lampu utama Front LED Headlamp',
+          'Kabin lega 7-seater dengan Keyless Operation System (KOS) & Push Start Button'
         ]
       }
     ],
     description: 'Destinator adalah SUV 7-penumpang generasi baru bermesin Turbo bertenaga 163 PS. Memadukan kemewahan Panoramic Sunroof, sound system Yamaha 8-speaker, ground clearance 244 mm, dan ketangguhan sistem kendali Active Yaw Control (AYC).'
   },
 
-  // ─── 6. ALL NEW TRITON ────────────────────────────────────────────────────────
+  // ─── 6. TRITON ────────────────────────────────────────────────────────────────
   {
     slug: 'triton',
-    name: 'All New Mitsubishi Triton',
-    tagline: 'Engineered Beyond Tough - Rajanya Double & Single Cabin 4x4',
+    name: 'Triton',
+    tagline: 'Nyalakan Jiwa Petualangmu',
+    logo: '/images/logo/cars-logo/triton-black-optimized.webp',
+    logoWhite: '/images/logo/cars-logo/triton-white-optimized.webp',
     category: 'Pick Up',
     segment: 'lcv',
-    badge: 'TANGGUH',
     startingPrice: 'Rp 310.200.000',
     startingPriceNum: 310200000,
-    dpStart: 'Rp 35 Jt-an',
-    dpMinNum: 35000000,
-    cicilanStart: 'Rp 5,4 Jt/bln',
-    cicilanNum: 5400000,
+    dpStart: 'Rp 45 Jt-an',
+    dpMinNum: 45000000,
+    cicilanStart: 'Rp 5,2 Jt/bln',
+    cicilanNum: 5200000,
+    heroImage: '/images/cars/triton/triton-hero.webp',
     image: '/images/cars/triton/all-new-triton-optimized.webp',
     galleryImages: [
-      '/images/cars/triton/all-new-triton-optimized.webp'
+      '/images/cars/triton/triton-hero.webp',
+      '/images/cars/triton/ultimate-white-diamond-front-left-optimized.webp',
+      '/images/cars/triton/ultimate-graphite-gray-front-left-optimized.webp',
+      '/images/cars/triton/ultimate-black-mica-front-left-optimized.webp',
+      '/images/cars/triton/exceed-white-diamond-front-left-optimized.webp',
+      '/images/cars/triton/exceed-graphite-gray-front-left-optimized.webp',
+      '/images/cars/triton/exceed-black-mica-front-left-optimized.webp',
+      '/images/cars/triton/gls-black-mica-front-left-optimized.webp',
+      '/images/cars/triton/gls-white-solid-front-left-optimized.webp',
+      '/images/cars/triton/gls-blade-silver-metallic-front-left-optimized.webp',
+      '/images/cars/triton/hdx-dc-white-solid-front-left-optimized.webp',
+      '/images/cars/triton/hdx-dc-blade-silver-metallic-front-left-optimized.webp',
+      '/images/cars/triton/hdx-dc-black-mica-front-left-optimized.webp',
+      '/images/cars/triton/hdx-sc-white-solid-front-left-optimized.webp',
+      '/images/cars/triton/hdx-sc-blade-silver-metallic-front-left-optimized.webp',
+      '/images/cars/triton/hdx-sc-black-mica-front-left-optimized.webp',
+      '/images/cars/triton/glx-sc-white-solid-front-left-optimized.webp',
+      '/images/cars/triton/glx-sc-blade-silver-metallic-front-left-optimized.webp',
+      '/images/cars/triton/glx-sc-black-mica-front-left-optimized.webp'
     ],
     colors: [
-      { name: 'White Diamond', hex: '#F5F5F5', extraPriceFormatted: '+Rp 3.000.000' },
-      { name: 'Blade Silver Metallic', hex: '#A8A8A8' },
-      { name: 'Graphite Gray Metallic', hex: '#484848' },
-      { name: 'White Solid', hex: '#FAFAFA' },
-      { name: 'Jet Black Mica', hex: '#141414' }
+      {
+        name: 'White Diamond',
+        hex: '#F8F9FA',
+        extraPriceFormatted: '+Rp 3.000.000',
+        extraPriceNum: 3000000,
+        availableVariants: ['Ultimate', 'Exceed'],
+        image: '/images/cars/triton/ultimate-white-diamond-front-left-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/triton/ultimate-white-diamond-front-left-optimized.webp',
+          'Exceed': '/images/cars/triton/exceed-white-diamond-front-left-optimized.webp'
+        }
+      },
+      {
+        name: 'Graphite Gray Metallic',
+        hex: '#4A4E51',
+        availableVariants: ['Ultimate', 'Exceed'],
+        image: '/images/cars/triton/ultimate-graphite-gray-front-left-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/triton/ultimate-graphite-gray-front-left-optimized.webp',
+          'Exceed': '/images/cars/triton/exceed-graphite-gray-front-left-optimized.webp'
+        }
+      },
+      {
+        name: 'White Solid',
+        hex: '#FFFFFF',
+        availableVariants: ['GLS', 'HDX DC', 'HDX SC', 'GLX'],
+        image: '/images/cars/triton/gls-white-solid-front-left-optimized.webp',
+        tierImages: {
+          'GLS': '/images/cars/triton/gls-white-solid-front-left-optimized.webp',
+          'HDX DC': '/images/cars/triton/hdx-dc-white-solid-front-left-optimized.webp',
+          'HDX SC': '/images/cars/triton/hdx-sc-white-solid-front-left-optimized.webp',
+          'GLX': '/images/cars/triton/glx-sc-white-solid-front-left-optimized.webp'
+        }
+      },
+      {
+        name: 'Blade Silver Metallic',
+        hex: '#C5C6C8',
+        availableVariants: ['GLS', 'HDX DC', 'HDX SC', 'GLX'],
+        image: '/images/cars/triton/gls-blade-silver-metallic-front-left-optimized.webp',
+        tierImages: {
+          'GLS': '/images/cars/triton/gls-blade-silver-metallic-front-left-optimized.webp',
+          'HDX DC': '/images/cars/triton/hdx-dc-blade-silver-metallic-front-left-optimized.webp',
+          'HDX SC': '/images/cars/triton/hdx-sc-blade-silver-metallic-front-left-optimized.webp',
+          'GLX': '/images/cars/triton/glx-sc-blade-silver-metallic-front-left-optimized.webp'
+        }
+      },
+      {
+        name: 'Jet Black Mica',
+        hex: '#1A1A1A',
+        availableVariants: ['Ultimate', 'Exceed', 'GLS', 'HDX DC', 'HDX SC', 'GLX'],
+        image: '/images/cars/triton/ultimate-black-mica-front-left-optimized.webp',
+        tierImages: {
+          'Ultimate': '/images/cars/triton/ultimate-black-mica-front-left-optimized.webp',
+          'Exceed': '/images/cars/triton/exceed-black-mica-front-left-optimized.webp',
+          'GLS': '/images/cars/triton/gls-black-mica-front-left-optimized.webp',
+          'HDX DC': '/images/cars/triton/hdx-dc-black-mica-front-left-optimized.webp',
+          'HDX SC': '/images/cars/triton/hdx-sc-black-mica-front-left-optimized.webp',
+          'GLX': '/images/cars/triton/glx-sc-black-mica-front-left-optimized.webp'
+        }
+      }
     ],
     highlights: [
       'Sasis Mega Frame generasi baru dengan torsional rigidity meningkat 60%',
       'Super Select 4WD-II dengan 7 Drive Mode (Normal, Eco, Gravel, Snow, Mud, Sand, Rock)',
-      'Mesin Diesel 2.4L 4N16 Clean Diesel Turbo bertenaga hingga 184 PS & torsi 430 Nm',
+      'Mesin Diesel 2.4L 4N16 Clean Diesel Turbo Euro 4 bertenaga hingga 184 PS & torsi 430 Nm',
       'Bak kargo terluas dan terkuat di kelasnya dengan kapasitas angkut maksimal',
       'Fitur keselamatan aktif lengkap ADAS Diamond Sense untuk varian Ultimate'
     ],
     heroFeatures: [
-      { label: 'Mesin 2.4L Bi-Turbo 184 PS', icon: 'engine' },
-      { label: 'Super Select 4WD-II', icon: 'drive' },
-      { label: 'Sasis Mega Frame Kokoh', icon: 'chassis' },
-      { label: 'Diamond Sense ADAS', icon: 'shield' }
+      { label: 'Mesin Tangguh & Ramah Lingkungan', icon: 'engine' },
+      { label: 'Reliabilitas Tinggi', icon: 'shield' },
+      { label: 'Kargo Luas', icon: 'cargo' },
+      { label: 'Kenyamanan Maksimal', icon: 'car-seat' },
     ],
     keySpecs: {
       seating: '2 - 5 Penumpang',
-      engine: '2.4L 4N16 Clean Diesel Turbo Intercooler',
-      power: '150 - 184 PS / 430 Nm',
-      transmission: '6-Speed MT / 6-Speed AT',
+      engine: '2.4L 4N16 Clean Diesel Turbo Euro 4',
+      power: '110 - 184 PS / 200 - 430 Nm',
+      transmission: '5/6-Speed MT & 6-Speed AT',
       groundClearance: '222 mm',
       fuelType: 'Diesel (Euro 4)'
     },
     variants: [
       {
-        name: 'Triton GLX Single Cabin 4x2 MT',
-        transmission: 'MT',
-        price: 310200000,
-        priceFormatted: 'Rp 310.200.000',
-        dpEstimate: 'Rp 32 Jt-an',
-        cicilanEstimate: 'Rp 5,4 Jt-an',
-        tier: 'GLX SC 4x2',
-        transmissionDetail: '6-Speed Manual (M/T)',
+        name: 'Triton Ultimate AT Double Cab 4WD',
+        transmission: 'AT',
+        price: 545000000,
+        priceFormatted: 'Rp 545.000.000',
+        dpEstimate: 'Rp 85 Jt-an',
+        cicilanEstimate: 'Rp 9,2 Jt-an',
+        tier: 'Ultimate',
+        transmissionDetail: '6-Speed Otomatis + Super Select 4WD-II (7 Drive Mode)',
         groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (High Power)',
+        power: '184 PS / 430 Nm',
         highlights: [
-          'Bak kargo Single Cabin terpanjang & terluas siap memuat logistik volume besar',
-          'Mesin 2.4L 4N16 Clean Diesel Euro 4 efisien dan bertenaga tangguh',
-          'Sasis Mega Frame generasi baru dengan daya tahan puntir 60% lebih kuat',
-          'Kabin 2 penumpang lega dengan kursi ergonomis nyaman untuk perjalanan jarak jauh',
-          'Heavy duty suspension siap membawa beban muatan angkut maksimal',
-          'Dual SRS Airbags, ABS + EBD, serta Active Stability & Traction Control'
+          'Mesin 2.4L 4N16 High Power bertenaga buas 184 PS & torsi 430 Nm dengan transmisi 6-Speed AT',
+          'Super Select 4WD-II dengan 7 Drive Mode (Normal, Eco, Gravel, Snow, Mud, Sand, Rock)',
+          'Diamond Sense ADAS: Forward Collision Mitigation (FCM), Blind Spot Warning (BSW), RCTA, & Auto High Beam',
+          'Multi Around Monitor (Kamera 360) & jok kulit premium eksklusif beraksen sporti',
+          'Head Unit 9 inch dengan Apple CarPlay & Android Auto nirkabel serta Wireless Charger',
+          '7 SRS Airbags (Front, Side, Curtain, Knee) untuk proteksi keselamatan maksimal'
         ]
       },
       {
-        name: 'Triton HDX Single Cabin 4x4 MT',
+        name: 'Triton Exceed MT Double Cab 4WD',
         transmission: 'MT',
-        price: 388500000,
-        priceFormatted: 'Rp 388.500.000',
-        dpEstimate: 'Rp 40 Jt-an',
-        cicilanEstimate: 'Rp 6,4 Jt-an',
-        tier: 'HDX SC 4x4',
+        price: 505000000,
+        priceFormatted: 'Rp 505.000.000',
+        dpEstimate: 'Rp 75 Jt-an',
+        cicilanEstimate: 'Rp 8,4 Jt-an',
+        tier: 'Exceed',
+        transmissionDetail: '6-Speed Manual + Super Select 4WD-II',
+        groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (Mid Power)',
+        power: '150 PS / 330 Nm',
+        highlights: [
+          'Sistem Super Select 4WD-II dengan Center Differential (bisa mode 4WD di jalan aspal kering)',
+          'Lampu depan LED Projector dengan LED Daytime Running Light (DRL) modern & velg alloy 17"',
+          'Meter cluster 7 inch Digital LCD Display informatif & interior Black Fabric sporti',
+          'Rear Differential Lock elektrik untuk traksi maksimal saat salah satu roda menggantung',
+          'Kenyamanan modern: Keyless Operation System (KOS), Push Start Engine & Dual Zone Auto AC',
+          'Active Stability & Traction Control (ASTC), Hill Start Assist, & Hill Descent Control'
+        ]
+      },
+      {
+        name: 'Triton GLS MT Double Cab 4WD',
+        transmission: 'MT',
+        price: 475000000,
+        priceFormatted: 'Rp 475.000.000',
+        dpEstimate: 'Rp 70 Jt-an',
+        cicilanEstimate: 'Rp 7,9 Jt-an',
+        tier: 'GLS',
         transmissionDetail: '6-Speed Manual + Easy Select 4WD',
         groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (Mid Power)',
+        power: '150 PS / 330 Nm',
         highlights: [
-          'Penggerak 4 Roda (4WD) Easy Select dengan Transfer Case mekanikal tangguh di lumpur & tanjakan',
-          'Kargo Single Cabin panjang dengan kapasitas muat 1 ton lebih',
-          'Underbody protection pelat pelindung mesin tebal untuk operasional tambang & sawit',
-          'Mesin 2.4L 4N16 Turbo Diesel Euro 4 dengan torsi badak di putaran rendah',
-          'Ground clearance 222 mm dan sudut approach/departure tinggi siap libas medan terjal',
-          'Bumper depan tangguh dengan towing hook depan & belakang terintegrasi'
+          'Sistem penggerak 4WD Easy Select (2H, 4H, 4L) tangguh di jalur tambang & perkebunan',
+          'Mesin 2.4L 4N16 Turbo Diesel 150 PS / 330 Nm dengan transmisi manual 6-percepatan presisi',
+          'Velg 17 inch Alloy Wheel kokoh dengan ban All-Terrain (A/T)',
+          'Head Unit Touchscreen 8 inch dengan konektivitas smartphone & kamera mundur',
+          'Kabin ganda 5 penumpang lega dan kedap dengan insulasi sasis Mega Frame generasi baru',
+          'Dual SRS Airbags, ABS + EBD, Active Yaw Control (AYC), & Active Stability Control'
         ]
       },
       {
-        name: 'Triton HDX Double Cabin 4x4 MT',
+        name: 'Triton HDX MT Double Cab 4WD',
         transmission: 'MT',
         price: 435000000,
         priceFormatted: 'Rp 435.000.000',
-        dpEstimate: 'Rp 45 Jt-an',
-        cicilanEstimate: 'Rp 7,1 Jt-an',
-        tier: 'HDX DC 4x4',
-        transmissionDetail: '6-Speed Manual + Easy Select 4WD',
-        groundClearance: '222 mm',
-        highlights: [
-          'Kabin ganda 5-seater nyaman untuk kru kerja lapangan tambang, perkebunan & proyek',
-          'Sistem penggerak 4WD Easy Select (2H, 4H, 4L) tangguh di jalan berlumpur',
-          'Kekedapan kabin meningkat signifikan berkat insulasi suara sasis Mega Frame baru',
-          'Bak kargo luas dengan dinding bak berlapis reinforced steel',
-          'Material interior heavy duty yang mudah dibersihkan setelah bekerja di area berlumpur',
-          'Fitur keselamatan: Dual SRS Airbags, ABS + EBD, Active Stability Control & Hill Start Assist'
-        ]
-      },
-      {
-        name: 'Triton GLS Double Cabin 4x4 MT',
-        transmission: 'MT',
-        price: 470000000,
-        priceFormatted: 'Rp 470.000.000',
-        dpEstimate: 'Rp 50 Jt-an',
-        cicilanEstimate: 'Rp 7,6 Jt-an',
-        tier: 'GLS DC 4x4',
-        transmissionDetail: '6-Speed Manual + Easy Select 4WD',
-        groundClearance: '222 mm',
-        highlights: [
-          'Velg 17 inch Alloy Wheel kokoh dengan ban All-Terrain (A/T)',
-          'Head Unit Touchscreen 8 inch dengan konektivitas smartphone & Bluetooth',
-          'Rear Camera & Parking Sensor belakang memudahkan parkir kendaraan panjang',
-          'AC Digital modern dengan kisi ventilasi merata ke bangku belakang',
-          'Mesin 2.4L 4N16 bertenaga optimal dengan transmisi manual 6-percepatan presisi',
-          'Active Yaw Control (AYC) & Hill Start Assist untuk kestabilan di jalur berliku'
-        ]
-      },
-      {
-        name: 'Triton Exceed Double Cabin 4x4 MT',
-        transmission: 'MT',
-        price: 510000000,
-        priceFormatted: 'Rp 510.000.000',
-        dpEstimate: 'Rp 55 Jt-an',
-        cicilanEstimate: 'Rp 8,2 Jt-an',
-        tier: 'Exceed DC 4x4',
-        transmissionDetail: '6-Speed Manual + Super Select 4WD-II',
-        groundClearance: '222 mm',
-        highlights: [
-          'Sistem Super Select 4WD-II dengan Center Differential (bisa 4WD di jalan aspal kering)',
-          'Lampu depan LED Projector dengan LED Daytime Running Light (DRL) modern',
-          'Interior mewah Black Fabric Seat dengan jahitan sporti & setir berbalut kulit',
-          'Meter cluster 7 inch Digital LCD Display informatif & modern',
-          'Rear Differential Lock elektrik untuk traksi darurat saat salah satu roda menggantung',
-          'Fitur kenyamanan lengkap: Keyless Push Start Engine & Dual Zone Auto AC'
-        ]
-      },
-      {
-        name: 'Triton Ultimate Double Cabin 4x4 AT',
-        transmission: 'AT',
-        price: 571000000,
-        priceFormatted: 'Rp 571.000.000',
         dpEstimate: 'Rp 65 Jt-an',
-        cicilanEstimate: 'Rp 9,2 Jt-an',
-        tier: 'Ultimate DC 4x4',
-        transmissionDetail: '6-Speed Otomatis + Super Select 4WD-II',
+        cicilanEstimate: 'Rp 7,2 Jt-an',
+        tier: 'HDX DC',
+        transmissionDetail: '5-Speed Manual + Rear Diff Lock & Lever 4WD',
         groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (Low Power Heavy Duty)',
+        power: '110 PS / 200 Nm',
         highlights: [
-          'Mesin 2.4L 4N16 Bi-Turbo paling perkasa bertenaga 184 PS & torsi 430 Nm dengan transmisi 6-Speed AT',
-          'Super Select 4WD-II dengan 7 Drive Mode (Normal, Eco, Gravel, Snow, Mud, Sand, Rock)',
-          'Diamond Sense ADAS: Forward Collision Mitigation (FCM), Blind Spot Warning (BSW), RCTA, & ACC',
-          'Multi Around Monitor (Kamera 360) & jok kulit premium beraksen kontras',
-          'Head Unit 9 inch touchscreen modern dengan Apple CarPlay & Android Auto nirkabel',
-          'Velg 18 inch Dark Alloy eksklusif dengan styling eksterior sporti gaya hidup petualang'
+          'Dilengkapi Rear Differential Lock mekanikal untuk traksi ekstrem di lumpur dalam',
+          'Transmisi 5-Speed Manual heavy duty dengan tuas transfer case 4WD mekanikal legendaris',
+          'Kabin ganda 5 penumpang siap kerja keras untuk mobilitas kru tambang & perkebunan',
+          'Material interior heavy duty tahan gores dan mudah dibersihkan dari lumpur tanah',
+          'Underbody protection pelat baja pelindung bawah mesin & tangki bahan bakar tebal',
+          'Sasis Mega Frame generasi baru dengan daya tahan puntir 60% lebih kuat'
+        ]
+      },
+      {
+        name: 'Triton HDX MT Single Cab 4WD',
+        transmission: 'MT',
+        price: 385000000,
+        priceFormatted: 'Rp 385.000.000',
+        dpEstimate: 'Rp 55 Jt-an',
+        cicilanEstimate: 'Rp 6,4 Jt-an',
+        tier: 'HDX SC',
+        transmissionDetail: '5-Speed Manual + Lever 4WD (Transfer Case)',
+        groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (Low Power Heavy Duty)',
+        power: '110 PS / 200 Nm',
+        highlights: [
+          'Penggerak 4 Roda (4WD) mekanikal siap taklukkan medan off-road, tambang, & tanjakan terjal',
+          'Bak kargo Single Cabin panjang dengan kapasitas angkut muatan lebih dari 1 ton',
+          'Mesin 2.4L 4N16 Clean Diesel Euro 4 torsi badak di putaran rendah, bandel & irit',
+          'Sasis Mega Frame baru lebih tebal dengan rigiditas tinggi untuk muatan berat',
+          'Dilengkapi pelindung kolong tebal (underbody protector) & kait towing depan-belakang',
+          'Dual SRS Airbags, ABS + EBD, serta suspensi heavy-duty reinforced leaf spring'
+        ]
+      },
+      {
+        name: 'Triton GLX MT Single Cab 2WD',
+        transmission: 'MT',
+        price: 310200000,
+        priceFormatted: 'Rp 310.200.000',
+        dpEstimate: 'Rp 45 Jt-an',
+        cicilanEstimate: 'Rp 5,2 Jt-an',
+        tier: 'GLX',
+        transmissionDetail: '6-Speed Manual (4x2)',
+        groundClearance: '222 mm',
+        engine: '2.4L 4N16 Clean Diesel Turbo (Mid Power)',
+        power: '150 PS / 330 Nm',
+        highlights: [
+          'Bak kargo Single Cabin paling panjang & luas, ideal untuk logistik muatan volume besar',
+          'Mesin 2.4L 4N16 bertenaga optimal 150 PS / 330 Nm dengan transmisi 6-Speed Manual efisien',
+          'Penggerak roda belakang (RWD / 4x2) hemat bahan bakar untuk distribusi antarkota',
+          'Kabin 2-seater ergonomis dengan kenyamanan berkendara harian',
+          'Sasis kokoh Mega Frame dengan kapasitas beban muatan tinggi',
+          'Dual SRS Airbags, ABS + EBD, Active Stability & Traction Control (ASTC)'
         ]
       }
     ],
@@ -911,36 +1336,41 @@ export const carsData: CarModel[] = [
   // ─── 7. COLT L300 EURO 4 ──────────────────────────────────────────────────────
   {
     slug: 'l300',
-    name: 'New Colt L300 Euro 4',
-    tagline: 'Rajanya Pick Up - Lebih Irit, Lebih Bertenaga, Muat Lebih Banyak',
+    name: 'L300',
+    tagline: 'Transportasi Bisnis yang Handal',
+    logo: '/images/logo/cars-logo/l300-black-optimized.webp',
+    logoWhite: '/images/logo/cars-logo/l300-white-optimized.webp',
     category: 'Pick Up',
     segment: 'lcv',
-    badge: 'LEGENDA NIAGA',
-    startingPrice: 'Rp 234.150.000',
-    startingPriceNum: 234150000,
-    dpStart: 'Rp 15 Jt-an',
-    dpMinNum: 15000000,
+    startingPrice: 'Rp 243.650.000',
+    startingPriceNum: 243650000,
+    dpStart: 'Rp 18 Jt-an',
+    dpMinNum: 18000000,
     cicilanStart: 'Rp 3,5 Jt/bln',
     cicilanNum: 3500000,
+    heroImage: '/images/cars/l300/l300-hero.webp',
     image: '/images/cars/l300/l300-optimized.webp',
     galleryImages: [
-      '/images/cars/l300/l300-optimized.webp'
+      '/images/cars/l300/l300-hero.webp',
+      '/images/cars/l300/l300-optimized.webp',
+      '/images/cars/l300/pickup-flat-deck-optimized.webp',
+      '/images/cars/l300/cab-chasis-optimized.webp'
     ],
     colors: [
-      { name: 'Black Solid', hex: '#181818' }
+      { name: 'Hitam', hex: '#1A1A1A' }
     ],
     highlights: [
-      'Mesin Diesel 2.2L 4N14 Common Rail Turbo Euro 4: 40% lebih bertenaga & irit BBM',
-      'Kargo lebih panjang 200 mm (2.630 mm) dengan daya angkut ekstra 8%',
-      'Interior baru lebih lega dengan speedometer modern & audio entertainment',
+      'Mesin Diesel Baru 2.2L 4N14 Common Rail Turbo Euro 4: 40% lebih bertenaga (99.25 PS & 200 Nm)',
+      'Bak kargo lebih panjang 2.630 mm (8% lebih panjang) dengan daya muat logistik ekstra',
+      'Kemudi semakin nyaman dengan Power Steering enteng dan radius putar kompak 4.4 meter',
       'Nilai jual kembali (resale value) paling stabil dan dicari di seluruh pelosok Indonesia',
-      'Jaringan bengkel resmi dan ketersediaan sparepart paling melimpah'
+      'Didukung jaringan bengkel resmi dan ketersediaan suku cadang terlengkap di lebih dari 300 dealer'
     ],
     heroFeatures: [
-      { label: 'Mesin Turbo Euro 4 Bertenaga', icon: 'engine' },
-      { label: 'Kargo Lebih Luas & Panjang', icon: 'chassis' },
-      { label: 'Irit Bahan Bakar', icon: 'hybrid' },
-      { label: 'Suku Cadang Teruji Melimpah', icon: 'shield' }
+      { label: 'Tangguh di Tanjakan', icon: 'climb' },
+      { label: 'Hebat di Segala Medan', icon: 'terrain' },
+      { label: 'Hemat Biaya Perawatan', icon: 'maintenance' },
+      { label: 'Suku Cadang Mudah Dicari', icon: 'sparepart' }
     ],
     keySpecs: {
       seating: '3 Penumpang',
@@ -952,13 +1382,34 @@ export const carsData: CarModel[] = [
     },
     variants: [
       {
+        name: 'Colt L300 Pick Up Flat Deck',
+        transmission: 'MT',
+        price: 248650000,
+        priceFormatted: 'Rp 248.650.000',
+        dpEstimate: 'Rp 20 Jt-an',
+        cicilanEstimate: 'Rp 3,6 Jt-an',
+        tier: 'Flat Deck',
+        image: '/images/cars/l300/pickup-flat-deck-optimized.webp',
+        transmissionDetail: '5-Speed Manual (M/T)',
+        groundClearance: '195 mm',
+        highlights: [
+          'Bak kargo Flat Deck (Bak Rata) lebih panjang 200 mm (2.630 mm) dengan kapasitas muat ekstra 8%',
+          'Mesin Diesel 2.2L 4N14 Common Rail Turbo Euro 4 bertenaga 99.25 PS & torsi 200 Nm (naik 40%)',
+          'Bukaan bak 3 sisi memudahkan proses bongkar muat barang dari samping maupun belakang',
+          'Kabin 3 penumpang lega dengan speedometer baru yang modern, Power Steering & audio hiburan',
+          'Konsumsi solar lebih irit dan emisi gas buang bersih sesuai standar Euro 4',
+          'Resale value (harga jual kembali) paling stabil dan tinggi di seluruh bursa mobil bekas Indonesia'
+        ]
+      },
+      {
         name: 'Colt L300 Cab Chassis',
         transmission: 'MT',
-        price: 234150000,
-        priceFormatted: 'Rp 234.150.000',
-        dpEstimate: 'Rp 15 Jt-an',
+        price: 243650000,
+        priceFormatted: 'Rp 243.650.000',
+        dpEstimate: 'Rp 18 Jt-an',
         cicilanEstimate: 'Rp 3,5 Jt-an',
         tier: 'Cab Chassis',
+        image: '/images/cars/l300/cab-chasis-optimized.webp',
         transmissionDetail: '5-Speed Manual (M/T)',
         groundClearance: '195 mm',
         highlights: [
@@ -968,25 +1419,6 @@ export const carsData: CarModel[] = [
           'Sistem kemudi Power Steering ringan dan radius putar kompak 4.4 meter lincah di gang sempit',
           'Ketersediaan suku cadang dan montir resmi sangat melimpah di pelosok Nusantara',
           'Biaya perawatan harian sangat ekonomis menjamin keuntungan bisnis maksimal'
-        ]
-      },
-      {
-        name: 'Colt L300 Flat Deck (Bak Rata)',
-        transmission: 'MT',
-        price: 251650000,
-        priceFormatted: 'Rp 251.650.000',
-        dpEstimate: 'Rp 18 Jt-an',
-        cicilanEstimate: 'Rp 3,8 Jt-an',
-        tier: 'Flat Deck',
-        transmissionDetail: '5-Speed Manual (M/T)',
-        groundClearance: '195 mm',
-        highlights: [
-          'Bak kargo Flat Deck (Bak Rata) lebih panjang 200 mm (2.630 mm) dengan kapasitas muat ekstra 8%',
-          'Mesin Diesel 2.2L 4N14 Common Rail Turbo Euro 4 bertenaga 99.25 PS & torsi 200 Nm (naik 40%)',
-          'Bukaan bak 3 sisi memudahkan proses bongkar muat barang dari samping maupun belakang',
-          'Kabin 3 penumpang lega dengan speedometer baru yang modern & sistem audio hiburan',
-          'Konsumsi solar lebih irit dan emisi gas buang bersih sesuai standar Euro 4',
-          'Resale value (harga jual kembali) paling stabil dan tinggi di seluruh bursa mobil bekas Indonesia'
         ]
       }
     ],

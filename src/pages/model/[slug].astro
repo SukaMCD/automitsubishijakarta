@@ -20,7 +20,7 @@ function toMillion(num: number): string {
   return (num / 1000000).toFixed(0) + ' Jt';
 }
 
-const shortCarName = car.name.replace(/^All-New\s+|^New Mitsubishi\s+|^Mitsubishi\s+|^All New\s+/, '');
+const shortCarName = car.name.replace(/^All-New\s+|^New Mitsubishi\s+|^Mitsubishi\s+|^All New\s+|^New\s+/i, '');
 const cleanVariantName = (name: string) => {
   const prefixes = [
     'New Mitsubishi',
@@ -32,6 +32,8 @@ const cleanVariantName = (name: string) => {
     'Xpander Cross',
     'Xpander',
     'Pajero Sport',
+    'New Xforce',
+    'Xforce',
     'XForce',
     'Triton',
     'Colt L300',
@@ -48,6 +50,15 @@ const whitePearlColor = car.colors.find(c => {
   const n = c.name.toLowerCase();
   return n.includes('quartz white pearl') || n.includes('white diamond');
 });
+
+// Preload all car images across variants and colors for 0ms instant switching
+const allPreloadImages = Array.from(new Set([
+  car.image,
+  ...(car.galleryImages || []),
+  ...car.variants.map(v => v.image).filter(Boolean),
+  ...car.colors.map(c => c.image).filter(Boolean),
+  ...car.colors.flatMap(c => c.tierImages ? Object.values(c.tierImages) : []).filter(Boolean)
+])).filter(Boolean);
 ---
 
 <Layout
@@ -185,6 +196,14 @@ const whitePearlColor = car.colors.find(c => {
                   <circle cx="23" cy="22" r="2.5"/>
                 </svg>
               )}
+              {feat.icon === 'cargo' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 11h24v13a2 2 0 01-2 2H6a2 2 0 01-2-2V11z"/>
+                  <path d="M4 11l4-5h16l4 5"/>
+                  <line x1="16" y1="11" x2="16" y2="26"/>
+                  <line x1="4" y1="18" x2="28" y2="18"/>
+                </svg>
+              )}
               {feat.icon === 'interior' && (
                 <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M9 24h14a2 2 0 002-2v-5a2 2 0 00-2-2h-1V7a2 2 0 00-2-2H12a2 2 0 00-2 2v8H9a2 2 0 00-2 2v5a2 2 0 002 2z"/>
@@ -211,6 +230,40 @@ const whitePearlColor = car.colors.find(c => {
                   <path d="M23 7a12 12 0 010 18"/>
                 </svg>
               )}
+              {feat.icon === 'connect' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="5" width="14" height="22" rx="2.5"/>
+                  <circle cx="16" cy="23" r="1" fill="currentColor"/>
+                  <path d="M5 12a10 10 0 010 8"/>
+                  <path d="M27 12a10 10 0 000 8"/>
+                </svg>
+              )}
+              {feat.icon === 'climb' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 25l24-12"/>
+                  <path d="M19 7h7v7"/>
+                  <path d="M26 7l-9 9"/>
+                </svg>
+              )}
+              {feat.icon === 'terrain' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 24l8-11 5 6 6-8 7 13H3z"/>
+                  <circle cx="22" cy="8" r="2.5"/>
+                </svg>
+              )}
+              {feat.icon === 'maintenance' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21.5 6.5a4 4 0 00-5.3.4l-8.7 8.7a2 2 0 002.8 2.8l8.7-8.7a4 4 0 002.5-3.2z"/>
+                  <path d="M17.5 7.5l3.5 3.5"/>
+                  <path d="M7 25l3-3"/>
+                </svg>
+              )}
+              {feat.icon === 'sparepart' && (
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="16" cy="16" r="4.5"/>
+                  <path d="M16 4v3m0 18v3M4 16h3m18 0h3m-3.5-8.5l-2.1 2.1m-12.8 12.8l-2.1 2.1m0-17l2.1 2.1m12.8 12.8l2.1 2.1"/>
+                </svg>
+              )}
             </div>
             <span class="model-hero-feature-text">{feat.label}</span>
           </div>
@@ -220,7 +273,7 @@ const whitePearlColor = car.colors.find(c => {
   </section>
 
   <!-- ─── WARNA + GAMBAR UTAMA ──────────────────────────────── -->
-  <section class="model-config">
+  <section class="model-config" data-preload={JSON.stringify(allPreloadImages)}>
     <div class="model-config-inner">
 
       <!-- Color picker kiri -->
@@ -235,7 +288,11 @@ const whitePearlColor = car.colors.find(c => {
                 style={`background: ${color.hex};`}
                 data-color={color.name}
                 data-extra={color.extraPriceFormatted || ''}
+                data-extra-num={color.extraPriceNum || (color.extraPriceFormatted ? Number(color.extraPriceFormatted.replace(/[^0-9]/g, '')) : 0)}
                 data-variants={color.availableVariants ? color.availableVariants.join(',') : ''}
+                data-image={color.image || ''}
+                data-image-tiers={color.imageTiers ? color.imageTiers.join(',') : ''}
+                data-tier-images={color.tierImages ? JSON.stringify(color.tierImages) : ''}
                 data-index={i}
                 title={color.name}
               ></button>
@@ -246,14 +303,66 @@ const whitePearlColor = car.colors.find(c => {
       </div>
 
       <!-- Gambar mobil tengah -->
-      <div class="model-car-image">
-        <img src={car.image} alt={car.name} id="carMainImage" />
-        <div class="model-price-tag">
-          <div class="model-price-from" id="carPriceLabel">{car.variants[0]?.name || 'Mulai dari'}</div>
-          <div class="model-price-num" id="carPriceVal">{car.variants[0]?.priceFormatted || car.startingPrice}</div>
-          <div class="model-price-note">Harga OTR Jakarta 2026</div>
-        </div>
-      </div>
+      {
+        (() => {
+          const initV = car.variants[0];
+          const initC = car.colors[0];
+          let initImg = car.image;
+          if (initV?.image) {
+            initImg = initV.image;
+          } else if (initC?.tierImages && initV?.tier && initC.tierImages[initV.tier]) {
+            initImg = initC.tierImages[initV.tier];
+          } else if (initC?.image && (!initC.imageTiers || (initV?.tier && initC.imageTiers.includes(initV.tier)))) {
+            initImg = initC.image;
+          }
+          return (
+            <div class="model-car-image" data-default-image={initImg}>
+              <img src={initImg} alt={car.name} id="carMainImage" loading="eager" fetchpriority="high" />
+
+              {/* Segmented Package Switch (e.g. Ultimate vs Ultimate Premium) */}
+              <div
+                class={`model-pkg-switch-wrap${initV?.packages && initV.packages.length > 0 ? '' : ' is-hidden'}`}
+                id="pkgSwitchWrap"
+              >
+                <div class="model-pkg-switch" id="pkgSwitch">
+                  {initV?.packages?.map((pkg, pIdx) => (
+                    <button
+                      type="button"
+                      class={`model-pkg-btn${pIdx === 0 ? ' active' : ''}`}
+                      data-pkg-name={pkg.name}
+                      data-pkg-label={pkg.label}
+                      data-pkg-price={pkg.priceFormatted}
+                      data-pkg-price-num={pkg.price}
+                      data-pkg-dp={pkg.dpEstimate || ''}
+                      data-pkg-cicilan={pkg.cicilanEstimate || ''}
+                      data-pkg-highlights={JSON.stringify(pkg.highlights || [])}
+                      data-pkg-tooltip={pkg.featuresTooltip || ''}
+                    >
+                      <span>{pkg.label}</span>
+                      {pkg.featuresTooltip && (
+                        <span class="model-pkg-info">
+                          <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" y1="16" x2="12" y2="12" />
+                            <line x1="12" y1="8" x2="12.01" y2="8" />
+                          </svg>
+                          <span class="model-pkg-tooltip">{pkg.featuresTooltip}</span>
+                        </span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div class="model-price-tag">
+                <div class="model-price-from" id="carPriceLabel">{car.variants[0]?.name || 'Mulai dari'}</div>
+                <div class="model-price-num" id="carPriceVal">{car.variants[0]?.priceFormatted || car.startingPrice}</div>
+                <div class="model-price-note">Harga OTR Jakarta 2026</div>
+              </div>
+            </div>
+          );
+        })()
+      }
 
       <!-- Info kanan: Minimalist Editorial Variant Selector -->
       <div class="model-side-info">
@@ -272,7 +381,12 @@ const whitePearlColor = car.colors.find(c => {
                   class={`model-editorial-item${i === 0 ? ' active' : ''}`}
                   data-name={v.name}
                   data-clean-name={cleanVName}
+                  data-image={v.image || ''}
                   data-price={v.priceFormatted}
+                  data-base-price={v.priceFormatted}
+                  data-orig-price={v.priceFormatted}
+                  data-price-num={v.price}
+                  data-orig-price-num={v.price}
                   data-trans={v.transmission}
                   data-dp={v.dpEstimate || ''}
                   data-cicilan={v.cicilanEstimate || ''}
@@ -282,6 +396,7 @@ const whitePearlColor = car.colors.find(c => {
                   data-engine={v.engine || car.keySpecs.engine}
                   data-power={v.power || car.keySpecs.power}
                   data-highlights={JSON.stringify(v.highlights || car.highlights)}
+                  data-packages={v.packages ? JSON.stringify(v.packages) : ''}
                 >
                   <span class="model-editorial-name">{cleanVName}</span>
                   <span class="model-editorial-price">{v.priceFormatted}</span>
@@ -394,6 +509,24 @@ const whitePearlColor = car.colors.find(c => {
       </div>
       <div class="model-highlights-container">
         {car.variants.map((v, vIdx) => {
+          if (v.packages && v.packages.length > 0) {
+            return v.packages.map((pkg, pIdx) => {
+              const items = pkg.highlights || v.highlights || car.highlights;
+              return (
+                <div
+                  class={`model-highlights-grid${vIdx === 0 && pIdx === 0 ? ' is-active' : ''}`}
+                  data-variant-key={pkg.label}
+                >
+                  {items.map((h, i) => (
+                    <div class="model-highlight-card">
+                      <div class="model-highlight-num">{String(i + 1).padStart(2, '0')}</div>
+                      <p class="model-highlight-text">{h}</p>
+                    </div>
+                  ))}
+                </div>
+              );
+            });
+          }
           const cleanKey = cleanVariantName(v.name);
           const items = v.highlights || car.highlights;
           return (
@@ -700,6 +833,9 @@ const whitePearlColor = car.colors.find(c => {
       text-align: center;
       margin-bottom: 24px;
     }
+    .model-colors {
+      justify-content: center;
+    }
   }
 
   /* Color panel - sejajar dengan body mobil */
@@ -721,27 +857,36 @@ const whitePearlColor = car.colors.find(c => {
   }
 
   .model-colors {
-    display: grid;
-    grid-template-columns: repeat(3, 28px);
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 12px;
-    width: fit-content;
+    max-width: 140px;
   }
 
   .model-color-swatch {
     width: 28px;
     height: 28px;
-    border-radius: 50%;
+    border-radius: 2px;
     border: 1px solid rgba(0, 0, 0, 0.22);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.35), 0 1px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4), 0 1px 3px rgba(0, 0, 0, 0.08);
     outline: 2px solid transparent;
+    outline-offset: 3px;
     cursor: pointer;
-    transition: outline-color 0.15s, border-color 0.15s, transform 0.15s;
+    transition: outline-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
     box-sizing: border-box;
   }
 
-  .model-color-swatch:hover:not(.is-hidden) { transform: scale(1.15); }
-  .model-color-swatch.active { outline: 2px solid #0a0a0a; outline-offset: 3px; }
+  .model-color-swatch:hover:not(.is-hidden) {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  }
+
+  .model-color-swatch.active {
+    outline: 2px solid #0a0a0a;
+    outline-offset: 3px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
 
   .model-color-swatch.is-hidden {
     display: none;
@@ -749,10 +894,11 @@ const whitePearlColor = car.colors.find(c => {
 
   .model-color-name {
     font-size: 12px;
-    color: #555;
-    font-weight: 500;
+    color: #2B2E30;
+    font-weight: 600;
     min-height: 18px;
     line-height: 18px;
+    letter-spacing: -0.01em;
   }
 
   /* Car image */
@@ -766,11 +912,121 @@ const whitePearlColor = car.colors.find(c => {
     max-height: 320px;
     width: 100%;
     object-fit: contain;
-    transition: opacity 0.3s;
+  }
+
+  /* ── Segmented Package Switch (e.g. Ultimate vs Ultimate Premium) ── */
+  :global(.model-pkg-switch-wrap) {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+    margin-bottom: 2px;
+  }
+
+  :global(.model-pkg-switch-wrap.is-hidden) {
+    display: none;
+  }
+
+  :global(.model-pkg-switch-wrap:not(.is-hidden) ~ .model-price-tag .model-price-from) {
+    display: none;
+  }
+
+  :global(.model-pkg-switch) {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #000000;
+    background: #ffffff;
+    padding: 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  }
+
+  :global(.model-pkg-btn) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 22px;
+    font-size: 13.5px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    background: #ffffff;
+    color: #111111;
+    border: none;
+    transition: all 0.2s ease;
+    outline: none;
+    user-select: none;
+    line-height: 1.2;
+  }
+
+  :global(.model-pkg-btn:not(:last-child)) {
+    border-right: 1px solid #000000;
+  }
+
+  :global(.model-pkg-btn.active) {
+    background: #000000;
+    color: #ffffff;
+  }
+
+  :global(.model-pkg-btn:not(.active):hover) {
+    background: #f5f5f5;
+  }
+
+  :global(.model-pkg-info) {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.75;
+    cursor: help;
+  }
+
+  :global(.model-pkg-btn.active .model-pkg-info) {
+    opacity: 0.95;
+  }
+
+  :global(.model-pkg-info:hover) {
+    opacity: 1;
+  }
+
+  :global(.model-pkg-tooltip) {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #111111;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    white-space: pre-line;
+    width: max-content;
+    max-width: 250px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    z-index: 25;
+    pointer-events: none;
+    text-align: left;
+  }
+
+  :global(.model-pkg-tooltip::after) {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: #111111 transparent transparent transparent;
+  }
+
+  :global(.model-pkg-info:hover .model-pkg-tooltip) {
+    display: block;
   }
 
   .model-price-tag {
-    margin-top: 20px;
+    margin-top: 16px;
     text-align: center;
     min-height: 70px;
   }
@@ -1385,40 +1641,255 @@ const whitePearlColor = car.colors.find(c => {
 </style>
 
 <script>
-  // Color picker interactivity
+  // Helper format rupiah
+  function formatRupiah(num: number): string {
+    return 'Rp ' + num.toLocaleString('id-ID');
+  }
+
   const swatches = document.querySelectorAll<HTMLButtonElement>('.model-color-swatch');
   const colorName = document.getElementById('colorName');
-
-  swatches.forEach(swatch => {
-    swatch.addEventListener('click', () => {
-      swatches.forEach(s => s.classList.remove('active'));
-      swatch.classList.add('active');
-      const cName = swatch.dataset.color || '';
-      if (colorName) colorName.textContent = cName;
-    });
-  });
-
-  // Variant selector interactivity
   const variantItems = document.querySelectorAll<HTMLButtonElement>('.model-editorial-item');
   const carPriceLabel = document.getElementById('carPriceLabel');
   const carPriceVal = document.getElementById('carPriceVal');
   const sideWaBtn = document.getElementById('sideWaBtn') as HTMLAnchorElement | null;
   const sideWaBtnText = document.getElementById('sideWaBtnText');
+  const pkgSwitchWrap = document.getElementById('pkgSwitchWrap');
+  const pkgSwitch = document.getElementById('pkgSwitch');
 
+  function updateActivePrice() {
+    const activeVariant = document.querySelector<HTMLButtonElement>('.model-editorial-item.active');
+    const activeSwatch = document.querySelector<HTMLButtonElement>('.model-color-swatch.active:not(.is-hidden)') 
+      || document.querySelector<HTMLButtonElement>('.model-color-swatch.active');
+    if (!activeVariant) return;
+
+    const basePriceNum = Number(activeVariant.dataset.priceNum || 0);
+    const extraNum = activeSwatch ? Number(activeSwatch.dataset.extraNum || 0) : 0;
+    const finalPriceNum = basePriceNum + extraNum;
+    const finalPriceFormatted = finalPriceNum > 0 ? formatRupiah(finalPriceNum) : (activeVariant.dataset.price || '');
+
+    // 1. Update main price display in tag
+    if (carPriceVal) {
+      carPriceVal.textContent = finalPriceFormatted;
+    }
+
+    // 2. Update price in the active variant list item
+    const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
+    if (priceSpan) {
+      priceSpan.textContent = finalPriceFormatted;
+    }
+
+    // 3. Update color label
+    const cName = activeSwatch ? activeSwatch.dataset.color || '' : '';
+    if (colorName) {
+      colorName.textContent = cName;
+    }
+
+    // 4. Update WhatsApp message
+    if (sideWaBtn) {
+      const vName = activeVariant.dataset.name || '';
+      const colorText = cName ? ` warna ${cName}` : '';
+      const msg = `Halo Kanhadi, saya tertarik dengan ${vName}${colorText} (${finalPriceFormatted}). Bisa minta info diskon promo dan hitungan simulasi kreditnya?`;
+      sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
+    }
+
+    // 5. Update Car Display Image (instant switch)
+    updateActiveCarImage();
+  }
+
+  function updateActiveCarImage() {
+    const carMainImg = document.getElementById('carMainImage') as HTMLImageElement | null;
+    if (!carMainImg) return;
+
+    const activeVariant = document.querySelector<HTMLButtonElement>('.model-editorial-item.active');
+    const activeSwatch = document.querySelector<HTMLButtonElement>('.model-color-swatch.active:not(.is-hidden)') 
+      || document.querySelector<HTMLButtonElement>('.model-color-swatch.active');
+    const defaultImg = (document.querySelector('.model-car-image') as HTMLElement)?.dataset.defaultImage;
+
+    const variantImage = activeVariant?.dataset.image;
+    const swatchImage = activeSwatch?.dataset.image;
+    const imageTiers = activeSwatch?.dataset.imageTiers;
+    const currentTier = activeVariant?.dataset.tier || '';
+
+    let target = '';
+    if (variantImage) {
+      target = variantImage;
+    } else if (activeSwatch) {
+      const rawTierImages = activeSwatch.dataset.tierImages;
+      if (rawTierImages) {
+        try {
+          const tierMap = JSON.parse(rawTierImages);
+          if (currentTier && tierMap[currentTier]) {
+            target = tierMap[currentTier];
+          }
+        } catch (e) {}
+      }
+      if (!target && swatchImage) {
+        if (!imageTiers || (currentTier && imageTiers.split(',').map(s => s.trim()).includes(currentTier))) {
+          target = swatchImage;
+        }
+      }
+    }
+
+    if (!target) {
+      target = defaultImg || '';
+    }
+
+    if (target) {
+      carMainImg.src = target;
+    }
+  }
+
+  function attachPkgListeners() {
+    const pkgBtns = document.querySelectorAll<HTMLButtonElement>('.model-pkg-btn');
+    pkgBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        pkgBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const activeVariant = document.querySelector<HTMLButtonElement>('.model-editorial-item.active');
+        if (!activeVariant) return;
+
+        const pkgName = btn.dataset.pkgName || '';
+        const pkgLabel = btn.dataset.pkgLabel || '';
+        const pkgPrice = btn.dataset.pkgPrice || '';
+        const pkgPriceNum = Number(btn.dataset.pkgPriceNum || 0);
+        const pkgDp = btn.dataset.pkgDp || '';
+        const pkgCicilan = btn.dataset.pkgCicilan || '';
+
+        // Update dataset of activeVariant so color surcharge and WA link calculate from package price
+        activeVariant.dataset.basePrice = pkgPrice;
+        activeVariant.dataset.price = pkgPrice;
+        activeVariant.dataset.priceNum = pkgPriceNum.toString();
+        activeVariant.dataset.name = pkgName;
+        activeVariant.dataset.cleanName = pkgLabel;
+        if (pkgDp) activeVariant.dataset.dp = pkgDp;
+        if (pkgCicilan) activeVariant.dataset.cicilan = pkgCicilan;
+
+        if (carPriceLabel) carPriceLabel.textContent = pkgName;
+
+        const dpVal = document.getElementById('dpVal');
+        const cicilanVal = document.getElementById('cicilanVal');
+        if (dpVal && pkgDp) dpVal.textContent = pkgDp;
+        if (cicilanVal && pkgCicilan) cicilanVal.textContent = pkgCicilan;
+
+        if (sideWaBtnText) {
+          sideWaBtnText.textContent = `Minta Simulasi & Promo ${pkgLabel}`;
+        }
+
+        // Update active variant price label in right sidebar
+        const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
+        if (priceSpan) {
+          priceSpan.textContent = pkgPrice;
+        }
+
+        // Recalculate price including any color extra
+        updateActivePrice();
+
+        // Update highlights section for package
+        const highlightVariantTitle = document.getElementById('highlightVariantTitle');
+        if (highlightVariantTitle) {
+          highlightVariantTitle.textContent = pkgLabel;
+        }
+        const allGrids = document.querySelectorAll<HTMLElement>('.model-highlights-grid');
+        allGrids.forEach(g => g.classList.remove('is-active'));
+        const targetGrid = document.querySelector<HTMLElement>(`.model-highlights-grid[data-variant-key="${pkgLabel}"]`);
+        if (targetGrid) {
+          targetGrid.classList.add('is-active');
+        } else if (allGrids.length > 0) {
+          allGrids[0].classList.add('is-active');
+        }
+      });
+    });
+  }
+
+  // Color picker interactivity
+  swatches.forEach(swatch => {
+    swatch.addEventListener('click', () => {
+      swatches.forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+      updateActivePrice();
+    });
+  });
+
+  // Variant selector interactivity
   variantItems.forEach(item => {
     item.addEventListener('click', () => {
-      variantItems.forEach(v => v.classList.remove('active'));
+      // Reset all variant list price labels back to their original prices
+      variantItems.forEach(v => {
+        v.classList.remove('active');
+        const priceSpan = v.querySelector<HTMLElement>('.model-editorial-price');
+        if (priceSpan && v.dataset.origPrice) {
+          priceSpan.textContent = v.dataset.origPrice;
+          v.dataset.basePrice = v.dataset.origPrice;
+          v.dataset.price = v.dataset.origPrice;
+          if (v.dataset.origPriceNum) {
+            v.dataset.priceNum = v.dataset.origPriceNum;
+          }
+        }
+      });
       item.classList.add('active');
 
       const name = item.dataset.name || '';
       const cleanName = item.dataset.cleanName || name;
-      const price = item.dataset.price || '';
       const dp = item.dataset.dp || '';
       const cicilan = item.dataset.cicilan || '';
       const tier = item.dataset.tier || '';
 
       if (carPriceLabel) carPriceLabel.textContent = name;
-      if (carPriceVal) carPriceVal.textContent = price;
+
+      // Manage package switch visibility & buttons
+      if (item.dataset.packages) {
+        try {
+          const pkgs = JSON.parse(item.dataset.packages);
+          if (Array.isArray(pkgs) && pkgs.length > 0 && pkgSwitch && pkgSwitchWrap) {
+            pkgSwitchWrap.classList.remove('is-hidden');
+            const existingBtns = pkgSwitch.querySelectorAll<HTMLButtonElement>('.model-pkg-btn');
+            const matchesExisting = existingBtns.length === pkgs.length &&
+              Array.from(existingBtns).every((b, i) => b.dataset.pkgLabel === pkgs[i].label);
+
+            if (!matchesExisting) {
+              pkgSwitch.innerHTML = pkgs.map((pkg: any, idx: number) => `
+                <button
+                  type="button"
+                  class="model-pkg-btn${idx === 0 ? ' active' : ''}"
+                  data-pkg-name="${pkg.name}"
+                  data-pkg-label="${pkg.label}"
+                  data-pkg-price="${pkg.priceFormatted}"
+                  data-pkg-price-num="${pkg.price}"
+                  data-pkg-dp="${pkg.dpEstimate || ''}"
+                  data-pkg-cicilan="${pkg.cicilanEstimate || ''}"
+                  data-pkg-highlights='${JSON.stringify(pkg.highlights || [])}'
+                  data-pkg-tooltip="${pkg.featuresTooltip || ''}"
+                >
+                  <span>${pkg.label}</span>
+                  ${pkg.featuresTooltip ? `
+                    <span class="model-pkg-info">
+                      <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10" />
+                        <line x1="12" y1="16" x2="12" y2="12" />
+                        <line x1="12" y1="8" x2="12.01" y2="8" />
+                      </svg>
+                      <span class="model-pkg-tooltip">${pkg.featuresTooltip}</span>
+                    </span>
+                  ` : ''}
+                </button>
+              `).join('');
+              attachPkgListeners();
+            } else {
+              existingBtns.forEach((b, idx) => {
+                if (idx === 0) b.classList.add('active');
+                else b.classList.remove('active');
+              });
+            }
+          } else if (pkgSwitchWrap) {
+            pkgSwitchWrap.classList.add('is-hidden');
+          }
+        } catch (e) {
+          if (pkgSwitchWrap) pkgSwitchWrap.classList.add('is-hidden');
+        }
+      } else if (pkgSwitchWrap) {
+        pkgSwitchWrap.classList.add('is-hidden');
+      }
 
       // Filter color swatches berdasarkan ketersediaan varian (tier)
       if (tier) {
@@ -1445,7 +1916,8 @@ const whitePearlColor = car.colors.find(c => {
         if (activeHidden) {
           const firstVisible = Array.from(swatches).find(s => !s.classList.contains('is-hidden'));
           if (firstVisible) {
-            firstVisible.click();
+            swatches.forEach(s => s.classList.remove('active'));
+            firstVisible.classList.add('active');
           }
         }
       } else {
@@ -1454,15 +1926,14 @@ const whitePearlColor = car.colors.find(c => {
         });
       }
 
+      // Calculate and update final price (base + active color extra)
+      updateActivePrice();
+
       const dpVal = document.getElementById('dpVal');
       const cicilanVal = document.getElementById('cicilanVal');
       if (dpVal) dpVal.textContent = dp || 'Mulai 20%';
       if (cicilanVal) cicilanVal.textContent = cicilan || 'Konsultasi';
 
-      if (sideWaBtn) {
-        const msg = `Halo Kanhadi, saya tertarik dengan ${name} (${price}). Bisa minta info diskon promo dan hitungan simulasi kreditnya?`;
-        sideWaBtn.href = `https://wa.me/6287808097263?text=${encodeURIComponent(msg)}`;
-      }
       if (sideWaBtnText) {
         sideWaBtnText.textContent = `Minta Simulasi & Promo ${cleanName}`;
       }
@@ -1497,4 +1968,22 @@ const whitePearlColor = car.colors.find(c => {
       }
     });
   });
+
+  // Attach package switch listeners on page load
+  attachPkgListeners();
+
+  // Preload all vehicle images immediately into browser cache for 0ms instant response
+  try {
+    const configEl = document.querySelector('.model-config') as HTMLElement | null;
+    if (configEl && configEl.dataset.preload) {
+      const preloadList = JSON.parse(configEl.dataset.preload) as string[];
+      preloadList.forEach(url => {
+        const img = new Image();
+        img.src = url;
+      });
+    }
+  } catch (e) {}
+
+  // Jalankan kalkulasi awal jika warna default memiliki ekstra harga (misal Quartz White Pearl)
+  updateActivePrice();
 </script>
