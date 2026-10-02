@@ -63,12 +63,12 @@ export const carsData: CarModel[] = [
     dpMinNum: 27000000,
     cicilanStart: 'Rp 4,1 Jt/bln',
     cicilanNum: 4100000,
-    image: '/images/cars/xpander-optimized.webp',
-    heroImage: '/images/cars/xpander-hero.webp',
+    image: '/images/cars/xpander/xpander-optimized.webp',
+    heroImage: '/images/cars/xpander/xpander-hero.webp',
     galleryImages: [
-      '/images/cars/xpander-hero.webp',
-      '/images/cars/xpander-interior.webp',
-      '/images/cars/xpander-optimized.webp'
+      '/images/cars/xpander/xpander-hero.webp',
+      '/images/cars/xpander/xpander-interior.webp',
+      '/images/cars/xpander/xpander-optimized.webp'
     ],
     colors: [
       { name: 'Quartz White Pearl', hex: '#F8F9FA', extraPriceFormatted: '+Rp 1.500.000', availableVariants: ['Ultimate', 'Exceed', 'GLS'] },
@@ -226,9 +226,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 75000000,
     cicilanStart: 'Rp 9,8 Jt/bln',
     cicilanNum: 9800000,
-    image: '/images/cars/new-pajero-sport-optimized.webp',
+    image: '/images/cars/pajero-sport/new-pajero-sport-optimized.webp',
     galleryImages: [
-      '/images/cars/new-pajero-sport-optimized.webp'
+      '/images/cars/pajero-sport/new-pajero-sport-optimized.webp'
     ],
     colors: [
       { name: 'Quartz White Pearl', hex: '#F2F2F2' },
@@ -276,9 +276,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 35000000,
     cicilanStart: 'Rp 5,9 Jt/bln',
     cicilanNum: 5900000,
-    image: '/images/cars/new-xforce-optimized.webp',
+    image: '/images/cars/xforce/new-xforce-optimized.webp',
     galleryImages: [
-      '/images/cars/new-xforce-optimized.webp'
+      '/images/cars/xforce/new-xforce-optimized.webp'
     ],
     colors: [
       { name: 'Energetic Yellow', hex: '#D6A800' },
@@ -325,9 +325,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 28000000,
     cicilanStart: 'Rp 5,1 Jt/bln',
     cicilanNum: 5100000,
-    image: '/images/cars/xpander-cross-optimized.webp',
+    image: '/images/cars/xpander-cross/xpander-cross-optimized.webp',
     galleryImages: [
-      '/images/cars/xpander-cross-optimized.webp'
+      '/images/cars/xpander-cross/xpander-cross-optimized.webp'
     ],
     colors: [
       { name: 'Green Bronze Metallic', hex: '#4B5320' },
@@ -372,9 +372,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 6,2 Jt/bln',
     cicilanNum: 6200000,
-    image: '/images/cars/destinator-optimized.webp',
+    image: '/images/cars/destinator/destinator-optimized.webp',
     galleryImages: [
-      '/images/cars/destinator-optimized.webp'
+      '/images/cars/destinator/destinator-optimized.webp'
     ],
     colors: [
       { name: 'Jet Black Mica', hex: '#111111' },
@@ -421,9 +421,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 35000000,
     cicilanStart: 'Rp 5,4 Jt/bln',
     cicilanNum: 5400000,
-    image: '/images/cars/all-new-triton-optimized.webp',
+    image: '/images/cars/triton/all-new-triton-optimized.webp',
     galleryImages: [
-      '/images/cars/all-new-triton-optimized.webp'
+      '/images/cars/triton/all-new-triton-optimized.webp'
     ],
     colors: [
       { name: 'White Diamond', hex: '#F5F5F5' },
@@ -472,9 +472,9 @@ export const carsData: CarModel[] = [
     dpMinNum: 15000000,
     cicilanStart: 'Rp 3,5 Jt/bln',
     cicilanNum: 3500000,
-    image: '/images/cars/l300-optimized.webp',
+    image: '/images/cars/l300/l300-optimized.webp',
     galleryImages: [
-      '/images/cars/l300-optimized.webp'
+      '/images/cars/l300/l300-optimized.webp'
     ],
     colors: [
       { name: 'Black Solid', hex: '#181818' }
@@ -515,9 +515,10 @@ export const carsData: CarModel[] = [
     dpMinNum: 25000000,
     cicilanStart: 'Rp 7,5 Jt/bln',
     cicilanNum: 7500000,
-    image: '/images/cars/karoseri-FE-71-Box-Alumunium.webp',
+    image: '/images/cars/canter-fe-71/karoseri-FE-71-Box-Alumunium.webp',
     galleryImages: [
-      '/images/cars/karoseri-FE-71-Box-Alumunium.webp'
+      '/images/cars/canter-fe-71/karoseri-FE-71-Box-Alumunium.webp',
+      '/images/cars/canter-fe-71/canter-fe71-optimized.webp'
     ],
     colors: [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
@@ -561,10 +562,10 @@ export const carsData: CarModel[] = [
     dpMinNum: 35000000,
     cicilanStart: 'Rp 8,9 Jt/bln',
     cicilanNum: 8900000,
-    image: '/images/cars/karoseri-FE-74-Bak-besi-setengah.webp',
+    image: '/images/cars/canter-fe-74/karoseri-FE-74-Bak-besi-setengah.webp',
     galleryImages: [
-      '/images/cars/karoseri-FE-74-Bak-besi-setengah.webp',
-      '/images/cars/canter-fe74-optimized.webp'
+      '/images/cars/canter-fe-74/karoseri-FE-74-Bak-besi-setengah.webp',
+      '/images/cars/canter-fe-74/canter-fe74-optimized.webp'
     ],
     colors: [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
@@ -608,10 +609,10 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 9,8 Jt/bln',
     cicilanNum: 9800000,
-    image: '/images/cars/Canter-FE-84G-BC-1.webp',
+    image: '/images/cars/canter-fe-84/Canter-FE-84G-BC-1.webp',
     galleryImages: [
-      '/images/cars/Canter-FE-84G-BC-1.webp',
-      '/images/cars/extra-long-bus.png'
+      '/images/cars/canter-fe-84/Canter-FE-84G-BC-1.webp',
+      '/images/cars/canter-fe-84/extra-long-bus.png'
     ],
     colors: [
       { name: 'Yellow Fuso Canter', hex: '#E5A91B' }
@@ -653,9 +654,10 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 9,2 Jt/bln',
     cicilanNum: 9200000,
-    image: '/images/cars/canter.webp',
+    image: '/images/cars/canter-bus/canter.webp',
     galleryImages: [
-      '/images/cars/canter.webp'
+      '/images/cars/canter-bus/canter.webp',
+      '/images/cars/canter-bus/canter-bus-optimized.webp'
     ],
     colors: [
       { name: 'Solid White', hex: '#F5F5F5' }

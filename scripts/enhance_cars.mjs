@@ -2,14 +2,28 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
+async function getWebpFiles(dir) {
+  let results = [];
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      results = results.concat(await getWebpFiles(fullPath));
+    } else if (entry.name.endsWith('.webp')) {
+      results.push(fullPath);
+    }
+  }
+  return results;
+}
+
 async function main() {
   const dir = './public/images/cars';
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.webp'));
+  const filePaths = await getWebpFiles(dir);
 
-  console.log(`Starting enhancement for ${files.length} car images...`);
+  console.log(`Starting enhancement for ${filePaths.length} car images...`);
 
-  for (const f of files) {
-    const filePath = path.join(dir, f);
+  for (const filePath of filePaths) {
+    const f = path.relative(dir, filePath);
     const buf = fs.readFileSync(filePath);
     const meta = await sharp(buf).metadata();
 
