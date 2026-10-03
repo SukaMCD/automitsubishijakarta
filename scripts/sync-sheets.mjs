@@ -68,7 +68,8 @@ async function syncSheets() {
       sales: data.sales || null,
       pricelist: Array.isArray(data.pricelist) ? data.pricelist : [],
       promos: Array.isArray(data.promos) ? data.promos : [],
-      testimonials: Array.isArray(data.testimonials) ? data.testimonials : []
+      testimonials: Array.isArray(data.testimonials) ? data.testimonials : [],
+      news: Array.isArray(data.news) ? data.news : []
     };
 
     fs.writeFileSync(targetFile, JSON.stringify(normalizedData, null, 2), 'utf-8');
@@ -77,6 +78,7 @@ async function syncSheets() {
     console.log(`  - Pricelist: ${normalizedData.pricelist.length} variant(s) updated`);
     console.log(`  - Promos: ${normalizedData.promos.length} item(s)`);
     console.log(`  - Testimonials: ${normalizedData.testimonials.length} item(s)`);
+    console.log(`  - News / Articles: ${normalizedData.news.length} article(s)`);
 
   } catch (error) {
     console.error(`\x1b[31m[Sheets Sync Error]\x1b[0m Failed to sync Google Sheets:`, error.message);

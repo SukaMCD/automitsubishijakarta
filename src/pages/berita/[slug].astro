@@ -1,0 +1,189 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { newsList, type NewsItem } from '../../data/news';
+import { salesData, getWhatsAppLink } from '../../data/sales';
+
+export async function getStaticPaths() {
+  return newsList.map((article) => ({
+    params: { slug: article.slug },
+    props: { article }
+  }));
+}
+
+interface Props {
+  article: NewsItem;
+}
+
+const { article } = Astro.props;
+
+const shareUrl = `https://automitsubishijakarta.com/berita/${article.slug}`;
+const shareWa = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${article.title} - Baca selengkapnya di: ${shareUrl}`)}`;
+const waConsult = getWhatsAppLink(`Halo ${salesData.nickname || salesData.name}, saya baru membaca artikel "${article.title}". Mau tanya info lebih lanjut seputar mobil Mitsubishi.`);
+
+const otherArticles = newsList.filter(n => n.slug !== article.slug).slice(0, 3);
+
+// Simple paragraph / markdown formatter
+const contentBlocks = article.content.split('\n\n').map(block => block.trim()).filter(Boolean);
+---
+
+<Layout
+  title={`${article.title} | Mitsubishi Jakarta`}
+  description={article.excerpt}
+  ogImage={article.image}
+  currentPath={`/berita/${article.slug}`}
+>
+  <!-- Breadcrumb Bar -->
+  <nav class="bg-[#F8F9FA] border-b border-concrete py-3">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <ol class="flex items-center gap-2 text-xs text-[#777] overflow-x-auto whitespace-nowrap">
+        <li><a href="/" class="hover:text-brand-red transition-colors">Beranda</a></li>
+        <li><span>/</span></li>
+        <li><a href="/berita" class="hover:text-brand-red transition-colors">Berita &amp; Panduan</a></li>
+        <li><span>/</span></li>
+        <li class="text-anthracite font-bold truncate max-w-xs">{article.title}</li>
+      </ol>
+    </div>
+  </nav>
+
+  <article class="py-8 sm:py-14 bg-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+
+      <!-- Article Header -->
+      <header class="mb-8 sm:mb-12">
+        <div class="flex items-center gap-2.5 mb-4 flex-wrap">
+          <span class="text-[10px] font-black uppercase tracking-wider bg-brand-red text-white px-2.5 py-1">
+            {article.category}
+          </span>
+          <span class="text-xs text-[#888]">{article.date}</span>
+          <span class="text-xs text-[#888]">·</span>
+          <span class="text-xs text-[#888]">{article.readTime}</span>
+        </div>
+
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-black text-anthracite leading-tight tracking-tight mb-6">
+          {article.title}
+        </h1>
+
+        <!-- Author Meta & Share -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y border-concrete">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-brand-red text-white font-black flex items-center justify-center text-sm">
+              {salesData.name.charAt(0)}
+            </div>
+            <div>
+              <div class="text-xs font-bold text-anthracite">{article.author}</div>
+              <div class="text-[11px] text-[#888]">{salesData.role} - {salesData.dealer}</div>
+            </div>
+          </div>
+
+          <a
+            href={shareWa}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 text-xs font-bold bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 transition-colors self-start sm:self-auto"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Bagikan ke WhatsApp
+          </a>
+        </div>
+      </header>
+
+      <!-- Featured Image Banner -->
+      <div class="mb-10 sm:mb-12 w-full max-h-115 aspect-video sm:aspect-21/9 overflow-hidden border border-concrete shadow-sm bg-black/90">
+        <Image
+          src={article.image}
+          alt={article.title}
+          width={1000}
+          height={500}
+          loading="eager"
+          fetchpriority="high"
+          class="w-full h-full object-cover"
+        />
+      </div>
+
+      <!-- Article Content Body -->
+      <div class="article-body prose max-w-none text-[#333] text-sm sm:text-base leading-relaxed space-y-6">
+        {contentBlocks.map((block) => {
+          if (block.startsWith('### ')) {
+            return <h3 class="text-lg sm:text-xl font-black text-anthracite pt-4 border-b border-concrete pb-2">{block.replace('### ', '')}</h3>;
+          }
+          if (block.startsWith('- ')) {
+            const listItems = block.split('\n').filter(Boolean);
+            return (
+              <ul class="list-disc pl-5 space-y-2 text-[#444]">
+                {listItems.map(item => (
+                  <li set:html={item.replace(/^- /, '').replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>')} />
+                ))}
+              </ul>
+            );
+          }
+          return (
+            <p
+              class="leading-relaxed text-[#3a3a3a]"
+              set:html={block.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>').replace(/\*([^*]+)\*/g, '<em>$1</em>')}
+            />
+          );
+        })}
+      </div>
+
+      <!-- Author Card CTA -->
+      <div class="mt-14 p-6 sm:p-8 bg-[#F8F9FA] border-y border-r border-concrete border-l-4 border-l-brand-red flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <span class="text-[10px] font-black uppercase tracking-wider text-brand-red block mb-1">
+            PENULIS &amp; KONSULTAN SALES RESMI
+          </span>
+          <h4 class="text-base sm:text-lg font-black text-anthracite mb-1">
+            {salesData.name} ({salesData.dealer})
+          </h4>
+          <p class="text-xs text-[#666] max-w-lg leading-relaxed">
+            Ingin informasi simulasi kredit, diskon cashback terbaru, atau ingin test drive mobil Mitsubishi langsung ke rumah Anda di Jakarta &amp; sekitarnya? Hubungi saya kapan saja.
+          </p>
+        </div>
+
+        <a
+          href={waConsult}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="shrink-0 inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider px-6 py-3.5 transition-colors whitespace-nowrap"
+        >
+          Konsultasi via WA
+        </a>
+      </div>
+
+      <!-- Related Articles -->
+      {otherArticles.length > 0 && (
+        <div class="mt-16 sm:mt-24 pt-10 border-t border-concrete">
+          <h3 class="text-xl sm:text-2xl font-black text-anthracite mb-6">
+            Artikel Terkait Lainnya
+          </h3>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {otherArticles.map((rel) => (
+              <a
+                href={`/berita/${rel.slug}`}
+                class="group block bg-white border border-concrete hover:border-brand-red p-4 transition-all duration-200"
+              >
+                <div class="h-32 bg-[#F8F9FA] flex items-center justify-center p-3 mb-3 overflow-hidden">
+                  <Image
+                    src={rel.image}
+                    alt={rel.title}
+                    width={240}
+                    height={140}
+                    class="max-h-24 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-wider text-brand-red block mb-1">
+                  {rel.category}
+                </span>
+                <h4 class="text-xs font-bold text-anthracite group-hover:text-brand-red transition-colors line-clamp-2 leading-snug">
+                  {rel.title}
+                </h4>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </article>
+</Layout>

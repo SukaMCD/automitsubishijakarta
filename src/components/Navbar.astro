@@ -17,18 +17,20 @@ const navLinks = [
   { label: 'Model', href: '/model', dropdown: true },
   { label: 'Promo', href: '/promo' },
   { label: 'Daftar Harga', href: '/pricelist' },
-  { label: 'Simulasi Kredit', href: '/#simulasi-kredit' },
+  { label: 'Brosur', href: '/brosur' },
+  { label: 'Berita & Tips', href: '/berita' },
+  // { label: 'Simulasi Kredit', href: '/#simulasi-kredit' },
 ];
 ---
 
 
 
-<header id="site-header" class="relative sticky top-0 z-50 bg-white border-b border-[#E3E5E6] transition-shadow duration-300">
-  <nav class="max-w-[1440px] mx-auto px-4 sm:px-6 h-[62px] sm:h-[68px] flex items-center justify-between gap-4 sm:gap-8">
+<header id="site-header" class="sticky top-0 z-50 bg-white border-b border-concrete transition-shadow duration-300">
+  <nav class="max-w-360 mx-auto px-4 sm:px-6 h-15.5 sm:h-17 flex items-center justify-between gap-4 sm:gap-8">
 
-    <a href="/" class="flex items-center gap-2.5 sm:gap-3 flex-shrink-0 group">
-      <div class="h-8 sm:h-9 w-auto flex items-center justify-center flex-shrink-0">
-        <svg viewBox="26 1 122 105" class="h-8 sm:h-9 w-auto aspect-[122/105]" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <a href="/" class="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
+      <div class="h-8 sm:h-9 w-auto flex items-center justify-center shrink-0">
+        <svg viewBox="26 1 122 105" class="h-8 sm:h-9 w-auto aspect-122/105" fill="none" xmlns="http://www.w3.org/2000/svg">
           <polygon points="87 70.9 107.2 36 87 1.2 66.9 36" fill="#E60012"/>
           <polygon points="87 70.9 107.2 105.7 147.4 105.7 127.3 70.9" fill="#E60012"/>
           <polygon points="87 70.9 66.9 105.7 26.7 105.7 46.8 70.9" fill="#E60012"/>
@@ -43,62 +45,62 @@ const navLinks = [
     <div class="hidden lg:flex items-center gap-0">
       {navLinks.map((link) =>
         link.dropdown ? (
-          <div class="group/dd h-[68px] flex items-center">
-            <button class={`flex items-center gap-1 px-4 h-[68px] text-[13px] font-semibold tracking-wide transition-colors border-b-2 ${currentPath.startsWith('/model') ? 'text-[#E60012] border-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012] border-transparent hover:border-[#E60012]'}`}>
+          <div class="group/dd h-17 flex items-center">
+            <button class={`flex items-center gap-1 px-4 h-17 text-[13px] font-semibold tracking-wide transition-colors border-b-2 ${currentPath.startsWith('/model') ? 'text-brand-red border-brand-red' : 'text-anthracite hover:text-brand-red border-transparent hover:border-brand-red'}`}>
               {link.label}
               <svg class="w-3 h-3 mt-0.5 transition-transform duration-200 group-hover/dd:rotate-180" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
               </svg>
             </button>
-            <div class="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover/dd:block w-[880px] max-w-[calc(100vw-32px)] shadow-2xl border border-[#E3E5E6] bg-white z-50">
-              <div class="px-6 py-3 border-b border-[#E3E5E6] flex items-center justify-between bg-[#FAFAFA]">
+            <div class="absolute top-full left-1/2 -translate-x-1/2 hidden group-hover/dd:block w-220 max-w-[calc(100vw-32px)] shadow-2xl border border-concrete bg-white z-50">
+              <div class="px-6 py-3 border-b border-concrete flex items-center justify-between bg-[#FAFAFA]">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <button
                     type="button"
                     id="tab-btn-passenger"
-                    class="nav-tab-btn active px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#E60012] text-white cursor-pointer"
+                    class="nav-tab-btn active px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-brand-red text-white cursor-pointer"
                   >
                     Mobil Penumpang ({passengerCars.length})
                   </button>
                   <button
                     type="button"
                     id="tab-btn-lcv"
-                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-anthracite hover:bg-anthracite hover:text-white cursor-pointer"
                   >
                     Niaga Ringan ({lcvCars.length})
                   </button>
                   <button
                     type="button"
                     id="tab-btn-truck"
-                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-anthracite hover:bg-anthracite hover:text-white cursor-pointer"
                   >
                     Truk Canter ({truckCars.length})
                   </button>
                   <button
                     type="button"
                     id="tab-btn-bus"
-                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-[#2B2E30] hover:bg-[#2B2E30] hover:text-white cursor-pointer"
+                    class="nav-tab-btn px-3 py-1.5 text-[11px] font-bold uppercase tracking-wider transition-all duration-200 bg-[#EBEBEB] text-anthracite hover:bg-anthracite hover:text-white cursor-pointer"
                   >
                     Bus &amp; Sasis ({busCars.length})
                   </button>
                 </div>
-                <a href="/model" class="text-[12px] font-bold text-[#E60012] hover:text-black transition-colors flex items-center gap-1 group/all">
+                <a href="/model" class="text-[12px] font-bold text-brand-red hover:text-black transition-colors flex items-center gap-1 group/all">
                   Lihat Semua
                   <svg class="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>
               </div>
 
-              <div id="nav-panel-passenger" class="grid grid-cols-3 gap-3 p-5">
+              <div id="nav-panel-passenger" class="nav-panel grid-cols-3 gap-3 p-5">
                 {passengerCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
                     draggable="false"
-                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
                     <div class="flex items-center justify-between gap-1 mb-1">
                       <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
-                        <span class={`text-[9px] font-bold px-1.5 py-0.5 leading-none ${car.badge === 'BARU' || car.badge === 'BEST SELLER' || car.badge === 'FLAGSHIP SUV' ? 'bg-[#E60012] text-white' : 'bg-[#2B2E30] text-white'}`}>
+                        <span class={`text-[9px] font-bold px-1.5 py-0.5 leading-none ${car.badge === 'BARU' || car.badge === 'BEST SELLER' || car.badge === 'FLAGSHIP SUV' ? 'bg-brand-red text-white' : 'bg-anthracite text-white'}`}>
                           {car.badge}
                         </span>
                       )}
@@ -116,7 +118,7 @@ const navLinks = [
                       />
                     </div>
                     <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
-                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                      <div class="text-[12px] font-bold text-anthracite group-hover/card:text-brand-red transition-colors leading-tight truncate">
                         {car.name.replace('Mitsubishi ', '')}
                       </div>
                       <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
@@ -126,9 +128,9 @@ const navLinks = [
                   </a>
                 ))}
 
-                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                <div class="flex flex-col justify-between p-3 border border-anthracite bg-[#1F2421] text-white">
                   <div>
-                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">KONSULTASI RESMI</div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-brand-red mb-1">KONSULTASI RESMI</div>
                     <div class="text-[13px] font-bold leading-snug">Bingung Pilih Tipe?</div>
                     <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
                       Konsultasi diskon, hitung simulasi kredit, &amp; test drive gratis dengan sales konsultan resmi kami.
@@ -138,24 +140,24 @@ const navLinks = [
                     href={waUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                    class="mt-3 flex items-center justify-center gap-2 bg-brand-red hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
                   >
                     Chat WhatsApp
                   </a>
                 </div>
               </div>
 
-              <div id="nav-panel-lcv" class="hidden grid grid-cols-3 gap-3 p-5">
+              <div id="nav-panel-lcv" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {lcvCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
                     draggable="false"
-                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
                     <div class="flex items-center justify-between gap-1 mb-1">
                       <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
-                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#E60012] text-white">
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-brand-red text-white">
                           {car.badge}
                         </span>
                       )}
@@ -173,7 +175,7 @@ const navLinks = [
                       />
                     </div>
                     <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
-                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                      <div class="text-[12px] font-bold text-anthracite group-hover/card:text-brand-red transition-colors leading-tight truncate">
                         {car.name.replace('Mitsubishi ', '')}
                       </div>
                       <div class="text-[11px] font-semibold text-[#686D71] mt-0.5">
@@ -183,9 +185,9 @@ const navLinks = [
                   </a>
                 ))}
 
-                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                <div class="flex flex-col justify-between p-3 border border-anthracite bg-[#1F2421] text-white">
                   <div>
-                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">PROMO USAHA &amp; UMKM</div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-brand-red mb-1">PROMO USAHA &amp; UMKM</div>
                     <div class="text-[13px] font-bold leading-snug">Paket Kredit Usaha</div>
                     <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
                       DP Ringan mulai 15 Jt-an, angsuran fleksibel, proses berkas dibantu sampai serah terima unit.
@@ -195,24 +197,24 @@ const navLinks = [
                     href={getWhatsAppLink('Halo Kanhadi, saya ingin info promo DP dan angsuran mobil pick-up L300 / Triton untuk usaha.')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                    class="mt-3 flex items-center justify-center gap-2 bg-brand-red hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
                   >
                     Konsultasi Pick-Up
                   </a>
                 </div>
               </div>
 
-              <div id="nav-panel-truck" class="hidden grid grid-cols-3 gap-3 p-5">
+              <div id="nav-panel-truck" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {truckCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
                     draggable="false"
-                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
                     <div class="flex items-center justify-between gap-1 mb-1">
                       <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
-                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#2B2E30] text-white">
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-anthracite text-white">
                           {car.badge}
                         </span>
                       )}
@@ -230,7 +232,7 @@ const navLinks = [
                       />
                     </div>
                     <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
-                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                      <div class="text-[12px] font-bold text-anthracite group-hover/card:text-brand-red transition-colors leading-tight truncate">
                         {car.name}
                       </div>
                     </div>
@@ -238,17 +240,17 @@ const navLinks = [
                 ))}
               </div>
 
-              <div id="nav-panel-bus" class="hidden grid grid-cols-3 gap-3 p-5">
+              <div id="nav-panel-bus" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {busCars.map((car) => (
                   <a
                     href={`/model/${car.slug}`}
                     draggable="false"
-                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-[#E60012] bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
+                    class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
                     <div class="flex items-center justify-between gap-1 mb-1">
                       <span class="text-[9px] font-black uppercase tracking-wider text-[#686D71]">{car.category}</span>
                       {car.badge && (
-                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-[#2B2E30] text-white">
+                        <span class="text-[9px] font-bold px-1.5 py-0.5 leading-none bg-anthracite text-white">
                           {car.badge}
                         </span>
                       )}
@@ -266,16 +268,16 @@ const navLinks = [
                       />
                     </div>
                     <div class="mt-2 pt-2 border-t border-[#F0F0F0]">
-                      <div class="text-[12px] font-bold text-[#2B2E30] group-hover/card:text-[#E60012] transition-colors leading-tight truncate">
+                      <div class="text-[12px] font-bold text-anthracite group-hover/card:text-brand-red transition-colors leading-tight truncate">
                         {car.name}
                       </div>
                     </div>
                   </a>
                 ))}
 
-                <div class="flex flex-col justify-between p-3 border border-[#2B2E30] bg-[#1F2421] text-white">
+                <div class="flex flex-col justify-between p-3 border border-anthracite bg-[#1F2421] text-white">
                   <div>
-                    <div class="text-[9px] font-black uppercase tracking-widest text-[#E60012] mb-1">PENGADAAN ARMADA</div>
+                    <div class="text-[9px] font-black uppercase tracking-widest text-brand-red mb-1">PENGADAAN ARMADA</div>
                     <div class="text-[13px] font-bold leading-snug">Konsultasi Fleet &amp; Bisnis</div>
                     <p class="text-[11px] text-[#A6A9AB] leading-relaxed mt-1.5">
                       Penawaran khusus pengadaan unit bus &amp; sasis instansi, pariwisata, atau perusahaan.
@@ -285,7 +287,7 @@ const navLinks = [
                     href={getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi penawaran harga pengadaan unit armada bus/chassis Mitsubishi Fuso.')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                    class="mt-3 flex items-center justify-center gap-2 bg-brand-red hover:bg-white hover:text-black text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
                   >
                     Hubungi Fleet Sales
                   </a>
@@ -294,7 +296,7 @@ const navLinks = [
                 <div class="flex flex-col justify-between p-3 border border-[#EBEBEB] bg-[#FAFAFA]">
                   <div>
                     <div class="text-[9px] font-black uppercase tracking-widest text-[#686D71] mb-1">REKOMENDASI RESMI</div>
-                    <div class="text-[13px] font-bold text-[#2B2E30] leading-snug">Pilihan Bodi Karoseri</div>
+                    <div class="text-[13px] font-bold text-anthracite leading-snug">Pilihan Bodi Karoseri</div>
                     <p class="text-[11px] text-[#686D71] leading-relaxed mt-1.5">
                       Didukung mitra karoseri terpercaya berizin resmi SKRB untuk bodi pariwisata, ambulans, maupun shuttle.
                     </p>
@@ -303,35 +305,35 @@ const navLinks = [
                     href={getWhatsAppLink('Halo Kanhadi, saya ingin informasi mengenai pilihan pembuatan karoseri bus resmi.')}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="mt-3 flex items-center justify-center gap-2 bg-[#2B2E30] hover:bg-[#E60012] text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
+                    class="mt-3 flex items-center justify-center gap-2 bg-anthracite hover:bg-brand-red text-white text-[12px] font-bold py-2 px-3 transition-colors duration-200"
                   >
                     Tanya Karoseri
                   </a>
                 </div>
               </div>
 
-              <div class="px-6 py-2.5 bg-[#F6F6F6] border-t border-[#E3E5E6] flex items-center justify-between text-[11px] text-[#686D71]">
-                <div id="footer-text-passenger" class="flex items-center gap-4">
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Garansi Pabrik 3 Th / 100.000 KM</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Gratis Paket SMART Servis</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaminan Unit Resmi PT MMKSI</span>
+              <div class="px-6 py-2.5 bg-off-white border-t border-concrete flex items-center justify-between text-[11px] text-[#686D71]">
+                <div id="footer-text-passenger" class="nav-footer-text items-center gap-4">
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Garansi Pabrik 3 Th / 100.000 KM</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Gratis Paket SMART Servis</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaminan Unit Resmi PT MMKSI</span>
                 </div>
-                <div id="footer-text-lcv" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Mesin Euro 4 Tangguh &amp; Irit BBM</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>DP Ringan Mulai 15 Jt-an</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaminan Servis &amp; Sparepart Mudah</span>
+                <div id="footer-text-lcv" class="nav-footer-text is-hidden items-center gap-4 text-anthracite font-medium">
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Mesin Euro 4 Tangguh &amp; Irit BBM</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>DP Ringan Mulai 15 Jt-an</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaminan Servis &amp; Sparepart Mudah</span>
                 </div>
-                <div id="footer-text-truck" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaringan 222 Dealer &amp; 19 Bengkel Siaga 24 Jam</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Gratis Servis s/d 40.000 KM / 2 Th</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Telematika Runner Fuso</span>
+                <div id="footer-text-truck" class="nav-footer-text is-hidden items-center gap-4 text-anthracite font-medium">
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Jaringan 222 Dealer &amp; 19 Bengkel Siaga 24 Jam</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Gratis Servis s/d 40.000 KM / 2 Th</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Telematika Runner Fuso</span>
                 </div>
-                <div id="footer-text-bus" class="hidden flex items-center gap-4 text-[#2B2E30] font-medium">
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Chasis Bus Kuat &amp; Suspensi Nyaman</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Siap Berbagai Jenis Karoseri SKRB</span>
-                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-[#E60012] flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Layanan Purna Jual Resmi Fuso</span>
+                <div id="footer-text-bus" class="nav-footer-text is-hidden items-center gap-4 text-anthracite font-medium">
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Chasis Bus Kuat &amp; Suspensi Nyaman</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Siap Berbagai Jenis Karoseri SKRB</span>
+                  <span class="flex items-center gap-1.5"><svg class="w-3.5 h-3.5 text-brand-red shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Layanan Purna Jual Resmi Fuso</span>
                 </div>
-                <div class="font-bold text-[#2B2E30]">
+                <div class="font-bold text-anthracite">
                   Wilayah Jakarta &amp; Jabodetabek
                 </div>
               </div>
@@ -339,7 +341,7 @@ const navLinks = [
           </div>
         ) : (
           <a href={link.href}
-            class={`flex items-center px-4 h-[68px] text-[13px] font-semibold tracking-wide border-b-2 transition-colors ${currentPath === link.href ? 'text-[#E60012] border-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012] border-transparent hover:border-[#E60012]'}`}>
+            class={`flex items-center px-4 h-17 text-[13px] font-semibold tracking-wide border-b-2 transition-colors ${currentPath === link.href ? 'text-brand-red border-brand-red' : 'text-anthracite hover:text-brand-red border-transparent hover:border-brand-red'}`}>
             {link.label}
           </a>
         )
@@ -348,17 +350,17 @@ const navLinks = [
 
     <div class="hidden lg:flex items-center gap-3">
       <a href={waUrl} target="_blank" rel="noopener noreferrer"
-        class="flex items-center gap-2 bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-5 py-2.5 transition-colors duration-200">
+        class="flex items-center gap-2 bg-brand-red hover:bg-black text-white text-[13px] font-bold px-5 py-2.5 transition-colors duration-200">
         <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Hubungi Sales
       </a>
     </div>
 
-    <button id="mobile-menu-btn" class="lg:hidden p-2.5 text-[#2B2E30] hover:text-[#E60012] hover:bg-[#F6F6F6] rounded transition-colors focus:outline-none" aria-label="Menu" aria-expanded="false">
-      <span class="hamburger-box block relative w-[22px] h-[18px]">
-        <span class="hamburger-line line-1 absolute left-0 top-0 w-[22px] h-[2px] bg-current rounded-full"></span>
-        <span class="hamburger-line line-2 absolute left-0 top-[8px] w-[22px] h-[2px] bg-current rounded-full"></span>
-        <span class="hamburger-line line-3 absolute left-0 bottom-0 w-[22px] h-[2px] bg-current rounded-full"></span>
+    <button id="mobile-menu-btn" class="lg:hidden p-2.5 text-anthracite hover:text-brand-red hover:bg-off-white rounded transition-colors focus:outline-none" aria-label="Menu" aria-expanded="false">
+      <span class="hamburger-box block relative w-5.5 h-4.5">
+        <span class="hamburger-line line-1 absolute left-0 top-0 w-5.5 h-0.5 bg-current rounded-full"></span>
+        <span class="hamburger-line line-2 absolute left-0 top-2 w-5.5 h-0.5 bg-current rounded-full"></span>
+        <span class="hamburger-line line-3 absolute left-0 bottom-0 w-5.5 h-0.5 bg-current rounded-full"></span>
       </span>
     </button>
   </nav>
@@ -368,16 +370,16 @@ const navLinks = [
       <div class="mobile-menu-content px-5 py-3 space-y-1">
       {navLinks.map((link) => (
         <a href={link.href}
-          class={`mobile-nav-link flex items-center justify-between py-3.5 border-b border-[#F0F0F0] text-[14px] font-semibold transition-colors ${currentPath === link.href ? 'text-[#E60012]' : 'text-[#2B2E30] hover:text-[#E60012]'}`}>
+          class={`mobile-nav-link flex items-center justify-between py-3.5 border-b border-[#F0F0F0] text-[14px] font-semibold transition-colors ${currentPath === link.href ? 'text-brand-red' : 'text-anthracite hover:text-brand-red'}`}>
           {link.label}
-          <svg class="w-4 h-4 text-[#BFC2C4]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-cold-grey" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
           </svg>
         </a>
       ))}
       <div class="pt-3 pb-2">
         <a href={waUrl} target="_blank" rel="noopener noreferrer"
-          class="mobile-nav-link flex items-center justify-center gap-2.5 w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold py-3.5 px-4 transition-colors">
+          class="mobile-nav-link flex items-center justify-center gap-2.5 w-full bg-brand-red hover:bg-black text-white text-[13px] font-bold py-3.5 px-4 transition-colors">
           <svg class="w-4.5 h-4.5 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Hubungi via WhatsApp
         </a>
@@ -452,44 +454,44 @@ const navLinks = [
   const footerBus = document.getElementById('footer-text-bus');
 
   function resetNavTabs() {
-    [panelPassenger, panelLcv, panelTruck, panelBus].forEach(p => p?.classList.add('hidden'));
-    [footerPassenger, footerLcv, footerTruck, footerBus].forEach(f => f?.classList.add('hidden'));
+    [panelPassenger, panelLcv, panelTruck, panelBus].forEach(p => p?.classList.add('is-hidden'));
+    [footerPassenger, footerLcv, footerTruck, footerBus].forEach(f => f?.classList.add('is-hidden'));
     [tabPassenger, tabLcv, tabTruck, tabBus].forEach(t => {
-      t?.classList.remove('bg-[#E60012]', 'bg-[#2B2E30]', 'text-white');
-      t?.classList.add('bg-[#EBEBEB]', 'text-[#2B2E30]');
+      t?.classList.remove('bg-brand-red', 'bg-anthracite', 'text-white');
+      t?.classList.add('bg-[#EBEBEB]', 'text-anthracite');
     });
   }
 
   function showPassenger() {
     resetNavTabs();
-    panelPassenger?.classList.remove('hidden');
-    footerPassenger?.classList.remove('hidden');
-    tabPassenger?.classList.add('bg-[#E60012]', 'text-white');
-    tabPassenger?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    panelPassenger?.classList.remove('is-hidden');
+    footerPassenger?.classList.remove('is-hidden');
+    tabPassenger?.classList.add('bg-brand-red', 'text-white');
+    tabPassenger?.classList.remove('bg-[#EBEBEB]', 'text-anthracite');
   }
 
   function showLcv() {
     resetNavTabs();
-    panelLcv?.classList.remove('hidden');
-    footerLcv?.classList.remove('hidden');
-    tabLcv?.classList.add('bg-[#E60012]', 'text-white');
-    tabLcv?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    panelLcv?.classList.remove('is-hidden');
+    footerLcv?.classList.remove('is-hidden');
+    tabLcv?.classList.add('bg-brand-red', 'text-white');
+    tabLcv?.classList.remove('bg-[#EBEBEB]', 'text-anthracite');
   }
 
   function showTruck() {
     resetNavTabs();
-    panelTruck?.classList.remove('hidden');
-    footerTruck?.classList.remove('hidden');
-    tabTruck?.classList.add('bg-[#E60012]', 'text-white');
-    tabTruck?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    panelTruck?.classList.remove('is-hidden');
+    footerTruck?.classList.remove('is-hidden');
+    tabTruck?.classList.add('bg-brand-red', 'text-white');
+    tabTruck?.classList.remove('bg-[#EBEBEB]', 'text-anthracite');
   }
 
   function showBus() {
     resetNavTabs();
-    panelBus?.classList.remove('hidden');
-    footerBus?.classList.remove('hidden');
-    tabBus?.classList.add('bg-[#E60012]', 'text-white');
-    tabBus?.classList.remove('bg-[#EBEBEB]', 'text-[#2B2E30]');
+    panelBus?.classList.remove('is-hidden');
+    footerBus?.classList.remove('is-hidden');
+    tabBus?.classList.add('bg-brand-red', 'text-white');
+    tabBus?.classList.remove('bg-[#EBEBEB]', 'text-anthracite');
   }
 
   tabPassenger?.addEventListener('click', showPassenger);
@@ -499,6 +501,19 @@ const navLinks = [
 </script>
 
 <style>
+  .nav-panel {
+    display: grid;
+  }
+  .nav-panel.is-hidden {
+    display: none;
+  }
+  .nav-footer-text {
+    display: flex;
+  }
+  .nav-footer-text.is-hidden {
+    display: none;
+  }
+
   .hamburger-line {
     transform-origin: center;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;

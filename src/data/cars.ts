@@ -2172,19 +2172,26 @@ if (rawSheetsData.pricelist && Array.isArray(rawSheetsData.pricelist) && rawShee
     if (item.variantName) {
       const variant = car.variants.find(v => v.name.toLowerCase().trim() === String(item.variantName).toLowerCase().trim());
       if (variant) {
-        if (item.price && !isNaN(Number(item.price))) {
-          const p = Number(item.price);
-          variant.price = p;
-          variant.priceFormatted = formatRupiah(p);
+        const cleanPrice = typeof item.price === 'number'
+          ? item.price
+          : Number(String(item.price || '').replace(/[^0-9]/g, ''));
+        if (!isNaN(cleanPrice) && cleanPrice > 0) {
+          variant.price = cleanPrice;
+          variant.priceFormatted = formatRupiah(cleanPrice);
         }
         if (item.dpEstimate) variant.dpEstimate = String(item.dpEstimate);
         if (item.cicilanEstimate) variant.cicilanEstimate = String(item.cicilanEstimate);
       }
     }
 
-    if (item.startingPriceNum && !isNaN(Number(item.startingPriceNum))) {
-      car.startingPriceNum = Number(item.startingPriceNum);
-      car.startingPrice = formatRupiah(car.startingPriceNum);
+    if (item.startingPriceNum) {
+      const cleanStart = typeof item.startingPriceNum === 'number'
+        ? item.startingPriceNum
+        : Number(String(item.startingPriceNum || '').replace(/[^0-9]/g, ''));
+      if (!isNaN(cleanStart) && cleanStart > 0) {
+        car.startingPriceNum = cleanStart;
+        car.startingPrice = formatRupiah(cleanStart);
+      }
     }
     if (item.dpStart) car.dpStart = String(item.dpStart);
     if (item.cicilanStart) car.cicilanStart = String(item.cicilanStart);

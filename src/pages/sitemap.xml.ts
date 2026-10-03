@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { carsData } from '../data/cars';
+import { newsList } from '../data/news';
 
 export const GET: APIRoute = async () => {
   const baseUrl = 'https://automitsubishijakarta.com';
@@ -10,6 +11,8 @@ export const GET: APIRoute = async () => {
     { url: '/model', priority: '0.9', changefreq: 'weekly' },
     { url: '/promo', priority: '0.9', changefreq: 'daily' },
     { url: '/pricelist', priority: '0.9', changefreq: 'weekly' },
+    { url: '/brosur', priority: '0.85', changefreq: 'weekly' },
+    { url: '/berita', priority: '0.85', changefreq: 'daily' },
     { url: '/disclaimer', priority: '0.5', changefreq: 'monthly' },
     { url: '/kebijakan-privasi', priority: '0.5', changefreq: 'monthly' },
     { url: '/syarat-ketentuan', priority: '0.5', changefreq: 'monthly' },
@@ -21,7 +24,13 @@ export const GET: APIRoute = async () => {
     changefreq: 'weekly'
   }));
 
-  const allUrls = [...staticRoutes, ...modelRoutes];
+  const newsRoutes = newsList.map(article => ({
+    url: `/berita/${article.slug}`,
+    priority: '0.8',
+    changefreq: 'monthly'
+  }));
+
+  const allUrls = [...staticRoutes, ...modelRoutes, ...newsRoutes];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

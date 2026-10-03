@@ -18,18 +18,18 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
 >
   <!-- Hero Section -->
   <section class="bg-[#1A1C1E] text-white py-12 md:py-16 border-b border-white/10">
-    <div class="max-w-[1440px] mx-auto px-6">
+    <div class="max-w-360 mx-auto px-6">
       
       <!-- Breadcrumb -->
       <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
         <a href="/" class="hover:text-white transition-colors">Beranda</a>
         <span>/</span>
-        <span class="text-[#E60012]">Daftar Harga</span>
+        <span class="text-brand-red">Daftar Harga</span>
       </nav>
 
       <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
         <div class="max-w-3xl">
-          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-2">
+          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">
             Pricelist Resmi OTR Jakarta 2026
           </span>
           <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
@@ -40,12 +40,12 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
           </p>
         </div>
 
-        <div class="flex items-center gap-3 flex-shrink-0">
+        <div class="flex items-center gap-3 shrink-0">
           <a
             href={waGeneral}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-[#E60012] hover:bg-[#B3000E] text-white font-bold text-xs uppercase tracking-wider px-5 py-3 transition-colors"
+            class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider px-5 py-3 transition-colors"
           >
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
@@ -53,10 +53,10 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
             Minta Diskon
           </a>
           <a
-            href="/#simulasi-kredit"
+            href="/promo"
             class="inline-flex items-center gap-2 border border-white/30 hover:border-white text-white font-bold text-xs uppercase tracking-wider px-5 py-3 transition-colors"
           >
-            Simulasi Kredit
+            Lihat Promo
           </a>
         </div>
       </div>
@@ -65,7 +65,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
       <div class="mt-8 grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 border-t border-white/10 pt-6">
         <button
           type="button"
-          class="seg-btn active w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#E60012] text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+          class="seg-btn active w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-brand-red text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="passenger"
         >
           <span class="sm:hidden">Penumpang</span>
@@ -73,7 +73,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
         </button>
         <button
           type="button"
-          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-anthracite text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="lcv"
         >
           <span class="sm:hidden">Niaga</span>
@@ -81,7 +81,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
         </button>
         <button
           type="button"
-          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-anthracite text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="commercial"
         >
           <span class="sm:hidden">Truk & Bus</span>
@@ -92,8 +92,8 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
   </section>
 
   <!-- Interactive Model Selector -->
-  <section class="bg-white border-b border-[#E3E5E6] sticky top-16 md:top-20 z-20 shadow-sm">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6 py-2.5">
+  <section class="bg-white border-b border-concrete sticky top-16 md:top-20 z-20 shadow-sm">
+    <div class="max-w-360 mx-auto px-4 sm:px-6 py-2.5">
       <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1" id="model-tabs-container">
         {carsData.map((car, idx) => (
           <button
@@ -101,14 +101,14 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
             class={`model-tab-btn px-4 py-2 text-xs font-bold whitespace-nowrap transition-all border cursor-pointer flex items-center gap-2 ${
               idx === 0
                 ? 'active bg-[#1F2421] text-white border-[#1F2421] shadow-sm'
-                : 'bg-[#F6F6F6] text-[#2B2E30] border-[#E3E5E6] hover:border-black'
+                : 'bg-off-white text-anthracite border-concrete hover:border-black'
             } ${car.segment !== 'passenger' ? 'hidden' : ''}`}
             data-slug={car.slug}
             data-segment={car.segment}
           >
             <span>{car.name.replace('Mitsubishi ', '')}</span>
             {car.badge && (
-              <span class={`text-[9px] font-bold px-1.5 py-0.2 ${idx === 0 ? 'bg-[#E60012] text-white' : 'bg-[#E3E5E6] text-[#2B2E30]'}`}>
+              <span class={`text-[9px] font-bold px-1.5 py-0.2 ${idx === 0 ? 'bg-brand-red text-white' : 'bg-concrete text-anthracite'}`}>
                 {car.badge}
               </span>
             )}
@@ -119,8 +119,8 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
   </section>
 
   <!-- Active Model Display Container -->
-  <main class="py-8 md:py-12 bg-[#F6F6F6] min-h-[500px]">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
+  <main class="py-8 md:py-12 bg-off-white min-h-125">
+    <div class="max-w-360 mx-auto px-4 sm:px-6">
 
       {carsData.map((car, idx) => {
         const isCommercial = car.segment === 'commercial';
@@ -129,31 +129,32 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
         return (
           <article
             id={`panel-${car.slug}`}
-            class={`model-panel bg-white border border-[#E3E5E6] shadow-sm transition-all duration-200 ${idx === 0 ? '' : 'hidden'}`}
+            class={`model-panel bg-white border border-concrete shadow-sm transition-all duration-200 ${idx === 0 ? '' : 'hidden'}`}
             data-slug={car.slug}
             data-segment={car.segment}
           >
             <!-- Model Header Info -->
-            <div class="p-6 md:p-8 border-b border-[#E3E5E6] flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-white via-white to-[#FAFAFA]">
+            <div class="p-6 md:p-8 border-b border-concrete flex flex-col md:flex-row md:items-center justify-between gap-6 bg-linear-to-r from-white via-white to-[#FAFAFA]">
               <div class="flex items-center gap-5">
-                <div class="w-24 h-16 md:w-32 md:h-20 flex-shrink-0 flex items-center justify-center p-1 bg-[#FAFAFA] border border-[#E3E5E6]">
+                <div class="w-24 h-16 md:w-32 md:h-20 shrink-0 flex items-center justify-center p-1 bg-[#FAFAFA] border border-concrete">
                   <Image
                     src={car.image}
                     alt={car.name}
                     width={200}
                     height={120}
-                    loading="lazy"
+                    loading={idx === 0 ? "eager" : "lazy"}
+                    fetchpriority={idx === 0 ? "high" : "auto"}
                     decoding="async"
                     class="max-h-full max-w-full object-contain"
                   />
                 </div>
                 <div>
                   <div class="flex items-center gap-2 mb-1">
-                    <span class={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 ${isCommercial ? 'bg-[#2B2E30] text-white' : 'bg-[#E60012] text-white'}`}>
+                    <span class={`text-[10px] font-black uppercase tracking-wider px-2 py-0.5 ${isCommercial ? 'bg-anthracite text-white' : 'bg-brand-red text-white'}`}>
                       {car.category}
                     </span>
                     {car.badge && (
-                      <span class="text-[10px] font-bold text-[#686D71] border border-[#E3E5E6] px-2 py-0.5 uppercase tracking-wider">
+                      <span class="text-[10px] font-bold text-[#686D71] border border-concrete px-2 py-0.5 uppercase tracking-wider">
                         {car.badge}
                       </span>
                     )}
@@ -173,14 +174,14 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                   <span class="text-[11px] font-bold uppercase tracking-wider text-[#686D71] block">
                     {isCommercial ? 'Estimasi Harga' : 'Harga Mulai'}
                   </span>
-                  <span class="text-lg md:text-xl font-black text-[#E60012]">
+                  <span class="text-lg md:text-xl font-black text-brand-red">
                     {isCommercial ? 'Hubungi Sales' : car.startingPrice}
                   </span>
                 </div>
                 <div class="flex items-center gap-2">
                   <a
                     href={`/model/${car.slug}`}
-                    class="px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#2B2E30] border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white transition-colors"
+                    class="px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-anthracite border border-anthracite hover:bg-anthracite hover:text-white transition-colors"
                   >
                     Detail Model
                   </a>
@@ -188,7 +189,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                     href={carWaUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="px-4 py-2.5 text-xs font-bold uppercase tracking-wider bg-[#E60012] hover:bg-[#B3000E] text-white transition-colors"
+                    class="px-4 py-2.5 text-xs font-bold uppercase tracking-wider bg-brand-red hover:bg-brand-red-dark text-white transition-colors"
                   >
                     Minta Penawaran
                   </a>
@@ -200,7 +201,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
             <div class="hidden md:block overflow-x-auto">
               <table class="w-full text-left border-collapse">
                 <thead>
-                  <tr class="bg-[#F6F6F6] border-b border-[#E3E5E6] text-[11px] font-bold uppercase tracking-wider text-[#686D71]">
+                  <tr class="bg-off-white border-b border-concrete text-[11px] font-bold uppercase tracking-wider text-[#686D71]">
                     <th class="py-3.5 px-6">Tipe &amp; Varian</th>
                     <th class="py-3.5 px-4">Transmisi</th>
                     <th class="py-3.5 px-6">Harga OTR Jakarta</th>
@@ -209,7 +210,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                     <th class="py-3.5 px-6 text-right">Aksi</th>
                   </tr>
                 </thead>
-                <tbody class="divide-y divide-[#E3E5E6] text-sm">
+                <tbody class="divide-y divide-concrete text-sm">
                   {car.variants && car.variants.length > 0 ? (
                     car.variants.map((v) => {
                       const variantWaUrl = getWhatsAppLink(`Halo Kanhadi, saya ingin konsultasi penawaran harga OTR dan diskon cashback untuk varian: ${car.name} - ${v.name}.`);
@@ -220,7 +221,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                             {v.name}
                           </td>
                           <td class="py-4 px-4">
-                            <span class="inline-block text-[11px] font-bold px-2 py-0.5 bg-[#E3E5E6] text-[#2B2E30]">
+                            <span class="inline-block text-[11px] font-bold px-2 py-0.5 bg-concrete text-anthracite">
                               {v.transmission}
                             </span>
                           </td>
@@ -246,7 +247,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                               href={variantWaUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              class="inline-block text-xs font-bold text-[#E60012] hover:text-[#B3000E] border border-[#E60012] hover:bg-[#E60012] hover:text-white px-3 py-1.5 transition-colors uppercase tracking-wider"
+                              class="inline-block text-xs font-bold text-brand-red border border-brand-red hover:bg-brand-red hover:text-white px-3 py-1.5 transition-colors uppercase tracking-wider"
                             >
                               Minta Diskon
                             </a>
@@ -266,7 +267,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
             </div>
 
             <!-- Variants Card List (Mobile) -->
-            <div class="block md:hidden divide-y divide-[#E3E5E6]">
+            <div class="block md:hidden divide-y divide-concrete">
               {car.variants && car.variants.length > 0 ? (
                 car.variants.map((v) => {
                   const variantWaUrl = getWhatsAppLink(`Halo Kanhadi, saya ingin konsultasi penawaran harga OTR dan diskon cashback untuk varian: ${car.name} - ${v.name}.`);
@@ -277,7 +278,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                         <div class="font-bold text-sm text-[#1F2421] leading-snug">
                           {v.name}
                         </div>
-                        <span class="inline-block text-[10px] font-bold px-2 py-0.5 bg-[#E3E5E6] text-[#2B2E30] flex-shrink-0">
+                        <span class="inline-block text-[10px] font-bold px-2 py-0.5 bg-concrete text-anthracite shrink-0">
                           {v.transmission}
                         </span>
                       </div>
@@ -290,14 +291,14 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                       </div>
 
                       {!isCommercial && (
-                        <div class="grid grid-cols-2 gap-2 text-xs bg-[#FAFAFA] p-2.5 border border-[#E3E5E6]">
+                        <div class="grid grid-cols-2 gap-2 text-xs bg-[#FAFAFA] p-2.5 border border-concrete">
                           <div>
                             <span class="text-[#686D71] block text-[10px] uppercase">Estimasi DP</span>
-                            <span class="font-bold text-[#2B2E30]">{v.dpEstimate || car.dpStart || '-'}</span>
+                            <span class="font-bold text-anthracite">{v.dpEstimate || car.dpStart || '-'}</span>
                           </div>
                           <div>
                             <span class="text-[#686D71] block text-[10px] uppercase">Estimasi Cicilan</span>
-                            <span class="font-bold text-[#2B2E30]">{v.cicilanEstimate || car.cicilanStart || '-'}</span>
+                            <span class="font-bold text-anthracite">{v.cicilanEstimate || car.cicilanStart || '-'}</span>
                           </div>
                         </div>
                       )}
@@ -306,7 +307,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                         href={variantWaUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        class="w-full text-center block text-xs font-bold bg-[#E60012] text-white py-2.5 uppercase tracking-wider hover:bg-[#B3000E] transition-colors"
+                        class="w-full text-center block text-xs font-bold bg-brand-red text-white py-2.5 uppercase tracking-wider hover:bg-brand-red-dark transition-colors"
                       >
                         Minta Penawaran Varian Ini
                       </a>
@@ -327,10 +328,10 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
   </main>
 
   <!-- Terms & Price Notes Section -->
-  <section class="bg-white border-t border-[#E3E5E6] py-12">
-    <div class="max-w-[1440px] mx-auto px-6">
-      <div class="border border-[#E3E5E6] p-6 md:p-8 bg-[#FAFAFA]">
-        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-1">
+  <section class="bg-white border-t border-concrete py-12">
+    <div class="max-w-360 mx-auto px-6">
+      <div class="border border-concrete p-6 md:p-8 bg-[#FAFAFA]">
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-1">
           Ketentuan &amp; Informasi Pembelian
         </span>
         <h3 class="text-lg md:text-xl font-black text-[#1F2421] tracking-tight mb-3">
@@ -362,14 +363,14 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
             </ul>
           </div>
 
-        <div class="mt-6 pt-5 border-t border-[#E3E5E6] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="text-xs text-[#2B2E30] font-medium">
+        <div class="mt-6 pt-5 border-t border-concrete flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="text-xs text-anthracite font-medium">
             Ingin berkonsultasi langsung tentang diskon maksimal dan paket kredit?
           </div>
           <div class="flex items-center gap-3">
             <a
               href={`tel:${salesData.phone}`}
-              class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#2B2E30] border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white transition-colors whitespace-nowrap"
+              class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-anthracite border border-anthracite hover:bg-anthracite hover:text-white transition-colors whitespace-nowrap"
             >
               Telepon
             </a>
@@ -377,7 +378,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
               href={waGeneral}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#E60012] hover:bg-[#B3000E] text-white transition-colors whitespace-nowrap"
+              class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-brand-red hover:bg-brand-red-dark text-white transition-colors whitespace-nowrap"
             >
               Chat WhatsApp
             </a>

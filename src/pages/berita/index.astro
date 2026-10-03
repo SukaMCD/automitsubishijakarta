@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import { newsList } from '../../data/news';
+import { salesData, getWhatsAppLink } from '../../data/sales';
+
+const waConsult = getWhatsAppLink('Halo Kanhadi, saya membaca artikel di website Mitsubishi Jakarta dan ingin tanya info promo serta unit terbaru.');
+
+const categories = ['Semua', ...Array.from(new Set(newsList.map(n => n.category)))];
+const featuredArticle = newsList[0];
+const otherArticles = newsList.slice(1);
+---
+
+<Layout
+  title="Berita, Tips & Ulasan Mobil Mitsubishi Jakarta Terbaru | Dealer Resmi"
+  description="Kumpulan berita otomotif, tips perawatan Xpander & Pajero Sport, panduan simulasi kredit, serta ulasan teknologi mobil Mitsubishi di Jakarta."
+  currentPath="/berita"
+>
+  <!-- Hero Section -->
+  <section class="bg-[#1A1C1E] text-white py-12 md:py-16 border-b border-white/10">
+    <div class="max-w-360 mx-auto px-6">
+      
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
+        <a href="/" class="hover:text-white transition-colors">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-red">Berita &amp; Tips</span>
+      </nav>
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+        <div class="max-w-3xl">
+          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">
+            ARTIKEL &amp; TIPS OTOMOTIF
+          </span>
+          <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+            Berita &amp; Panduan Mitsubishi Jakarta
+          </h1>
+          <p class="text-[#A6A9AB] text-sm md:text-base leading-relaxed mt-3">
+            Temukan informasi komparasi varian mobil, panduan pembelian kredit, hingga tips perawatan kendaraan resmi dari konsultan dealer Mitsubishi Lautan Berlian.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <a
+            href={waConsult}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider px-5 py-3 transition-colors"
+          >
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Konsultasi Sales
+          </a>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="mt-8 flex items-center gap-1.5 sm:gap-2 overflow-x-auto border-t border-white/10 pt-6 scrollbar-none" id="category-filters">
+        {categories.map((cat, idx) => (
+          <button
+            type="button"
+            class={`category-btn px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all duration-200 cursor-pointer ${
+              idx === 0
+                ? 'bg-brand-red text-white'
+                : 'bg-anthracite text-[#A6A9AB] hover:text-white'
+            }`}
+            data-category={cat}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="py-10 sm:py-16 bg-off-white min-h-[60vh]">
+    <div class="max-w-360 mx-auto px-4 sm:px-6">
+
+      <!-- Featured Article (if exists) -->
+      {featuredArticle && (
+        <div class="mb-10 sm:mb-14 article-card" data-category={featuredArticle.category}>
+          <a
+            href={`/berita/${featuredArticle.slug}`}
+            class="group block bg-white border border-concrete hover:border-brand-red transition-all duration-300 shadow-sm hover:shadow-lg overflow-hidden"
+          >
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-stretch">
+              <div class="lg:col-span-7 h-64 sm:h-80 lg:h-auto min-h-65 lg:min-h-87.5 relative overflow-hidden bg-black/90 border-b lg:border-b-0 lg:border-r border-concrete">
+                <Image
+                  src={featuredArticle.image}
+                  alt={featuredArticle.title}
+                  width={800}
+                  height={450}
+                  loading="eager"
+                  fetchpriority="high"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+
+              <div class="lg:col-span-5 p-6 sm:p-10 flex flex-col justify-between">
+                <div>
+                  <div class="flex items-center gap-2 mb-3">
+                    <span class="text-[10px] font-black uppercase tracking-wider bg-brand-red text-white px-2 py-0.5">
+                      {featuredArticle.category}
+                    </span>
+                    <span class="text-xs text-[#888]">{featuredArticle.date}</span>
+                    <span class="text-xs text-[#888]">·</span>
+                    <span class="text-xs text-[#888]">{featuredArticle.readTime}</span>
+                  </div>
+
+                  <h2 class="text-xl sm:text-2xl font-black text-anthracite group-hover:text-brand-red transition-colors leading-snug mb-3">
+                    {featuredArticle.title}
+                  </h2>
+
+                  <p class="text-xs sm:text-sm text-[#666] leading-relaxed line-clamp-3 mb-6">
+                    {featuredArticle.excerpt}
+                  </p>
+                </div>
+
+                <div class="flex items-center justify-between pt-4 border-t border-concrete">
+                  <span class="text-xs font-semibold text-anthracite">
+                    Oleh: <strong class="text-brand-red">{featuredArticle.author}</strong>
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 text-xs font-bold text-brand-red group-hover:translate-x-1 transition-transform">
+                    Baca Artikel Lengkap
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      )}
+
+      <!-- Other Articles Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" id="articles-grid">
+        {otherArticles.map((article) => (
+          <article
+            class="article-card bg-white border border-concrete hover:border-brand-red transition-all duration-300 shadow-sm hover:shadow-md flex flex-col justify-between overflow-hidden group"
+            data-category={article.category}
+          >
+            <div>
+              <div class="h-48 sm:h-52 w-full relative overflow-hidden bg-black/90 border-b border-concrete">
+                <Image
+                  src={article.image}
+                  alt={article.title}
+                  width={480}
+                  height={280}
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+
+              <div class="p-6">
+                <div class="flex items-center gap-2 mb-2.5">
+                  <span class="text-[9px] font-black uppercase tracking-wider bg-brand-red/10 text-brand-red px-2 py-0.5">
+                    {article.category}
+                  </span>
+                  <span class="text-[11px] text-[#888]">{article.date}</span>
+                </div>
+
+                <h3 class="text-base sm:text-lg font-bold text-anthracite group-hover:text-brand-red transition-colors leading-snug line-clamp-2 mb-2.5">
+                  <a href={`/berita/${article.slug}`}>{article.title}</a>
+                </h3>
+
+                <p class="text-xs text-[#666] leading-relaxed line-clamp-3">
+                  {article.excerpt}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-6 py-4 border-t border-concrete flex items-center justify-between bg-[#FCFCFD]">
+              <span class="text-[11px] text-[#888]">{article.readTime}</span>
+              <a
+                href={`/berita/${article.slug}`}
+                class="inline-flex items-center gap-1 text-xs font-bold text-brand-red group-hover:translate-x-0.5 transition-transform"
+              >
+                Baca
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <!-- Bottom Consultation CTA -->
+      <div class="mt-14 sm:mt-20 bg-white border border-concrete p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-sm">
+        <div>
+          <span class="text-[10px] font-black uppercase tracking-widest text-brand-red block mb-1">
+            KONSULTASI GRATIS
+          </span>
+          <h3 class="text-xl sm:text-2xl font-black text-anthracite mb-1.5">
+            Punya Pertanyaan Seputar Mobil Mitsubishi?
+          </h3>
+          <p class="text-xs sm:text-sm text-[#666] max-w-xl">
+            Dapatkan informasi diskon promo bulan ini, simulasi cicilan kredit sesuai anggaran Anda, atau minta unit test drive diantar ke alamat Anda.
+          </p>
+        </div>
+
+        <a
+          href={waConsult}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="shrink-0 inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-dark text-white font-bold text-xs uppercase tracking-wider px-6 py-4 transition-colors"
+        >
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Chat Sales via WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Simple client-side category filter
+  const filterBtns = document.querySelectorAll('.category-btn');
+  const cards = document.querySelectorAll('.article-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selected = btn.getAttribute('data-category');
+
+      filterBtns.forEach(b => {
+        b.classList.remove('bg-brand-red', 'text-white');
+        b.classList.add('bg-anthracite', 'text-[#A6A9AB]');
+      });
+      btn.classList.add('bg-brand-red', 'text-white');
+      btn.classList.remove('bg-anthracite', 'text-[#A6A9AB]');
+
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (selected === 'Semua' || cat === selected) {
+          (card as HTMLElement).style.display = '';
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+    });
+  });
+</script>

@@ -138,6 +138,16 @@ const defaultPromoList: PromoItem[] = [
   }
 ];
 
+function formatImageUrl(url?: string): string {
+  if (!url) return '/images/cars/xpander/xpander-optimized.webp';
+  const trimmed = url.trim();
+  const driveMatch = trimmed.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || trimmed.match(/id=([a-zA-Z0-9_-]+)/);
+  if (driveMatch && driveMatch[1]) {
+    return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+  }
+  return trimmed;
+}
+
 export const promoList: PromoItem[] = (
   rawSheetsData.promos && rawSheetsData.promos.length > 0
     ? (rawSheetsData.promos as any[]).map((item, idx) => ({
@@ -148,7 +158,7 @@ export const promoList: PromoItem[] = (
         description: item.description || '',
         targetCar: item.targetCar || '',
         category: (item.category as 'passenger' | 'lcv' | 'trade-in') || 'passenger',
-        image: item.image || '/images/cars/xpander/xpander-optimized.webp',
+        image: formatImageUrl(item.image),
         carSlug: item.carSlug || '',
         validPeriod: item.validPeriod || 'Berlaku s/d Akhir Bulan Ini',
         benefits: Array.isArray(item.benefits)

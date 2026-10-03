@@ -28,7 +28,9 @@ let promosCode = fs.readFileSync('src/data/promos.ts', 'utf8');
 promosCode = promosCode.replace(/import\s+[^;]+;/g, '');
 promosCode = promosCode.replace(/export\s+interface[\s\S]*?^}/gm, '');
 promosCode = promosCode.replace(/const\s+defaultPromoList:\s*PromoItem\[\]\s*=/g, 'const defaultPromoList =');
-const cutPromos = promosCode.indexOf('export const promoList');
+const cutPromos = promosCode.indexOf('function formatImageUrl') !== -1
+  ? promosCode.indexOf('function formatImageUrl')
+  : promosCode.indexOf('export const promoList');
 if (cutPromos !== -1) promosCode = promosCode.slice(0, cutPromos);
 promosCode += '; module.exports = { promoList: defaultPromoList };';
 const promosModule = eval(promosCode);
@@ -44,6 +46,17 @@ if (cutTesti !== -1) testiCode = testiCode.slice(0, cutTesti);
 testiCode += '; module.exports = { testimonialsData: defaultTestimonialsData };';
 const testiModule = eval(testiCode);
 const testimonialsData = testiModule.testimonialsData;
+
+// 5. Parse News
+let newsCode = fs.readFileSync('src/data/news.ts', 'utf8');
+newsCode = newsCode.replace(/import\s+[^;]+;/g, '');
+newsCode = newsCode.replace(/export\s+interface[\s\S]*?^}/gm, '');
+newsCode = newsCode.replace(/const\s+defaultNewsList:\s*NewsItem\[\]\s*=/g, 'const defaultNewsList =');
+const cutNews = newsCode.indexOf('export function formatImageUrl');
+if (cutNews !== -1) newsCode = newsCode.slice(0, cutNews);
+newsCode += '; module.exports = { newsList: defaultNewsList };';
+const newsModule = eval(newsCode);
+const newsList = newsModule.newsList;
 
 const outDir = path.resolve('google-sheets-setup');
 if (!fs.existsSync(outDir)) {
@@ -143,32 +156,53 @@ for (const t of testimonialsData) {
 const testiCSV = testiRows.map(r => r.map(escapeCSV).join(',')).join('\n');
 fs.writeFileSync(path.join(outDir, '4_Testimoni.csv'), testiCSV, 'utf8');
 
+// --- CSV 5: Berita ---
+const newsRows = [
+  ['slug', 'title', 'category', 'date', 'author', 'image', 'excerpt', 'content', 'readTime']
+];
+for (const n of newsList) {
+  newsRows.push([
+    n.slug,
+    n.title,
+    n.category,
+    n.date,
+    n.author,
+    n.image,
+    n.excerpt,
+    n.content,
+    n.readTime
+  ]);
+}
+const newsCSV = newsRows.map(r => r.map(escapeCSV).join(',')).join('\n');
+fs.writeFileSync(path.join(outDir, '5_Berita.csv'), newsCSV, 'utf8');
+
 console.log('Successfully generated CSV files in google-sheets-setup:');
 console.log('  - 1_Sales.csv');
 console.log('  - 2_Pricelist.csv (', pricelistRows.length - 1, 'variants )');
 console.log('  - 3_Promo.csv (', promoRows.length - 1, 'promos )');
 console.log('  - 4_Testimoni.csv (', testiRows.length - 1, 'testimonials )');
+console.log('  - 5_Berita.csv (', newsRows.length - 1, 'articles )');
 
-// --- Now Generate Code.gs with self-populating function ---
+// --- Generate Code.gs ---
 const codeGs = `/**
  * =========================================================================
  * GOOGLE APPS SCRIPT UNTUK CMS MITSUBISHI JAKARTA & CLOUDFLARE PAGES
  * =========================================================================
  * 
  * CARA MENGGUNAKAN:
- * 1. Di Google Sheets BARU (yang masih kosong), buka menu "Extensions" > "Apps Script".
+ * 1. Di Google Sheets, buka menu "Extensions" > "Apps Script".
  * 2. Hapus semua kode default di Apps Script, lalu PASTE SELURUH KODE DI BAWAH INI.
- * 3. Di dropdown atas fungsi (sebelah tombol "Debug"), pilih "setupInitialTemplate", lalu klik "Run" (Jalankan).
- *    -> Berikan izin (Review Permissions -> Lanjutkan -> Izinkan).
- *    -> Bimsalabim! Seluruh 4 tab (Sales, Pricelist 46 varian, Promo, Testimoni)
- *       akan OTOMATIS dibuat & diformat rapi dalam 3 detik!
- * 4. Ganti DEPLOY_HOOK_URL di bawah ini dengan URL Deploy Hook Cloudflare Pages Anda.
- * 5. Klik "Deploy" > "New deployment" > type "Web app":
+ * 3. Jika sudah punya spreadsheet dan HANYA INGIN MENAMBAH TAB BERITA:
+ *    - Di dropdown fungsi pilih "setupBeritaTabOnly", lalu klik "Run" (Jalankan).
+ * 4. Jika spreadsheet masih baru kosong:
+ *    - Di dropdown fungsi pilih "setupInitialTemplate", lalu klik "Run" (Jalankan).
+ * 5. Ganti DEPLOY_HOOK_URL di bawah ini dengan URL Deploy Hook Cloudflare Pages Anda.
+ * 6. Klik "Deploy" > "New deployment" > type "Web app":
  *    - Description: "Mitsubishi CMS API"
  *    - Execute as: "Me"
  *    - Who has access: "Anyone"
  *    - Klik Deploy & copy URL-nya (masukkan ke Cloudflare Pages Env: GOOGLE_SHEET_API_URL).
- * 6. Refresh spreadsheet Anda. Menu "🚀 Website" akan muncul di baris menu atas!
+ * 7. Refresh spreadsheet Anda. Menu "🚀 Website" akan muncul di baris menu atas!
  */
 
 // GANTI DENGAN URL DEPLOY HOOK DARI CLOUDFLARE PAGES ANDA:
@@ -182,7 +216,8 @@ function onOpen() {
     .createMenu('🚀 Website')
     .addItem('Update Website Sekarang', 'triggerDeployHook')
     .addSeparator()
-    .addItem('Inisialisasi / Reset Template Data', 'setupInitialTemplate')
+    .addItem('Tambah / Reset Tab Berita Saja', 'setupBeritaTabOnly')
+    .addItem('Inisialisasi / Reset Semua Data Template', 'setupInitialTemplate')
     .addToUi();
 }
 
@@ -199,7 +234,7 @@ function triggerDeployHook() {
 
   const response = ui.alert(
     'Konfirmasi Update Website',
-    'Apakah Anda yakin ingin mempublikasikan perubahan data harga, promo, kontak, atau ulasan ke website sekarang?',
+    'Apakah Anda yakin ingin mempublikasikan perubahan data harga, promo, kontak, ulasan, atau berita ke website sekarang?',
     ui.ButtonSet.YES_NO
   );
 
@@ -227,11 +262,15 @@ function triggerDeployHook() {
 function doGet(e) {
   try {
     const ss = SpreadsheetApp.getActiveSpreadsheet();
+    if (!ss) {
+      throw new Error("No active spreadsheet found");
+    }
     
     const sales = getSalesData(ss);
     const pricelist = getSheetData(ss, 'Pricelist');
     const promos = getSheetData(ss, 'Promo');
     const testimonials = getSheetData(ss, 'Testimoni');
+    const news = getSheetData(ss, 'Berita');
 
     const result = {
       status: 'success',
@@ -239,7 +278,8 @@ function doGet(e) {
       sales: sales,
       pricelist: pricelist,
       promos: promos,
-      testimonials: testimonials
+      testimonials: testimonials,
+      news: news
     };
 
     return ContentService
@@ -298,35 +338,58 @@ function getSheetData(ss, sheetName) {
   return rows;
 }
 
+// Master Data Rows
+const newsRows = ${JSON.stringify(newsRows, null, 2)};
+const salesRows = ${JSON.stringify(salesRows, null, 2)};
+const pricelistRows = ${JSON.stringify(pricelistRows, null, 2)};
+const promoRows = ${JSON.stringify(promoRows, null, 2)};
+const testiRows = ${JSON.stringify(testiRows, null, 2)};
+
 /**
- * 4. OTOMATIS MEMBUAT & MENGISI KE-4 TAB SECARA INSTAN
+ * 4. HANYA MENAMBAH TAB BERITA (Tanpa merusak tab lain yang sudah diedit)
+ */
+function setupBeritaTabOnly() {
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    Logger.log('Tidak ada spreadsheet aktif.');
+    return;
+  }
+
+  populateTab(ss, 'Berita', newsRows, '#D90000');
+  SpreadsheetApp.flush();
+  try {
+    ss.toast('🎉 Tab Berita berhasil dibuat & diisi 3 artikel contoh!', 'Sukses', 8);
+  } catch (e) {}
+  Logger.log('🎉 Tab Berita berhasil dibuat!');
+}
+
+/**
+ * 5. OTOMATIS MEMBUAT & MENGISI SELURUH 5 TAB
  */
 function setupInitialTemplate() {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  
-  // Data Master
-  const salesRows = ${JSON.stringify(salesRows, null, 2)};
-  const pricelistRows = ${JSON.stringify(pricelistRows, null, 2)};
-  const promoRows = ${JSON.stringify(promoRows, null, 2)};
-  const testiRows = ${JSON.stringify(testiRows, null, 2)};
+  let ss = SpreadsheetApp.getActiveSpreadsheet();
+  if (!ss) {
+    Logger.log('Tidak ada spreadsheet aktif. Membuat spreadsheet baru...');
+    ss = SpreadsheetApp.create('CMS Mitsubishi Jakarta');
+    Logger.log('✅ Spreadsheet baru dibuat di Google Drive Anda: ' + ss.getUrl());
+  }
 
   populateTab(ss, 'Sales', salesRows, '#D90000');
   populateTab(ss, 'Pricelist', pricelistRows, '#1F2937');
   populateTab(ss, 'Promo', promoRows, '#D90000');
   populateTab(ss, 'Testimoni', testiRows, '#1F2937');
+  populateTab(ss, 'Berita', newsRows, '#D90000');
 
-  // Hapus Sheet1 bawaan jika ada
   const defaultSheet = ss.getSheetByName('Sheet1') || ss.getSheetByName('Sheet 1');
   if (defaultSheet && ss.getSheets().length > 1) {
     try { ss.deleteSheet(defaultSheet); } catch (e) {}
   }
 
   SpreadsheetApp.flush();
-  SpreadsheetApp.getUi().alert(
-    '🎉 Template Berhasil Dibuat!',
-    'Ke-4 sheet (Sales, Pricelist, Promo, Testimoni) beserta seluruh data mobil Mitsubishi telah siap digunakan!\\n\\nSilakan atur Deploy Hook di Cloudflare Pages lalu Deploy Web App.',
-    SpreadsheetApp.getUi().ButtonSet.OK
-  );
+  try {
+    ss.toast('🎉 Ke-5 sheet (Sales, Pricelist, Promo, Testimoni, Berita) berhasil dibuat!', 'Sukses', 8);
+  } catch (e) {}
+  Logger.log('🎉 Template Berhasil Dibuat! Silakan cek tab spreadsheet Anda.');
 }
 
 function populateTab(ss, tabName, rows, headerColor) {
@@ -354,15 +417,10 @@ function populateTab(ss, tabName, rows, headerColor) {
   sheet.setRowHeight(1, 35);
   sheet.setFrozenRows(1);
 
-  // Borders & alignment
+  // Borders
   range.setBorder(true, true, true, true, true, true, '#E5E7EB', SpreadsheetApp.BorderStyle.SOLID);
-  
-  // Auto-resize
-  for (let c = 1; c <= numCols; c++) {
-    sheet.autoResizeColumn(c);
-  }
 }
 `;
 
 fs.writeFileSync(path.join(outDir, 'Code.gs'), codeGs, 'utf8');
-console.log('Successfully updated google-sheets-setup/Code.gs with auto-population script!');
+console.log('Successfully updated google-sheets-setup/Code.gs with Berita tab and seeder!');
