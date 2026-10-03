@@ -1,3 +1,5 @@
+import rawSheetsData from './sheetsData.json';
+
 export interface TestimonialItem {
   id: string;
   customerName: string;
@@ -10,7 +12,7 @@ export interface TestimonialItem {
   image?: string;
 }
 
-export const testimonialsData: TestimonialItem[] = [
+const defaultTestimonialsData: TestimonialItem[] = [
   {
     id: 'testi-1',
     customerName: 'Bapak Hendra Wijaya',
@@ -52,3 +54,20 @@ export const testimonialsData: TestimonialItem[] = [
     comment: 'Beli 2 unit L300 untuk armada logistik kantor. Pengurusan STNK, Keur, dan plat nomor sangat cepat. Kanhadi sangat paham seluk beluk kredit kendaraan niaga. Nanti kalau nambah armada pasti kontak Kanhadi lagi.'
   }
 ];
+
+export const testimonialsData: TestimonialItem[] = (
+  rawSheetsData.testimonials && rawSheetsData.testimonials.length > 0
+    ? (rawSheetsData.testimonials as any[]).map((item, idx) => ({
+        id: item.id || `testi-${idx + 1}`,
+        customerName: item.customerName || 'Pelanggan Mitsubishi',
+        occupation: item.occupation || '',
+        location: item.location || 'Jakarta',
+        carPurchased: item.carPurchased || 'Mitsubishi',
+        rating: Number(item.rating) || 5,
+        deliveryDate: item.deliveryDate || '',
+        comment: item.comment || '',
+        image: item.image || undefined
+      }))
+    : defaultTestimonialsData
+);
+

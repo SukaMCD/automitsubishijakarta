@@ -1,3 +1,5 @@
+import rawSheetsData from './sheetsData.json';
+
 export interface SalesContact {
   name: string;
   nickname: string;
@@ -23,7 +25,7 @@ export interface SalesContact {
   }[];
 }
 
-export const salesData: SalesContact = {
+const defaultSalesData: SalesContact = {
   name: "Kanhadi",
   nickname: "Kanhadi",
   role: "Senior Certified Sales Consultant",
@@ -80,7 +82,22 @@ export const salesData: SalesContact = {
   ]
 };
 
+const sheetsSales = (rawSheetsData as { sales?: Partial<SalesContact> | null }).sales;
+
+let cleanWA = defaultSalesData.whatsapp;
+if (sheetsSales?.whatsapp) {
+  let wa = String(sheetsSales.whatsapp).replace(/[^0-9]/g, '');
+  if (wa.startsWith('0')) wa = '62' + wa.slice(1);
+  if (wa) cleanWA = wa;
+}
+
+export const salesData: SalesContact = {
+  ...defaultSalesData,
+  ...(sheetsSales || {}),
+  whatsapp: cleanWA
+};
+
 export function getWhatsAppLink(customMessage?: string): string {
-  const baseMessage = customMessage || `Halo Kanhadi, saya dapat kontak dari website. Mau tanya info promo dan simulasi kredit mobil Mitsubishi terbaru. Terima kasih!`;
+  const baseMessage = customMessage || `Halo ${salesData.nickname || salesData.name}, saya dapat kontak dari website. Mau tanya info promo dan simulasi kredit mobil Mitsubishi terbaru. Terima kasih!`;
   return `https://wa.me/${salesData.whatsapp}?text=${encodeURIComponent(baseMessage)}`;
 }

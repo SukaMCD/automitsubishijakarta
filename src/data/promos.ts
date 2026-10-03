@@ -1,3 +1,5 @@
+import rawSheetsData from './sheetsData.json';
+
 export interface PromoItem {
   id: string;
   title: string;
@@ -13,7 +15,7 @@ export interface PromoItem {
   highlight: string;
 }
 
-export const promoList: PromoItem[] = [
+const defaultPromoList: PromoItem[] = [
   {
     id: 'promo-xpander-bunga-0',
     title: 'Program New Xpander: Bunga 0% & DP Ringan',
@@ -135,3 +137,27 @@ export const promoList: PromoItem[] = [
     highlight: 'Ekstra Subsidi s/d Rp 10 Juta'
   }
 ];
+
+export const promoList: PromoItem[] = (
+  rawSheetsData.promos && rawSheetsData.promos.length > 0
+    ? (rawSheetsData.promos as any[]).map((item, idx) => ({
+        id: item.id || `promo-${idx + 1}`,
+        title: item.title || '',
+        badge: item.badge || 'PROMO',
+        subtitle: item.subtitle || '',
+        description: item.description || '',
+        targetCar: item.targetCar || '',
+        category: (item.category as 'passenger' | 'lcv' | 'trade-in') || 'passenger',
+        image: item.image || '/images/cars/xpander/xpander-optimized.webp',
+        carSlug: item.carSlug || '',
+        validPeriod: item.validPeriod || 'Berlaku s/d Akhir Bulan Ini',
+        benefits: Array.isArray(item.benefits)
+          ? item.benefits
+          : typeof item.benefits === 'string'
+            ? item.benefits.split('|').map((b: string) => b.trim()).filter(Boolean)
+            : [],
+        highlight: item.highlight || ''
+      }))
+    : defaultPromoList
+);
+

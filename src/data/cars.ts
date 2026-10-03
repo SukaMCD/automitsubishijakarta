@@ -1,3 +1,5 @@
+import rawSheetsData from './sheetsData.json';
+
 export interface CarVariantPackage {
   name: string;
   label: string;
@@ -2155,6 +2157,53 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter Extra Long Bus adalah pilihan puncak bagi operator transportasi eksekutif. Menggabungkan panjang sasis 7,5 meter, sasis 6 roda tapak lebar yang stabil, dan kenyamanan interior premium.'
   }
 ];
+
+function formatRupiah(num: number): string {
+  return 'Rp ' + num.toLocaleString('id-ID');
+}
+
+// Terapkan override daftar harga dari Google Sheets jika tersedia
+if (rawSheetsData.pricelist && Array.isArray(rawSheetsData.pricelist) && rawSheetsData.pricelist.length > 0) {
+  for (const item of rawSheetsData.pricelist as any[]) {
+    if (!item.carSlug) continue;
+    const car = carsData.find(c => c.slug.toLowerCase() === String(item.carSlug).toLowerCase().trim());
+    if (!car) continue;
+
+    if (item.variantName) {
+      const variant = car.variants.find(v => v.name.toLowerCase().trim() === String(item.variantName).toLowerCase().trim());
+      if (variant) {
+        if (item.price && !isNaN(Number(item.price))) {
+          const p = Number(item.price);
+          variant.price = p;
+          variant.priceFormatted = formatRupiah(p);
+        }
+        if (item.dpEstimate) variant.dpEstimate = String(item.dpEstimate);
+        if (item.cicilanEstimate) variant.cicilanEstimate = String(item.cicilanEstimate);
+      }
+    }
+
+    if (item.startingPriceNum && !isNaN(Number(item.startingPriceNum))) {
+      car.startingPriceNum = Number(item.startingPriceNum);
+      car.startingPrice = formatRupiah(car.startingPriceNum);
+    }
+    if (item.dpStart) car.dpStart = String(item.dpStart);
+    if (item.cicilanStart) car.cicilanStart = String(item.cicilanStart);
+  }
+
+  // Sinkronkan harga terendah (startingPrice) mobil dari varian termurahnya
+  for (const car of carsData) {
+    if (car.variants.length > 0) {
+      const validPrices = car.variants.map(v => v.price).filter(p => typeof p === 'number' && p > 0);
+      if (validPrices.length > 0) {
+        const minPrice = Math.min(...validPrices);
+        if (minPrice > 0 && isFinite(minPrice)) {
+          car.startingPriceNum = minPrice;
+          car.startingPrice = formatRupiah(minPrice);
+        }
+      }
+    }
+  }
+}
 
 export function getCarBySlug(slug: string): CarModel | undefined {
   return carsData.find(c => c.slug === slug);
