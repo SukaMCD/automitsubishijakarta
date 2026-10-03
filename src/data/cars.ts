@@ -76,7 +76,7 @@ export interface CarModel {
 }
 
 export const carsData: CarModel[] = [
-  // ─── 1. NEW XPANDER ───────────────────────────────────────────────────────────
+  // New Xpander
   {
     slug: 'xpander',
     name: 'Xpander',
@@ -304,7 +304,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi New Xpander hadir mendefinisikan ulang standar MPV keluarga di Indonesia dengan bahasa desain Dynamic Shield yang berkarakter, interior bernuansa hitam elegan, kabin senyap berkapasitas 7 penumpang, serta kenyamanan suspensi berteknologi tinggi khas Mitsubishi Motors.'
   },
 
-  // ─── 2. NEW PAJERO SPORT ──────────────────────────────────────────────────────
+  // New Pajero Sport
   {
     slug: 'pajero-sport',
     name: 'Pajero Sport',
@@ -534,7 +534,7 @@ export const carsData: CarModel[] = [
     description: 'Pajero Sport memadukan ketangguhan sasis ladder frame sejati dengan kemewahan kabin premium dan teknologi canggih. Pilihan tepat bagi Anda yang mengutamakan wibawa, performa off-road, dan kenyamanan keluarga berkelas.'
   },
 
-  // ─── 3. MITSUBISHI XFORCE ─────────────────────────────────────────────────────
+  // Mitsubishi XForce
   {
     slug: 'xforce',
     name: 'New Xforce',
@@ -705,7 +705,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi XForce diciptakan khusus untuk pengendara urban modern yang mendambakan kepraktisan compact SUV dengan nuansa futuristik, konser musik Yamaha, opsi ramah lingkungan Hybrid HEV, dan keamanan iklim tropis Indonesia.'
   },
 
-  // ─── 4. NEW XPANDER CROSS ─────────────────────────────────────────────────────
+  // New Xpander Cross
   {
     slug: 'xpander-cross',
     name: 'Xpander Cross',
@@ -872,7 +872,7 @@ export const carsData: CarModel[] = [
     description: 'Perpaduan sempurna antara kenyamanan kabin MPV 7 penumpang dengan ketangguhan dan ground clearance tinggi khas SUV sejati. Siap menemani segala petualangan keluarga Anda di kota maupun luar kota.'
   },
 
-  // ─── 5. ALL-NEW DESTINATOR ────────────────────────────────────────────────────
+  // All-New Destinator
   {
     slug: 'destinator',
     name: 'Destinator',
@@ -1081,7 +1081,7 @@ export const carsData: CarModel[] = [
     description: 'Destinator adalah SUV 7-penumpang generasi baru bermesin Turbo bertenaga 163 PS. Memadukan kemewahan Panoramic Sunroof, sound system Yamaha 8-speaker, ground clearance 244 mm, dan ketangguhan sistem kendali Active Yaw Control (AYC).'
   },
 
-  // ─── 6. TRITON ────────────────────────────────────────────────────────────────
+  // Triton
   {
     slug: 'triton',
     name: 'Triton',
@@ -1333,7 +1333,7 @@ export const carsData: CarModel[] = [
     description: 'All New Triton dirancang ulang dari nol dengan DNA reli tangguh Paris-Dakar. Menghadirkan ketangguhan tanpa tanding di area tambang, perkebunan, hingga gaya hidup adventure off-road perkotaan.'
   },
 
-  // ─── 7. COLT L300 EURO 4 ──────────────────────────────────────────────────────
+  // Colt L300 Euro 4
   {
     slug: 'l300',
     name: 'L300',
@@ -1425,7 +1425,7 @@ export const carsData: CarModel[] = [
     description: 'Lebih dari 40 tahun menjadi mitra terpercaya jutaan pengusaha di Indonesia. Colt L300 Euro 4 kini hadir dengan kargo lebih luas, mesin turbo common rail bertenaga tinggi, dan efisiensi bahan bakar maksimal.'
   },
 
-  // ─── 8. CANTER FE 71L (ENGKEL 4 BAN) ─────────────────────────────────────────
+  // Canter FE 71L
   {
     slug: 'canter-fe71',
     name: 'Canter FE 71L',
@@ -1486,7 +1486,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 71L adalah truk engkel 4 roda dengan sasis terpanjang di kelasnya. Sangat ideal untuk distribusi perkotaan dengan aplikasi Karoseri Box Aluminium untuk volume muat ekstra besar tanpa batasan jam truk besar.'
   },
 
-  // ─── 9. CANTER FE 74 (DOUBLE 6 BAN STANDAR) ──────────────────────────────────
+  // Canter FE 74
   {
     slug: 'canter-fe74',
     name: 'Canter FE 74',
@@ -1563,7 +1563,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 74 adalah truk 6 roda terfavorit di Indonesia untuk angkutan logistik antarkota. Ditenagai mesin Euro 4 136 PS dengan rasio gardan seimbang antara kecepatan dan daya angkut.'
   },
 
-  // ─── 10. CANTER FE 74 HD (HEAVY DUTY 6 BAN) ──────────────────────────────────
+  // Canter FE 74 HD
   {
     slug: 'canter-fe74-hd',
     name: 'Canter FE 74 HD',
@@ -1639,7 +1639,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 74 HD dirancang untuk pengusaha yang membutuhkan daya angkut muatan berat di area perkebunan, pertambangan, dan proyek berbukit dengan rasio gardan bertenaga 5.571.'
   },
 
-  // ─── 11. CANTER FE 74 HDS (HIGH SPEED 6 BAN) ─────────────────────────────────
+  // Canter FE 74 HDS
   {
     slug: 'canter-fe74-hds',
     name: 'Canter FE 74 HDS',
@@ -1732,7 +1732,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 74 HDS memadukan tenaga 136 PS dengan rasio gardan High Speed 4.875, menjadikannya truk paling lincah dan cepat untuk ekspedisi jarak jauh di jalan tol.'
   },
 
-  // ─── 12. CANTER FE 74L (SUPER LONG 6 BAN) ────────────────────────────────────
+  // Canter FE 74L
   {
     slug: 'canter-fe74l',
     name: 'Canter FE 74L',
@@ -1808,7 +1808,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 74L adalah solusi bagi pengusaha kargo yang membutuhkan kapasitas volume angkut terbesar. Dengan sasis 7,4 meter, muatan volume ringan hingga sedang dapat diangkut maksimal dalam satu ritase.'
   },
 
-  // ─── 13. CANTER FE SHDX (SUPER HEAVY DUTY X DUMP) ────────────────────────────
+  // Canter FE SHDX
   {
     slug: 'canter-fe-shdx',
     name: 'Canter FE SHDX',
@@ -1884,7 +1884,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE SHDX adalah legenda truk dump Indonesia. Diciptakan dengan rasio gardan tertinggi 6.666 untuk menaklukkan medan tambang, galian C, dan proyek pembangunan terberat.'
   },
 
-  // ─── 14. CANTER FE 71 BC (BUS CHASSIS 4 BAN) ─────────────────────────────────
+  // Canter FE 71 BC
   {
     slug: 'canter-fe71-bc',
     name: 'Canter FE 71 BC',
@@ -1960,7 +1960,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 71 BC Series adalah sasis microbus 4 roda paling terpercaya untuk pengusaha travel antarkota, pariwisata, dan antar-jemput karyawan. Nyaman, halus, dan menguntungkan.'
   },
 
-  // ─── 15. CANTER FE 84G BC (MEDIUM BUS CHASSIS 6 BAN) ────────────────────────
+  // Canter FE 84G BC
   {
     slug: 'canter-fe84',
     name: 'Canter FE 84G BC',
@@ -2019,7 +2019,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter FE 84G BC adalah standar emas sasis medium bus di Indonesia. Menawarkan sasis tapak lebar yang stabil, mesin 136 PS bertenaga badak, dan kapasitas muat hingga 35 penumpang.'
   },
 
-  // ─── 16. CANTER BUS (MICROBUS JADI 19+1 SEATS) ────────────────────────────────
+  // Canter Bus
   {
     slug: 'canter-bus',
     name: 'Canter Bus',
@@ -2096,7 +2096,7 @@ export const carsData: CarModel[] = [
     description: 'Mitsubishi Fuso Canter Bus dirancang untuk memaksimalkan keuntungan usaha pariwisata, travel antarkota, shuttle eksekutif, dan transportasi antar-jemput karyawan. Unit bus utuh siap jalan dengan kabin tinggi ber-AC dingin dan kursi reclining.'
   },
 
-  // ─── 17. CANTER EXTRA LONG BUS (BUS PANJANG 20+ SEATS 6 BAN) ──────────────────
+  // Canter Extra Long Bus
   {
     slug: 'canter-extra-long-bus',
     name: 'Canter Extra Long Bus',

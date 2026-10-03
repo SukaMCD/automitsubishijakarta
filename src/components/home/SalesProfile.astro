@@ -1,0 +1,85 @@
+---
+import { salesData, getWhatsAppLink } from '../../data/sales';
+
+const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
+---
+
+<!-- Profil Sales -->
+<section class="bg-[#1A1C1E] text-white">
+  <div class="max-w-[1440px] mx-auto">
+
+    <div class="border-b border-white/10 px-6 md:px-12 py-8 flex items-baseline gap-6">
+      <span class="text-[10px] font-black uppercase tracking-[0.18em] text-[#E60012]">Tentang Sales Kami</span>
+      <h2 class="text-xl md:text-2xl font-black tracking-tight">Mengapa Pilih Kanhadi?</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+
+      <div class="lg:col-span-4 border-b lg:border-b-0 lg:border-r border-white/10 px-6 md:px-12 py-10 lg:py-14 flex flex-col gap-8">
+
+        <div class="flex items-center gap-5">
+          <div class="w-14 h-14 bg-[#E60012] flex items-center justify-center flex-shrink-0 p-2.5">
+            <img src="/images/logo/mitsubishi-logo.svg" alt="Mitsubishi" class="w-full h-full object-contain brightness-0 invert" />
+          </div>
+          <div>
+            <div class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#686D71] mb-0.5">{salesData.role}</div>
+            <div class="text-xl font-black">{salesData.name}</div>
+          </div>
+        </div>
+
+        <p class="text-[14px] text-[#BFC2C4] leading-relaxed">
+          "Saya bantu dari awal sampai kunci mobil ada di tangan Anda. Harga jujur, data diurus tuntas."
+        </p>
+
+        <div class="grid grid-cols-3 divide-x divide-white/10 border border-white/10">
+          <div class="px-4 py-5 text-center">
+            <div class="text-2xl font-black text-white">850<span class="text-[#E60012]">+</span></div>
+            <div class="text-[11px] text-[#686D71] mt-0.5">Unit terjual</div>
+          </div>
+          <div class="px-4 py-5 text-center">
+            <div class="text-2xl font-black text-white">12<span class="text-[#E60012]">+</span></div>
+            <div class="text-[11px] text-[#686D71] mt-0.5">Tahun</div>
+          </div>
+          <div class="px-4 py-5 text-center">
+            <div class="text-2xl font-black text-white">4.9</div>
+            <div class="text-[11px] text-[#686D71] mt-0.5">Rating</div>
+          </div>
+        </div>
+
+        <div class="space-y-2 text-[13px]">
+          <div class="flex gap-3">
+            <span class="text-[#686D71] w-20 flex-shrink-0">WhatsApp</span>
+            <span class="font-semibold">{salesData.whatsappDisplay}</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-[#686D71] w-20 flex-shrink-0">Wilayah</span>
+            <span class="font-semibold">Jakarta &amp; Jabodetabek</span>
+          </div>
+          <div class="flex gap-3">
+            <span class="text-[#686D71] w-20 flex-shrink-0">Dealer</span>
+            <span class="font-semibold">Resmi 3S PT MMKSI</span>
+          </div>
+        </div>
+
+        <a href={waBase} target="_blank" rel="noopener noreferrer"
+          class="flex items-center justify-between bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-5 py-3.5 transition-colors duration-200">
+          <span>Hubungi Kanhadi</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="lg:col-span-8 px-6 md:px-12 py-10 lg:py-14">
+        <div class="text-[10px] font-black uppercase tracking-[0.18em] text-[#686D71] mb-7">Yang bisa Anda dapatkan</div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-0">
+          {salesData.perks.map((perk) => (
+            <div class="py-5 border-b border-white/8 last:border-0">
+              <div class="text-[13px] font-bold text-white mb-1 leading-snug">{perk.title}</div>
+              <div class="text-[12px] text-[#686D71] leading-relaxed">{perk.description}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

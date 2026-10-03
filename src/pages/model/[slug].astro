@@ -22,7 +22,6 @@ const waTestDrive = getWhatsAppLink(isCommercial
   ? `Halo Kanhadi, saya ingin konsultasi spesifikasi karoseri & armada ${car.name}. Terima kasih!`
   : `Halo Kanhadi, saya ingin jadwalkan test drive ${car.name}. Bisa ke rumah/kantor. Terima kasih!`);
 
-// Format price to million
 function toMillion(num: number): string {
   return (num / 1000000).toFixed(0) + ' Jt';
 }
@@ -71,7 +70,6 @@ const whitePearlColor = car.colors.find(c => {
   return n.includes('quartz white pearl') || n.includes('white diamond');
 });
 
-// Preload all car images across variants and colors for 0ms instant switching
 const allPreloadImages = Array.from(new Set([
   car.heroImage,
   car.image,
@@ -81,7 +79,6 @@ const allPreloadImages = Array.from(new Set([
   ...car.colors.flatMap(c => c.tierImages ? Object.values(c.tierImages) : []).filter(Boolean)
 ])).filter(Boolean);
 
-// Rekomendasi model sesuai kategori di Navbar (selalu tepat 4 mobil)
 const getRelatedCars = () => {
   if (car.segment === 'passenger') {
     return carsData.filter(c => c.segment === 'passenger' && c.slug !== car.slug).slice(0, 4);
@@ -101,7 +98,6 @@ const getRelatedCars = () => {
     }
   }
 
-  // Niaga Ringan (LCV: Triton, L300): prioritaskan LCV lainnya, lalu dilengkapi truk komersial ringan Fuso terdekat
   const otherLcv = carsData.filter(c => c.segment === 'lcv' && c.slug !== car.slug);
   const commercialFallbacks = carsData.filter(c => c.segment === 'commercial');
   return [...otherLcv, ...commercialFallbacks].slice(0, 4);
@@ -126,7 +122,7 @@ const relatedSectionTitle = car.segment === 'passenger'
   ogImage={car.heroImage || car.image}
 >
 
-  <!-- ─── HERO ─────────────────────────────────────────────── -->
+  <!-- Hero -->
   <section class="model-hero">
     <div class="model-hero-bg" style={`background-image: url(${car.heroImage || car.image})`}></div>
     <div class="model-hero-overlay"></div>
@@ -330,11 +326,10 @@ const relatedSectionTitle = car.segment === 'passenger'
     </div>
   </section>
 
-  <!-- ─── WARNA + GAMBAR UTAMA ──────────────────────────────── -->
+  <!-- Konfigurasi Model -->
   <section class="model-config" data-preload={JSON.stringify(allPreloadImages)}>
     <div class={`model-config-inner${isCommercial ? ' is-commercial' : ''}`}>
 
-      <!-- Color picker kiri (hanya untuk non-commercial) -->
       {!isCommercial && (
         <div class="model-color-panel">
           <div class="model-color-label">Pilihan Warna</div>
@@ -362,7 +357,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         </div>
       )}
 
-      <!-- Gambar mobil tengah -->
       {
         (() => {
           const initV = car.variants[0];
@@ -379,7 +373,6 @@ const relatedSectionTitle = car.segment === 'passenger'
             <div class="model-car-image" data-default-image={initImg}>
               <img src={initImg} alt={car.name} id="carMainImage" loading="eager" fetchpriority="high" />
 
-              {/* Segmented Package Switch (e.g. Ultimate vs Ultimate Premium) */}
               <div
                 class={`model-pkg-switch-wrap${initV?.packages && initV.packages.length > 0 ? '' : ' is-hidden'}`}
                 id="pkgSwitchWrap"
@@ -428,7 +421,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         })()
       }
 
-      <!-- Info kanan: Minimalist Editorial Variant Selector -->
       <div class="model-side-info">
         <div class="model-editorial-panel">
           <div class="model-editorial-header">
@@ -470,7 +462,6 @@ const relatedSectionTitle = car.segment === 'passenger'
             })}
           </div>
 
-          <!-- Ringkasan Finansial Bersih -->
           {!isCommercial && (
             <div class="model-editorial-finance">
               <div class="model-finance-row">
@@ -482,7 +473,6 @@ const relatedSectionTitle = car.segment === 'passenger'
             </div>
           )}
 
-          <!-- Aksi Kontak -->
           <div class="model-editorial-actions">
             <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-editorial-wa-btn" id="sideWaBtn">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -506,7 +496,6 @@ const relatedSectionTitle = car.segment === 'passenger'
 
     </div>
 
-    <!-- Catatan Resmi OTR MMKSI -->
     <div class="model-disclaimer-wrap">
       <div class="model-disclaimer-inner">
         {isCommercial ? (
@@ -530,14 +519,14 @@ const relatedSectionTitle = car.segment === 'passenger'
     </div>
   </section>
 
-  <!-- ─── DESKRIPSI ─────────────────────────────────────────── -->
+  <!-- Deskripsi -->
   <section class="model-desc-section">
     <div class="model-section-inner">
       <p class="model-desc-text">{car.description}</p>
     </div>
   </section>
 
-  <!-- ─── SPECS SECTION ─────────────────────────────────────────── -->
+  <!-- Spesifikasi -->
   {isCommercial && commSpec ? (
     <section class="comm-specs-section" id="commercialSpecs">
       <div class="model-section-inner">
@@ -546,7 +535,6 @@ const relatedSectionTitle = car.segment === 'passenger'
           <h2 class="model-section-title">Spesifikasi Teknis</h2>
         </div>
 
-        <!-- Navigation Tabs: Flat Automotive Style -->
         <div class="comm-spec-tabs" role="tablist">
           <button type="button" class="comm-tab-btn is-active" data-group="all">Semua</button>
           <button type="button" class="comm-tab-btn" data-group="dimensi">Dimensi & Berat</button>
@@ -555,7 +543,6 @@ const relatedSectionTitle = car.segment === 'passenger'
           <button type="button" class="comm-tab-btn" data-group="kelistrikan">Kemudi & Kelistrikan</button>
         </div>
 
-        <!-- Structured Automotive Tables -->
         <div class="comm-specs-grid" id="commSpecsGrid">
           {commSpec.categories.map((cat) => (
             <div class="comm-spec-box" data-cat-id={cat.id} data-cat-group={cat.group}>
@@ -624,7 +611,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     </section>
   )}
 
-  <!-- ─── HIGHLIGHTS ────────────────────────────────────────── -->
+  <!-- Keunggulan -->
   <section class="model-highlights-section" id="modelHighlightsSection">
     <div class="model-section-inner">
       <div class="model-section-header">
@@ -675,7 +662,7 @@ const relatedSectionTitle = car.segment === 'passenger'
   </section>
 
 
-  <!-- ─── CTA AKHIR ─────────────────────────────────────────── -->
+  <!-- CTA -->
   <section class="model-final-cta">
     <div class="model-section-inner model-final-cta-inner">
       <div>
@@ -695,7 +682,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     </div>
   </section>
 
-  <!-- ─── MODEL LAINNYA ─────────────────────────────────────── -->
+  <!-- Model Lainnya -->
   <section class="model-others-section">
     <div class="model-section-inner">
       <div class="model-section-header">
@@ -722,7 +709,7 @@ const relatedSectionTitle = car.segment === 'passenger'
 </Layout>
 
 <style>
-  /* ── Shared ── */
+  /* Shared */
   .model-section-inner {
     max-width: 1200px;
     margin: 0 auto;
@@ -754,7 +741,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     line-height: 1.2;
   }
 
-  /* ── Hero ── */
+  /* Hero */
   .model-hero {
     position: relative;
     height: clamp(420px, 60vh, 600px);
@@ -931,7 +918,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     }
   }
 
-  /* ── Config section ── */
+  /* Config */
   .model-config {
     background: #f5f5f5;
     padding: 60px 0;
@@ -975,7 +962,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     }
   }
 
-  /* Color panel - sejajar dengan body mobil */
   .model-color-panel {
     display: flex;
     flex-direction: column;
@@ -1038,7 +1024,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     letter-spacing: -0.01em;
   }
 
-  /* Car image */
   .model-car-image {
     text-align: center;
     position: relative;
@@ -1051,7 +1036,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     object-fit: contain;
   }
 
-  /* ── Segmented Package Switch (e.g. Ultimate vs Ultimate Premium) ── */
   :global(.model-pkg-switch-wrap) {
     display: flex;
     justify-content: center;
@@ -1208,7 +1192,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     margin-top: 2px;
   }
 
-  /* ── Minimalist Editorial Panel (Sisi Kanan) ── */
   .model-side-info {
     display: flex;
     flex-direction: column;
@@ -1316,7 +1299,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     flex-shrink: 0;
   }
 
-  /* State Aktif: aksen merah elegan di border bawah tetap 2px, warna teks dan harga berubah tanpa ubah padding/tinggi */
   .model-editorial-item.active {
     background: #ffffff;
     border-bottom-color: #E60012;
@@ -1332,7 +1314,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     font-weight: 800;
   }
 
-  /* ── Ringkasan Finansial Halus ── */
   .model-editorial-finance {
     margin-top: 14px;
     padding: 10px 12px;
@@ -1368,7 +1349,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     line-height: 1.4;
   }
 
-  /* ── Aksi Kontak ── */
   .model-editorial-actions {
     display: flex;
     flex-direction: column;
@@ -1450,7 +1430,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     flex-shrink: 0;
   }
 
-  /* ── Catatan Disclaimer Resmi OTR ── */
   .model-disclaimer-wrap {
     max-width: 1280px;
     margin: 28px auto 0;
@@ -1484,7 +1463,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     }
   }
 
-  /* ── Description ── */
+  /* Deskripsi */
   .model-desc-section {
     padding: 52px 0;
     border-bottom: 1px solid #efefef;
@@ -1497,7 +1476,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     max-width: 800px;
   }
 
-  /* ── Specs ── */
+  /* Spesifikasi */
   .model-specs-section {
     padding: 64px 0;
     background: #fff;
@@ -1551,7 +1530,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     color: #aaa;
   }
 
-  /* ── Commercial Technical Specs (Authentic Automotive Style) ── */
   .comm-specs-section {
     padding: 64px 0 72px;
     background: #fff;
@@ -1692,7 +1670,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     font-style: italic;
   }
 
-  /* ── Highlights ── */
+  /* Keunggulan */
   .model-highlight-title-variant {
     color: #E60012;
     transition: opacity 0.2s ease;
@@ -1777,8 +1755,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     font-weight: 500;
   }
 
-
-  /* ── Final CTA ── */
+  /* Final CTA */
   .model-final-cta {
     padding: 64px 0;
     background: #0a0a0a;
@@ -1870,7 +1847,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     flex-shrink: 0;
   }
 
-  /* ── Others ── */
+  /* Model Lainnya */
   .model-others-section {
     padding: 64px 0;
     background: #fafafa;
@@ -1941,7 +1918,6 @@ const relatedSectionTitle = car.segment === 'passenger'
 </style>
 
 <script>
-  // Helper format rupiah
   function formatRupiah(num: number): string {
     return 'Rp ' + num.toLocaleString('id-ID');
   }
@@ -1970,25 +1946,21 @@ const relatedSectionTitle = car.segment === 'passenger'
       const finalPriceNum = basePriceNum + extraNum;
       const finalPriceFormatted = finalPriceNum > 0 ? formatRupiah(finalPriceNum) : (activeVariant.dataset.price || '');
 
-      // 1. Update main price display in tag
       if (carPriceVal) {
         carPriceVal.textContent = finalPriceFormatted;
       }
 
-      // 2. Update price in the active variant list item
       const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
       if (priceSpan) {
         priceSpan.textContent = finalPriceFormatted;
       }
     }
 
-    // 3. Update color label
     const cName = activeSwatch ? activeSwatch.dataset.color || '' : '';
     if (colorName) {
       colorName.textContent = cName;
     }
 
-    // 4. Update WhatsApp message
     if (sideWaBtn) {
       const vName = activeVariant.dataset.name || '';
       if (isComm) {
@@ -2005,7 +1977,6 @@ const relatedSectionTitle = car.segment === 'passenger'
       }
     }
 
-    // 5. Update Car Display Image (instant switch)
     updateActiveCarImage();
   }
 
@@ -2069,7 +2040,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         const pkgDp = btn.dataset.pkgDp || '';
         const pkgCicilan = btn.dataset.pkgCicilan || '';
 
-        // Update dataset of activeVariant so color surcharge and WA link calculate from package price
         activeVariant.dataset.basePrice = pkgPrice;
         activeVariant.dataset.price = pkgPrice;
         activeVariant.dataset.priceNum = pkgPriceNum.toString();
@@ -2089,16 +2059,13 @@ const relatedSectionTitle = car.segment === 'passenger'
           sideWaBtnText.textContent = `Minta Simulasi & Promo ${pkgLabel}`;
         }
 
-        // Update active variant price label in right sidebar
         const priceSpan = activeVariant.querySelector<HTMLElement>('.model-editorial-price');
         if (priceSpan) {
           priceSpan.textContent = pkgPrice;
         }
 
-        // Recalculate price including any color extra
         updateActivePrice();
 
-        // Update highlights section for package
         const highlightVariantTitle = document.getElementById('highlightVariantTitle');
         if (highlightVariantTitle) {
           highlightVariantTitle.textContent = pkgLabel;
@@ -2115,7 +2082,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     });
   }
 
-  // Color picker interactivity
   swatches.forEach(swatch => {
     swatch.addEventListener('click', () => {
       swatches.forEach(s => s.classList.remove('active'));
@@ -2124,10 +2090,8 @@ const relatedSectionTitle = car.segment === 'passenger'
     });
   });
 
-  // Variant selector interactivity
   variantItems.forEach(item => {
     item.addEventListener('click', () => {
-      // Reset all variant list price labels back to their original prices
       variantItems.forEach(v => {
         v.classList.remove('active');
         const priceSpan = v.querySelector<HTMLElement>('.model-editorial-price');
@@ -2150,7 +2114,6 @@ const relatedSectionTitle = car.segment === 'passenger'
 
       if (carPriceLabel) carPriceLabel.textContent = name;
 
-      // Manage package switch visibility & buttons
       if (item.dataset.packages) {
         try {
           const pkgs = JSON.parse(item.dataset.packages);
@@ -2204,7 +2167,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         pkgSwitchWrap.classList.add('is-hidden');
       }
 
-      // Filter color swatches berdasarkan ketersediaan varian (tier)
       if (tier) {
         let activeHidden = false;
         swatches.forEach(swatch => {
@@ -2225,7 +2187,6 @@ const relatedSectionTitle = car.segment === 'passenger'
           }
         });
 
-        // Jika swatch aktif yang sedang dipilih disembunyikan di tipe ini, ganti ke swatch pertama yang visible
         if (activeHidden) {
           const firstVisible = Array.from(swatches).find(s => !s.classList.contains('is-hidden'));
           if (firstVisible) {
@@ -2239,7 +2200,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         });
       }
 
-      // Calculate and update final price (base + active color extra)
       updateActivePrice();
 
       const dpVal = document.getElementById('dpVal');
@@ -2255,7 +2215,6 @@ const relatedSectionTitle = car.segment === 'passenger'
         }
       }
 
-      // Update Performa & Teknis yang dinamis (Mesin, Tenaga, Transmisi & Ground Clearance)
       const engine = item.dataset.engine;
       const power = item.dataset.power;
       const transDetail = item.dataset.transDetail;
@@ -2269,7 +2228,6 @@ const relatedSectionTitle = car.segment === 'passenger'
       if (specTransVal && transDetail) specTransVal.textContent = transDetail;
       if (specGcVal && gc) specGcVal.textContent = gc;
 
-      // Update nama varian pada judul keunggulan
       const highlightVariantTitle = document.getElementById('highlightVariantTitle');
       if (highlightVariantTitle) {
         highlightVariantTitle.textContent = cleanName;
@@ -2286,10 +2244,8 @@ const relatedSectionTitle = car.segment === 'passenger'
     });
   });
 
-  // Attach package switch listeners on page load
   attachPkgListeners();
 
-  // Preload all vehicle images immediately into browser cache for 0ms instant response
   try {
     const configEl = document.querySelector('.model-config') as HTMLElement | null;
     if (configEl && configEl.dataset.preload) {
@@ -2301,7 +2257,6 @@ const relatedSectionTitle = car.segment === 'passenger'
     }
   } catch (e) {}
 
-  // Commercial Specs Tabs Filter
   const commTabBtns = document.querySelectorAll<HTMLButtonElement>('.comm-tab-btn');
   const commSpecBoxes = document.querySelectorAll<HTMLElement>('.comm-spec-box');
 
@@ -2321,6 +2276,5 @@ const relatedSectionTitle = car.segment === 'passenger'
     });
   });
 
-  // Jalankan kalkulasi awal jika warna default memiliki ekstra harga (misal Quartz White Pearl)
   updateActivePrice();
 </script>

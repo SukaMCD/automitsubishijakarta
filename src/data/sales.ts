@@ -7,7 +7,7 @@ export interface SalesContact {
   address: string;
   city: string;
   phone: string;
-  whatsapp: string; // international format for links: 628...
+  whatsapp: string;
   whatsappDisplay: string;
   email: string;
   experienceYears: number;

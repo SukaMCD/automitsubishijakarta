@@ -13,7 +13,7 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
   description="Pilihan lengkap kendaraan Mitsubishi Motors & Mitsubishi Fuso Jakarta. Mulai dari Xpander, Pajero Sport, XForce, Destinator, Triton, L300, hingga Truk Canter & Bus."
   currentPath="/model"
 >
-  <!-- ─── HERO HEADER ─────────────────────────────────────────── -->
+  <!-- Hero -->
   <section class="bg-[#1A1C1E] text-white py-14 md:py-20 border-b border-white/10">
     <div class="max-w-[1440px] mx-auto px-6">
       <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
@@ -31,7 +31,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
         </p>
       </div>
 
-      <!-- Segment Filter Tabs -->
       <div class="mt-8 flex flex-wrap gap-2">
         <button
           type="button"
@@ -45,27 +44,27 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
           class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
           data-filter="passenger"
         >
-          🚗 Mobil Penumpang ({passengerCars.length})
+          Mobil Penumpang ({passengerCars.length})
         </button>
         <button
           type="button"
           class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
           data-filter="lcv"
         >
-          🛻 Niaga Ringan Pick-up ({lcvCars.length})
+          Niaga Ringan Pick-up ({lcvCars.length})
         </button>
         <button
           type="button"
           class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
           data-filter="commercial"
         >
-          🚚 Truk &amp; Bus Fuso ({commercialCars.length})
+          Truk &amp; Bus Fuso ({commercialCars.length})
         </button>
       </div>
     </div>
   </section>
 
-  <!-- ─── CAR GRID ────────────────────────────────────────────── -->
+  <!-- Model Grid -->
   <section class="py-16 md:py-20 bg-[#F6F6F6]">
     <div class="max-w-[1440px] mx-auto px-6">
       
@@ -75,7 +74,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
             class="model-card group bg-white border border-[#E3E5E6] hover:border-[#E60012] transition-all duration-300 flex flex-col justify-between overflow-hidden"
             data-segment={car.segment}
           >
-            <!-- Card Top: Category & Badge -->
             <div class="p-6 pb-0 flex items-center justify-between">
               <span class={`text-[10px] font-black uppercase tracking-widest ${car.segment === 'commercial' ? 'text-[#E5A91B]' : 'text-[#686D71]'}`}>
                 {car.category}
@@ -87,7 +85,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
               )}
             </div>
 
-            <!-- Image Area -->
             <a href={`/model/${car.slug}`} class="px-6 py-6 block overflow-hidden" draggable="false">
               <div class="h-44 w-full flex items-center justify-center">
                 <img
@@ -100,7 +97,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
               </div>
             </a>
 
-            <!-- Content Area -->
             <div class="p-6 pt-0 flex-grow flex flex-col justify-between">
               <div>
                 <a href={`/model/${car.slug}`} class="block">
@@ -112,7 +108,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                   {car.tagline}
                 </p>
 
-                <!-- Key Specs Grid -->
                 <div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-[#F0F0F0] text-[11px] text-[#686D71]">
                   <div>
                     <span class="block text-[9px] uppercase tracking-wider text-[#A6A9AB]">Kapasitas</span>
@@ -124,7 +119,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                   </div>
                 </div>
 
-                <!-- Price Box -->
                 {car.segment === 'commercial' ? (
                   <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
                     <div>
@@ -150,7 +144,6 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                 )}
               </div>
 
-              <!-- Action Buttons -->
               <div class="mt-5 grid grid-cols-2 gap-2">
                 <a
                   href={`/model/${car.slug}`}
@@ -177,7 +170,7 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
     </div>
   </section>
 
-  <!-- ─── B2B FLEET & TEST DRIVE BANNER ──────────────────────── -->
+  <!-- B2B Fleet Banner -->
   <section class="bg-black text-white py-16 border-t border-white/10">
     <div class="max-w-[1440px] mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">

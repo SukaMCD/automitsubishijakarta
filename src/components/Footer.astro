@@ -10,16 +10,15 @@ const navLinks = [
   { name: 'Katalog Model', href: '/model' },
   { name: 'Promo & Diskon', href: '/promo' },
   { name: 'Daftar Harga OTR', href: '/pricelist' },
-  { name: 'Simulasi Kredit', href: '/simulasi-kredit' },
+  { name: 'Simulasi Kredit', href: '/#simulasi-kredit' },
   { name: 'Testimoni', href: '/testimoni' },
-  { name: 'Kontak & Lokasi', href: '/kontak' },
+  { name: 'Kontak & Lokasi', href: '#kontak' },
 ];
 ---
 
-<footer class="ft">
+<footer id="kontak" class="ft">
   <div class="ft-body">
 
-    <!-- Kiri: brand + kontak -->
     <div class="ft-left">
       <div class="ft-logo">
         <div class="ft-logo-mark">
@@ -50,7 +49,6 @@ const navLinks = [
       </div>
     </div>
 
-    <!-- Tengah: navigasi -->
     <div class="ft-section">
       <div class="ft-section-title">Halaman</div>
       <ul class="ft-links">
@@ -60,7 +58,6 @@ const navLinks = [
       </ul>
     </div>
 
-    <!-- Kanan: lineup produk -->
     <div class="ft-section">
       <div class="ft-section-title">Lineup</div>
       <ul class="ft-links">
@@ -80,7 +77,6 @@ const navLinks = [
       </ul>
     </div>
 
-    <!-- Kolom 4: Lokasi Dealer & Google Maps -->
     <div class="ft-section ft-section--map">
       <div class="ft-section-title">Lokasi Dealer</div>
       <div class="ft-dealer-card">
@@ -109,7 +105,6 @@ const navLinks = [
 
   </div>
 
-  <!-- Bottom -->
   <div class="ft-bottom">
     <span>&copy; {currentYear} {salesData.dealer} · Website oleh <a href="https://sukamcd.tech" target="_blank" rel="noopener noreferrer" class="ft-author">sukamcd.tech</a></span>
     <span>Website independen · Logo &amp; merek milik PT MMKSI</span>
@@ -147,7 +142,6 @@ const navLinks = [
     }
   }
 
-  /* Logo */
   .ft-logo {
     display: inline-flex;
     align-items: center;
@@ -191,7 +185,6 @@ const navLinks = [
     margin-top: 2px;
   }
 
-  /* Tagline */
   .ft-tagline {
     font-size: 13px;
     color: #5a5a5a;
@@ -200,7 +193,6 @@ const navLinks = [
     max-width: 340px;
   }
 
-  /* Contact area */
   .ft-contact {
     display: flex;
     flex-direction: column;
@@ -247,7 +239,6 @@ const navLinks = [
     color: #3a3a3a;
   }
 
-  /* Sections */
   .ft-section-title {
     font-size: 10px;
     font-weight: 700;
@@ -319,7 +310,6 @@ const navLinks = [
     transform: translateX(3px);
   }
 
-  /* Dealer & Google Maps */
   .ft-section--map {
     display: flex;
     flex-direction: column;
@@ -379,7 +369,6 @@ const navLinks = [
     color: #fff;
   }
 
-  /* Bottom bar */
   .ft-bottom {
     border-top: 1px solid #161616;
     max-width: 1200px;

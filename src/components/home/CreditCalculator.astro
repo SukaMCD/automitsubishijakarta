@@ -1,0 +1,317 @@
+---
+import { carsData } from '../../data/cars';
+
+const creditCars = carsData.filter(c => c.segment !== 'commercial');
+---
+
+<!-- Simulasi Kredit -->
+<section id="simulasi-kredit" class="bg-[#F6F6F6] py-16 md:py-24 border-y border-[#E3E5E6]">
+  <div class="max-w-[1440px] mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+      <div class="lg:col-span-4 space-y-4">
+        <div>
+          <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">Kalkulator Instan</div>
+          <h2 class="text-3xl font-black tracking-tight text-[#2B2E30]">Simulasi Kredit</h2>
+        </div>
+        <p class="text-[13px] text-[#686D71] leading-relaxed">
+          Hitung estimasi cicilan bulanan sesuai model, uang muka, dan tenor yang Anda inginkan. Hasilnya bisa langsung dikirim ke WhatsApp Kanhadi.
+        </p>
+        <div class="space-y-3 pt-2">
+          {[
+            'Pilih model & varian',
+            'Tentukan DP dan tenor',
+            'Estimasi cicilan muncul otomatis',
+            'Kirim ke Kanhadi untuk penawaran final',
+          ].map((s, i) => (
+            <div class="flex items-center gap-3 text-[13px] text-[#2B2E30]">
+              <span class="w-6 h-6 flex-shrink-0 bg-[#E60012] text-white text-[10px] font-black flex items-center justify-center">{i+1}</span>
+              {s}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="lg:col-span-8">
+        <div class="bg-white border border-[#E3E5E6] p-7 md:p-10 space-y-7">
+
+          <div>
+            <span id="cc-car-label" class="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71] mb-2">Pilih Model</span>
+            
+            <select id="cc-car" class="sr-only" tabindex="-1" aria-hidden="true">
+              {creditCars.map((car) => (
+                <option value={car.slug} data-price={car.startingPriceNum} data-name={car.name}>
+                  {car.name} - Mulai {car.startingPrice}
+                </option>
+              ))}
+            </select>
+
+            <div class="relative" id="cc-dropdown">
+              <button
+                type="button"
+                id="cc-dropdown-trigger"
+                class="w-full flex items-center justify-between border border-[#E3E5E6] hover:border-[#686D71] focus:border-[#E60012] focus:ring-1 focus:ring-[#E60012] focus:outline-none bg-white px-4 py-3.5 text-left transition-all cursor-pointer"
+                aria-haspopup="listbox"
+                aria-expanded="false"
+                aria-labelledby="cc-car-label cc-dropdown-trigger"
+              >
+                <div class="flex items-center justify-between w-full pr-3 min-w-0">
+                  <span id="cc-selected-name" class="text-[14px] font-bold text-[#1F2421] truncate">
+                    {creditCars[0].name}
+                  </span>
+                  <span id="cc-selected-price" class="text-[12px] font-semibold text-[#686D71] whitespace-nowrap ml-2">
+                    Mulai {creditCars[0].startingPrice}
+                  </span>
+                </div>
+                <svg id="cc-dropdown-chevron" class="w-4 h-4 text-[#686D71] transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+
+              <div
+                id="cc-dropdown-menu"
+                class="hidden absolute left-0 right-0 top-full mt-1.5 bg-white border border-[#E3E5E6] shadow-xl z-40 max-h-72 overflow-y-auto divide-y divide-[#F0F2F3]"
+                role="listbox"
+                tabindex="-1"
+              >
+                {creditCars.map((car, idx) => (
+                  <button
+                    type="button"
+                    class={`cc-dropdown-option w-full flex items-center justify-between px-4 py-3 text-left transition-colors cursor-pointer hover:bg-[#F6F6F6] ${idx === 0 ? 'bg-[#FAFAFA] font-semibold' : ''}`}
+                    data-index={idx}
+                    data-slug={car.slug}
+                    role="option"
+                    aria-selected={idx === 0 ? 'true' : 'false'}
+                  >
+                    <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                      <span class="w-1.5 h-1.5 rounded-full bg-[#E60012] flex-shrink-0 transition-opacity" style={idx === 0 ? 'opacity: 1;' : 'opacity: 0;'}></span>
+                      <span class="text-[14px] text-[#1F2421] truncate">{car.name}</span>
+                    </div>
+                    <div class="flex items-center gap-3 flex-shrink-0">
+                      <span class="text-[12px] text-[#686D71] font-medium">Mulai {car.startingPrice}</span>
+                      <svg class="w-4 h-4 text-[#E60012] transition-opacity" style={idx === 0 ? 'opacity: 1;' : 'opacity: 0;'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <label for="cc-dp" class="text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71]">Uang Muka (DP)</label>
+              <div class="flex items-center gap-2">
+                <span id="cc-dp-pct" class="text-[15px] font-black text-[#2B2E30]">20%</span>
+                <span class="text-[#BFC2C4]">/</span>
+                <span id="cc-dp-nom" class="text-[13px] text-[#686D71] font-medium">Rp 115 Jt</span>
+              </div>
+            </div>
+            <input type="range" id="cc-dp" min="15" max="50" step="1" value="20" class="w-full cursor-pointer" />
+            <div class="flex justify-between text-[10px] text-[#BFC2C4] mt-2 font-medium">
+              <span>15%</span><span>25%</span><span>35%</span><span>45%</span><span>50%</span>
+            </div>
+          </div>
+
+          <div>
+            <span class="block text-[11px] font-bold uppercase tracking-[0.12em] text-[#686D71] mb-3">Tenor</span>
+            <div class="grid grid-cols-6 gap-2">
+              {[1,2,3,4,5,6].map((y) => (
+                <button type="button" class="cc-tenor border text-[12px] font-bold py-2.5 transition-colors cursor-pointer"
+                  data-years={y}
+                  style={y===5 ? 'background:#E60012;color:#fff;border-color:#E60012;' : 'background:#fff;color:#2B2E30;border-color:#E3E5E6;'}>
+                  {y}th
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div class="border-t border-[#E3E5E6] pt-7">
+            <div class="grid grid-cols-2 gap-6 mb-6">
+              <div>
+                <div class="text-[11px] text-[#686D71] uppercase tracking-wider mb-1">Total DP</div>
+                <div id="cc-dp-result" class="text-2xl font-black text-[#2B2E30]">Rp 57,8 Jt</div>
+                <div class="text-[10px] text-[#BFC2C4] mt-0.5">*Sebelum cashback promo</div>
+              </div>
+              <div>
+                <div class="text-[11px] text-[#686D71] uppercase tracking-wider mb-1">Cicilan / Bulan</div>
+                <div id="cc-cicilan-result" class="text-2xl font-black text-[#E60012]">Rp 4,1 Jt</div>
+                <div class="text-[10px] text-[#BFC2C4] mt-0.5">*Estimasi inkl. asuransi</div>
+              </div>
+            </div>
+            <a id="cc-wa-link" href="#" target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-between w-full bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-6 py-4 transition-colors duration-200">
+              <span>Kirim Hasil Simulasi ke WhatsApp Kanhadi</span>
+              <svg class="w-5 h-5 fill-current flex-shrink-0" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+// Kalkulator kredit
+const WA_NUM = '6287808097263';
+let calcTenor = 5;
+
+function formatRp(n) {
+  if (n >= 1e9) return 'Rp ' + (n/1e9).toFixed(2).replace('.',',') + ' M';
+  if (n >= 1e6) return 'Rp ' + Math.round(n/1e6) + ' Jt';
+  return 'Rp ' + Math.round(n).toLocaleString('id-ID');
+}
+
+function calcUpdate() {
+  const sel = document.getElementById('cc-car');
+  const slider = document.getElementById('cc-dp');
+  if (!sel || !slider) return;
+
+  const opt = sel.options[sel.selectedIndex];
+  const price = parseFloat(opt.getAttribute('data-price'));
+  const carName = opt.getAttribute('data-name') || opt.text.split(' - ')[0].trim();
+  const dpPct = parseInt(slider.value);
+  const min = parseFloat(slider.min) || 15;
+  const max = parseFloat(slider.max) || 50;
+  const fillPct = Math.min(100, Math.max(0, ((dpPct - min) / (max - min)) * 100));
+  slider.style.background = `linear-gradient(to right, #E60012 0%, #E60012 ${fillPct}%, #E3E5E6 ${fillPct}%, #E3E5E6 100%)`;
+
+  const dp = price * dpPct / 100;
+  const loan = price - dp;
+  const months = calcTenor * 12;
+  const monthly = (loan + loan * 0.048 * calcTenor) / months;
+
+  document.getElementById('cc-dp-pct').textContent = dpPct + '%';
+  document.getElementById('cc-dp-nom').textContent = formatRp(dp);
+  document.getElementById('cc-dp-result').textContent = formatRp(dp);
+  document.getElementById('cc-cicilan-result').textContent = formatRp(monthly) + ' / bln';
+
+  const msg = `Halo Kanhadi, ini hasil simulasi kredit saya:\n• Mobil: ${carName}\n• DP: ${dpPct}% = ${formatRp(dp)}\n• Tenor: ${calcTenor} tahun\n• Estimasi cicilan: ${formatRp(monthly)}/bln\n\nBisa tolong info promo & bunga terbaiknya?`;
+  const btn = document.getElementById('cc-wa-link');
+  if (btn) btn.href = 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg);
+}
+
+document.querySelectorAll('.cc-tenor').forEach(btn => {
+  btn.addEventListener('click', () => {
+    calcTenor = parseInt(btn.getAttribute('data-years'));
+    document.querySelectorAll('.cc-tenor').forEach(b => {
+      b.style.background = '#fff'; b.style.color = '#2B2E30'; b.style.borderColor = '#E3E5E6';
+    });
+    btn.style.background = '#E60012'; btn.style.color = '#fff'; btn.style.borderColor = '#E60012';
+    calcUpdate();
+  });
+});
+
+document.getElementById('cc-car')?.addEventListener('change', calcUpdate);
+document.getElementById('cc-dp')?.addEventListener('input', calcUpdate);
+
+// Dropdown custom
+const ddWrapper = document.getElementById('cc-dropdown');
+const ddTrigger = document.getElementById('cc-dropdown-trigger');
+const ddMenu = document.getElementById('cc-dropdown-menu');
+const ddChevron = document.getElementById('cc-dropdown-chevron');
+const ddName = document.getElementById('cc-selected-name');
+const ddPrice = document.getElementById('cc-selected-price');
+const ddOptions = document.querySelectorAll('.cc-dropdown-option');
+
+function openDropdown() {
+  if (!ddMenu || !ddTrigger) return;
+  const rect = ddTrigger.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom;
+  const spaceAbove = rect.top;
+
+  if (spaceBelow < 280 && spaceAbove > spaceBelow) {
+    ddMenu.classList.remove('top-full', 'mt-1.5');
+    ddMenu.classList.add('bottom-full', 'mb-1.5');
+  } else {
+    ddMenu.classList.remove('bottom-full', 'mb-1.5');
+    ddMenu.classList.add('top-full', 'mt-1.5');
+  }
+
+  ddMenu.classList.remove('hidden');
+  ddTrigger.setAttribute('aria-expanded', 'true');
+  ddChevron?.classList.add('rotate-180');
+}
+
+function closeDropdown() {
+  if (!ddMenu) return;
+  ddMenu.classList.add('hidden');
+  ddTrigger?.setAttribute('aria-expanded', 'false');
+  ddChevron?.classList.remove('rotate-180');
+}
+
+function toggleDropdown() {
+  if (ddMenu?.classList.contains('hidden')) {
+    openDropdown();
+  } else {
+    closeDropdown();
+  }
+}
+
+function selectDropdownOption(index) {
+  const sel = document.getElementById('cc-car');
+  if (!sel || !sel.options[index]) return;
+  sel.selectedIndex = index;
+  const opt = sel.options[index];
+  const name = opt.getAttribute('data-name') || opt.text.split(' - ')[0].trim();
+  const priceMatch = opt.text.match(/Mulai\s+Rp\s+[\d.]+/i);
+  const priceText = priceMatch ? priceMatch[0] : '';
+
+  if (ddName) ddName.textContent = name;
+  if (ddPrice) ddPrice.textContent = priceText;
+
+  ddOptions.forEach((btn, i) => {
+    const isSelected = i === index;
+    btn.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+    btn.classList.toggle('bg-[#FAFAFA]', isSelected);
+    btn.classList.toggle('font-semibold', isSelected);
+
+    const dot = btn.querySelector('span.rounded-full');
+    if (dot) dot.style.opacity = isSelected ? '1' : '0';
+
+    const check = btn.querySelector('svg');
+    if (check) check.style.opacity = isSelected ? '1' : '0';
+  });
+
+  closeDropdown();
+  calcUpdate();
+}
+
+ddTrigger?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleDropdown();
+});
+
+ddTrigger?.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault();
+    openDropdown();
+  }
+});
+
+ddOptions.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const idx = parseInt(btn.getAttribute('data-index') || '0', 10);
+    selectDropdownOption(idx);
+  });
+});
+
+document.addEventListener('click', (e) => {
+  const target = e.target;
+  if (ddWrapper && !ddWrapper.contains(target)) {
+    closeDropdown();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeDropdown();
+  }
+});
+
+calcUpdate();
+</script>

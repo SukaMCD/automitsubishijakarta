@@ -1,0 +1,183 @@
+---
+import { Image } from 'astro:assets';
+import { getWhatsAppLink } from '../../data/sales';
+
+const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
+
+const heroSlides = [
+  {
+    key: 'pajero',
+    badge: 'Flagship SUV',
+    title: 'Pajero Sport',
+    desc: 'SUV 7-penumpang berkelas dengan mesin diesel 4D56, dominasi setiap medan.',
+    price: 'Rp 577 Juta',
+    cicilan: '9,8 Jt-an',
+    link: '/model/pajero-sport',
+    img: '/images/cars/pajero-sport/pajero-sport-hero.webp',
+    pillLabel: 'Pajero Sport',
+  },
+  {
+    key: 'destinator',
+    badge: 'SUV BARU 2026',
+    title: 'Destinator',
+    desc: 'SUV 7-penumpang revolusioner dengan Dynamic Shield futuristik, kenyamanan kabin mewah, dan performa tangguh.',
+    price: 'Rp 402 Juta',
+    cicilan: '6,8 Jt-an',
+    link: '/model/destinator',
+    img: '/images/cars/destinator/destinator-hero.webp',
+    pillLabel: 'Destinator',
+  },
+  {
+    key: 'xpander',
+    badge: 'MPV Terlaris',
+    title: 'Xpander',
+    desc: 'MPV keluarga paling laris di Indonesia, kabin senyap, suspensi ternyaman di kelasnya.',
+    price: 'Rp 270 Juta',
+    cicilan: '4,2 Jt-an',
+    link: '/model/xpander',
+    img: '/images/cars/xpander/xpander-hero.webp',
+    pillLabel: 'Xpander',
+  },
+];
+---
+
+<!-- Hero -->
+<section class="relative w-full bg-black overflow-hidden" style="height: min(90vh, 700px);">
+  {heroSlides.map((slide, i) => (
+    <div 
+      class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out" 
+      data-index={i}
+      style={i === 0 ? "opacity: 1; z-index: 10; pointer-events: auto;" : "opacity: 0; z-index: 0; pointer-events: none;"}
+    >
+      <div class="absolute inset-0 overflow-hidden">
+        <Image 
+          src={slide.img} 
+          alt={slide.title}
+          width={1920}
+          height={1080}
+          loading="eager"
+          decoding="async"
+          class="w-full h-full object-cover object-center"
+        />
+        <div class="absolute inset-0 bg-black/35"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.15) 80%, transparent 100%);"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 45%);"></div>
+      </div>
+
+      <div class="relative z-10 max-w-[1440px] mx-auto px-6 h-full flex flex-col justify-end pb-16 md:pb-20">
+        <div class="max-w-xl text-white space-y-4">
+          <span class="inline-block bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">
+            {slide.badge}
+          </span>
+
+          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+            {slide.title}
+          </h1>
+
+          <p class="text-[#BFC2C4] text-base leading-relaxed">
+            {slide.desc}
+          </p>
+
+          <div class="flex items-center gap-4 pt-2">
+            <div class="space-y-0.5">
+              <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">OTR Jakarta Mulai</div>
+              <div class="text-2xl font-black">{slide.price}</div>
+            </div>
+            <div class="w-px h-10 bg-white/20"></div>
+            <div class="space-y-0.5">
+              <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">Cicilan / Bulan</div>
+              <div class="text-2xl font-black text-[#E60012]">{slide.cicilan}</div>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-3 pt-2">
+            <a href={slide.link}
+              class="inline-flex items-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
+              Lihat Detail
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </a>
+            <a href={waBase} target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 border border-white/40 hover:border-white text-white text-[13px] font-semibold px-6 py-3 transition-colors backdrop-blur-sm">
+              Tanya Harga WA
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+
+  <div class="absolute bottom-6 right-20 md:right-24 z-20 flex gap-2 max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar">
+    {heroSlides.map((item, i) => (
+      <button 
+        type="button" 
+        class="hero-pill text-white text-[11px] font-bold px-3.5 py-2 border transition-all duration-300"
+        data-slide-index={i}
+        style={i === 0 ? "background: #E60012; border-color: #E60012;" : "background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.2); backdrop-filter: blur(8px);"}
+      >
+        {item.pillLabel}
+      </button>
+    ))}
+  </div>
+
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1.5">
+    <span class="text-[10px] text-white/50 uppercase tracking-[0.15em]">Scroll</span>
+    <div class="w-px h-8 bg-white/20"></div>
+  </div>
+</section>
+
+<script is:inline>
+// Hero slider
+const heroSlides = document.querySelectorAll('.hero-slide');
+const heroPills = document.querySelectorAll('.hero-pill');
+let currentHeroIndex = 0;
+let heroAutoTimer = null;
+
+function setHeroSlide(index) {
+  currentHeroIndex = index;
+  heroSlides.forEach((slide, i) => {
+    if (i === index) {
+      slide.style.opacity = '1';
+      slide.style.zIndex = '10';
+      slide.style.pointerEvents = 'auto';
+    } else {
+      slide.style.opacity = '0';
+      slide.style.zIndex = '0';
+      slide.style.pointerEvents = 'none';
+    }
+  });
+
+  heroPills.forEach((pill, i) => {
+    if (i === index) {
+      pill.style.background = '#E60012';
+      pill.style.borderColor = '#E60012';
+      pill.style.color = '#ffffff';
+    } else {
+      pill.style.background = 'rgba(0,0,0,0.55)';
+      pill.style.borderColor = 'rgba(255,255,255,0.2)';
+      pill.style.color = '#ffffff';
+    }
+  });
+}
+
+heroPills.forEach((pill) => {
+  pill.addEventListener('click', () => {
+    const idx = parseInt(pill.getAttribute('data-slide-index'));
+    if (!isNaN(idx)) {
+      setHeroSlide(idx);
+      resetAutoHero();
+    }
+  });
+});
+
+function resetAutoHero() {
+  if (heroAutoTimer) clearInterval(heroAutoTimer);
+  heroAutoTimer = setInterval(() => {
+    if (heroSlides.length > 0) {
+      const nextIdx = (currentHeroIndex + 1) % heroSlides.length;
+      setHeroSlide(nextIdx);
+    }
+  }, 6000);
+}
+
+resetAutoHero();
+</script>

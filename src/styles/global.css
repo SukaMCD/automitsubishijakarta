@@ -46,7 +46,7 @@ body {
   overscroll-behavior-y: none;
 }
 
-/* Clean & modern subtle scrollbar */
+/* Scrollbar */
 html {
   scrollbar-width: thin;
   scrollbar-color: rgba(140, 140, 140, 0.35) transparent;
@@ -74,14 +74,13 @@ html {
   background-clip: padding-box;
 }
 
-/* Reveal animations */
+/* Animations */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up { animation: fade-up 0.5s ease forwards; }
 
-/* WA pulse */
 @keyframes wa-ring {
   0%   { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
   70%  { box-shadow: 0 0 0 10px rgba(37,211,102,0); }
@@ -89,11 +88,9 @@ html {
 }
 .animate-wa-ring { animation: wa-ring 2s infinite; }
 
-/* Horizontal scroll strip */
 .scroll-strip { overflow-x: auto; scrollbar-width: none; }
 .scroll-strip::-webkit-scrollbar { display: none; }
 
-/* Tab underline indicator */
 .nav-tab-active {
   position: relative;
 }
@@ -106,7 +103,6 @@ html {
   background: #E60012;
 }
 
-/* Hover underline */
 .hover-line {
   position: relative;
   display: inline-block;
@@ -121,7 +117,7 @@ html {
 }
 .hover-line:hover::after { width: 100%; }
 
-/* Range input (Kalkulator DP Slider) */
+/* Range input */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;

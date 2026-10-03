@@ -9,7 +9,6 @@ const { initialCode = '404' } = Astro.props;
 <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px 24px; text-align: center; min-height: 100vh; background-color: #ffffff; user-select: none;">
   <div style="max-width: 580px; width: 100%;">
     
-    <!-- Code Line e.g. 404 Not Found -->
     <p
       id="status-code-line"
       style="font-size: 15px; font-weight: 700; color: #2B2E30; margin: 0 0 10px 0; letter-spacing: -0.01em;"
@@ -17,7 +16,6 @@ const { initialCode = '404' } = Astro.props;
       {initialCode} Not Found
     </p>
 
-    <!-- Main Headline -->
     <h1
       id="status-title"
       style="font-size: clamp(26px, 4vw, 36px); font-weight: 900; color: #1F2421; letter-spacing: -0.03em; line-height: 1.2; margin: 0 0 10px 0;"
@@ -25,7 +23,6 @@ const { initialCode = '404' } = Astro.props;
       Oops! We couldn't find that page
     </h1>
 
-    <!-- Subtitle -->
     <p
       id="status-desc"
       style="font-size: 15px; color: #4A4D4F; margin: 0 0 24px 0; font-weight: 400; line-height: 1.5;"
@@ -33,7 +30,6 @@ const { initialCode = '404' } = Astro.props;
       We'll help you get back on track.
     </p>
 
-    <!-- Action Link: BACK TO HOME -->
     <div>
       <a
         href="/"
@@ -91,7 +87,6 @@ const { initialCode = '404' } = Astro.props;
   if (descEl) descEl.textContent = cfg.desc;
   document.title = `${cfg.codeLine} | Mitsubishi Motors`;
 
-  // Pastikan URL browser tetap bersih (tanpa ?code= atau ?error=)
   if (window.location.search.includes('code=') || window.location.search.includes('error=')) {
     window.history.replaceState({}, '', window.location.pathname);
   }
