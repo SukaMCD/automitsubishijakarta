@@ -17,6 +17,7 @@ export interface SalesContact {
   googleMapsUrl: string;
   perks: {
     title: string;
+    shortDesc?: string;
     description: string;
     icon: string;
   }[];
@@ -42,31 +43,37 @@ export const salesData: SalesContact = {
   perks: [
     {
       title: "Dealer Resmi 3S Terbesar",
+      shortDesc: "Garansi 3 Th & Paket SMART",
       description: "Jaminan unit resmi PT MMKSI, garansi pabrik 3 tahun / 100.000 KM, dan gratis paket servis SMART.",
       icon: "building"
     },
     {
       title: "Data Dibantu Sampai Approve",
+      shortDesc: "Proses cepat 1–3 hari kerja",
       description: "Konsultasi BI Checking / SLIK OJK, proses berkas dijemput ke rumah/kantor, approval kilat 1-3 hari.",
       icon: "shield-check"
     },
     {
       title: "DP Minim & Bunga 0%",
+      shortDesc: "Pilihan leasing terpercaya",
       description: "Pilihan pembiayaan fleksibel dari leasing rekanan terpercaya: Dipo Star Finance, BCA Finance, Maybank, Mandiri Tunas Finance.",
       icon: "percent"
     },
     {
       title: "Layanan Test Drive di Rumah",
-      description: "Ingin coba mobil langsung bersama keluarga? Kanhadi siap bawa unit test drive ke rumah atau kantor Anda.",
+      shortDesc: "Gratis antar ke alamat Anda",
+      description: "Ingin coba mobil langsung bersama keluarga? Kami siap bawa unit test drive ke rumah atau kantor Anda.",
       icon: "car"
     },
     {
       title: "Tukar Tambah (Trade-In) Tertinggi",
+      shortDesc: "Trade-in semua merk mobil",
       description: "Menerima tukar tambah semua merk mobil lama Anda dengan taksiran harga pasar paling transparan dan tinggi.",
       icon: "refresh"
     },
     {
       title: "Bonus Aksesoris Melimpah",
+      shortDesc: "Kaca film, karpet & souvenir",
       description: "Gratis kaca film bergaransi (Solar Gard/V-Kool), karpet original, dudukan plat, APAR, dan merchandise eksklusif.",
       icon: "gift"
     }

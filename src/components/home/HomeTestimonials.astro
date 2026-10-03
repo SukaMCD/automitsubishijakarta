@@ -1,41 +1,90 @@
 ---
 import { testimonialsData } from '../../data/testimonials';
+import { getWhatsAppLink } from '../../data/sales';
+
+const waTesti = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan ulasan kepuasan konsumen Mitsubishi Jakarta.');
 ---
 
 <!-- Testimoni -->
-<section class="bg-white py-16 md:py-24 border-b border-[#E3E5E6]">
-  <div class="max-w-[1440px] mx-auto px-6">
+<section id="testimoni" class="bg-white py-8 sm:py-16 md:py-24 border-b border-[#E3E5E6] scroll-mt-20 overflow-hidden">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
 
-    <div class="flex justify-between items-end mb-10">
+    <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-3 sm:gap-4 mb-5 sm:mb-10">
       <div>
-        <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-2">Apa Kata Mereka</div>
-        <h2 class="text-3xl font-black tracking-tight text-[#2B2E30]">Testimoni Konsumen</h2>
+        <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-1 sm:mb-2">Apa Kata Mereka</div>
+        <h2 class="text-xl sm:text-3xl font-black tracking-tight text-[#2B2E30]">Testimoni Konsumen</h2>
       </div>
-      <a href="/testimoni" class="text-[13px] font-bold text-[#E60012] hover:text-black flex items-center gap-1 transition-colors hover-line">
-        Lihat Semua
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+      <a 
+        href={waTesti} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="inline-flex items-center gap-1.5 text-[12px] sm:text-[13px] font-bold text-[#E60012] hover:text-black transition-colors whitespace-nowrap w-fit group"
+      >
+        <span class="hover:underline underline-offset-4">Tanya Pengalaman Konsumen</span>
+        <svg class="w-4 h-4 flex-shrink-0 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <!-- Mobile horizontal swipeable cards / Desktop 4 cols -->
+    <div 
+      id="testi-carousel"
+      class="flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 overflow-x-auto md:overflow-x-visible pb-3 md:pb-0 scroll-smooth snap-x snap-mandatory scrollbar-none -mx-4 px-4 sm:mx-0 sm:px-0"
+      style="scrollbar-width: none; -ms-overflow-style: none;"
+    >
       {testimonialsData.map((t) => (
-        <div class="border border-[#E3E5E6] hover:border-[#2B2E30] p-6 flex flex-col justify-between group transition-colors">
-          <div class="space-y-4">
-            <div class="flex gap-0.5">
-              {Array.from({length:t.rating}).map(() => (
-                <svg class="w-3.5 h-3.5 text-[#E60012]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              ))}
+        <div class="flex-shrink-0 w-[84vw] max-w-[320px] md:w-auto snap-center md:snap-align-none border border-[#E3E5E6] hover:border-[#2B2E30] p-4 sm:p-6 flex flex-col justify-between group transition-colors bg-white">
+          <div class="space-y-2.5 sm:space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex gap-0.5">
+                {Array.from({length:t.rating}).map(() => (
+                  <svg class="w-3.5 h-3.5 text-[#E60012]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                ))}
+              </div>
+              <span class="text-[9.5px] text-[#A6A9AB] font-mono">{t.deliveryDate}</span>
             </div>
-            <p class="text-[13px] text-[#686D71] leading-relaxed">"{t.comment}"</p>
+            <p class="text-[12px] sm:text-[13px] text-[#686D71] leading-relaxed line-clamp-4 sm:line-clamp-none">"{t.comment}"</p>
           </div>
-          <div class="mt-5 pt-4 border-t border-[#F0F0F0]">
-            <div class="text-[13px] font-bold text-[#2B2E30] group-hover:text-[#E60012] transition-colors">{t.customerName}</div>
-            <div class="text-[11px] text-[#686D71] mt-0.5">{t.occupation} · {t.location}</div>
-            <div class="text-[11px] font-semibold text-[#E60012] mt-1">{t.carPurchased}</div>
+          <div class="mt-3.5 sm:mt-5 pt-3 sm:pt-4 border-t border-[#F0F0F0]">
+            <div class="text-[12.5px] sm:text-[13px] font-bold text-[#2B2E30] group-hover:text-[#E60012] transition-colors">{t.customerName}</div>
+            <div class="text-[10.5px] sm:text-[11px] text-[#686D71] mt-0.5">{t.occupation} · {t.location}</div>
+            <div class="text-[10.5px] sm:text-[11px] font-semibold text-[#E60012] mt-0.5">{t.carPurchased}</div>
           </div>
         </div>
       ))}
     </div>
 
+    <!-- Mobile dots indicator -->
+    <div class="flex md:hidden items-center justify-center gap-1.5 mt-3">
+      {testimonialsData.map((_, i) => (
+        <span 
+          class="testi-dot h-1 rounded-full transition-all duration-300"
+          data-index={i}
+          style={i === 0 ? "width: 16px; background: #E60012;" : "width: 6px; background: #D1D5DB;"}
+        ></span>
+      ))}
+    </div>
+
   </div>
 </section>
+
+<script is:inline>
+const testiCarousel = document.getElementById('testi-carousel');
+const testiDots = document.querySelectorAll('.testi-dot');
+
+if (testiCarousel && testiDots.length > 0) {
+  testiCarousel.addEventListener('scroll', () => {
+    const card = testiCarousel.querySelector('div');
+    const cardWidth = card ? card.offsetWidth + 12 : 300;
+    const index = Math.min(Math.round(testiCarousel.scrollLeft / cardWidth), testiDots.length - 1);
+    testiDots.forEach((dot, i) => {
+      if (i === index) {
+        dot.style.width = '16px';
+        dot.style.background = '#E60012';
+      } else {
+        dot.style.width = '6px';
+        dot.style.background = '#D1D5DB';
+      }
+    });
+  }, { passive: true });
+}
+</script>

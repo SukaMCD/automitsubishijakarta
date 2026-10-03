@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { carsData, getCarBySlug } from '../../data/cars';
 import { salesData, getWhatsAppLink } from '../../data/sales';
 import { getCommercialSpec } from '../../data/commercialSpecs';
@@ -130,11 +131,14 @@ const relatedSectionTitle = car.segment === 'passenger'
       {car.badge && !isCommercial && <div class="model-badge">{car.badge}</div>}
       <h1 class="model-hero-name">
         {car.logo ? (
-          <img
+          <Image
             src={car.logoWhite || car.logo}
             alt={car.name}
             class="model-hero-brand-logo"
-            height="46"
+            width={180}
+            height={46}
+            loading="eager"
+            decoding="async"
           />
         ) : (
           car.name
@@ -371,7 +375,7 @@ const relatedSectionTitle = car.segment === 'passenger'
           }
           return (
             <div class="model-car-image" data-default-image={initImg}>
-              <img src={initImg} alt={car.name} id="carMainImage" loading="eager" fetchpriority="high" />
+              <Image src={initImg} alt={car.name} id="carMainImage" width={900} height={500} loading="eager" fetchpriority="high" decoding="async" />
 
               <div
                 class={`model-pkg-switch-wrap${initV?.packages && initV.packages.length > 0 ? '' : ' is-hidden'}`}
@@ -667,7 +671,7 @@ const relatedSectionTitle = car.segment === 'passenger'
     <div class="model-section-inner model-final-cta-inner">
       <div>
         <h2 class="model-final-cta-title">Tertarik dengan {car.name}?</h2>
-        <p class="model-final-cta-sub">Konsultasi gratis, data dibantu, DP fleksibel. Kanhadi siap melayani hari ini.</p>
+        <p class="model-final-cta-sub">Konsultasi gratis, data dibantu, DP fleksibel. Kami siap melayani hari ini.</p>
       </div>
       <div class="model-final-cta-btns">
         <a href={waUrl} target="_blank" rel="noopener noreferrer" class="model-cta-primary">
@@ -676,7 +680,7 @@ const relatedSectionTitle = car.segment === 'passenger'
         </a>
         <a href={`tel:${salesData.phone.replace(/[\s-]/g, '')}`} class="model-cta-secondary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-          {salesData.phone}
+          Telepon
         </a>
       </div>
     </div>
@@ -689,11 +693,11 @@ const relatedSectionTitle = car.segment === 'passenger'
         <div class="model-section-eyebrow">Lineup</div>
         <h2 class="model-section-title">{relatedSectionTitle}</h2>
       </div>
-      <div class="model-others-grid">
+      <div class="model-others-track">
         {relatedCars.map(other => (
           <a href={`/model/${other.slug}`} class="model-other-card">
             <div class="model-other-img">
-              <img src={other.image} alt={other.name} loading="lazy" />
+              <Image src={other.image} alt={other.name} width={400} height={225} loading="lazy" decoding="async" />
             </div>
             <div class="model-other-info">
               {other.badge && other.segment !== 'commercial' && <div class="model-other-badge">{other.badge}</div>}
@@ -1706,7 +1710,7 @@ const relatedSectionTitle = car.segment === 'passenger'
 
   @media (max-width: 600px) {
     .model-highlights-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
@@ -1787,7 +1791,8 @@ const relatedSectionTitle = car.segment === 'passenger'
   .model-final-cta-btns {
     display: flex;
     gap: 12px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    width: 100%;
   }
 
   .model-cta-primary {
@@ -1800,10 +1805,11 @@ const relatedSectionTitle = car.segment === 'passenger'
     font-size: 13.5px;
     font-weight: 700;
     text-decoration: none;
-    padding: 12px 22px;
+    padding: 12px 16px;
     border-radius: 8px;
     transition: background-color 0.18s, transform 0.15s;
     white-space: nowrap;
+    flex: 1;
   }
 
   .model-cta-primary:hover {
@@ -1828,10 +1834,11 @@ const relatedSectionTitle = car.segment === 'passenger'
     font-size: 13.5px;
     font-weight: 600;
     text-decoration: none;
-    padding: 12px 22px;
+    padding: 12px 16px;
     border-radius: 8px;
     transition: all 0.18s;
     white-space: nowrap;
+    flex: 1;
   }
 
   .model-cta-secondary:hover {
@@ -1851,39 +1858,64 @@ const relatedSectionTitle = car.segment === 'passenger'
   .model-others-section {
     padding: 64px 0;
     background: #fafafa;
+    overflow: hidden;
   }
 
-  .model-others-grid {
+  .model-others-track {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
   }
 
-  @media (max-width: 900px) { .model-others-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 500px) { .model-others-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .model-others-track { grid-template-columns: repeat(3, 1fr); } }
+
+  @media (max-width: 640px) {
+    .model-others-track {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      gap: 14px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      margin: 0 -20px;
+      padding: 4px 11vw 16px;
+    }
+    .model-others-track::-webkit-scrollbar { display: none; }
+    .model-others-track .model-other-card {
+      flex: 0 0 78vw;
+      width: 78vw;
+      scroll-snap-align: center;
+      scroll-snap-stop: always;
+    }
+  }
 
   .model-other-card {
     text-decoration: none;
     background: #fff;
     border: 1px solid #ececec;
     overflow: hidden;
-    transition: border-color 0.15s, transform 0.15s;
+    transition: transform 0.15s;
     display: block;
   }
 
-  .model-other-card:hover { border-color: #E60012; transform: translateY(-2px); }
+  .model-other-card:hover { transform: translateY(-2px); }
 
   .model-other-img {
     background: #f5f5f5;
     padding: 20px;
     aspect-ratio: 16/9;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .model-other-img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    object-position: center;
     transition: transform 0.3s;
   }
 

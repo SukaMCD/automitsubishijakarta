@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
 import { carsData } from '../../data/cars';
 import { salesData, getWhatsAppLink } from '../../data/sales';
 
@@ -15,14 +16,14 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
 >
   <!-- Hero -->
   <section class="bg-[#1A1C1E] text-white py-14 md:py-20 border-b border-white/10">
-    <div class="max-w-[1440px] mx-auto px-6">
+    <div class="max-w-360 mx-auto px-6">
       <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
         <a href="/" class="hover:text-white transition-colors">Beranda</a>
         <span>/</span>
-        <span class="text-[#E60012]">Daftar Model</span>
+        <span class="text-brand-red">Daftar Model</span>
       </div>
       <div class="max-w-3xl">
-        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-2">Lineup Resmi 2026</span>
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">Lineup Resmi 2026</span>
         <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
           Pilihan Model Mitsubishi Motors &amp; Fuso
         </h1>
@@ -31,125 +32,125 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
         </p>
       </div>
 
-      <div class="mt-8 flex flex-wrap gap-2">
-        <button
-          type="button"
-          class="cat-filter-btn active px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#E60012] text-white cursor-pointer"
-          data-filter="all"
-        >
-          Semua Model ({carsData.length})
-        </button>
-        <button
-          type="button"
-          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
-          data-filter="passenger"
-        >
-          Mobil Penumpang ({passengerCars.length})
-        </button>
-        <button
-          type="button"
-          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
-          data-filter="lcv"
-        >
-          Niaga Ringan Pick-up ({lcvCars.length})
-        </button>
-        <button
-          type="button"
-          class="cat-filter-btn px-5 py-2.5 text-[12px] font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
-          data-filter="commercial"
-        >
-          Truk &amp; Bus Fuso ({commercialCars.length})
-        </button>
-      </div>
+      <div class="mt-8 grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 border-t border-white/10 pt-6">
+          <button 
+            type="button" 
+            class="cat-filter-btn active w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-brand-red text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+            data-filter="passenger"
+          >
+            <span class="sm:hidden">Penumpang</span>
+            <span class="hidden sm:inline">Mobil Penumpang ({passengerCars.length})</span>
+          </button>
+          <button 
+            type="button" 
+            class="cat-filter-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-anthracite text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+            data-filter="lcv"
+          >
+            <span class="sm:hidden">Niaga</span>
+            <span class="hidden sm:inline">Niaga Ringan ({lcvCars.length})</span>
+          </button>
+          <button 
+            type="button" 
+            class="cat-filter-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-anthracite text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
+            data-filter="commercial"
+          >
+            <span class="sm:hidden">Truk & Bus</span>
+            <span class="hidden sm:inline">Truk & Bus Fuso ({commercialCars.length})</span>
+          </button>
+        </div>
     </div>
   </section>
 
   <!-- Model Grid -->
-  <section class="py-16 md:py-20 bg-[#F6F6F6]">
-    <div class="max-w-[1440px] mx-auto px-6">
+  <section class="py-8 sm:py-16 md:py-20 bg-off-white">
+    <div class="max-w-360 mx-auto px-3 sm:px-6">
       
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-6 md:gap-8" id="models-grid">
         {carsData.map((car) => (
           <div
-            class="model-card group bg-white border border-[#E3E5E6] hover:border-[#E60012] transition-all duration-300 flex flex-col justify-between overflow-hidden"
+            class={`model-card group bg-white border border-concrete hover:border-brand-red transition-all duration-300 flex flex-col justify-between overflow-hidden ${car.segment !== 'passenger' ? 'hidden' : ''}`}
             data-segment={car.segment}
           >
-            <div class="p-6 pb-0 flex items-center justify-between">
-              <span class={`text-[10px] font-black uppercase tracking-widest ${car.segment === 'commercial' ? 'text-[#E5A91B]' : 'text-[#686D71]'}`}>
+            <div class="p-3 sm:p-6 pb-0 flex items-center justify-between">
+              <span class={`text-[9px] sm:text-[10px] font-black uppercase tracking-wider sm:tracking-widest truncate ${car.segment === 'commercial' ? 'text-[#E5A91B]' : 'text-[#686D71]'}`}>
                 {car.category}
               </span>
               {car.badge && (
-                <span class={`text-[10px] font-bold px-2.5 py-0.5 leading-none text-white ${car.segment === 'commercial' ? 'bg-[#2B2E30]' : 'bg-[#E60012]'}`}>
+                <span class={`text-[8px] sm:text-[10px] font-bold px-1.5 sm:px-2.5 py-0.5 leading-none text-white whitespace-nowrap ${car.segment === 'commercial' ? 'bg-anthracite' : 'bg-brand-red'}`}>
                   {car.badge}
                 </span>
               )}
             </div>
 
-            <a href={`/model/${car.slug}`} class="px-6 py-6 block overflow-hidden" draggable="false">
-              <div class="h-44 w-full flex items-center justify-center">
-                <img
+            <a href={`/model/${car.slug}`} class="px-2 py-2 sm:px-6 sm:py-6 block overflow-hidden" draggable="false">
+              <div class="h-28 sm:h-36 md:h-44 w-full flex items-center justify-center">
+                <Image
                   src={car.image}
                   alt={car.name}
+                  width={400}
+                  height={225}
                   draggable="false"
                   loading="lazy"
+                  decoding="async"
                   class="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300 pointer-events-none select-none drop-shadow-sm"
                 />
               </div>
             </a>
 
-            <div class="p-6 pt-0 flex-grow flex flex-col justify-between">
+            <div class="p-3 sm:p-6 pt-0 grow flex flex-col justify-between">
               <div>
                 <a href={`/model/${car.slug}`} class="block">
-                  <h2 class="text-xl font-black text-[#2B2E30] group-hover:text-[#E60012] transition-colors leading-tight">
+                  <h2 class="text-sm sm:text-lg md:text-xl font-black text-anthracite group-hover:text-brand-red transition-colors leading-tight line-clamp-1">
                     {car.name}
                   </h2>
                 </a>
-                <p class="text-[12px] text-[#686D71] line-clamp-2 mt-2 leading-relaxed">
+                <p class="hidden sm:block text-[12px] text-[#686D71] line-clamp-2 mt-2 leading-relaxed">
                   {car.tagline}
                 </p>
 
-                <div class="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-[#F0F0F0] text-[11px] text-[#686D71]">
+                <div class="hidden sm:grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-[#F0F0F0] text-[11px] text-[#686D71]">
                   <div>
                     <span class="block text-[9px] uppercase tracking-wider text-[#A6A9AB]">Kapasitas</span>
-                    <span class="font-bold text-[#2B2E30]">{car.keySpecs.seating}</span>
+                    <span class="font-bold text-anthracite">{car.keySpecs.seating}</span>
                   </div>
                   <div>
                     <span class="block text-[9px] uppercase tracking-wider text-[#A6A9AB]">Tenaga Mesin</span>
-                    <span class="font-bold text-[#2B2E30] truncate block">{car.keySpecs.power.split('/')[0]}</span>
+                    <span class="font-bold text-anthracite truncate block">{car.keySpecs.power.split('/')[0]}</span>
                   </div>
                 </div>
 
                 {car.segment === 'commercial' ? (
-                  <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
+                  <div class="mt-2.5 sm:mt-4 p-2 sm:p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 sm:gap-1">
                     <div>
-                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Kategori Armada</span>
-                      <span class="text-[13px] font-bold text-[#2B2E30]">{car.category}</span>
+                      <span class="block text-[8px] sm:text-[9px] uppercase tracking-wider text-[#888]">Armada</span>
+                      <span class="text-[11px] sm:text-[13px] font-bold text-anthracite truncate block">{car.category}</span>
                     </div>
-                    <div class="text-right">
-                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Layanan</span>
-                      <span class="text-[12px] font-bold text-[#E60012]">Konsultasi Karoseri</span>
+                    <div class="sm:text-right">
+                      <span class="block text-[8px] sm:text-[9px] uppercase tracking-wider text-[#888]">Layanan</span>
+                      <span class="text-[10px] sm:text-[12px] font-bold text-brand-red block">Karoseri</span>
                     </div>
                   </div>
                 ) : (
-                  <div class="mt-4 p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex items-center justify-between">
+                  <div class="mt-2.5 sm:mt-4 p-2 sm:p-3 bg-[#FAFAFA] border border-[#F0F0F0] flex flex-col sm:flex-row sm:items-center justify-between gap-0.5 sm:gap-1">
                     <div>
-                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">Harga Mulai</span>
-                      <span class="text-[15px] font-black text-[#E60012]">{car.startingPrice}</span>
+                      <span class="block text-[8px] sm:text-[9px] uppercase tracking-wider text-[#888]">Harga Mulai</span>
+                      <span class="text-[11px] sm:text-[15px] font-black text-brand-red block truncate">{car.startingPrice}</span>
                     </div>
-                    <div class="text-right">
-                      <span class="block text-[9px] uppercase tracking-wider text-[#888]">DP Mulai</span>
-                      <span class="text-[12px] font-bold text-[#2B2E30]">{car.dpStart}</span>
+                    <div class="sm:text-right">
+                      <span class="block text-[8px] sm:text-[9px] uppercase tracking-wider text-[#888]">DP Mulai</span>
+                      <span class="text-[10px] sm:text-[12px] font-bold text-anthracite block">{car.dpStart}</span>
                     </div>
                   </div>
                 )}
               </div>
 
-              <div class="mt-5 grid grid-cols-2 gap-2">
+              <div class="mt-3 sm:mt-5 grid grid-cols-2 gap-1.5 sm:gap-2">
                 <a
                   href={`/model/${car.slug}`}
-                  class="flex items-center justify-center bg-[#2B2E30] hover:bg-[#E60012] text-white text-[12px] font-bold py-2.5 transition-colors duration-200"
+                  class="flex items-center justify-center bg-anthracite hover:bg-brand-red text-white text-[10px] sm:text-[12px] font-bold py-2 sm:py-2.5 transition-colors duration-200"
                 >
-                  {car.segment === 'commercial' ? 'Pilihan Karoseri' : 'Detail & Varian'}
+                  <span class="sm:hidden">{car.segment === 'commercial' ? 'Karoseri' : 'Detail'}</span>
+                  <span class="hidden sm:inline">{car.segment === 'commercial' ? 'Pilihan Karoseri' : 'Detail & Varian'}</span>
                 </a>
                 <a
                   href={getWhatsAppLink(car.segment === 'commercial'
@@ -157,9 +158,10 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
                     : `Halo Kanhadi, saya tertarik dengan ${car.name}. Boleh info promo & simulasi kredit terbarunya?`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center justify-center gap-1.5 border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white text-[#2B2E30] text-[12px] font-bold py-2.5 transition-colors duration-200"
+                  class="flex items-center justify-center gap-1 border border-anthracite hover:bg-anthracite hover:text-white text-anthracite text-[10px] sm:text-[12px] font-bold py-2 sm:py-2.5 transition-colors duration-200"
                 >
-                  {car.segment === 'commercial' ? 'Tanya Karoseri' : 'Tanya Promo'}
+                  <span class="sm:hidden">{car.segment === 'commercial' ? 'Tanya' : 'Promo'}</span>
+                  <span class="hidden sm:inline">{car.segment === 'commercial' ? 'Tanya Karoseri' : 'Tanya Promo'}</span>
                 </a>
               </div>
             </div>
@@ -172,15 +174,15 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
 
   <!-- B2B Fleet Banner -->
   <section class="bg-black text-white py-16 border-t border-white/10">
-    <div class="max-w-[1440px] mx-auto px-6">
+    <div class="max-w-360 mx-auto px-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div class="lg:col-span-8">
-          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012] block mb-2">Layanan Fleet &amp; Corporate</span>
+          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">Layanan Fleet &amp; Corporate</span>
           <h2 class="text-2xl md:text-4xl font-black tracking-tight leading-snug">
             Butuh Pengadaan Armada Truk / Pembelian Mobil Kantor?
           </h2>
           <p class="text-[#A6A9AB] text-sm leading-relaxed mt-3 max-w-2xl">
-            Kanhadi siap mendampingi kebutuhan armada perusahaan Anda: konsultasi karoseri (Box, Bak, Dump, Bus), pengurusan dokumen Keur (KIR) &amp; SRUT, serta skema kredit corporate fleet bunga khusus.
+            Tim sales kami siap mendampingi kebutuhan armada perusahaan Anda: konsultasi karoseri (Box, Bak, Dump, Bus), pengurusan dokumen Keur (KIR) &amp; SRUT, serta skema kredit corporate fleet bunga khusus.
           </p>
         </div>
         <div class="lg:col-span-4 flex flex-col gap-3">
@@ -188,9 +190,9 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
             href={getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi penawaran harga pengadaan armada kendaraan untuk perusahaan.')}
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white font-bold text-[13px] py-4 px-6 transition-colors"
+            class="flex items-center justify-center gap-2 bg-brand-red hover:bg-white hover:text-black text-white font-bold text-[13px] py-4 px-6 transition-colors"
           >
-            Hubungi Kanhadi (B2B Fleet)
+            Konsultasi Armada (B2B Fleet)
           </a>
           <a
             href={`tel:${salesData.phone.replace(/[\s-]/g, '')}`}
@@ -208,24 +210,56 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
   const filterBtns = document.querySelectorAll('.cat-filter-btn');
   const cards = document.querySelectorAll('.model-card');
 
+  function applyFilter(filter) {
+    filterBtns.forEach(b => {
+      const isTarget = b.getAttribute('data-filter') === filter;
+      if (isTarget) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
+    });
+
+    cards.forEach(card => {
+      const seg = card.getAttribute('data-segment');
+      if (seg === filter) {
+        card.classList.remove('hidden');
+        card.style.display = 'flex';
+      } else {
+        card.classList.add('hidden');
+        card.style.display = 'none';
+      }
+    });
+  }
+
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const filter = btn.getAttribute('data-filter');
-      filterBtns.forEach(b => {
-        b.classList.remove('bg-[#E60012]', 'text-white', 'active');
-        b.classList.add('bg-[#2B2E30]', 'text-[#A6A9AB]');
-      });
-      btn.classList.remove('bg-[#2B2E30]', 'text-[#A6A9AB]');
-      btn.classList.add('bg-[#E60012]', 'text-white', 'active');
-
-      cards.forEach(card => {
-        const seg = card.getAttribute('data-segment');
-        if (filter === 'all' || seg === filter) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
+      if (filter) applyFilter(filter);
     });
   });
+
+  const hash = window.location.hash.replace('#', '');
+  if (hash === 'lcv' || hash === 'commercial' || hash === 'passenger') {
+    applyFilter(hash);
+  }
 </script>
+
+<style>
+  .cat-filter-btn {
+    background-color: #2B2E30;
+    color: #A6A9AB;
+    transition: all 0.2s ease;
+  }
+  .cat-filter-btn:not(.active):hover {
+    color: #ffffff;
+  }
+  .cat-filter-btn.active {
+    background-color: #E60012 !important;
+    color: #ffffff !important;
+  }
+  .cat-filter-btn.active:hover {
+    background-color: #d10010 !important;
+    color: #ffffff !important;
+  }
+</style>

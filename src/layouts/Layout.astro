@@ -51,7 +51,7 @@ const {
   </head>
   <body class="bg-[#2B2E30] text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
     {!hideNav && <Navbar currentPath={currentPath} />}
-    <main class="flex-grow bg-white flex flex-col">
+    <main class="flex-grow bg-white flex flex-col overflow-x-hidden">
       <slot />
     </main>
     <WhatsAppFloating />

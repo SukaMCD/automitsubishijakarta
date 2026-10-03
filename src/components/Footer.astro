@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import { salesData, getWhatsAppLink } from '../data/sales';
 import { carsData } from '../data/cars';
 
@@ -11,8 +12,7 @@ const navLinks = [
   { name: 'Promo & Diskon', href: '/promo' },
   { name: 'Daftar Harga OTR', href: '/pricelist' },
   { name: 'Simulasi Kredit', href: '/#simulasi-kredit' },
-  { name: 'Testimoni', href: '/testimoni' },
-  { name: 'Kontak & Lokasi', href: '#kontak' },
+  { name: 'Testimoni', href: '/#testimoni' },
 ];
 ---
 
@@ -22,7 +22,7 @@ const navLinks = [
     <div class="ft-left">
       <div class="ft-logo">
         <div class="ft-logo-mark">
-          <img src="/images/logo/mitsubishi-logo.svg" alt="Mitsubishi" />
+          <Image src="/images/logo/mitsubishi-logo.svg" alt="Mitsubishi" width={28} height={28} />
         </div>
         <div>
           <div class="ft-logo-name">MITSUBISHI <span>JAKARTA</span></div>
@@ -136,9 +136,33 @@ const navLinks = [
 
   @media (max-width: 640px) {
     .ft-body {
-      grid-template-columns: 1fr;
-      padding: 48px 20px 40px;
-      gap: 36px;
+      grid-template-columns: 1fr 1fr;
+      padding: 40px 16px 36px;
+      gap: 32px 16px;
+    }
+
+    .ft-left,
+    .ft-section--map {
+      grid-column: span 2;
+    }
+
+    .ft-links li a {
+      font-size: 12px;
+      padding: 6px 0;
+    }
+
+    .ft-tagline {
+      margin-bottom: 20px;
+    }
+
+    .ft-bottom {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px 16px 84px;
+      gap: 6px;
+      font-size: 10.5px;
+      line-height: 1.6;
     }
   }
 
@@ -395,7 +419,7 @@ const navLinks = [
   }
 
   @media (max-width: 600px) {
-    .ft-bottom { padding: 14px 24px; flex-direction: column; align-items: flex-start; }
+    .ft-bottom { padding: 14px 20px; flex-direction: column; align-items: flex-start; }
   }
 </style>
 

@@ -22,14 +22,6 @@ html {
   -webkit-user-drag: none;
 }
 
-a, img {
-  -webkit-user-drag: none;
-  -khtml-user-drag: none;
-  -moz-user-drag: none;
-  -o-user-drag: none;
-  user-drag: none;
-}
-
 img {
   -webkit-user-select: none;
   user-select: none;
@@ -105,7 +97,8 @@ html {
 
 .hover-line {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
 }
 .hover-line::after {
   content: '';

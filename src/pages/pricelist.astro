@@ -62,27 +62,30 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
       </div>
 
       <!-- Segment Tabs -->
-      <div class="mt-8 flex flex-wrap gap-2 border-t border-white/10 pt-6">
+      <div class="mt-8 grid grid-cols-3 sm:flex sm:flex-wrap gap-1.5 sm:gap-2 border-t border-white/10 pt-6">
         <button
           type="button"
-          class="seg-btn active px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all bg-[#E60012] text-white cursor-pointer"
+          class="seg-btn active w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#E60012] text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="passenger"
         >
-          Mobil Penumpang ({passengerCars.length})
+          <span class="sm:hidden">Penumpang</span>
+          <span class="hidden sm:inline">Mobil Penumpang</span>
         </button>
         <button
           type="button"
-          class="seg-btn px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
+          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="lcv"
         >
-          Niaga Ringan ({lcvCars.length})
+          <span class="sm:hidden">Niaga</span>
+          <span class="hidden sm:inline">Niaga Ringan</span>
         </button>
         <button
           type="button"
-          class="seg-btn px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer"
+          class="seg-btn w-full sm:w-auto px-2 sm:px-4 py-2.5 text-[11px] sm:text-xs font-bold uppercase tracking-wider transition-all bg-[#2B2E30] text-[#A6A9AB] hover:text-white cursor-pointer text-center flex items-center justify-center whitespace-nowrap"
           data-segment="commercial"
         >
-          Truk &amp; Bus Fuso ({commercialCars.length})
+          <span class="sm:hidden">Truk & Bus</span>
+          <span class="hidden sm:inline">Truk & Bus Fuso</span>
         </button>
       </div>
     </div>
@@ -254,7 +257,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                   ) : (
                     <tr>
                       <td colspan={isCommercial ? 4 : 6} class="py-6 px-6 text-center text-[#686D71] text-sm">
-                        Hubungi Kanhadi via WhatsApp untuk rincian tipe dan penawaran OTR resmi {car.name}.
+                        Hubungi kami via WhatsApp untuk rincian tipe dan penawaran OTR resmi {car.name}.
                       </td>
                     </tr>
                   )}
@@ -312,7 +315,7 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
                 })
               ) : (
                 <div class="p-6 text-center text-xs text-[#686D71]">
-                  Hubungi Kanhadi via WhatsApp untuk rincian varian {car.name}.
+                  Hubungi kami via WhatsApp untuk rincian varian {car.name}.
                 </div>
               )}
             </div>
@@ -334,20 +337,30 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
           Catatan Daftar Harga OTR Mitsubishi Jakarta
         </h3>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-[#686D71] leading-relaxed">
-          <ul class="space-y-2 list-disc list-inside">
+        <ul class="space-y-2 text-xs text-[#686D71] leading-relaxed list-disc list-inside md:hidden">
             <li>Harga yang tercantum adalah tarif resmi On The Road (OTR) wilayah DKI Jakarta (Plat B).</li>
             <li>Untuk wilayah Bodetabek (Bogor, Depok, Tangerang, Bekasi) terdapat sedikit penyesuaian BBNKB daerah.</li>
             <li>Harga tertera adalah acuan sebelum dipotong diskon tunai, cashback spesial, dan paket subsidi DP.</li>
             <li>Harga kendaraan tidak mengikat dan dapat berubah sewaktu-waktu sesuai kebijakan resmi PT MMKSI.</li>
-          </ul>
-          <ul class="space-y-2 list-disc list-inside">
             <li>Melayani pembelian secara Cash, Kredit Fleet Perusahaan, COP Karyawan, maupun Tukar Tambah (Trade-In).</li>
             <li>Setiap pembelian mobil penumpang mendapatkan garansi resmi 3 Tahun / 100.000 KM dan Paket SMART servis berkala.</li>
-            <li>Data dan berkas kredit dibantu sampai approval oleh sales konsultan Kanhadi.</li>
-            <li>Kanhadi siap membawakan unit test drive langsung ke rumah atau kantor Anda di seluruh wilayah Jabodetabek.</li>
+            <li>Data dan berkas kredit dibantu sampai approval oleh tim sales konsultan kami.</li>
+            <li>Layanan test drive siap diantar langsung ke rumah atau kantor Anda di seluruh wilayah Jabodetabek.</li>
           </ul>
-        </div>
+          <div class="hidden md:grid grid-cols-2 gap-6 text-xs text-[#686D71] leading-relaxed">
+            <ul class="space-y-2 list-disc list-inside">
+              <li>Harga yang tercantum adalah tarif resmi On The Road (OTR) wilayah DKI Jakarta (Plat B).</li>
+              <li>Untuk wilayah Bodetabek (Bogor, Depok, Tangerang, Bekasi) terdapat sedikit penyesuaian BBNKB daerah.</li>
+              <li>Harga tertera adalah acuan sebelum dipotong diskon tunai, cashback spesial, dan paket subsidi DP.</li>
+              <li>Harga kendaraan tidak mengikat dan dapat berubah sewaktu-waktu sesuai kebijakan resmi PT MMKSI.</li>
+            </ul>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>Melayani pembelian secara Cash, Kredit Fleet Perusahaan, COP Karyawan, maupun Tukar Tambah (Trade-In).</li>
+              <li>Setiap pembelian mobil penumpang mendapatkan garansi resmi 3 Tahun / 100.000 KM dan Paket SMART servis berkala.</li>
+              <li>Data dan berkas kredit dibantu sampai approval oleh tim sales konsultan kami.</li>
+              <li>Layanan test drive siap diantar langsung ke rumah atau kantor Anda di seluruh wilayah Jabodetabek.</li>
+            </ul>
+          </div>
 
         <div class="mt-6 pt-5 border-t border-[#E3E5E6] flex flex-col sm:flex-row items-center justify-between gap-4">
           <div class="text-xs text-[#2B2E30] font-medium">
@@ -356,15 +369,15 @@ const waGeneral = getWhatsAppLink('Halo Kanhadi, saya ingin minta info daftar ha
           <div class="flex items-center gap-3">
             <a
               href={`tel:${salesData.phone}`}
-              class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#2B2E30] border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white transition-colors"
+              class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#2B2E30] border border-[#2B2E30] hover:bg-[#2B2E30] hover:text-white transition-colors whitespace-nowrap"
             >
-              Telepon: {salesData.whatsappDisplay}
+              Telepon
             </a>
             <a
               href={waGeneral}
               target="_blank"
               rel="noopener noreferrer"
-              class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#E60012] hover:bg-[#B3000E] text-white transition-colors"
+              class="px-4 py-2 text-xs font-bold uppercase tracking-wider bg-[#E60012] hover:bg-[#B3000E] text-white transition-colors whitespace-nowrap"
             >
               Chat WhatsApp
             </a>

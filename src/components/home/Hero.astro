@@ -15,6 +15,7 @@ const heroSlides = [
     link: '/model/pajero-sport',
     img: '/images/cars/pajero-sport/pajero-sport-hero.webp',
     pillLabel: 'Pajero Sport',
+    objectPos: 'object-[58%_center] sm:object-center',
   },
   {
     key: 'destinator',
@@ -26,6 +27,7 @@ const heroSlides = [
     link: '/model/destinator',
     img: '/images/cars/destinator/destinator-hero.webp',
     pillLabel: 'Destinator',
+    objectPos: 'object-[52%_center] sm:object-center',
   },
   {
     key: 'xpander',
@@ -37,15 +39,16 @@ const heroSlides = [
     link: '/model/xpander',
     img: '/images/cars/xpander/xpander-hero.webp',
     pillLabel: 'Xpander',
+    objectPos: 'object-[64%_center] sm:object-center',
   },
 ];
 ---
 
 <!-- Hero -->
-<section class="relative w-full bg-black overflow-hidden" style="height: min(90vh, 700px);">
+<section id="hero-slider" class="relative w-full bg-black overflow-hidden h-[260px] sm:h-[360px] md:h-[480px] lg:h-[580px]">
   {heroSlides.map((slide, i) => (
     <div 
-      class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out" 
+      class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out select-none" 
       data-index={i}
       style={i === 0 ? "opacity: 1; z-index: 10; pointer-events: auto;" : "opacity: 0; z-index: 0; pointer-events: none;"}
     >
@@ -57,47 +60,49 @@ const heroSlides = [
           height={1080}
           loading="eager"
           decoding="async"
-          class="w-full h-full object-cover object-center"
+          class={`w-full h-full object-cover ${slide.objectPos} pointer-events-none`}
         />
-        <div class="absolute inset-0 bg-black/35"></div>
-        <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.15) 80%, transparent 100%);"></div>
-        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 45%);"></div>
+        <div class="absolute inset-0 bg-black/40 sm:bg-black/35"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.15) 80%, transparent 100%);"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);"></div>
       </div>
 
-      <div class="relative z-10 max-w-[1440px] mx-auto px-6 h-full flex flex-col justify-end pb-16 md:pb-20">
-        <div class="max-w-xl text-white space-y-4">
-          <span class="inline-block bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">
+      <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-3 sm:pb-5 md:pb-14 lg:pb-18">
+        <div class="max-w-xl text-white space-y-1 sm:space-y-2 md:space-y-3.5">
+          <span class="inline-block bg-[#E60012] text-white text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.15em] px-2 sm:px-3 py-0.5 sm:py-1">
             {slide.badge}
           </span>
 
-          <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
-            {slide.title}
-          </h1>
+          <div class="space-y-0.5">
+            <h1 class="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05]">
+              {slide.title}
+            </h1>
 
-          <p class="text-[#BFC2C4] text-base leading-relaxed">
-            {slide.desc}
-          </p>
+            <p class="hidden sm:block text-[#D1D5DB] text-xs sm:text-sm md:text-base leading-relaxed line-clamp-1 md:line-clamp-none max-w-lg">
+              {slide.desc}
+            </p>
+          </div>
 
-          <div class="flex items-center gap-4 pt-2">
-            <div class="space-y-0.5">
-              <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">OTR Jakarta Mulai</div>
-              <div class="text-2xl font-black">{slide.price}</div>
+          <div class="flex items-center gap-3 sm:gap-4 pt-0.5">
+            <div class="space-y-0">
+              <div class="text-[8.5px] sm:text-[10px] md:text-[11px] text-[#BFC2C4] uppercase tracking-wider">OTR Mulai</div>
+              <div class="text-sm sm:text-xl md:text-2xl font-black">{slide.price}</div>
             </div>
-            <div class="w-px h-10 bg-white/20"></div>
-            <div class="space-y-0.5">
-              <div class="text-[11px] text-[#BFC2C4] uppercase tracking-wider">Cicilan / Bulan</div>
-              <div class="text-2xl font-black text-[#E60012]">{slide.cicilan}</div>
+            <div class="w-px h-5 sm:h-8 md:h-10 bg-white/20"></div>
+            <div class="space-y-0">
+              <div class="text-[8.5px] sm:text-[10px] md:text-[11px] text-[#BFC2C4] uppercase tracking-wider">Cicilan / Bln</div>
+              <div class="text-sm sm:text-xl md:text-2xl font-black text-[#E60012]">{slide.cicilan}</div>
             </div>
           </div>
 
-          <div class="flex items-center gap-3 pt-2">
+          <div class="flex items-center gap-2 sm:gap-3 pt-0.5 sm:pt-1">
             <a href={slide.link}
-              class="inline-flex items-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-6 py-3 transition-colors duration-200">
+              class="inline-flex items-center justify-center gap-1.5 bg-[#E60012] hover:bg-white hover:text-black text-white text-[11px] sm:text-[12px] md:text-[13px] font-bold px-3.5 sm:px-5 md:px-6 py-1.5 sm:py-2.5 md:py-3 transition-colors duration-200">
               Lihat Detail
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
             </a>
             <a href={waBase} target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 border border-white/40 hover:border-white text-white text-[13px] font-semibold px-6 py-3 transition-colors backdrop-blur-sm">
+              class="inline-flex items-center justify-center gap-1.5 border border-white/40 hover:border-white text-white text-[11px] sm:text-[12px] md:text-[13px] font-semibold px-3.5 sm:px-5 md:px-6 py-1.5 sm:py-2.5 md:py-3 transition-colors backdrop-blur-sm">
               Tanya Harga WA
             </a>
           </div>
@@ -106,16 +111,28 @@ const heroSlides = [
     </div>
   ))}
 
-  <div class="absolute bottom-6 right-20 md:right-24 z-20 flex gap-2 max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar">
+  <!-- Desktop slide pill switcher -->
+  <div class="hidden md:flex absolute bottom-6 right-20 md:right-24 z-20 gap-2 max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar">
     {heroSlides.map((item, i) => (
       <button 
         type="button" 
-        class="hero-pill text-white text-[11px] font-bold px-3.5 py-2 border transition-all duration-300"
+        class="hero-pill text-white text-[11px] font-bold px-3.5 py-2 border transition-all duration-300 flex-shrink-0 cursor-pointer"
         data-slide-index={i}
         style={i === 0 ? "background: #E60012; border-color: #E60012;" : "background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.2); backdrop-filter: blur(8px);"}
       >
         {item.pillLabel}
       </button>
+    ))}
+  </div>
+
+  <!-- Mobile subtle slide indicators -->
+  <div class="flex md:hidden absolute bottom-3 right-4 z-20 items-center gap-1.5 pointer-events-none">
+    {heroSlides.map((_, i) => (
+      <span 
+        class="mobile-hero-dot h-1 rounded-full transition-all duration-300"
+        data-dot-index={i}
+        style={i === 0 ? "width: 16px; background: #E60012;" : "width: 6px; background: rgba(255,255,255,0.4);"}
+      ></span>
     ))}
   </div>
 
@@ -129,6 +146,7 @@ const heroSlides = [
 // Hero slider
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroPills = document.querySelectorAll('.hero-pill');
+const mobileDots = document.querySelectorAll('.mobile-hero-dot');
 let currentHeroIndex = 0;
 let heroAutoTimer = null;
 
@@ -157,6 +175,16 @@ function setHeroSlide(index) {
       pill.style.color = '#ffffff';
     }
   });
+
+  mobileDots.forEach((dot, i) => {
+    if (i === index) {
+      dot.style.width = '16px';
+      dot.style.background = '#E60012';
+    } else {
+      dot.style.width = '6px';
+      dot.style.background = 'rgba(255,255,255,0.4)';
+    }
+  });
 }
 
 heroPills.forEach((pill) => {
@@ -178,6 +206,25 @@ function resetAutoHero() {
     }
   }, 6000);
 }
+
+// Mobile touch swipe support
+let touchStartX = 0;
+const heroSection = document.getElementById('hero-slider');
+heroSection?.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+heroSection?.addEventListener('touchend', (e) => {
+  const touchEndX = e.changedTouches[0].screenX;
+  const diff = touchStartX - touchEndX;
+  if (Math.abs(diff) > 40) {
+    if (diff > 0) {
+      setHeroSlide((currentHeroIndex + 1) % heroSlides.length);
+    } else {
+      setHeroSlide((currentHeroIndex - 1 + heroSlides.length) % heroSlides.length);
+    }
+    resetAutoHero();
+  }
+}, { passive: true });
 
 resetAutoHero();
 </script>

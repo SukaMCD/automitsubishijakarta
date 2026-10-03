@@ -25,8 +25,8 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
   <div class="max-w-[1440px] mx-auto">
     <div class="grid grid-cols-1 lg:grid-cols-2">
 
-      <div class="relative bg-white flex flex-col justify-between p-6 md:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#E3E5E6]">
-        <div class="relative w-full h-72 md:h-80 lg:h-[380px] flex items-center justify-center">
+      <div class="relative bg-white flex flex-col justify-between p-4 sm:p-6 md:p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-[#E3E5E6]">
+        <div class="relative w-full h-56 sm:h-72 md:h-80 lg:h-[380px] flex items-center justify-center">
           <Image
             id="featured-img"
             src={defaultFeaturedCar.image}
@@ -38,14 +38,14 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
             decoding="async"
           />
           <div class="absolute top-0 left-0">
-            <span id="featured-badge" class="bg-[#E60012] text-white text-[10px] font-black uppercase tracking-[0.15em] px-3 py-1.5">
+            <span id="featured-badge" class="bg-[#E60012] text-white text-[9px] sm:text-[10px] font-black uppercase tracking-[0.15em] px-2.5 sm:px-3 py-1 sm:py-1.5">
               {defaultFeaturedCar.badge || 'Bestseller'}
             </span>
           </div>
         </div>
 
-        <div class="mt-4 pt-4 border-t border-[#F0F0F0]">
-          <span id="featured-car-label" class="block text-[11px] font-bold text-[#686D71] tracking-[0.22em] uppercase mb-2">
+        <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-[#F0F0F0]">
+          <span id="featured-car-label" class="block text-[10px] sm:text-[11px] font-bold text-[#686D71] tracking-[0.22em] uppercase mb-1.5 sm:mb-2">
             Pilih Kendaraan Favoritmu
           </span>
           <div class="relative z-30" id="featured-dropdown">
@@ -57,7 +57,7 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
               aria-expanded="false"
               aria-labelledby="featured-car-label featured-dropdown-trigger"
             >
-              <span id="featured-selected-name" class="text-[18px] md:text-[20px] font-black tracking-tight text-black truncate pr-4">
+              <span id="featured-selected-name" class="text-[16px] sm:text-[18px] md:text-[20px] font-black tracking-tight text-black truncate pr-3">
                 {defaultFeaturedCar.name}
               </span>
               <svg id="featured-dropdown-chevron" class="w-4 h-4 text-black transition-transform duration-200 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -76,20 +76,20 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
                 return (
                   <button
                     type="button"
-                    class={`featured-dropdown-option w-full flex items-center justify-between px-4 py-3 text-left transition-colors cursor-pointer hover:bg-[#F6F6F6] ${isSelected ? 'bg-[#FAFAFA] font-semibold' : ''}`}
+                    class={`featured-dropdown-option w-full flex items-center justify-between px-3.5 sm:px-4 py-3 text-left transition-colors cursor-pointer hover:bg-[#F6F6F6] ${isSelected ? 'bg-[#FAFAFA] font-semibold' : ''}`}
                     data-slug={car.slug}
                     role="option"
                     aria-selected={isSelected ? 'true' : 'false'}
                   >
-                    <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                    <div class="flex items-center gap-2 min-w-0 pr-2">
                       <span class="w-1.5 h-1.5 rounded-full bg-[#E60012] flex-shrink-0 transition-opacity" style={isSelected ? 'opacity: 1;' : 'opacity: 0;'}></span>
-                      <span class="text-[14px] text-[#1F2421] truncate">{car.name}</span>
+                      <span class="text-[13px] sm:text-[14px] text-[#1F2421] truncate">{car.name}</span>
                     </div>
-                    <div class="flex items-center gap-3 flex-shrink-0">
+                    <div class="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                       {car.segment !== 'commercial' && (
-                        <span class="text-[12px] text-[#686D71] font-medium">Mulai {car.startingPrice}</span>
+                        <span class="text-[11px] sm:text-[12px] text-[#686D71] font-medium">Mulai {car.startingPrice}</span>
                       )}
-                      <svg class="w-4 h-4 text-[#E60012] transition-opacity" style={isSelected ? 'opacity: 1;' : 'opacity: 0;'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 text-[#E60012] transition-opacity" style={isSelected ? 'opacity: 1;' : 'opacity: 0;'} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
@@ -101,53 +101,53 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
         </div>
       </div>
 
-      <div class="px-8 md:px-16 py-10 lg:py-16 flex flex-col justify-center space-y-6">
+      <div class="px-4 sm:px-8 md:px-16 py-8 sm:py-10 lg:py-16 flex flex-col justify-center space-y-5 sm:space-y-6">
         <div class="space-y-2">
           <div class="text-[10px] font-black uppercase tracking-[0.2em] text-[#E60012]">Model Unggulan</div>
-          <h2 id="featured-title" class="text-3xl md:text-4xl font-black tracking-tight text-[#2B2E30] leading-tight">
+          <h2 id="featured-title" class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-[#2B2E30] leading-tight">
             {defaultFeaturedCar.name}
           </h2>
-          <p id="featured-desc" class="text-[#686D71] text-[14px] leading-relaxed line-clamp-3">
+          <p id="featured-desc" class="text-[#686D71] text-[13px] sm:text-[14px] leading-relaxed line-clamp-3">
             {defaultFeaturedCar.tagline || defaultFeaturedCar.description}
           </p>
         </div>
 
-        <div class="grid grid-cols-2 gap-3" id="featured-specs-grid">
-          <div class="border border-[#E3E5E6] p-3.5">
-            <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Kapasitas</div>
-            <div id="featured-spec-0" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.seating}</div>
+        <div class="grid grid-cols-2 gap-2 sm:gap-3" id="featured-specs-grid">
+          <div class="border border-[#E3E5E6] p-2.5 sm:p-3.5">
+            <div class="text-[9px] sm:text-[10px] text-[#686D71] uppercase tracking-wider">Kapasitas</div>
+            <div id="featured-spec-0" class="text-[12px] sm:text-[13px] font-bold text-[#2B2E30] mt-0.5 truncate">{defaultFeaturedCar.keySpecs.seating}</div>
           </div>
-          <div class="border border-[#E3E5E6] p-3.5">
-            <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Mesin</div>
-            <div id="featured-spec-1" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.engine}</div>
+          <div class="border border-[#E3E5E6] p-2.5 sm:p-3.5">
+            <div class="text-[9px] sm:text-[10px] text-[#686D71] uppercase tracking-wider">Mesin</div>
+            <div id="featured-spec-1" class="text-[12px] sm:text-[13px] font-bold text-[#2B2E30] mt-0.5 truncate">{defaultFeaturedCar.keySpecs.engine}</div>
           </div>
-          <div class="border border-[#E3E5E6] p-3.5">
-            <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Tenaga</div>
-            <div id="featured-spec-2" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.power}</div>
+          <div class="border border-[#E3E5E6] p-2.5 sm:p-3.5">
+            <div class="text-[9px] sm:text-[10px] text-[#686D71] uppercase tracking-wider">Tenaga</div>
+            <div id="featured-spec-2" class="text-[12px] sm:text-[13px] font-bold text-[#2B2E30] mt-0.5 truncate">{defaultFeaturedCar.keySpecs.power}</div>
           </div>
-          <div class="border border-[#E3E5E6] p-3.5">
-            <div class="text-[10px] text-[#686D71] uppercase tracking-wider">Transmisi</div>
-            <div id="featured-spec-3" class="text-[13px] font-bold text-[#2B2E30] mt-0.5">{defaultFeaturedCar.keySpecs.transmission}</div>
+          <div class="border border-[#E3E5E6] p-2.5 sm:p-3.5">
+            <div class="text-[9px] sm:text-[10px] text-[#686D71] uppercase tracking-wider">Transmisi</div>
+            <div id="featured-spec-3" class="text-[12px] sm:text-[13px] font-bold text-[#2B2E30] mt-0.5 truncate">{defaultFeaturedCar.keySpecs.transmission}</div>
           </div>
         </div>
 
-        <div class="pt-2 space-y-4">
+        <div class="pt-1 sm:pt-2 space-y-3 sm:space-y-4">
           <div id="featured-price-row" class="flex items-baseline gap-2" style={defaultFeaturedCar.segment === 'commercial' ? 'display: none;' : ''}>
-            <span class="text-[11px] text-[#686D71]">OTR Jakarta Mulai</span>
-            <span id="featured-price" class="text-2xl font-black text-[#E60012]">{defaultFeaturedCar.startingPrice}</span>
+            <span class="text-[10px] sm:text-[11px] text-[#686D71]">OTR Jakarta Mulai</span>
+            <span id="featured-price" class="text-xl sm:text-2xl font-black text-[#E60012]">{defaultFeaturedCar.startingPrice}</span>
           </div>
-          <div class="flex flex-wrap items-center gap-3">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             <a
               id="featured-detail-btn"
               href={`/model/${defaultFeaturedCar.slug}`}
-              class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-8 py-3.5 transition-colors duration-200"
+              class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-6 sm:px-8 py-3 sm:py-3.5 transition-colors duration-200 text-center"
             >
               Selengkapnya
             </a>
             <a
               id="featured-compare-btn"
               href="/model"
-              class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-8 py-3.5 transition-colors duration-200"
+              class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-6 sm:px-8 py-3 sm:py-3.5 transition-colors duration-200 text-center"
             >
               Bandingkan Kendaraan
             </a>
