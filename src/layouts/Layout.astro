@@ -89,7 +89,7 @@ const defaultSchema = {
 ---
 
 <!doctype html>
-<html lang="id" class="scroll-smooth bg-[#2B2E30]">
+<html lang="id" class="scroll-smooth bg-anthracite">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -144,9 +144,9 @@ const defaultSchema = {
       }, { capture: true });
     </script>
   </head>
-  <body class="bg-[#2B2E30] text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
+  <body class="bg-anthracite text-black min-h-screen flex flex-col font-sans selection:bg-red-600 selection:text-white">
     {!hideNav && <Navbar currentPath={currentPath} />}
-    <main class="flex-grow bg-white flex flex-col overflow-x-hidden">
+    <main class="grow bg-white flex flex-col overflow-x-hidden">
       <slot />
     </main>
     <WhatsAppFloating />
