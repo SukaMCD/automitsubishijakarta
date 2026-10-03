@@ -1,0 +1,195 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { salesData, getWhatsAppLink } from '../data/sales';
+
+const waUrl = getWhatsAppLink('Halo Kanhadi, saya ingin berkonsultasi mengenai perlindungan data pribadi dan privasi.');
+---
+
+<Layout
+  title="Kebijakan Privasi (Privacy Policy) | Mitsubishi Jakarta - Kanhadi"
+  description="Kebijakan perlindungan data pribadi konsumen sesuai UU PDP No. 27 Tahun 2022 pada layanan pemesanan Mitsubishi Jakarta - Kanhadi."
+  currentPath="/kebijakan-privasi"
+>
+  <!-- Hero Header -->
+  <section class="bg-[#1A1C1E] text-white py-12 md:py-16 border-b border-white/10">
+    <div class="max-w-360 mx-auto px-6">
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
+        <a href="/" class="hover:text-white transition-colors">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-red">Kebijakan Privasi</span>
+      </nav>
+      <div class="max-w-3xl">
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">Privasi &amp; Perlindungan Data</span>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          Kebijakan Privasi
+        </h1>
+        <p class="text-[#A6A9AB] text-sm md:text-base leading-relaxed mt-4">
+          Kami menghargai privasi dan kepercayaan Anda. Kebijakan ini menjelaskan bagaimana data pribadi Anda dikumpulkan, digunakan, dan dilindungi secara ketat sesuai Undang-Undang Perlindungan Data Pribadi (UU PDP).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-10 md:py-16 bg-[#F6F6F6] text-[#2B2E30]">
+    <div class="max-w-360 mx-auto px-4 sm:px-6">
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+
+        <!-- Main Document Content -->
+        <div class="flex-1 w-full bg-white border border-concrete p-6 sm:p-10 md:p-12 shadow-sm space-y-10 leading-relaxed text-sm md:text-[15px]">
+
+          <!-- Pendahuluan -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              1. Komitmen Perlindungan Privasi
+            </h2>
+            <p class="text-[#555] mb-3">
+              Kebijakan Privasi ini berlaku untuk situs web <strong>automitsubishijakarta.com</strong> yang dikelola oleh <strong>{salesData.name}</strong>, Senior Sales Consultant resmi <strong>{salesData.dealer}</strong>.
+            </p>
+            <p class="text-[#555]">
+              Kami berkomitmen penuh melindungi hak privasi setiap pengunjung situs dan calon konsumen sesuai dengan ketentuan <strong>Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi (UU PDP)</strong>.
+            </p>
+          </div>
+
+          <!-- Data yang Dikumpulkan -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              2. Informasi yang Kami Kumpulkan
+            </h2>
+            <p class="text-[#555] mb-3">
+              Kami hanya mengumpulkan informasi yang Anda berikan secara sukarela saat berinteraksi melalui formulir kontak, pesan WhatsApp, atau panggilan telepon:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-[#555]">
+              <li><strong>Data Identitas Kontak:</strong> Nama lengkap, nomor telepon / WhatsApp, alamat email, serta kota/wilayah domisili.</li>
+              <li><strong>Preferensi Kendaraan:</strong> Model kendaraan yang diminati (seperti Xpander, Pajero Sport, Canter), tipe varian, warna pilihan, serta estimasi waktu pembelian.</li>
+              <li><strong>Kebutuhan Pembiayaan:</strong> Rencana pembelian (Cash / Kredit), estimasi budget Uang Muka (DP), tenor cicilan yang diinginkan, serta nama lembaga leasing pilihan.</li>
+              <li><strong>Dokumen Persyaratan Kredit (Hanya saat SPK/Pengajuan Leasing):</strong> KTP, Kartu Keluarga, NPWP, bukti penghasilan/rekening koran yang diserahkan untuk proses verifikasi leasing resmi.</li>
+            </ul>
+          </div>
+
+          <!-- Tujuan Penggunaan Data -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              3. Tujuan Penggunaan Data Pribadi
+            </h2>
+            <p class="text-[#555] mb-3">
+              Data pribadi yang terkumpul semata-mata digunakan untuk kepentingan:
+            </p>
+            <ol class="list-decimal pl-5 space-y-2 text-[#555]">
+              <li>Memberikan respon dan konsultasi teknis terkait unit kendaraan Mitsubishi Motors dan Mitsubishi Fuso.</li>
+              <li>Menyusun simulasi kredit dan kalkulasi penawaran promo / diskon resmi dealer.</li>
+              <li>Menjadwalkan layanan test drive unit ke kediaman atau kantor Anda di wilayah Jabodetabek.</li>
+              <li>Memproses penerbitan Surat Pesanan Kendaraan (SPK) resmi di dealer PT Lautan Berlian Utama Motor.</li>
+              <li>Meneruskan berkas kepada pihak leasing rekanan resmi yang diawasi OJK (seperti Dipo Star Finance, BCA Finance, MTF, dll.) atas persetujuan Anda untuk proses persetujuan kredit.</li>
+              <li>Koordinasi pengurusan faktur polisi, STNK, BPKB, dan pengiriman unit mobil ke alamat Anda.</li>
+            </ol>
+          </div>
+
+          <!-- Larangan Penjualan Data -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              4. Tidak Menjual atau Menyebarluaskan Data
+            </h2>
+            <p class="text-[#555] mb-3">
+              <strong>Kami TIDAK PERNAH menjual, menyewakan, meminjamkan, atau memperjualbelikan data pribadi Anda</strong> kepada pihak ketiga mana pun untuk tujuan periklanan atau spam di luar konteks pembelian kendaraan Mitsubishi Anda.
+            </p>
+            <p class="text-[#555]">
+              Data Anda hanya dapat diteruskan kepada pihak resmi yang berkepentingan langsung: (1) Dealer resmi PT Lautan Berlian Utama Motor, (2) Perusahaan Pembiayaan / Multifinance terdaftar OJK yang Anda setujui, serta (3) Instansi Samsat/Kepolisian untuk pengurusan dokumen legalitas kendaraan.
+            </p>
+          </div>
+
+          <!-- Keamanan Penyimpanan Data -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              5. Keamanan Penyimpanan Data
+            </h2>
+            <p class="text-[#555]">
+              Kami menerapkan prosedur perlindungan teknis dan administratif yang wajar guna mencegah akses tidak sah, kebocoran, modifikasi, atau penghancuran data pribadi Anda. Dokumen fisik maupun digital disimpan secara aman dan hanya dapat diakses oleh pihak yang berwenang dalam proses transaksi.
+            </p>
+          </div>
+
+          <!-- Hak Pengguna -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              6. Hak Konsumen atas Data Pribadi
+            </h2>
+            <p class="text-[#555] mb-3">
+              Sesuai UU PDP, Anda memiliki hak penuh untuk:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5 text-[#555]">
+              <li>Meminta konfirmasi atas data pribadi Anda yang tersimpan di sistem kami.</li>
+              <li>Memperbarui atau mengoreksi data yang tidak akurat.</li>
+              <li>Meminta penghapusan kontak dan pembatalan follow-up pemasaran kapan saja.</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Navigation & Official Dealer Widget -->
+        <aside class="w-full lg:w-80 shrink-0 space-y-6 lg:sticky lg:top-24">
+          
+          <!-- Legal Menu Navigation -->
+          <div class="bg-white border border-concrete p-5 shadow-sm">
+            <h3 class="text-xs font-black uppercase tracking-wider text-anthracite border-b border-concrete pb-3 mb-3">
+              Dokumen Informasi Legal
+            </h3>
+            <nav class="space-y-1.5 text-xs font-bold">
+              <a
+                href="/disclaimer"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Disclaimer Sales</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/kebijakan-privasi"
+                class="flex items-center justify-between px-3 py-2.5 bg-brand-red text-white"
+              >
+                <span>Kebijakan Privasi</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/syarat-ketentuan"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Syarat &amp; Ketentuan</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Rekening Resmi Card -->
+          <div class="bg-[#1A1C1E] text-white p-5 border-t-2 border-brand-red shadow-sm space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-brand-red">Keamanan Transaksi</div>
+            <div class="text-sm font-bold leading-snug">Pastikan Transfer ke Rekening Resmi Perusahaan</div>
+            <p class="text-[12px] text-[#A6A9AB] leading-relaxed">
+              Semua transaksi resmi wajib ke rekening <strong>PT Lautan Berlian Utama Motor</strong>. Hubungi sales untuk validasi nomor rekening dealer.
+            </p>
+            <div class="pt-2 border-t border-white/10 text-xs">
+              <span class="text-[#777] block text-[10px] uppercase">Dealer Resmi 3S:</span>
+              <span class="font-semibold text-white">{salesData.dealer}</span>
+            </div>
+          </div>
+
+          <!-- Sales Contact Widget -->
+          <div class="bg-white border border-concrete p-5 shadow-sm text-center space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-[#686D71]">Sales Consultant Resmi</div>
+            <div class="text-base font-black text-anthracite">{salesData.name}</div>
+            <div class="text-xs text-[#555]">{salesData.role}</div>
+            <div class="text-xs font-bold text-anthracite">{salesData.phone}</div>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full bg-brand-red hover:bg-black text-white text-xs font-bold uppercase tracking-wider py-3 transition-colors text-center"
+            >
+              Konsultasi WhatsApp
+            </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,187 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { salesData, getWhatsAppLink } from '../data/sales';
+
+const waUrl = getWhatsAppLink('Halo Kanhadi, saya membaca halaman Disclaimer dan ingin memastikan info pemesanan unit Mitsubishi.');
+---
+
+<Layout
+  title="Disclaimer Hukum Sales Independen | Mitsubishi Jakarta - Kanhadi"
+  description="Pernyataan hukum dan penafian (disclaimer) resmi website independen Sales Consultant PT Lautan Berlian Utama Motor Kebon Jeruk Jakarta."
+  currentPath="/disclaimer"
+>
+  <!-- Hero Header -->
+  <section class="bg-[#1A1C1E] text-white py-12 md:py-16 border-b border-white/10">
+    <div class="max-w-360 mx-auto px-6">
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
+        <a href="/" class="hover:text-white transition-colors">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-red">Disclaimer Hukum</span>
+      </nav>
+      <div class="max-w-3xl">
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">Pernyataan Hukum &amp; Independensi</span>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          Disclaimer Hukum Sales Independen
+        </h1>
+        <p class="text-[#A6A9AB] text-sm md:text-base leading-relaxed mt-4">
+          Transparansi, integritas, dan keamanan transaksi adalah komitmen utama kami. Mohon membaca penafian hukum ini sebelum menggunakan layanan informasi dan pemesanan kami.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Legal Content -->
+  <section class="py-10 md:py-16 bg-[#F6F6F6] text-[#2B2E30]">
+    <div class="max-w-360 mx-auto px-4 sm:px-6">
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+        
+        <!-- Main Document Content -->
+        <div class="flex-1 w-full bg-white border border-concrete p-6 sm:p-10 md:p-12 shadow-sm space-y-10 leading-relaxed text-sm md:text-[15px]">
+
+          <!-- Highlight Box Rekening Resmi -->
+          <div class="bg-[#FFF5F5] border-l-4 border-brand-red p-4 sm:p-6">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-brand-red shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              <div>
+                <h3 class="text-base font-black text-brand-red uppercase tracking-wide">Pemberitahuan Keamanan Transaksi (PENTING)</h3>
+                <p class="mt-1 text-[#333] text-xs sm:text-sm">
+                  Seluruh transaksi keuangan — termasuk <strong>Booking Fee, Uang Muka (DP), dan Pelunasan Kendaraan</strong> — <strong>HANYA DAN WAJIB</strong> ditransfer langsung ke rekening resmi perusahaan atas nama <strong>PT Lautan Berlian Utama Motor</strong>. Sales konsultan tidak pernah dan dilarang keras menerima pembayaran ke rekening pribadi dalam bentuk apa pun.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 1 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              1. Status Pengelola Website &amp; Independensi Pemasaran
+            </h2>
+            <p class="text-[#555] mb-3">
+              Website ini (<strong>automitsubishijakarta.com</strong>) dimiliki, dikelola, dan dioperasikan secara mandiri oleh <strong>{salesData.name}</strong>, yang bertindak sebagai <strong>{salesData.role}</strong> pada dealer resmi <strong>{salesData.dealer}</strong> ({salesData.dealerBranch}), beralamat di {salesData.address}.
+            </p>
+            <p class="text-[#555]">
+              Website ini berfungsi sebagai media promosi digital, informasi portofolio produk, simulasi kredit, serta sarana komunikasi calon konsumen di wilayah Jakarta dan Jabodetabek dengan sales consultant resmi kami.
+            </p>
+          </div>
+
+          <!-- Section 2 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              2. Hubungan dengan Agen Pemegang Merek (APM)
+            </h2>
+            <p class="text-[#555] mb-3">
+              Website ini <strong>BUKAN</strong> merupakan website korporat resmi dari <strong>PT Mitsubishi Motors Krama Yudha Sales Indonesia (PT MMKSI)</strong> maupun <strong>PT Krama Yudha Tiga Berlian Motors (PT KTB)</strong>.
+            </p>
+            <p class="text-[#555]">
+              Seluruh konten promosi, ulasan, tabel simulasi angsuran, dan materi yang termuat di dalam situs web ini merupakan inisiatif independen perorangan sales consultant guna mempermudah konsumen memperoleh informasi kendaraan Mitsubishi Motors dan Mitsubishi Fuso.
+            </p>
+          </div>
+
+          <!-- Section 3 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              3. Hak Kekayaan Intelektual &amp; Merek Dagang
+            </h2>
+            <p class="text-[#555] mb-3">
+              Logo Tiga Berlian (Three Diamonds), tulisan dan merek dagang <em>"MITSUBISHI"</em>, <em>"MITSUBISHI MOTORS"</em>, <em>"FUSO"</em>, serta nama model kendaraan (seperti <em>Xpander, Pajero Sport, XForce, Destinator, Triton, L300, Canter</em>) adalah hak kekayaan intelektual terdaftar milik <strong>Mitsubishi Motors Corporation</strong>, <strong>PT MMKSI</strong>, dan <strong>PT KTB</strong>.
+            </p>
+            <p class="text-[#555]">
+              Pemuatan lambang, nama model, foto unit, dan materi grafis terkait semata-mata bersifat informatif, ilustratif, dan referensial dalam rangka mendukung aktivitas penjualan resmi dealer PT Lautan Berlian Utama Motor.
+            </p>
+          </div>
+
+          <!-- Section 4 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              4. Akurasi Harga, Spesifikasi, &amp; Program Promo
+            </h2>
+            <p class="text-[#555] mb-3">
+              Informasi harga On The Road (OTR) Jakarta, paket uang muka (DP), nominal angsuran kredit, suku bunga, dan bonus promo yang ditampilkan di situs ini disusun berdasarkan data terbaru saat materi diterbitkan.
+            </p>
+            <p class="text-[#555]">
+              Namun demikian, harga, ketersediaan unit, warna, dan regulasi pembiayaan leasing dapat berubah sewaktu-waktu tanpa pemberitahuan sebelumnya mengikuti kebijakan ATPM, pemerintah, dan perusahaan leasing. Angka final yang mengikat adalah angka resmi yang tercantum pada <strong>Surat Pesanan Kendaraan (SPK)</strong> resmi dealer dan persetujuan kontrak leasing.
+            </p>
+          </div>
+
+          <!-- Section 5 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              5. Batasan Tanggung Jawab (Limitation of Liability)
+            </h2>
+            <p class="text-[#555]">
+              Pengelola situs tidak bertanggung jawab atas kerugian finansial atau materiil yang timbul akibat transaksi yang dilakukan di luar prosedur resmi yang telah ditetapkan, termasuk jika konsumen mentransfer dana ke rekening pribadi oknum yang mengatasnamakan dealer atau sales consultant kami.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Navigation & Official Dealer Widget -->
+        <aside class="w-full lg:w-80 shrink-0 space-y-6 lg:sticky lg:top-24">
+          
+          <!-- Legal Menu Navigation -->
+          <div class="bg-white border border-concrete p-5 shadow-sm">
+            <h3 class="text-xs font-black uppercase tracking-wider text-anthracite border-b border-concrete pb-3 mb-3">
+              Dokumen Informasi Legal
+            </h3>
+            <nav class="space-y-1.5 text-xs font-bold">
+              <a
+                href="/disclaimer"
+                class="flex items-center justify-between px-3 py-2.5 bg-brand-red text-white"
+              >
+                <span>Disclaimer Sales</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/kebijakan-privasi"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Kebijakan Privasi</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/syarat-ketentuan"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Syarat &amp; Ketentuan</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Rekening Resmi Card -->
+          <div class="bg-[#1A1C1E] text-white p-5 border-t-2 border-brand-red shadow-sm space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-brand-red">Keamanan Transaksi</div>
+            <div class="text-sm font-bold leading-snug">Pastikan Transfer ke Rekening Resmi Perusahaan</div>
+            <p class="text-[12px] text-[#A6A9AB] leading-relaxed">
+              Semua transaksi resmi wajib ke rekening <strong>PT Lautan Berlian Utama Motor</strong>. Hubungi sales untuk validasi nomor rekening dealer.
+            </p>
+            <div class="pt-2 border-t border-white/10 text-xs">
+              <span class="text-[#777] block text-[10px] uppercase">Dealer Resmi 3S:</span>
+              <span class="font-semibold text-white">{salesData.dealer}</span>
+            </div>
+          </div>
+
+          <!-- Sales Contact Widget -->
+          <div class="bg-white border border-concrete p-5 shadow-sm text-center space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-[#686D71]">Sales Consultant Resmi</div>
+            <div class="text-base font-black text-anthracite">{salesData.name}</div>
+            <div class="text-xs text-[#555]">{salesData.role}</div>
+            <div class="text-xs font-bold text-anthracite">{salesData.phone}</div>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full bg-brand-red hover:bg-black text-white text-xs font-bold uppercase tracking-wider py-3 transition-colors text-center"
+            >
+              Konsultasi WhatsApp
+            </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -2,6 +2,7 @@
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloating from '../components/WhatsAppFloating.astro';
+import { salesData } from '../data/sales';
 import '../styles/global.css';
 
 interface Props {
@@ -11,6 +12,7 @@ interface Props {
   ogImage?: string;
   hideNav?: boolean;
   hideFooter?: boolean;
+  schema?: Record<string, any>;
 }
 
 const {
@@ -19,8 +21,71 @@ const {
   currentPath = "/",
   ogImage = "/images/cars/pajero-sport/new-pajero-sport-optimized.webp",
   hideNav = false,
-  hideFooter = false
+  hideFooter = false,
+  schema
 } = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.origin : 'https://automitsubishijakarta.com';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const fullOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).href;
+
+// Default Organization & LocalBusiness / AutoDealer Schema
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "AutoDealer",
+      "@id": `${siteUrl}/#dealer`,
+      "name": `${salesData.dealer} - Kanhadi Sales Consultant`,
+      "legalName": "PT Lautan Berlian Utama Motor",
+      "url": siteUrl,
+      "logo": `${siteUrl}/favicon.svg`,
+      "image": fullOgImage,
+      "description": "Dealer Resmi Mitsubishi Motors & Fuso Jakarta Barat. Layanan penjualan unit baru, simulasi kredit DP minim, promo bunga 0%, dan tukar tambah.",
+      "telephone": salesData.phone,
+      "email": salesData.email,
+      "priceRange": "Rp 150.000.000 - Rp 800.000.000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Panjang No. 8, Kebon Jeruk",
+        "addressLocality": "Jakarta Barat",
+        "addressRegion": "DKI Jakarta",
+        "postalCode": "11530",
+        "addressCountry": "ID"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.1901,
+        "longitude": 106.7699
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "08:00",
+          "closes": "21:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Jakarta Barat" },
+        { "@type": "City", "name": "Jakarta Selatan" },
+        { "@type": "City", "name": "Jakarta Pusat" },
+        { "@type": "City", "name": "Jakarta Timur" },
+        { "@type": "City", "name": "Jakarta Utara" },
+        { "@type": "AdministrativeArea", "name": "Jabodetabek" }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": "Mitsubishi Jakarta - Kanhadi",
+      "description": description,
+      "publisher": { "@id": `${siteUrl}/#dealer` },
+      "inLanguage": "id-ID"
+    }
+  ]
+};
 ---
 
 <!doctype html>
@@ -29,19 +94,49 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#2B2E30" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Kanhadi - Sales Consultant Mitsubishi Motors Jakarta" />
+
+    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mitsubishi Jakarta - Kanhadi" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={fullOgImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullOgImage} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify(schema || defaultSchema)} />
+
+
     <script is:inline>
       window.addEventListener('dragstart', function(e) {
         e.preventDefault();

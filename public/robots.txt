@@ -1,0 +1,9 @@
+# robots.txt for https://automitsubishijakarta.com
+User-agent: *
+Allow: /
+
+# Disallow system and error pages
+Disallow: /404
+
+# Sitemap
+Sitemap: https://automitsubishijakarta.com/sitemap.xml

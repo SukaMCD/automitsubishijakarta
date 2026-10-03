@@ -105,9 +105,31 @@ const navLinks = [
 
   </div>
 
+  <!-- Legal Disclaimer Band -->
+  <div class="ft-disclaimer-band">
+    <div class="ft-disclaimer-inner">
+      <p class="ft-disclaimer-text">
+        <strong>Disclaimer Hukum Sales Independen:</strong> Website ini dikelola secara independen oleh <strong>{salesData.name}</strong> ({salesData.role}) pada dealer resmi <strong>{salesData.dealer}</strong>. Website ini bukan website korporat resmi PT Mitsubishi Motors Krama Yudha Sales Indonesia (PT MMKSI) maupun PT Krama Yudha Tiga Berlian Motors (PT KTB). Segala transaksi pembayaran pemesanan kendaraan (Booking Fee, DP, Pelunasan) hanya sah apabila ditransfer langsung ke rekening resmi perusahaan <strong>PT Lautan Berlian Utama Motor</strong>.
+      </p>
+      <div class="ft-legal-bar-links">
+        <a href="/disclaimer">Disclaimer Sales</a>
+        <span class="ft-legal-sep">·</span>
+        <a href="/kebijakan-privasi">Kebijakan Privasi</a>
+        <span class="ft-legal-sep">·</span>
+        <a href="/syarat-ketentuan">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </div>
+
   <div class="ft-bottom">
     <span>&copy; {currentYear} {salesData.dealer} · Website oleh <a href="https://sukamcd.tech" target="_blank" rel="noopener noreferrer" class="ft-author">sukamcd.tech</a></span>
-    <span>Website independen · Logo &amp; merek milik PT MMKSI</span>
+    <div class="ft-bottom-links">
+      <a href="/disclaimer">Disclaimer</a>
+      <span>·</span>
+      <a href="/kebijakan-privasi">Privacy Policy</a>
+      <span>·</span>
+      <a href="/syarat-ketentuan">Terms &amp; Conditions</a>
+    </div>
   </div>
 </footer>
 
@@ -416,6 +438,87 @@ const navLinks = [
 
   .ft-author:hover {
     color: #E60012;
+  }
+
+  /* Disclaimer Band */
+  .ft-disclaimer-band {
+    border-top: 1px solid #1c1c1c;
+    background: #080808;
+    padding: 24px 32px;
+  }
+
+  .ft-disclaimer-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ft-disclaimer-text {
+    font-size: 11.5px;
+    color: #666;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .ft-disclaimer-text strong {
+    color: #999;
+  }
+
+  .ft-legal-bar-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .ft-legal-bar-links a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .ft-legal-bar-links a:hover {
+    color: #E60012;
+    text-decoration: underline;
+  }
+
+  .ft-legal-sep {
+    color: #333;
+  }
+
+  .ft-bottom-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+  }
+
+  .ft-bottom-links a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .ft-bottom-links a:hover {
+    color: #aaa;
+  }
+
+  .ft-bottom-links span {
+    color: #333;
+  }
+
+  @media (max-width: 640px) {
+    .ft-disclaimer-band {
+      padding: 20px 16px;
+    }
+    .ft-bottom-links {
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
   }
 
   @media (max-width: 600px) {

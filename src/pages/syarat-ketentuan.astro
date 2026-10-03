@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { salesData, getWhatsAppLink } from '../data/sales';
+
+const waUrl = getWhatsAppLink('Halo Kanhadi, saya ingin berkonsultasi mengenai Syarat & Ketentuan pemesanan unit Mitsubishi.');
+---
+
+<Layout
+  title="Syarat & Ketentuan (Terms & Conditions) | Mitsubishi Jakarta - Kanhadi"
+  description="Syarat dan ketentuan umum pemesanan kendaraan, proses kredit, booking fee, dan serah terima unit Mitsubishi Jakarta - Kanhadi."
+  currentPath="/syarat-ketentuan"
+>
+  <!-- Hero Header -->
+  <section class="bg-[#1A1C1E] text-white py-12 md:py-16 border-b border-white/10">
+    <div class="max-w-360 mx-auto px-6">
+      <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#A6A9AB] mb-4">
+        <a href="/" class="hover:text-white transition-colors">Beranda</a>
+        <span>/</span>
+        <span class="text-brand-red">Syarat &amp; Ketentuan</span>
+      </nav>
+      <div class="max-w-3xl">
+        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-brand-red block mb-2">Ketentuan Layanan &amp; Transaksi</span>
+        <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">
+          Syarat &amp; Ketentuan
+        </h1>
+        <p class="text-[#A6A9AB] text-sm md:text-base leading-relaxed mt-4">
+          Ketentuan transaksi resmi pembelian kendaraan Mitsubishi Motors &amp; Fuso melalui sales consultant resmi PT Lautan Berlian Utama Motor Jakarta.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="py-10 md:py-16 bg-[#F6F6F6] text-[#2B2E30]">
+    <div class="max-w-360 mx-auto px-4 sm:px-6">
+      <div class="flex flex-col lg:flex-row gap-8 items-start">
+
+        <!-- Main Document Content -->
+        <div class="flex-1 w-full bg-white border border-concrete p-6 sm:p-10 md:p-12 shadow-sm space-y-10 leading-relaxed text-sm md:text-[15px]">
+
+          <!-- Ketentuan 1 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              1. Ketentuan Umum Layanan Website
+            </h2>
+            <p class="text-[#555] mb-3">
+              Dengan mengakses dan memanfaatkan informasi di situs web <strong>automitsubishijakarta.com</strong>, Anda menyetujui untuk terikat dengan Syarat &amp; Ketentuan ini. Informasi harga OTR, paket kredit, dan spesifikasi unit yang ditampilkan ditujukan untuk wilayah pemasaran <strong>DKI Jakarta, Bogor, Depok, Tangerang, dan Bekasi (Jabodetabek)</strong>.
+            </p>
+            <p class="text-[#555]">
+              Penetapan harga BBN (Bea Balik Nama) luar daerah diatur berdasarkan ketentuan tarif pajak daerah masing-masing domisili KTP pemesan.
+            </p>
+          </div>
+
+          <!-- Ketentuan 2 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              2. Prosedur Pemesanan &amp; Penerbitan SPK
+            </h2>
+            <p class="text-[#555] mb-3">
+              Pemesanan unit kendaraan dianggap sah dan mengikat apabila telah memenuhi syarat berikut:
+            </p>
+            <ol class="list-decimal pl-5 space-y-2 text-[#555]">
+              <li>Konsumen mengisi dan menandatangani formulir resmi <strong>Surat Pesanan Kendaraan (SPK)</strong> dari PT Lautan Berlian Utama Motor.</li>
+              <li>Melampirkan salinan identitas resmi (KTP pemohon dan penjamin untuk kredit, atau KTP direksi &amp; legalitas PT untuk corporate fleet).</li>
+              <li>Menyetorkan uang tanda jadi (<em>Booking Fee</em>) ke rekening resmi dealer.</li>
+            </ol>
+          </div>
+
+          <!-- Ketentuan 3 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              3. Ketentuan Pembayaran Resmi
+            </h2>
+            <div class="bg-[#FFF5F5] border border-brand-red/20 p-4 mb-3">
+              <p class="text-xs sm:text-sm font-semibold text-brand-red">
+                WASPADA PENIPUAN: Segala pembayaran (Booking Fee, TDP, Pelunasan Cash, maupun Karoseri) HANYA diakui sah apabila ditransfer langsung ke rekening resmi berbadan hukum:
+              </p>
+              <p class="mt-1 font-bold text-anthracite text-sm">
+                Rekening Resmi: PT LAUTAN BERLIAN UTAMA MOTOR
+              </p>
+            </div>
+            <p class="text-[#555]">
+              Perusahaan dan sales konsultan tidak bertanggung jawab atas pembayaran tunai atau transfer yang dilakukan kepada rekening perorangan atau rekening pihak ketiga yang tidak terafiliasi resmi.
+            </p>
+          </div>
+
+          <!-- Ketentuan 4 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              4. Ketentuan Pengajuan Pembiayaan Kredit (Leasing)
+            </h2>
+            <ul class="list-disc pl-5 space-y-2 text-[#555]">
+              <li>Keputusan persetujuan (<em>approval</em>) atau penolakan pengajuan kredit sepenuhnya merupakan hak mutlak dan kewenangan lembaga pembiayaan / bank yang bersangkutan (OJK regulated).</li>
+              <li>Sales consultant akan mendampingi pemberkasan dan konsultasi analisa kelayakan data (SLIK/BI Checking).</li>
+              <li>Apabila pengajuan kredit ditolak secara resmi oleh pihak leasing karena alasan di luar kelalaian konsumen, uang booking fee akan dikembalikan sesuai dengan ketentuan pengembalian (<em>refund policy</em>) yang berlaku pada PT Lautan Berlian Utama Motor.</li>
+            </ul>
+          </div>
+
+          <!-- Ketentuan 5 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              5. Penyerahan Unit Kendaraan &amp; Dokumen Legalitas
+            </h2>
+            <p class="text-[#555] mb-3">
+              Serah terima unit kendaraan (<em>Delivery Order / DO</em>) dilakukan setelah:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5 text-[#555]">
+              <li>Pembayaran total DP (kredit) atau pelunasan penuh (cash) telah terverifikasi masuk ke rekening dealer.</li>
+              <li>Purchase Order (PO) / persetujuan pencairan dari lembaga leasing telah diterbitkan (khusus transaksi kredit).</li>
+              <li>Unit telah melalui proses inspeksi keselamatan akhir (<em>Pre-Delivery Inspection / PDI</em>) resmi.</li>
+            </ul>
+            <p class="text-[#555] mt-3">
+              Pengurusan STNK dan Plat Nomor resmi membutuhkan estimasi waktu 14–21 hari kerja, sedangkan BPKB diterbitkan dalam 30–60 hari kerja (atau disimpan leasing selama masa kredit).
+            </p>
+          </div>
+
+          <!-- Ketentuan 6 -->
+          <div>
+            <h2 class="text-lg md:text-xl font-black text-anthracite tracking-tight mb-3">
+              6. Garansi Resmi &amp; Layanan Purna Jual
+            </h2>
+            <p class="text-[#555]">
+              Seluruh kendaraan baru Mitsubishi Motors dilengkapi dengan Garansi Resmi Pabrik selama <strong>3 Tahun / 100.000 KM</strong> (mana yang tercapai lebih dahulu), fasilitas gratis biaya jasa servis berkala (Paket SMART), serta layanan darurat 24 Jam Mitsubishi Motors Customer Care.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Sidebar Navigation & Official Dealer Widget -->
+        <aside class="w-full lg:w-80 shrink-0 space-y-6 lg:sticky lg:top-24">
+          
+          <!-- Legal Menu Navigation -->
+          <div class="bg-white border border-concrete p-5 shadow-sm">
+            <h3 class="text-xs font-black uppercase tracking-wider text-anthracite border-b border-concrete pb-3 mb-3">
+              Dokumen Informasi Legal
+            </h3>
+            <nav class="space-y-1.5 text-xs font-bold">
+              <a
+                href="/disclaimer"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Disclaimer Sales</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/kebijakan-privasi"
+                class="flex items-center justify-between px-3 py-2.5 text-[#555] hover:bg-[#F6F6F6] hover:text-black transition-colors"
+              >
+                <span>Kebijakan Privasi</span>
+                <svg class="w-3.5 h-3.5 text-[#AAA]" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+              <a
+                href="/syarat-ketentuan"
+                class="flex items-center justify-between px-3 py-2.5 bg-brand-red text-white"
+              >
+                <span>Syarat &amp; Ketentuan</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </a>
+            </nav>
+          </div>
+
+          <!-- Rekening Resmi Card -->
+          <div class="bg-[#1A1C1E] text-white p-5 border-t-2 border-brand-red shadow-sm space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-brand-red">Keamanan Transaksi</div>
+            <div class="text-sm font-bold leading-snug">Pastikan Transfer ke Rekening Resmi Perusahaan</div>
+            <p class="text-[12px] text-[#A6A9AB] leading-relaxed">
+              Semua transaksi resmi wajib ke rekening <strong>PT Lautan Berlian Utama Motor</strong>. Hubungi sales untuk validasi nomor rekening dealer.
+            </p>
+            <div class="pt-2 border-t border-white/10 text-xs">
+              <span class="text-[#777] block text-[10px] uppercase">Dealer Resmi 3S:</span>
+              <span class="font-semibold text-white">{salesData.dealer}</span>
+            </div>
+          </div>
+
+          <!-- Sales Contact Widget -->
+          <div class="bg-white border border-concrete p-5 shadow-sm text-center space-y-3">
+            <div class="text-[10px] font-black uppercase tracking-[0.18em] text-[#686D71]">Sales Consultant Resmi</div>
+            <div class="text-base font-black text-anthracite">{salesData.name}</div>
+            <div class="text-xs text-[#555]">{salesData.role}</div>
+            <div class="text-xs font-bold text-anthracite">{salesData.phone}</div>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full bg-brand-red hover:bg-black text-white text-xs font-bold uppercase tracking-wider py-3 transition-colors text-center"
+            >
+              Konsultasi WhatsApp
+            </a>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </section>
+</Layout>
