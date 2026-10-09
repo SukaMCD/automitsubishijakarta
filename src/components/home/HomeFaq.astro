@@ -5,32 +5,32 @@ const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kr
 
 const faqs = [
   { q: 'Apa syarat kredit perorangan?', a: 'KTP suami & istri, KK, NPWP, bukti kepemilikan rumah (PBB/rekening listrik), dan mutasi rekening 3 bulan. Berkas kurang? Tim kami siap bantu konsultasi ke leasing rekanan.' },
-  { q: 'Berapa lama proses sampai unit dikirim?', a: 'Approval leasing 1–3 hari kerja setelah data lengkap. Unit ready stock langsung dikirim dengan towing resmi ke garasi Anda tanpa biaya tambahan.' },
+  { q: 'Berapa lama proses sampai unit dikirim?', a: 'Approval leasing 1-3 hari kerja setelah data lengkap. Unit ready stock langsung dikirim dengan towing resmi ke garasi Anda tanpa biaya tambahan.' },
   { q: 'Apakah bisa trade-in semua merk?', a: 'Ya. Kami terima tukar tambah semua merk, dengan valuasi harga pasar yang jujur dan transparan. Dana hasil trade-in langsung dijadikan DP.' },
   { q: 'Bisa test drive ke rumah?', a: 'Bisa. Layanan test drive diantar ke rumah atau kantor Anda di area Jabodetabek, gratis tanpa biaya.' },
   { q: 'Apakah harga OTR sudah termasuk asuransi?', a: 'Harga OTR sudah termasuk pajak, STNK, dan plat nomor. Asuransi dapat ditambahkan dengan pilihan all risk atau TLO, dibahas saat konsultasi kredit.' },
 ];
 ---
 
-<!-- FAQ -->
-<section class="bg-[#F6F6F6] py-12 sm:py-16 md:py-24 border-b border-[#E3E5E6]">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-6">
+<section class="bg-off-white py-12 sm:py-16 md:py-24 border-b border-concrete">
+  <div class="max-w-360 mx-auto px-4 sm:px-6">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
       <div class="lg:col-span-4">
-        <div class="text-[10px] font-black uppercase tracking-[0.15em] text-[#E60012] mb-1.5 sm:mb-2">FAQ</div>
-        <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-[#2B2E30] mb-3 sm:mb-4">Pertanyaan Umum</h2>
+        <div class="text-[10px] font-black uppercase tracking-[0.15em] text-brand-red mb-1.5 sm:mb-2">FAQ</div>
+        <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-anthracite mb-3 sm:mb-4">Pertanyaan Umum</h2>
         <p class="text-[13px] text-[#686D71] leading-relaxed">Tidak ada pertanyaan Anda di sini? Langsung hubungi kami via WhatsApp.</p>
         <a href={waBase} target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 mt-4 sm:mt-5 bg-[#E60012] hover:bg-black text-white text-[13px] font-bold px-5 py-3 transition-colors">
-          Tanya Langsung
+          class="inline-flex items-center gap-2 mt-4 sm:mt-5 bg-brand-red hover:bg-black text-white text-[13px] font-bold px-5 py-3 transition-colors">
+          <span>Konsultasi via WhatsApp</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
       <div class="lg:col-span-8 space-y-2">
         {faqs.map((faq) => (
-          <details class="group bg-white border border-[#E3E5E6] hover:border-[#2B2E30] transition-colors [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex items-center justify-between cursor-pointer px-4 sm:px-5 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-semibold text-[#2B2E30] group-open:text-[#E60012] transition-colors">
+          <details class="group bg-white border border-concrete hover:border-anthracite transition-colors [&_summary::-webkit-details-marker]:hidden">
+            <summary class="flex items-center justify-between cursor-pointer px-4 sm:px-5 py-3.5 sm:py-4 text-[13px] sm:text-[14px] font-semibold text-anthracite group-open:text-brand-red transition-colors">
               <span class="pr-2">{faq.q}</span>
-              <svg class="w-4 h-4 text-[#BFC2C4] flex-shrink-0 ml-2 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+              <svg class="w-4 h-4 text-cold-grey shrink-0 ml-2 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
             </summary>
             <div class="px-4 sm:px-5 pb-4 sm:pb-5 text-[12px] sm:text-[13px] text-[#686D71] leading-relaxed border-t border-[#F0F0F0] pt-3.5 sm:pt-4">{faq.a}</div>
           </details>

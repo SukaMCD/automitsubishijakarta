@@ -6,28 +6,29 @@ const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kr
 const homePromos = promoList.slice(0, 5);
 ---
 
-<!-- Promo -->
 <section class="bg-[#111111] text-white">
-  <div class="max-w-[1440px] mx-auto">
+  <div class="max-w-360 mx-auto">
 
     <div class="grid grid-cols-1 lg:grid-cols-[1fr_2fr]">
 
       <div class="px-4 sm:px-8 md:px-14 py-6 sm:py-10 md:py-20 border-b lg:border-b-0 lg:border-r border-[#222] flex flex-col justify-between">
         <div>
-          <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-[#E60012] mb-2 sm:mb-4">Penawaran Aktif</div>
+          <div class="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-red mb-2 sm:mb-4">Penawaran Aktif</div>
           <h2 class="text-xl sm:text-3xl md:text-[2.8rem] font-black leading-[1.08] tracking-tight mb-2 sm:mb-4">
             Promo<br class="hidden sm:inline"/> Bulan Ini
           </h2>
-          <p class="text-xs sm:text-[13px] text-[#888] leading-relaxed max-w-[280px]">
+          <p class="text-xs sm:text-[13px] text-[#888] leading-relaxed max-w-70">
             Program kredit subsidi, bunga 0%, cashback puluhan juta, dan paket servis resmi untuk unit pilihan. Kuota terbatas.
           </p>
         </div>
 
         <div class="hidden lg:flex mt-8 sm:mt-10 flex-col gap-3">
           <a href="/promo"
-            class="inline-flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[13px] font-bold px-6 py-3.5 transition-colors duration-200">
-            Lihat Semua Promo
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            class="group inline-flex items-center justify-between gap-3 bg-brand-red hover:bg-white hover:text-black text-white text-[13px] font-bold pl-5 pr-2.5 py-3 transition-all duration-300 ease-spring active:scale-[0.98]">
+            <span>Lihat Semua Promo</span>
+            <span class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center transition-all duration-300 group-hover:translate-x-0.5 group-hover:bg-black group-hover:text-white">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+            </span>
           </a>
           <a href={waBase} target="_blank" rel="noopener noreferrer"
             class="inline-flex items-center text-[12px] text-[#888] hover:text-white transition-colors underline underline-offset-4 py-1">
@@ -36,36 +37,36 @@ const homePromos = promoList.slice(0, 5);
         </div>
       </div>
 
-      <div class="divide-y divide-[#1E1E1E]">
+      <div class="divide-y divide-white/5">
         {homePromos.map((p, i) => (
           <a 
             href="/promo" 
-            class={`group items-stretch gap-0 hover:bg-[#181818] transition-colors duration-200 cursor-pointer ${i >= 3 ? 'hidden lg:flex' : 'flex'}`}
+            class={`group items-stretch gap-0 hover:bg-white/4 transition-all duration-300 ease-spring cursor-pointer ${i >= 3 ? 'hidden lg:flex' : 'flex'}`}
           >
-            <div class="w-8 sm:w-16 flex-shrink-0 flex items-center justify-center border-r border-[#1E1E1E] py-3 sm:py-7">
-              <span class="text-[9.5px] sm:text-[11px] font-mono font-bold text-[#666] group-hover:text-[#E60012] transition-colors">0{i + 1}</span>
+            <div class="w-8 sm:w-16 shrink-0 flex items-center justify-center border-r border-white/5 py-3 sm:py-7">
+              <span class="text-[9.5px] sm:text-[11px] font-mono font-bold text-[#666] group-hover:text-brand-red transition-colors">0{i + 1}</span>
             </div>
 
             <div class="flex-1 px-3 sm:px-8 py-3 sm:py-7 flex flex-col md:flex-row md:items-center md:justify-between gap-1.5 sm:gap-4">
               <div class="flex-1 min-w-0">
                 <div class="flex items-center gap-1.5 mb-1 sm:mb-2">
-                  <span class="text-[8.5px] sm:text-[10px] font-black uppercase tracking-widest text-[#E60012]">{p.badge}</span>
-                  <span class="text-[#333]">·</span>
+                  <span class="text-[8.5px] sm:text-[10px] font-black uppercase tracking-widest text-brand-red">{p.badge}</span>
+                  <span class="text-white/20">·</span>
                   <span class="text-[9.5px] sm:text-[11px] text-[#888] truncate">{p.targetCar}</span>
                 </div>
-                <h3 class="text-[13px] sm:text-[16px] font-bold text-white group-hover:text-[#E60012] transition-colors leading-snug">
+                <h3 class="text-[13px] sm:text-[16px] font-bold text-white group-hover:text-white transition-colors leading-snug">
                   {p.title}
                 </h3>
               </div>
 
-              <div class="flex-shrink-0 md:text-right flex md:flex-col flex-row items-baseline md:items-end justify-between md:justify-center gap-1 sm:gap-2 pt-0.5 md:pt-0">
-                <span class="text-[11px] sm:text-[13px] font-bold text-white group-hover:text-[#E60012] transition-colors">{p.highlight}</span>
+              <div class="shrink-0 md:text-right flex md:flex-col flex-row items-baseline md:items-end justify-between md:justify-center gap-1 sm:gap-2 pt-0.5 md:pt-0">
+                <span class="text-[11px] sm:text-[13px] font-bold text-white group-hover:text-brand-red transition-colors">{p.highlight}</span>
                 <span class="text-[8.5px] sm:text-[10px] font-medium text-[#777] uppercase tracking-wider">{p.validPeriod}</span>
               </div>
             </div>
 
-            <div class="w-8 sm:w-16 flex-shrink-0 flex items-center justify-center border-l border-[#1E1E1E] text-[#555] group-hover:text-white group-hover:bg-[#E60012] transition-colors">
-              <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <div class="w-8 sm:w-16 shrink-0 flex items-center justify-center border-l border-white/5 text-[#555] group-hover:text-white group-hover:bg-brand-red transition-all duration-300">
+              <svg class="w-3.5 sm:w-4 h-3.5 sm:h-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
               </svg>
             </div>
@@ -74,7 +75,7 @@ const homePromos = promoList.slice(0, 5);
 
         <div class="lg:hidden p-3.5 bg-[#141414] flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <a href="/promo"
-            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#E60012] hover:bg-white hover:text-black text-white text-[12px] font-bold px-4 py-2.5 transition-colors duration-200">
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-white hover:text-black text-white text-[12px] font-bold px-4 py-2.5 transition-colors duration-200">
             Lihat Semua Promo
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </a>

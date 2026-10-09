@@ -4,6 +4,7 @@ export interface SalesContact {
   name: string;
   nickname: string;
   role: string;
+  nip?: string;
   dealer: string;
   dealerBranch: string;
   address: string;
@@ -29,6 +30,7 @@ const defaultSalesData: SalesContact = {
   name: "Kanhadi",
   nickname: "Kanhadi",
   role: "Senior Certified Sales Consultant",
+  nip: "LB20050013",
   dealer: "PT. Lautan Berlian Kebon Jeruk",
   dealerBranch: "Dealer Resmi Mitsubishi Motors 3S Jakarta Barat",
   address: "Jl. Panjang No.8, RT.11/RW.10, Kb. Jeruk, Kec. Kb. Jeruk, Kota Jakarta Barat, DKI Jakarta 11530",
@@ -40,43 +42,43 @@ const defaultSalesData: SalesContact = {
   experienceYears: 12,
   unitsDelivered: 850,
   rating: 4.8,
-  operatingHours: "Senin – Minggu: 08.00 – 21.00 WIB (Fast Response 24 Jam via WhatsApp)",
+  operatingHours: "Senin sampai Minggu: 08.00 - 21.00 WIB (Fast response via WhatsApp)",
   googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=PT+Lautan+Berlian+Kebon+Jeruk+Jl+Panjang+No+8+Jakarta+Barat",
   perks: [
     {
-      title: "Dealer Resmi 3S Terbesar",
-      shortDesc: "Garansi 3 Th & Paket SMART",
-      description: "Jaminan unit resmi PT MMKSI, garansi pabrik 3 tahun / 100.000 KM, dan gratis paket servis SMART.",
-      icon: "building"
-    },
-    {
-      title: "Data Dibantu Sampai Approve",
-      shortDesc: "Proses cepat 1–3 hari kerja",
-      description: "Konsultasi BI Checking / SLIK OJK, proses berkas dijemput ke rumah/kantor, approval kilat 1-3 hari.",
-      icon: "shield-check"
-    },
-    {
-      title: "DP Minim & Bunga 0%",
-      shortDesc: "Pilihan leasing terpercaya",
-      description: "Pilihan pembiayaan fleksibel dari leasing rekanan terpercaya: Dipo Star Finance, BCA Finance, Maybank, Mandiri Tunas Finance.",
+      title: "DP 0% & Bunga Rendah",
+      shortDesc: "Program cicilan ringan",
+      description: "Pilihan pembiayaan fleksibel DP 0%, bunga rendah kompetitif, dan tenor hingga 5 tahun dari leasing rekanan resmi.",
       icon: "percent"
     },
     {
-      title: "Layanan Test Drive di Rumah",
-      shortDesc: "Gratis antar ke alamat Anda",
-      description: "Ingin coba mobil langsung bersama keluarga? Kami siap bawa unit test drive ke rumah atau kantor Anda.",
+      title: "Proses Mudah & Cepat",
+      shortDesc: "Data dibantu tuntas",
+      description: "Konsultasi kelayakan kredit, berkas dijemput langsung ke alamat Anda, estimasi proses cepat 1-3 hari kerja sampai approve.",
+      icon: "shield-check"
+    },
+    {
+      title: "Diskon Maksimal",
+      shortDesc: "Penawaran OTR terbaik",
+      description: "Diskon maksimal, cashback menarik, dan fasilitas tukar tambah (trade-in) semua merk dengan taksiran transparan.",
+      icon: "refresh"
+    },
+    {
+      title: "Unit Ready Stock",
+      shortDesc: "Armada siap kirim",
+      description: "Ketersediaan armada Truk Fuso Canter, L300, dan mobil penumpang resmi siap kirim cepat ke wilayah Jakarta & Jabodetabek.",
       icon: "car"
     },
     {
-      title: "Tukar Tambah (Trade-In) Tertinggi",
-      shortDesc: "Trade-in semua merk mobil",
-      description: "Menerima tukar tambah semua merk mobil lama Anda dengan taksiran harga pasar paling transparan dan tinggi.",
-      icon: "refresh"
+      title: "Dealer Resmi 3S Terbesar",
+      shortDesc: "Garansi pabrik & servis",
+      description: "Jaminan unit resmi PT MMKSI, garansi pabrik 3 tahun / 100.000 KM, dan gratis paket servis berkala.",
+      icon: "building"
     },
     {
       title: "Bonus Aksesoris Melimpah",
       shortDesc: "Kaca film, karpet & souvenir",
-      description: "Gratis kaca film bergaransi (Solar Gard/V-Kool), karpet original, dudukan plat, APAR, dan merchandise eksklusif.",
+      description: "Gratis kaca film bergaransi, karpet original, dudukan plat, APAR, dan merchandise resmi Mitsubishi.",
       icon: "gift"
     }
   ]

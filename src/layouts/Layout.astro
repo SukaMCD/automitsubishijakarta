@@ -29,7 +29,6 @@ const siteUrl = Astro.site ? Astro.site.origin : 'https://automitsubishijakarta.
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
 const fullOgImage = ogImage.startsWith('http') ? ogImage : new URL(ogImage, siteUrl).href;
 
-// Default Organization & LocalBusiness / AutoDealer Schema
 const defaultSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -96,21 +95,17 @@ const defaultSchema = {
     <meta name="theme-color" content="#2B2E30" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
 
-    <!-- Canonical URL -->
     <link rel="canonical" href={canonicalURL} />
 
-    <!-- SEO Meta Tags -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="author" content="Kanhadi - Sales Consultant Mitsubishi Motors Jakarta" />
 
-    <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Mitsubishi Jakarta - Kanhadi" />
     <meta property="og:locale" content="id_ID" />
@@ -122,18 +117,15 @@ const defaultSchema = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={title} />
 
-    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullOgImage} />
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap" rel="stylesheet" />
 
-    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" set:html={JSON.stringify(schema || defaultSchema)} />
 
 

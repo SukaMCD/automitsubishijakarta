@@ -2,50 +2,33 @@
 import { Image } from 'astro:assets';
 import { getWhatsAppLink } from '../../data/sales';
 
-const waBase = getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi promo dan kredit Mitsubishi terbaru.');
-
 const heroSlides = [
   {
-    key: 'pajero',
-    badge: 'Flagship SUV',
-    title: 'Pajero Sport',
-    desc: 'SUV 7-penumpang berkelas dengan mesin diesel 4D56, dominasi setiap medan.',
-    price: 'Rp 577 Juta',
-    cicilan: '9,8 Jt-an',
-    link: '/model/pajero-sport',
-    img: '/images/cars/pajero-sport/pajero-sport-hero.webp',
-    pillLabel: 'Pajero Sport',
-    objectPos: 'object-[58%_center] sm:object-center',
+    key: 'canter-fe71',
+    badge: 'PROMO DP 0% • ENGKEL 4 BAN',
+    title: 'Canter FE 71L',
+    desc: 'Truk engkel 4 roda bertenaga 108 PS Euro 4 dengan aplikasi Box Aluminium. Volume muat maksimal untuk logistik perkotaan bebas batasan jam truk.',
+    link: '/model/canter-fe71',
+    img: '/images/cars/canter-fe-71/1-4.webp',
+    pillLabel: 'Canter FE 71L (Box)',
+    objectPos: 'object-[65%_center] sm:object-center',
+    waText: 'Halo Kanhadi, saya ingin konsultasi promo DP 0% dan kredit Mitsubishi Canter FE 71L Box Aluminium.',
   },
   {
-    key: 'destinator',
-    badge: 'SUV BARU 2026',
-    title: 'Destinator',
-    desc: 'SUV 7-penumpang revolusioner dengan Dynamic Shield futuristik, kenyamanan kabin mewah, dan performa tangguh.',
-    price: 'Rp 402 Juta',
-    cicilan: '6,8 Jt-an',
-    link: '/model/destinator',
-    img: '/images/cars/destinator/destinator-hero.webp',
-    pillLabel: 'Destinator',
-    objectPos: 'object-[52%_center] sm:object-center',
-  },
-  {
-    key: 'xpander',
-    badge: 'MPV Terlaris',
-    title: 'Xpander',
-    desc: 'MPV keluarga paling laris di Indonesia, kabin senyap, suspensi ternyaman di kelasnya.',
-    price: 'Rp 270 Juta',
-    cicilan: '4,2 Jt-an',
-    link: '/model/xpander',
-    img: '/images/cars/xpander/xpander-hero.webp',
-    pillLabel: 'Xpander',
-    objectPos: 'object-[64%_center] sm:object-center',
+    key: 'canter-fe74',
+    badge: 'PROMO DP 0% • DOUBLE 6 BAN',
+    title: 'Canter FE 74',
+    desc: 'Truk 6 roda serbaguna bertenaga 136 PS Euro 4 dengan aplikasi Bak Kayu Rangka Besi. Tangguh untuk ekspedisi antarkota dan angkutan muatan berat.',
+    link: '/model/canter-fe74',
+    img: '/images/cars/canter-fe-74/FE_74.webp',
+    pillLabel: 'Canter FE 74 (Bak Kayu)',
+    objectPos: 'object-[60%_center] sm:object-center',
+    waText: 'Halo Kanhadi, saya ingin konsultasi promo DP 0% dan kredit Mitsubishi Canter FE 74 Bak Kayu.',
   },
 ];
 ---
 
-<!-- Hero -->
-<section id="hero-slider" class="relative w-full bg-black overflow-hidden h-[260px] sm:h-[360px] md:h-[480px] lg:h-[580px]">
+<section id="hero-slider" class="relative w-full bg-black overflow-hidden h-65 sm:h-90 md:h-120 lg:h-145">
   {heroSlides.map((slide, i) => (
     <div 
       class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out select-none" 
@@ -57,7 +40,7 @@ const heroSlides = [
           src={slide.img} 
           alt={slide.title}
           width={1920}
-          height={1080}
+          height={784}
           loading="eager"
           decoding="async"
           class={`w-full h-full object-cover ${slide.objectPos} pointer-events-none`}
@@ -67,9 +50,9 @@ const heroSlides = [
         <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%);"></div>
       </div>
 
-      <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-3 sm:pb-5 md:pb-14 lg:pb-18">
+      <div class="relative z-10 max-w-360 mx-auto px-4 sm:px-6 h-full flex flex-col justify-end pb-3 sm:pb-5 md:pb-14 lg:pb-18">
         <div class="max-w-xl text-white space-y-1 sm:space-y-2 md:space-y-3.5">
-          <span class="inline-block bg-[#E60012] text-white text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.15em] px-2 sm:px-3 py-0.5 sm:py-1">
+          <span class="inline-block bg-brand-red text-white text-[8.5px] sm:text-[10px] font-black uppercase tracking-[0.15em] px-2 sm:px-3 py-0.5 sm:py-1">
             {slide.badge}
           </span>
 
@@ -83,27 +66,17 @@ const heroSlides = [
             </p>
           </div>
 
-          <div class="flex items-center gap-3 sm:gap-4 pt-0.5">
-            <div class="space-y-0">
-              <div class="text-[8.5px] sm:text-[10px] md:text-[11px] text-[#BFC2C4] uppercase tracking-wider">OTR Mulai</div>
-              <div class="text-sm sm:text-xl md:text-2xl font-black">{slide.price}</div>
-            </div>
-            <div class="w-px h-5 sm:h-8 md:h-10 bg-white/20"></div>
-            <div class="space-y-0">
-              <div class="text-[8.5px] sm:text-[10px] md:text-[11px] text-[#BFC2C4] uppercase tracking-wider">Cicilan / Bln</div>
-              <div class="text-sm sm:text-xl md:text-2xl font-black text-[#E60012]">{slide.cicilan}</div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 sm:gap-3 pt-0.5 sm:pt-1">
+          <div class="flex items-center gap-2.5 sm:gap-3.5 pt-1 sm:pt-2">
             <a href={slide.link}
-              class="inline-flex items-center justify-center gap-1.5 bg-[#E60012] hover:bg-white hover:text-black text-white text-[11px] sm:text-[12px] md:text-[13px] font-bold px-3.5 sm:px-5 md:px-6 py-1.5 sm:py-2.5 md:py-3 transition-colors duration-200">
-              Lihat Detail
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              class="group relative inline-flex items-center justify-between gap-2.5 bg-brand-red hover:bg-black text-white text-[11px] sm:text-[12px] md:text-[13px] font-bold pl-4 sm:pl-5 pr-2.5 sm:pr-3 py-1.5 sm:py-2.5 md:py-2.5 transition-all duration-300 ease-spring active:scale-[0.98] shadow-lg shadow-red-950/20">
+              <span>Lihat Detail</span>
+              <span class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white/15 flex items-center justify-center transition-transform duration-300 group-hover:translate-x-0.5 group-hover:bg-white group-hover:text-black">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+              </span>
             </a>
-            <a href={waBase} target="_blank" rel="noopener noreferrer"
-              class="inline-flex items-center justify-center gap-1.5 border border-white/40 hover:border-white text-white text-[11px] sm:text-[12px] md:text-[13px] font-semibold px-3.5 sm:px-5 md:px-6 py-1.5 sm:py-2.5 md:py-3 transition-colors backdrop-blur-sm">
-              Tanya Harga WA
+            <a href={getWhatsAppLink(slide.waText)} target="_blank" rel="noopener noreferrer"
+              class="group inline-flex items-center justify-center gap-2 border border-white/30 hover:border-white hover:bg-white/10 text-white text-[11px] sm:text-[12px] md:text-[13px] font-semibold px-4 sm:px-5 py-2 sm:py-2.5 md:py-3 transition-all duration-300 backdrop-blur-md active:scale-[0.98]">
+              <span>Tanya Promo WA</span>
             </a>
           </div>
         </div>
@@ -111,21 +84,19 @@ const heroSlides = [
     </div>
   ))}
 
-  <!-- Desktop slide pill switcher -->
-  <div class="hidden md:flex absolute bottom-6 right-20 md:right-24 z-20 gap-2 max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar">
+  <div class="hidden md:flex absolute bottom-6 right-16 md:right-20 z-20 gap-2 p-1.5 bg-black/40 backdrop-blur-xl border border-white/10 rounded-full max-w-[calc(100vw-120px)] overflow-x-auto no-scrollbar shadow-2xl">
     {heroSlides.map((item, i) => (
       <button 
         type="button" 
-        class="hero-pill text-white text-[11px] font-bold px-3.5 py-2 border transition-all duration-300 flex-shrink-0 cursor-pointer"
+        class="hero-pill text-white text-[11px] font-bold px-4 py-1.5 rounded-full border transition-all duration-300 shrink-0 cursor-pointer"
         data-slide-index={i}
-        style={i === 0 ? "background: #E60012; border-color: #E60012;" : "background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.2); backdrop-filter: blur(8px);"}
+        style={i === 0 ? "background: #E60012; border-color: #E60012; box-shadow: 0 2px 10px rgba(230,0,18,0.4);" : "background: transparent; border-color: transparent; opacity: 0.75;"}
       >
         {item.pillLabel}
       </button>
     ))}
   </div>
 
-  <!-- Mobile subtle slide indicators -->
   <div class="flex md:hidden absolute bottom-3 right-4 z-20 items-center gap-1.5 pointer-events-none">
     {heroSlides.map((_, i) => (
       <span 
@@ -143,7 +114,6 @@ const heroSlides = [
 </section>
 
 <script is:inline>
-// Hero slider
 const heroSlides = document.querySelectorAll('.hero-slide');
 const heroPills = document.querySelectorAll('.hero-pill');
 const mobileDots = document.querySelectorAll('.mobile-hero-dot');
@@ -207,7 +177,6 @@ function resetAutoHero() {
   }, 6000);
 }
 
-// Mobile touch swipe support
 let touchStartX = 0;
 const heroSection = document.getElementById('hero-slider');
 heroSection?.addEventListener('touchstart', (e) => {
