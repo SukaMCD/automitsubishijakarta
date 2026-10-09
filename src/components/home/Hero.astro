@@ -5,30 +5,48 @@ import { getWhatsAppLink } from '../../data/sales';
 const heroSlides = [
   {
     key: 'canter-fe71',
-    badge: 'PROMO DP 0% • ENGKEL 4 BAN',
+    badge: 'ENGKEL 4 BAN',
     title: 'Canter FE 71L',
-    desc: 'Truk engkel 4 roda bertenaga 108 PS Euro 4 dengan aplikasi Box Aluminium. Volume muat maksimal untuk logistik perkotaan bebas batasan jam truk.',
+    desc: 'Truk engkel 4 roda bertenaga 108 PS Euro 4 dengan aplikasi Box Aluminium. Program spesial kredit Tanpa DP (DP 0%), cicilan ringan, volume muat maksimal bebas batasan jam truk.',
     link: '/model/canter-fe71',
     img: '/images/cars/canter-fe-71/1-4.webp',
     pillLabel: 'Canter FE 71L (Box)',
     objectPos: 'object-[65%_center] sm:object-center',
-    waText: 'Halo Kanhadi, saya ingin konsultasi promo DP 0% dan kredit Mitsubishi Canter FE 71L Box Aluminium.',
+    waText: 'Halo Kanhadi, saya ingin konsultasi promo Tanpa DP (DP 0%) dan kredit Mitsubishi Canter FE 71L Box Aluminium.',
   },
   {
     key: 'canter-fe74',
-    badge: 'PROMO DP 0% • DOUBLE 6 BAN',
+    badge: 'DOUBLE 6 BAN',
     title: 'Canter FE 74',
-    desc: 'Truk 6 roda serbaguna bertenaga 136 PS Euro 4 dengan aplikasi Bak Kayu Rangka Besi. Tangguh untuk ekspedisi antarkota dan angkutan muatan berat.',
+    desc: 'Truk 6 roda serbaguna bertenaga 136 PS Euro 4 dengan aplikasi Bak Kayu Rangka Besi. Tersedia program kredit Tanpa DP (DP 0%) untuk ekspedisi antarkota dan angkutan muatan berat.',
     link: '/model/canter-fe74',
     img: '/images/cars/canter-fe-74/FE_74.webp',
     pillLabel: 'Canter FE 74 (Bak Kayu)',
     objectPos: 'object-[60%_center] sm:object-center',
-    waText: 'Halo Kanhadi, saya ingin konsultasi promo DP 0% dan kredit Mitsubishi Canter FE 74 Bak Kayu.',
+    waText: 'Halo Kanhadi, saya ingin konsultasi promo Tanpa DP (DP 0%) dan kredit Mitsubishi Canter FE 74 Bak Kayu.',
   },
 ];
 ---
 
 <section id="hero-slider" class="relative w-full bg-black overflow-hidden h-65 sm:h-90 md:h-120 lg:h-145">
+  <!-- Box Merah Pojok Kanan Atas: PROMO DP 0% -->
+  <a 
+    href={getWhatsAppLink('Halo Kanhadi, saya ingin konsultasi Promo DP 0% (Tanpa DP) Mitsubishi Canter.')}
+    target="_blank" 
+    rel="noopener noreferrer"
+    class="absolute top-0 right-0 z-20 bg-brand-red hover:bg-black text-white px-5 sm:px-8 md:px-12 py-2 sm:py-3.5 md:py-4.5 rounded-bl-3xl sm:rounded-bl-[42px] shadow-2xl transition-all duration-300 flex items-center justify-center group cursor-pointer select-none"
+    title="Konsultasi Promo DP 0%"
+  >
+    <div class="flex flex-col items-center text-center">
+      <span class="text-[12px] sm:text-base md:text-lg font-black uppercase tracking-wider text-white leading-tight">
+        PROMO DP 0%
+      </span>
+      <span class="text-[8px] sm:text-[10px] font-bold uppercase tracking-widest text-white/90 leading-tight mt-0.5">
+        Bisa Tanpa DP
+      </span>
+    </div>
+  </a>
+
   {heroSlides.map((slide, i) => (
     <div 
       class="hero-slide absolute inset-0 transition-opacity duration-500 ease-in-out select-none" 
