@@ -40,10 +40,8 @@ const promoList = promosModule.promoList;
 let testiCode = fs.readFileSync('src/data/testimonials.ts', 'utf8');
 testiCode = testiCode.replace(/import\s+[^;]+;/g, '');
 testiCode = testiCode.replace(/export\s+interface[\s\S]*?^}/gm, '');
-testiCode = testiCode.replace(/const\s+defaultTestimonialsData:\s*TestimonialItem\[\]\s*=/g, 'const defaultTestimonialsData =');
-const cutTesti = testiCode.indexOf('export const testimonialsData');
-if (cutTesti !== -1) testiCode = testiCode.slice(0, cutTesti);
-testiCode += '; module.exports = { testimonialsData: defaultTestimonialsData };';
+testiCode = testiCode.replace(/export\s+const\s+testimonialsData:\s*TestimonialItem\[\]\s*=/g, 'const testimonialsData =');
+testiCode += '; module.exports = { testimonialsData: testimonialsData };';
 const testiModule = eval(testiCode);
 const testimonialsData = testiModule.testimonialsData;
 

@@ -68,7 +68,7 @@ async function syncSheets() {
       sales: data.sales || null,
       pricelist: Array.isArray(data.pricelist) ? data.pricelist : [],
       promos: Array.isArray(data.promos) ? data.promos : [],
-      testimonials: Array.isArray(data.testimonials) ? data.testimonials : [],
+      testimonials: [],
       news: Array.isArray(data.news) ? data.news : []
     };
 
@@ -77,7 +77,7 @@ async function syncSheets() {
     console.log(`  - Sales Profile: ${normalizedData.sales ? 'Updated' : 'Default'}`);
     console.log(`  - Pricelist: ${normalizedData.pricelist.length} variant(s) updated`);
     console.log(`  - Promos: ${normalizedData.promos.length} item(s)`);
-    console.log(`  - Testimonials: ${normalizedData.testimonials.length} item(s)`);
+    console.log(`  - Testimonials: Static (Locked to official delivery photo records)`);
     console.log(`  - News / Articles: ${normalizedData.news.length} article(s)`);
 
   } catch (error) {

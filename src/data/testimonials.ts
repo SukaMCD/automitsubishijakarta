@@ -1,5 +1,3 @@
-import rawSheetsData from './sheetsData.json';
-
 export interface TestimonialItem {
   id: string;
   customerName: string;
@@ -12,7 +10,7 @@ export interface TestimonialItem {
   image?: string;
 }
 
-const defaultTestimonialsData: TestimonialItem[] = [
+export const testimonialsData: TestimonialItem[] = [
   {
     id: 'testi-1',
     customerName: 'Keluarga Konsumen Destinator',
@@ -21,7 +19,7 @@ const defaultTestimonialsData: TestimonialItem[] = [
     carPurchased: 'Mitsubishi Destinator 2026',
     rating: 5,
     deliveryDate: 'Oktober 2026',
-    comment: 'Pelayanan Om Hadi sangat memuaskan, proses kredit dibantu cepat dan unit diantar langsung ke rumah lengkap dengan serah terima resmi bersama tim Lautan Berlian.',
+    comment: 'Pelayanan Kanhadi sangat memuaskan, proses kredit dibantu cepat dan unit diantar langsung ke rumah lengkap dengan serah terima resmi bersama tim Lautan Berlian.',
     image: '/images/delivery/serah-terima-destinator.png'
   },
   {
@@ -47,20 +45,4 @@ const defaultTestimonialsData: TestimonialItem[] = [
     image: '/images/delivery/dealer-lautan-berlian-team.jpg'
   }
 ];
-
-export const testimonialsData: TestimonialItem[] = (
-  rawSheetsData.testimonials && rawSheetsData.testimonials.length > 0
-    ? (rawSheetsData.testimonials as any[]).map((item, idx) => ({
-        id: item.id || `testi-${idx + 1}`,
-        customerName: item.customerName || 'Pelanggan Mitsubishi',
-        occupation: item.occupation || '',
-        location: item.location || 'Jakarta',
-        carPurchased: item.carPurchased || 'Mitsubishi',
-        rating: Number(item.rating) || 5,
-        deliveryDate: item.deliveryDate || '',
-        comment: item.comment || '',
-        image: item.image || undefined
-      }))
-    : defaultTestimonialsData
-);
 
