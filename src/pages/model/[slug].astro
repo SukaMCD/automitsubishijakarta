@@ -144,7 +144,7 @@ const productSchema = {
     ? `${car.name} armada komersial Mitsubishi Fuso Jakarta. Spesifikasi karoseri lengkap, layanan fleet & penawaran terbaik. Hubungi Kanhadi, sales resmi Mitsubishi Fuso Jakarta.`
     : `${car.name} harga OTR Jakarta mulai ${car.startingPrice}. DP ${car.dpStart}, cicilan ${car.cicilanStart}. Test drive ke rumah. Hubungi Kanhadi, sales resmi Mitsubishi Jakarta.`}
   currentPath={`/model/${car.slug}`}
-  ogImage={car.heroImage || car.image}
+  ogImage={car.image || car.heroImage}
   schema={productSchema}
 >
 

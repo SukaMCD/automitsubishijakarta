@@ -93,7 +93,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 27000000,
     cicilanStart: 'Rp 4,1 Jt/bln',
     cicilanNum: 4100000,
-    image: '/images/cars/xpander/xpander-optimized.webp',
+    image: '/images/cars/xpander/xpander-ultimate-white.webp',
     heroImage: '/images/cars/xpander/xpander-hero.webp',
     galleryImages: [
       '/images/cars/xpander/xpander-hero.webp',
@@ -322,7 +322,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 85000000,
     cicilanStart: 'Rp 9,8 Jt/bln',
     cicilanNum: 9800000,
-    image: '/images/cars/pajero-sport/new-pajero-sport-optimized.webp',
+    image: '/images/cars/pajero-sport/pajero-dakar-white.webp',
     galleryImages: [
       '/images/cars/pajero-sport/pajero-sport-hero.webp',
       '/images/cars/pajero-sport/pajero-dakar-white.webp',
@@ -553,7 +553,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 5,8 Jt/bln',
     cicilanNum: 5800000,
-    image: '/images/cars/xforce/new-xforce-optimized.webp',
+    image: '/images/cars/xforce/xforce-ultimate-white.webp',
     galleryImages: [
       '/images/cars/xforce/xforce-hero.webp',
       '/images/cars/xforce/new-xforce-optimized.webp',
@@ -723,7 +723,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 35000000,
     cicilanStart: 'Rp 5,2 Jt/bln',
     cicilanNum: 5200000,
-    image: '/images/cars/xpander-cross/xpander-cross-optimized.webp',
+    image: '/images/cars/xpander-cross/xpander-cross-white.webp',
     galleryImages: [
       '/images/cars/xpander-cross/xpander-cross-hero.webp',
       '/images/cars/xpander-cross/xpander-cross-green-bronze.webp',
@@ -890,7 +890,7 @@ export const carsData: CarModel[] = [
     dpMinNum: 40000000,
     cicilanStart: 'Rp 5,9 Jt/bln',
     cicilanNum: 5900000,
-    image: '/images/cars/destinator/destinator-optimized.webp',
+    image: '/images/cars/destinator/dst-ultimate-white-pearl-optimized.webp',
     galleryImages: [
       '/images/cars/destinator/destinator-hero.webp',
       '/images/cars/destinator/destinator-interior.webp',
@@ -1099,7 +1099,7 @@ export const carsData: CarModel[] = [
     cicilanStart: 'Rp 5,2 Jt/bln',
     cicilanNum: 5200000,
     heroImage: '/images/cars/triton/triton-hero.webp',
-    image: '/images/cars/triton/all-new-triton-optimized.webp',
+    image: '/images/cars/triton/ultimate-white-diamond-front-left-optimized.webp',
     galleryImages: [
       '/images/cars/triton/triton-hero.webp',
       '/images/cars/triton/ultimate-white-diamond-front-left-optimized.webp',
@@ -1351,7 +1351,7 @@ export const carsData: CarModel[] = [
     cicilanStart: 'Rp 3,5 Jt/bln',
     cicilanNum: 3500000,
     heroImage: '/images/cars/l300/l300-hero.webp',
-    image: '/images/cars/l300/l300-optimized.webp',
+    image: '/images/cars/l300/pickup-flat-deck-optimized.webp',
     galleryImages: [
       '/images/cars/l300/l300-hero.webp',
       '/images/cars/l300/l300-optimized.webp',
