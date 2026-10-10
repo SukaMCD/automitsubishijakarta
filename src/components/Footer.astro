@@ -79,23 +79,11 @@ const navLinks = [
       </ul>
     </div>
 
-    <div class="ft-section ft-section--map">
+    <div class="ft-section ft-section--dealer">
       <div class="ft-section-title">Lokasi Dealer</div>
-      <div class="ft-dealer-card">
+      <div class="ft-dealer">
         <div class="ft-dealer-name">{salesData.dealer}</div>
         <div class="ft-dealer-addr">Jl. Panjang No. 8, Kebon Jeruk, Jakarta Barat 11530</div>
-        <div class="ft-map-wrap">
-          <iframe
-            src="https://maps.google.com/maps?q=PT.+Lautan+Berlian+Kebon+Jeruk,+Jl.+Panjang+No.8,+Jakarta+Barat&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            width="100%"
-            height="195"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Lokasi PT Lautan Berlian Kebon Jeruk"
-          ></iframe>
-        </div>
         <a href={salesData.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="ft-map-link">
           <span>Petunjuk Arah Google Maps</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ft-chevron">
@@ -103,6 +91,22 @@ const navLinks = [
           </svg>
         </a>
       </div>
+
+      <div class="ft-section-title ft-title-sub">Kontak &amp; Medsos</div>
+      <ul class="ft-links">
+        <li>
+          <a href={`mailto:${salesData.email}`}>
+            <span>Email</span>
+            <span class="ft-link-val">{salesData.email}</span>
+          </a>
+        </li>
+        <li>
+          <a href={salesData.instagramUrl} target="_blank" rel="noopener noreferrer">
+            <span>Instagram</span>
+            <span class="ft-link-val">@{salesData.instagram}</span>
+          </a>
+        </li>
+      </ul>
     </div>
 
   </div>
@@ -140,7 +144,7 @@ const navLinks = [
     margin: 0 auto;
     padding: 64px 32px 56px;
     display: grid;
-    grid-template-columns: 1.3fr 0.8fr 1.1fr 1.5fr;
+    grid-template-columns: 1.35fr 0.85fr 1fr 1.35fr;
     gap: 40px;
   }
 
@@ -159,7 +163,7 @@ const navLinks = [
     }
 
     .ft-left,
-    .ft-section--map {
+    .ft-section--dealer {
       grid-column: span 2;
     }
 
@@ -341,16 +345,11 @@ const navLinks = [
     transform: translateX(3px);
   }
 
-  .ft-section--map {
+  .ft-dealer {
     display: flex;
     flex-direction: column;
-  }
-
-  .ft-dealer-card {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 6px;
+    gap: 4px;
+    margin-bottom: 24px;
   }
 
   .ft-dealer-name {
@@ -366,22 +365,6 @@ const navLinks = [
     line-height: 1.5;
   }
 
-  .ft-map-wrap {
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid #1c1c1c;
-    background: #141414;
-    margin-top: 4px;
-    line-height: 0;
-  }
-
-  .ft-map-wrap iframe {
-    display: block;
-    width: 100%;
-    height: 195px;
-    border: 0;
-  }
-
   .ft-map-link {
     display: inline-flex;
     align-items: center;
@@ -390,13 +373,28 @@ const navLinks = [
     font-weight: 500;
     color: #888;
     text-decoration: none;
-    margin-top: auto;
-    padding-top: 12px;
+    margin-top: 4px;
     transition: color 0.15s;
     width: fit-content;
   }
 
   .ft-map-link:hover {
+    color: #fff;
+  }
+
+  .ft-title-sub {
+    margin-top: 6px;
+    margin-bottom: 4px;
+  }
+
+  .ft-link-val {
+    color: #888;
+    font-size: 12px;
+    font-family: inherit;
+    transition: color 0.15s;
+  }
+
+  .ft-links li a:hover .ft-link-val {
     color: #fff;
   }
 

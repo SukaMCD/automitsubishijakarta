@@ -13,6 +13,8 @@ export interface SalesContact {
   whatsapp: string;
   whatsappDisplay: string;
   email: string;
+  instagram?: string;
+  instagramUrl?: string;
   experienceYears: number;
   unitsDelivered: number;
   rating: number;
@@ -38,7 +40,9 @@ const defaultSalesData: SalesContact = {
   phone: "+62 878-0809-7263",
   whatsapp: "6287808097263",
   whatsappDisplay: "+62 878-0809-7263",
-  email: "kanhadi.mitsubishijakarta@gmail.com",
+  email: "kanhadi750@gmail.com",
+  instagram: "kan238131",
+  instagramUrl: "https://www.instagram.com/kan238131/",
   experienceYears: 12,
   unitsDelivered: 850,
   rating: 4.8,
