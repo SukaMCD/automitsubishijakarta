@@ -7,25 +7,25 @@ export const GET: APIRoute = async () => {
   const today = new Date().toISOString().split('T')[0];
 
   const staticRoutes = [
-    { url: '', priority: '1.0', changefreq: 'daily' },
-    { url: '/model', priority: '0.9', changefreq: 'weekly' },
-    { url: '/promo', priority: '0.9', changefreq: 'daily' },
-    { url: '/pricelist', priority: '0.9', changefreq: 'weekly' },
-    { url: '/brosur', priority: '0.85', changefreq: 'weekly' },
-    { url: '/berita', priority: '0.85', changefreq: 'daily' },
-    { url: '/disclaimer', priority: '0.5', changefreq: 'monthly' },
-    { url: '/kebijakan-privasi', priority: '0.5', changefreq: 'monthly' },
-    { url: '/syarat-ketentuan', priority: '0.5', changefreq: 'monthly' },
+    { url: '/', priority: '1.0', changefreq: 'daily' },
+    { url: '/model/', priority: '0.9', changefreq: 'weekly' },
+    { url: '/promo/', priority: '0.9', changefreq: 'daily' },
+    { url: '/pricelist/', priority: '0.9', changefreq: 'weekly' },
+    { url: '/brosur/', priority: '0.85', changefreq: 'weekly' },
+    { url: '/berita/', priority: '0.85', changefreq: 'daily' },
+    { url: '/disclaimer/', priority: '0.5', changefreq: 'monthly' },
+    { url: '/kebijakan-privasi/', priority: '0.5', changefreq: 'monthly' },
+    { url: '/syarat-ketentuan/', priority: '0.5', changefreq: 'monthly' },
   ];
 
   const modelRoutes = carsData.map(car => ({
-    url: `/model/${car.slug}`,
+    url: `/model/${car.slug}/`,
     priority: car.badge ? '0.85' : '0.8',
     changefreq: 'weekly'
   }));
 
   const newsRoutes = newsList.map(article => ({
-    url: `/berita/${article.slug}`,
+    url: `/berita/${article.slug}/`,
     priority: '0.8',
     changefreq: 'monthly'
   }));
