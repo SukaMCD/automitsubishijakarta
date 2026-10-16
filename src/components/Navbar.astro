@@ -14,11 +14,11 @@ const truckCars = carsData.filter(c => c.segment === 'commercial' && c.category 
 const busCars = carsData.filter(c => c.segment === 'commercial' && (c.category === 'Bus' || c.category === 'Bus Chassis'));
 
 const navLinks = [
-  { label: 'Model', href: '/model', dropdown: true },
-  { label: 'Promo', href: '/promo' },
-  { label: 'Daftar Harga', href: '/pricelist' },
-  { label: 'Brosur', href: '/brosur' },
-  { label: 'Berita & Tips', href: '/berita' },
+  { label: 'Model', href: '/model/', dropdown: true },
+  { label: 'Promo', href: '/promo/' },
+  { label: 'Daftar Harga', href: '/pricelist/' },
+  { label: 'Brosur', href: '/brosur/' },
+  { label: 'Berita & Tips', href: '/berita/' },
   // { label: 'Simulasi Kredit', href: '/#simulasi-kredit' },
 ];
 ---
@@ -84,7 +84,7 @@ const navLinks = [
                     Bus &amp; Sasis ({busCars.length})
                   </button>
                 </div>
-                <a href="/model" class="text-[12px] font-bold text-brand-red hover:text-black transition-colors flex items-center gap-1 group/all">
+                <a href="/model/" class="text-[12px] font-bold text-brand-red hover:text-black transition-colors flex items-center gap-1 group/all">
                   Lihat Semua
                   <svg class="w-3.5 h-3.5 transition-transform group-hover/all:translate-x-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
                 </a>
@@ -93,7 +93,7 @@ const navLinks = [
               <div id="nav-panel-passenger" class="nav-panel grid-cols-3 gap-3 p-5">
                 {passengerCars.map((car) => (
                   <a
-                    href={`/model/${car.slug}`}
+                    href={`/model/${car.slug}/`}
                     draggable="false"
                     class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
@@ -150,7 +150,7 @@ const navLinks = [
               <div id="nav-panel-lcv" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {lcvCars.map((car) => (
                   <a
-                    href={`/model/${car.slug}`}
+                    href={`/model/${car.slug}/`}
                     draggable="false"
                     class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
@@ -207,7 +207,7 @@ const navLinks = [
               <div id="nav-panel-truck" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {truckCars.map((car) => (
                   <a
-                    href={`/model/${car.slug}`}
+                    href={`/model/${car.slug}/`}
                     draggable="false"
                     class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >
@@ -243,7 +243,7 @@ const navLinks = [
               <div id="nav-panel-bus" class="nav-panel is-hidden grid-cols-3 gap-3 p-5">
                 {busCars.map((car) => (
                   <a
-                    href={`/model/${car.slug}`}
+                    href={`/model/${car.slug}/`}
                     draggable="false"
                     class="group/card flex flex-col justify-between p-3 border border-[#EBEBEB] hover:border-brand-red bg-white hover:bg-[#FAFAFA] transition-all duration-200 select-none"
                   >

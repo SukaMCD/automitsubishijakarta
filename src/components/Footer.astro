@@ -8,11 +8,11 @@ const waUrl = getWhatsAppLink();
 
 const navLinks = [
   { name: 'Beranda', href: '/' },
-  { name: 'Katalog Model', href: '/model' },
-  { name: 'Promo & Diskon', href: '/promo' },
-  { name: 'Daftar Harga OTR', href: '/pricelist' },
-  { name: 'Unduh Brosur', href: '/brosur' },
-  { name: 'Berita & Tips', href: '/berita' },
+  { name: 'Katalog Model', href: '/model/' },
+  { name: 'Promo & Diskon', href: '/promo/' },
+  { name: 'Daftar Harga OTR', href: '/pricelist/' },
+  { name: 'Unduh Brosur', href: '/brosur/' },
+  { name: 'Berita & Tips', href: '/berita/' },
   // { name: 'Simulasi Kredit', href: '/#simulasi-kredit' },
   { name: 'Testimoni', href: '/#testimoni' },
 ];
@@ -65,11 +65,11 @@ const navLinks = [
       <ul class="ft-links">
         {carsData.filter(car => car.segment !== 'commercial').map(car => (
           <li>
-            <a href={`/model/${car.slug}`}>{car.name}</a>
+            <a href={`/model/${car.slug}/`}>{car.name}</a>
           </li>
         ))}
         <li class="ft-more-item">
-          <a href="/model" class="ft-more-link">
+          <a href="/model/" class="ft-more-link">
             <span>Lihat Semua Model</span>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="ft-chevron">
               <path d="M9 18l6-6-6-6"/>
@@ -121,11 +121,11 @@ const navLinks = [
           &copy; {currentYear} Auto Mitsubishi Jakarta - {salesData.name} ({salesData.dealer.replace(/^PT\.\s*/i, '')}). All rights reserved. <span class="ft-author-sep">·</span> Developed by <a href="https://sukamcd.tech" target="_blank" rel="noopener noreferrer" class="ft-author">sukamcd.tech</a>
         </div>
         <div class="ft-legal-bar-links">
-          <a href="/disclaimer">Disclaimer Sales</a>
+          <a href="/disclaimer/">Disclaimer Sales</a>
           <span class="ft-legal-sep">·</span>
-          <a href="/kebijakan-privasi">Kebijakan Privasi</a>
+          <a href="/kebijakan-privasi/">Kebijakan Privasi</a>
           <span class="ft-legal-sep">·</span>
-          <a href="/syarat-ketentuan">Syarat &amp; Ketentuan</a>
+          <a href="/syarat-ketentuan/">Syarat &amp; Ketentuan</a>
         </div>
       </div>
     </div>

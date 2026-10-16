@@ -138,14 +138,14 @@ const featuredCarsJson = JSON.stringify(carsData.map(c => ({
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3">
             <a
               id="featured-detail-btn"
-              href={`/model/${defaultFeaturedCar.slug}`}
+              href={`/model/${defaultFeaturedCar.slug}/`}
               class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-6 sm:px-8 py-3 sm:py-3.5 transition-colors duration-200 text-center"
             >
               Selengkapnya
             </a>
             <a
               id="featured-compare-btn"
-              href="/model"
+              href="/model/"
               class="inline-flex items-center justify-center border-2 border-black bg-white hover:bg-black text-black hover:text-white text-[12px] md:text-[13px] font-black uppercase tracking-[0.18em] px-6 sm:px-8 py-3 sm:py-3.5 transition-colors duration-200 text-center"
             >
               Bandingkan Kendaraan
@@ -294,8 +294,8 @@ if (featuredDataEl) {
           if (price) price.textContent = data.price;
         }
       }
-      if (detailBtn) detailBtn.href = '/model/' + data.slug;
-      if (compareBtn) compareBtn.href = '/model';
+      if (detailBtn) detailBtn.href = '/model/' + data.slug + '/';
+      if (compareBtn) compareBtn.href = '/model/';
     }
 
     featOptions.forEach((btn) => {

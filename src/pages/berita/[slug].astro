@@ -17,7 +17,7 @@ interface Props {
 
 const { article } = Astro.props;
 
-const shareUrl = `https://automitsubishijakarta.com/berita/${article.slug}`;
+const shareUrl = `https://automitsubishijakarta.com/berita/${article.slug}/`;
 const shareWa = `https://api.whatsapp.com/send?text=${encodeURIComponent(`${article.title} - Baca selengkapnya di: ${shareUrl}`)}`;
 const waConsult = getWhatsAppLink(`Halo ${salesData.nickname || salesData.name}, saya baru membaca artikel "${article.title}". Mau tanya info lebih lanjut seputar mobil Mitsubishi.`);
 
@@ -31,7 +31,7 @@ const contentBlocks = article.content.split('\n\n').map(block => block.trim()).f
   title={`${article.title} | Mitsubishi Jakarta`}
   description={article.excerpt}
   ogImage={article.image}
-  currentPath={`/berita/${article.slug}`}
+  currentPath={`/berita/${article.slug}/`}
 >
   <!-- Breadcrumb Bar -->
   <nav class="bg-[#F8F9FA] border-b border-concrete py-3">
@@ -39,7 +39,7 @@ const contentBlocks = article.content.split('\n\n').map(block => block.trim()).f
       <ol class="flex items-center gap-2 text-xs text-[#777] overflow-x-auto whitespace-nowrap">
         <li><a href="/" class="hover:text-brand-red transition-colors">Beranda</a></li>
         <li><span>/</span></li>
-        <li><a href="/berita" class="hover:text-brand-red transition-colors">Berita &amp; Panduan</a></li>
+        <li><a href="/berita/" class="hover:text-brand-red transition-colors">Berita &amp; Panduan</a></li>
         <li><span>/</span></li>
         <li class="text-anthracite font-bold truncate max-w-xs">{article.title}</li>
       </ol>
@@ -160,7 +160,7 @@ const contentBlocks = article.content.split('\n\n').map(block => block.trim()).f
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {otherArticles.map((rel) => (
               <a
-                href={`/berita/${rel.slug}`}
+                href={`/berita/${rel.slug}/`}
                 class="group block bg-white border border-concrete hover:border-brand-red p-4 transition-all duration-200"
               >
                 <div class="h-32 bg-[#F8F9FA] flex items-center justify-center p-3 mb-3 overflow-hidden">

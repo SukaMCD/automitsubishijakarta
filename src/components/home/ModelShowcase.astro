@@ -49,7 +49,7 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
       >
         {carsData.map((car) => (
           <a 
-            href={`/model/${car.slug}`}
+            href={`/model/${car.slug}/`}
             draggable="false"
             data-segment={car.segment}
             style={car.segment !== 'passenger' ? 'display: none;' : ''}
@@ -110,7 +110,7 @@ const commercialCars = carsData.filter(c => c.segment === 'commercial');
       </button>
 
       <a 
-        href="/model" 
+        href="/model/" 
         class="text-[11px] sm:text-xs md:text-sm font-black uppercase tracking-[0.16em] sm:tracking-[0.2em] text-black border-b-2 border-black hover:text-brand-red hover:border-brand-red pb-1 transition-colors text-center"
       >
         BANDINGKAN KENDARAAN
