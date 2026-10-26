@@ -137,6 +137,9 @@ const defaultSchema = {
       gtag('js', new Date());
 
       gtag('config', 'AW-18533022096');
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18533022096/jG4GCKTtjKodEJDzmYVF'
+      });
     </script>
 
     <script type="application/ld+json" set:html={JSON.stringify(schema || defaultSchema)} />
